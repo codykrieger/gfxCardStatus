@@ -18,19 +18,21 @@
 	
 	statusItem = [[[NSStatusBar systemStatusBar] statusItemWithLength:NSVariableStatusItemLength] retain];
 	[statusItem setMenu:statusMenu];
-	[statusItem setTitle:([systemProfiler isUsingIntegratedGraphics] ? @"gfx: intel" : @"gfx: nvidia")];
+	//[statusItem setTitle:([systemProfiler isUsingIntegratedGraphics] ? @"gfx: intel" : @"gfx: nvidia")];
 	[statusItem setHighlightMode:YES];
 	
 	NSLog(@"%@", [[NSWorkspace sharedWorkspace] launchedApplications]);
 	NSNotificationCenter *workspaceNotifications = [[NSWorkspace sharedWorkspace] notificationCenter];
+	NSNotificationCenter *defaultNotifications = [NSNotificationCenter defaultCenter];
+	
 	[workspaceNotifications addObserver:self selector:@selector(handleNotification:) 
 								   name:NSWorkspaceDidLaunchApplicationNotification object:nil];
 	[workspaceNotifications addObserver:self selector:@selector(handleNotification:) 
 								   name:NSWorkspaceDidTerminateApplicationNotification object:nil];
-	//[workspaceNotifications addObserver:self selector:@selector(handleNotification:) 
-//								   name:NSWorkspaceDidUnhideApplicationNotification object:nil];
-//	[workspaceNotifications addObserver:self selector:@selector(handleNotification:) 
-//								   name:NSWorkspaceDidHideApplicationNotification object:nil];
+	[defaultNotifications addObserver:self selector:@selector(handleNotification:)
+								   name:NSApplicationDidChangeScreenParametersNotification object:nil];
+	
+	[self performSelector:@selector(updateMenuBarIcon)];
 }
 
 - (IBAction)updateStatus:(id)sender {
@@ -46,16 +48,23 @@
 }
 
 - (void)updateMenuBarIcon {
-	if (timerHit >= 7) {
+	if (timerHit >= 9) {
 		timerHit = -1;
 		[timer invalidate];
 	} else if (timerHit > -1) {
-		timer = [NSTimer scheduledTimerWithTimeInterval:2 target:self selector:@selector(updateMenuBarIcon) userInfo:nil repeats:NO];
+		timer = [NSTimer scheduledTimerWithTimeInterval:2.5 target:self selector:@selector(updateMenuBarIcon) userInfo:nil repeats:NO];
 		timerHit++;
 	}
 	
 	NSLog(@"update called");
-	[statusItem setTitle:([systemProfiler isUsingIntegratedGraphics] ? @"gfx: intel" : @"gfx: nvidia")];
+	//[statusItem setTitle:([systemProfiler isUsingIntegratedGraphics] ? @"gfx: intel" : @"gfx: nvidia")];
+	if ([systemProfiler isUsingIntegratedGraphics]) {
+		[statusItem setImage:[NSImage imageNamed:@"intel-3.png"]];
+		[currentCard setTitle:@"Intel HD Graphics"];
+	} else {
+		[statusItem setImage:[NSImage imageNamed:@"nvidia-3.png"]];
+		[currentCard setTitle:@"NVIDIA GeForce GT 330M"];
+	}
 }
 
 - (IBAction)quit:(id)sender {

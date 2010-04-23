@@ -12,6 +12,12 @@
 		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
 		8D11072D0486CEB800E47090 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
+		A1A3A6F9118214E2008B8145 /* intel-3.png in Resources */ = {isa = PBXBuildFile; fileRef = A1A3A6F8118214E2008B8145 /* intel-3.png */; };
+		A1CA655F1181B36A00469317 /* intel.png in Resources */ = {isa = PBXBuildFile; fileRef = A1CA655D1181B36A00469317 /* intel.png */; };
+		A1CA65601181B36A00469317 /* nvidia.png in Resources */ = {isa = PBXBuildFile; fileRef = A1CA655E1181B36A00469317 /* nvidia.png */; };
+		A1CA65761181B4BE00469317 /* intel-2.png in Resources */ = {isa = PBXBuildFile; fileRef = A1CA65741181B4BE00469317 /* intel-2.png */; };
+		A1CA65771181B4BE00469317 /* nvidia-2.png in Resources */ = {isa = PBXBuildFile; fileRef = A1CA65751181B4BE00469317 /* nvidia-2.png */; };
+		A1CA657F1181B89A00469317 /* nvidia-3.png in Resources */ = {isa = PBXBuildFile; fileRef = A1CA657D1181B89A00469317 /* nvidia-3.png */; };
 		A1E751E11180BF0B00A13CA8 /* systemProfiler.m in Sources */ = {isa = PBXBuildFile; fileRef = A1E751E01180BF0B00A13CA8 /* systemProfiler.m */; };
 /* End PBXBuildFile section */
 
@@ -28,6 +34,12 @@
 		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		8D1107310486CEB800E47090 /* gfxCardStatus-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "gfxCardStatus-Info.plist"; sourceTree = "<group>"; };
 		8D1107320486CEB800E47090 /* gfxCardStatus.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = gfxCardStatus.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		A1A3A6F8118214E2008B8145 /* intel-3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "intel-3.png"; sourceTree = "<group>"; };
+		A1CA655D1181B36A00469317 /* intel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = intel.png; sourceTree = "<group>"; };
+		A1CA655E1181B36A00469317 /* nvidia.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = nvidia.png; sourceTree = "<group>"; };
+		A1CA65741181B4BE00469317 /* intel-2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "intel-2.png"; sourceTree = "<group>"; };
+		A1CA65751181B4BE00469317 /* nvidia-2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "nvidia-2.png"; sourceTree = "<group>"; };
+		A1CA657D1181B89A00469317 /* nvidia-3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "nvidia-3.png"; sourceTree = "<group>"; };
 		A1E751DF1180BF0B00A13CA8 /* systemProfiler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = systemProfiler.h; sourceTree = "<group>"; };
 		A1E751E01180BF0B00A13CA8 /* systemProfiler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = systemProfiler.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -105,6 +117,12 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				A1A3A6F8118214E2008B8145 /* intel-3.png */,
+				A1CA657D1181B89A00469317 /* nvidia-3.png */,
+				A1CA65741181B4BE00469317 /* intel-2.png */,
+				A1CA65751181B4BE00469317 /* nvidia-2.png */,
+				A1CA655D1181B36A00469317 /* intel.png */,
+				A1CA655E1181B36A00469317 /* nvidia.png */,
 				8D1107310486CEB800E47090 /* gfxCardStatus-Info.plist */,
 				089C165CFE840E0CC02AAC07 /* InfoPlist.strings */,
 				1DDD58140DA1D0A300B32029 /* MainMenu.xib */,
@@ -166,6 +184,12 @@
 			files = (
 				8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */,
 				1DDD58160DA1D0A300B32029 /* MainMenu.xib in Resources */,
+				A1CA655F1181B36A00469317 /* intel.png in Resources */,
+				A1CA65601181B36A00469317 /* nvidia.png in Resources */,
+				A1CA65761181B4BE00469317 /* intel-2.png in Resources */,
+				A1CA65771181B4BE00469317 /* nvidia-2.png in Resources */,
+				A1CA657F1181B89A00469317 /* nvidia-3.png in Resources */,
+				A1A3A6F9118214E2008B8145 /* intel-3.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -11,6 +11,7 @@
 @interface gfxCardStatusAppDelegate : NSObject <NSApplicationDelegate> {
 	NSWindow *window;
 	IBOutlet NSMenu *statusMenu;
+	IBOutlet NSMenuItem *currentCard;
 	NSStatusItem *statusItem;
 	NSTimer *timer;
 	int timerHit;
