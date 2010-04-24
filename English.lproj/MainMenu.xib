@@ -1325,7 +1325,7 @@
 					<bool key="EncodedWithXMLCoder">YES</bool>
 					<object class="NSMenuItem" id="14872434">
 						<reference key="NSMenu" ref="38435637"/>
-						<string key="NSTitle">gfxCardStatus v1.0</string>
+						<string key="NSTitle">gfxCardStatus v1.1</string>
 						<string key="NSKeyEquiv"/>
 						<int key="NSMnemonicLoc">2147483647</int>
 						<reference key="NSOnImage" ref="35465992"/>

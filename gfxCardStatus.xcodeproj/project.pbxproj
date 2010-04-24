@@ -17,7 +17,7 @@
 		A1CA65601181B36A00469317 /* nvidia.png in Resources */ = {isa = PBXBuildFile; fileRef = A1CA655E1181B36A00469317 /* nvidia.png */; };
 		A1CA65761181B4BE00469317 /* intel-2.png in Resources */ = {isa = PBXBuildFile; fileRef = A1CA65741181B4BE00469317 /* intel-2.png */; };
 		A1CA65771181B4BE00469317 /* nvidia-2.png in Resources */ = {isa = PBXBuildFile; fileRef = A1CA65751181B4BE00469317 /* nvidia-2.png */; };
-		A1CA657F1181B89A00469317 /* nvidia-3.png in Resources */ = {isa = PBXBuildFile; fileRef = A1CA657D1181B89A00469317 /* nvidia-3.png */; };
+		A1D6AC5D11826BF00038AD1A /* nvidia-3.png in Resources */ = {isa = PBXBuildFile; fileRef = A1D6AC5C11826BF00038AD1A /* nvidia-3.png */; };
 		A1E751E11180BF0B00A13CA8 /* systemProfiler.m in Sources */ = {isa = PBXBuildFile; fileRef = A1E751E01180BF0B00A13CA8 /* systemProfiler.m */; };
 /* End PBXBuildFile section */
 
@@ -39,7 +39,7 @@
 		A1CA655E1181B36A00469317 /* nvidia.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = nvidia.png; sourceTree = "<group>"; };
 		A1CA65741181B4BE00469317 /* intel-2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "intel-2.png"; sourceTree = "<group>"; };
 		A1CA65751181B4BE00469317 /* nvidia-2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "nvidia-2.png"; sourceTree = "<group>"; };
-		A1CA657D1181B89A00469317 /* nvidia-3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "nvidia-3.png"; sourceTree = "<group>"; };
+		A1D6AC5C11826BF00038AD1A /* nvidia-3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "nvidia-3.png"; sourceTree = "<group>"; };
 		A1E751DF1180BF0B00A13CA8 /* systemProfiler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = systemProfiler.h; sourceTree = "<group>"; };
 		A1E751E01180BF0B00A13CA8 /* systemProfiler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = systemProfiler.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -117,8 +117,8 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				A1D6AC5C11826BF00038AD1A /* nvidia-3.png */,
 				A1A3A6F8118214E2008B8145 /* intel-3.png */,
-				A1CA657D1181B89A00469317 /* nvidia-3.png */,
 				A1CA65741181B4BE00469317 /* intel-2.png */,
 				A1CA65751181B4BE00469317 /* nvidia-2.png */,
 				A1CA655D1181B36A00469317 /* intel.png */,
@@ -188,8 +188,8 @@
 				A1CA65601181B36A00469317 /* nvidia.png in Resources */,
 				A1CA65761181B4BE00469317 /* intel-2.png in Resources */,
 				A1CA65771181B4BE00469317 /* nvidia-2.png in Resources */,
-				A1CA657F1181B89A00469317 /* nvidia-3.png in Resources */,
 				A1A3A6F9118214E2008B8145 /* intel-3.png in Resources */,
+				A1D6AC5D11826BF00038AD1A /* nvidia-3.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
