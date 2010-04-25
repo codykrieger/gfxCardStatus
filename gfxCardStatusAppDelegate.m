@@ -8,6 +8,8 @@
 
 #import "gfxCardStatusAppDelegate.h"
 #import "systemProfiler.h"
+#import "JSON.h"
+#import "updateManager.h"
 
 @implementation gfxCardStatusAppDelegate
 
@@ -60,15 +62,32 @@
 	//[statusItem setTitle:([systemProfiler isUsingIntegratedGraphics] ? @"gfx: intel" : @"gfx: nvidia")];
 	if ([systemProfiler isUsingIntegratedGraphics]) {
 		[statusItem setImage:[NSImage imageNamed:@"intel-3.png"]];
-		[currentCard setTitle:@"Intel HD Graphics"];
+		[currentCard setTitle:@"Card: Intel HD Graphics"];
 	} else {
 		[statusItem setImage:[NSImage imageNamed:@"nvidia-3.png"]];
-		[currentCard setTitle:@"NVIDIA GeForce GT 330M"];
+		[currentCard setTitle:@"Card: NVIDIA GeForce GT 330M"];
 	}
 }
 
 - (IBAction)quit:(id)sender {
 	[[NSApplication sharedApplication] terminate:self];
+}
+
+- (IBAction)checkForApplicationUpdate:(id)sender {
+	[self performSelectorInBackground:@selector(checkForUpdate) withObject:nil];
+}
+
+- (void)checkForUpdate {
+	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+	
+	//[self performSelectorOnMainThread:@selector(finishedCheckForUpdate:) withObject:[updateManager checkForUpdate] waitUntilDone:YES];
+	[updateManager update];
+	
+	[pool release];
+}
+
+- (void)finishedCheckForUpdate:(NSDictionary *)results {
+	NSLog(@"%@", results);
 }
 
 @end

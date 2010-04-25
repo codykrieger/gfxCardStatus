@@ -18,6 +18,7 @@
 }
 
 - (IBAction)updateStatus:(id)sender;
+- (IBAction)checkForApplicationUpdate:(id)sender;
 - (IBAction)quit:(id)sender;
 
 @property (assign) IBOutlet NSWindow *window;
