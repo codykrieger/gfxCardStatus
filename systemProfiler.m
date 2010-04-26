@@ -125,10 +125,10 @@
 		for (NSString *otherKey in [tempDict allKeys]) {
 			if ([(NSString *)[tempDict objectForKey:otherKey] isEqualToString:@"No Display Connected"]) {
 				retval = NO;
-				NSLog(@"NVIDIA GeForce GT 330M is in use. Bummer! No battery life for you.");
+				NSLog(@"NVIDIA® GeForce GT 330M is in use. Bummer! No battery life for you.");
 			} else {
 				retval = YES;
-				NSLog(@"Intel HD Graphics are in use. Sweet deal! More battery life.");
+				NSLog(@"Intel® HD Graphics are in use. Sweet deal! More battery life.");
 			}
 			break;
 		}

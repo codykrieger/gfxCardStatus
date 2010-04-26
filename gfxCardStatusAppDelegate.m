@@ -28,17 +28,14 @@
 		[updater checkForUpdatesInBackground];
 	}
 	
-	//if ([defaults integerForKey:@"updateInterval"] > 0) {
-//		intervalTimer = [NSTimer scheduledTimerWithTimeInterval:[defaults integerForKey:@"updateInterval"] target:self selector:@selector(updateMenuBarIcon) userInfo:nil repeats:YES];
-//	}
-	
 	[preferencesWindow setReleasedWhenClosed:NO];
-	
-	//timerHit = -1;
 	
 	statusItem = [[[NSStatusBar systemStatusBar] statusItemWithLength:NSVariableStatusItemLength] retain];
 	[statusItem setMenu:statusMenu];
 	[statusItem setHighlightMode:YES];
+	
+	NSString *version = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"];
+	[versionItem setTitle:[NSString stringWithFormat: @"gfxCardStatus, v%@", version]];
 	
 	//NSLog(@"%@", [[NSWorkspace sharedWorkspace] launchedApplications]);
 	NSNotificationCenter *workspaceNotifications = [[NSWorkspace sharedWorkspace] notificationCenter];
@@ -66,21 +63,13 @@
 }
 
 - (void)updateMenuBarIcon {
-	//if (timerHit >= 9) {
-//		timerHit = -1;
-//		[notificationTimer invalidate];
-//	} else if (timerHit > -1) {
-//		notificationTimer = [NSTimer scheduledTimerWithTimeInterval:2.5 target:self selector:@selector(updateMenuBarIcon) userInfo:nil repeats:NO];
-//		timerHit++;
-//	}
-	
 	NSLog(@"update called");
 	if ([systemProfiler isUsingIntegratedGraphics]) {
 		[statusItem setImage:[NSImage imageNamed:@"intel-3.png"]];
-		[currentCard setTitle:@"Card: Intel HD Graphics"];
+		[currentCard setTitle:@"Card: Intel® HD Graphics"];
 	} else {
 		[statusItem setImage:[NSImage imageNamed:@"nvidia-3.png"]];
-		[currentCard setTitle:@"Card: NVIDIA GeForce GT 330M"];
+		[currentCard setTitle:@"Card: NVIDIA® GeForce GT 330M"];
 	}
 }
 
@@ -95,11 +84,6 @@
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 	[defaults setInteger:[updateInterval intValue] forKey:@"updateInterval"];
 	[defaults setInteger:[checkForUpdatesOnLaunch state] forKey:@"checkForUpdatesOnLaunch"];
-	
-	//[intervalTimer invalidate];
-//	if ([updateInterval intValue] > 0) {
-//		intervalTimer = [NSTimer scheduledTimerWithTimeInterval:[updateInterval intValue] target:self selector:@selector(updateMenuBarIcon) userInfo:nil repeats:YES];
-//	}
 	
 	[preferencesWindow close];
 }
