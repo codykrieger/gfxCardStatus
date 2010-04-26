@@ -7,18 +7,34 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import <Sparkle/Sparkle.h>
+#import <Sparkle/SUUpdater.h>
 
 @interface gfxCardStatusAppDelegate : NSObject <NSApplicationDelegate> {
 	NSWindow *window;
+	
+	IBOutlet SUUpdater *updater;
+	
 	IBOutlet NSMenu *statusMenu;
 	IBOutlet NSMenuItem *currentCard;
+	IBOutlet NSMenuItem *versionItem;
 	NSStatusItem *statusItem;
-	NSTimer *timer;
+	
+	IBOutlet NSWindow *preferencesWindow;
+	IBOutlet NSTextField *updateInterval;
+	IBOutlet NSButton *checkForUpdatesOnLaunch;
+	IBOutlet NSButton *useGrowl;
+	
+	NSTimer *notificationTimer;
 	int timerHit;
+	
+	NSTimer *intervalTimer;
 }
 
 - (IBAction)updateStatus:(id)sender;
-- (IBAction)checkForApplicationUpdate:(id)sender;
+- (IBAction)openPreferences:(id)sender;
+- (IBAction)savePreferences:(id)sender;
+- (IBAction)openApplicationURL:(id)sender;
 - (IBAction)quit:(id)sender;
 
 @property (assign) IBOutlet NSWindow *window;

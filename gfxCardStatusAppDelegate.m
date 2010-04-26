@@ -9,21 +9,38 @@
 #import "gfxCardStatusAppDelegate.h"
 #import "systemProfiler.h"
 #import "JSON.h"
-#import "updateManager.h"
 
 @implementation gfxCardStatusAppDelegate
 
 @synthesize window;
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
-	timerHit = -1;
+	// check for first run and set up defaults
+	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+	if ( ! [defaults boolForKey:@"hasRun"]) {
+		[defaults setBool:YES forKey:@"hasRun"];
+		[defaults setInteger:35 forKey:@"updateInterval"];
+		[defaults setBool:YES forKey:@"checkForUpdatesOnLaunch"];
+		[defaults setBool:YES forKey:@"useGrowl"];
+	}
+	
+	if ([defaults boolForKey:@"checkForUpdatesOnLaunch"]) {
+		[updater checkForUpdatesInBackground];
+	}
+	
+	//if ([defaults integerForKey:@"updateInterval"] > 0) {
+//		intervalTimer = [NSTimer scheduledTimerWithTimeInterval:[defaults integerForKey:@"updateInterval"] target:self selector:@selector(updateMenuBarIcon) userInfo:nil repeats:YES];
+//	}
+	
+	[preferencesWindow setReleasedWhenClosed:NO];
+	
+	//timerHit = -1;
 	
 	statusItem = [[[NSStatusBar systemStatusBar] statusItemWithLength:NSVariableStatusItemLength] retain];
 	[statusItem setMenu:statusMenu];
-	//[statusItem setTitle:([systemProfiler isUsingIntegratedGraphics] ? @"gfx: intel" : @"gfx: nvidia")];
 	[statusItem setHighlightMode:YES];
 	
-	NSLog(@"%@", [[NSWorkspace sharedWorkspace] launchedApplications]);
+	//NSLog(@"%@", [[NSWorkspace sharedWorkspace] launchedApplications]);
 	NSNotificationCenter *workspaceNotifications = [[NSWorkspace sharedWorkspace] notificationCenter];
 	NSNotificationCenter *defaultNotifications = [NSNotificationCenter defaultCenter];
 	
@@ -42,24 +59,22 @@
 }
 
 - (void)handleNotification:(NSNotification *)notification {
-	NSLog(@"the following notification has been triggered:\n%@", notification);
-	NSLog(@"the update will be performed multiple times over the next few seconds to ensure we have the correct status");
+	NSLog(@"The following notification has been triggered:\n%@", notification);
 	
-	timerHit = 0;
+	//timerHit = 0;
 	[self performSelector:@selector(updateMenuBarIcon)];
 }
 
 - (void)updateMenuBarIcon {
-	if (timerHit >= 9) {
-		timerHit = -1;
-		[timer invalidate];
-	} else if (timerHit > -1) {
-		timer = [NSTimer scheduledTimerWithTimeInterval:2.5 target:self selector:@selector(updateMenuBarIcon) userInfo:nil repeats:NO];
-		timerHit++;
-	}
+	//if (timerHit >= 9) {
+//		timerHit = -1;
+//		[notificationTimer invalidate];
+//	} else if (timerHit > -1) {
+//		notificationTimer = [NSTimer scheduledTimerWithTimeInterval:2.5 target:self selector:@selector(updateMenuBarIcon) userInfo:nil repeats:NO];
+//		timerHit++;
+//	}
 	
 	NSLog(@"update called");
-	//[statusItem setTitle:([systemProfiler isUsingIntegratedGraphics] ? @"gfx: intel" : @"gfx: nvidia")];
 	if ([systemProfiler isUsingIntegratedGraphics]) {
 		[statusItem setImage:[NSImage imageNamed:@"intel-3.png"]];
 		[currentCard setTitle:@"Card: Intel HD Graphics"];
@@ -69,25 +84,32 @@
 	}
 }
 
+- (IBAction)openPreferences:(id)sender {
+	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+	[preferencesWindow makeKeyAndOrderFront:nil];
+	[updateInterval setIntValue:[defaults integerForKey:@"updateInterval"]];
+	[checkForUpdatesOnLaunch setState:[defaults integerForKey:@"checkForUpdatesOnLaunch"]];
+}
+
+- (IBAction)savePreferences:(id)sender {
+	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+	[defaults setInteger:[updateInterval intValue] forKey:@"updateInterval"];
+	[defaults setInteger:[checkForUpdatesOnLaunch state] forKey:@"checkForUpdatesOnLaunch"];
+	
+	//[intervalTimer invalidate];
+//	if ([updateInterval intValue] > 0) {
+//		intervalTimer = [NSTimer scheduledTimerWithTimeInterval:[updateInterval intValue] target:self selector:@selector(updateMenuBarIcon) userInfo:nil repeats:YES];
+//	}
+	
+	[preferencesWindow close];
+}
+
+- (IBAction)openApplicationURL:(id)sender {
+	[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"http://codykrieger.com/gfxCardStatus/"]];
+}
+
 - (IBAction)quit:(id)sender {
 	[[NSApplication sharedApplication] terminate:self];
-}
-
-- (IBAction)checkForApplicationUpdate:(id)sender {
-	[self performSelectorInBackground:@selector(checkForUpdate) withObject:nil];
-}
-
-- (void)checkForUpdate {
-	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-	
-	//[self performSelectorOnMainThread:@selector(finishedCheckForUpdate:) withObject:[updateManager checkForUpdate] waitUntilDone:YES];
-	[updateManager update];
-	
-	[pool release];
-}
-
-- (void)finishedCheckForUpdate:(NSDictionary *)results {
-	NSLog(@"%@", results);
 }
 
 @end

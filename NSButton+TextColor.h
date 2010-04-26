@@ -1,5 +1,5 @@
 //
-//  updateManager.h
+//  NSButton+TextColor.h
 //  gfxCardStatus
 //
 //  Created by Cody Krieger on 4/25/10.
@@ -7,13 +7,12 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <Cocoa/Cocoa.h>
 
 
-@interface updateManager : NSObject {
+@interface NSButton (TextColor)
 
-}
-
-+ (NSDictionary *)checkForUpdate;
-+ (void)update;
+- (NSColor *)textColor;
+- (void)setTextColor:(NSColor *)textColor;
 
 @end
