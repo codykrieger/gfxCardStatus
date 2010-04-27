@@ -10,16 +10,16 @@
 	};
 	256AC3D80F4B6AC300CF3369 /* gfxCardStatusAppDelegate.h */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1040, 691}}";
-			sepNavSelRange = "{716, 0}";
-			sepNavVisRange = "{0, 962}";
+			sepNavIntBoundsRect = "{{0, 0}, {916, 706}}";
+			sepNavSelRange = "{740, 0}";
+			sepNavVisRange = "{0, 986}";
 		};
 	};
 	256AC3D90F4B6AC300CF3369 /* gfxCardStatusAppDelegate.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1040, 1344}}";
-			sepNavSelRange = "{724, 0}";
-			sepNavVisRange = "{0, 1974}";
+			sepNavIntBoundsRect = "{{0, 0}, {1526, 1862}}";
+			sepNavSelRange = "{3959, 0}";
+			sepNavVisRange = "{2680, 2375}";
 		};
 	};
 	29B97313FDCFA39411CA2CEA /* Project object */ = {
@@ -27,7 +27,6 @@
 		activeExecutable = A1E751C81180BB7C00A13CA8 /* gfxCardStatus */;
 		activeTarget = 8D1107260486CEB800E47090 /* gfxCardStatus */;
 		addToTargets = (
-			8D1107260486CEB800E47090 /* gfxCardStatus */,
 		);
 		codeSenseManager = A1E751D51180BB9B00A13CA8 /* Code sense */;
 		executables = (
@@ -39,7 +38,7 @@
 				PBXFileTableDataSourceColumnSortingKey = PBXFileDataSource_Filename_ColumnID;
 				PBXFileTableDataSourceColumnWidthsKey = (
 					20,
-					862,
+					769,
 					20,
 					48,
 					43,
@@ -64,7 +63,7 @@
 					822,
 					60,
 					20,
-					48.16259765625,
+					48,
 					43,
 					43,
 				);
@@ -78,8 +77,8 @@
 					PBXFileDataSource_Warnings_ColumnID,
 				);
 			};
-			PBXPerProjectTemplateStateSaveDate = 293993150;
-			PBXWorkspaceStateSaveDate = 293993150;
+			PBXPerProjectTemplateStateSaveDate = 294027023;
+			PBXWorkspaceStateSaveDate = 294027023;
 		};
 		perUserProjectItems = {
 			A159E4FF1184EC5D00E68428 /* PBXTextBookmark */ = A159E4FF1184EC5D00E68428 /* PBXTextBookmark */;
@@ -95,15 +94,17 @@
 			A1A0859D118413A100260D3E /* PBXTextBookmark */ = A1A0859D118413A100260D3E /* PBXTextBookmark */;
 			A1A085A1118413A100260D3E /* PBXTextBookmark */ = A1A085A1118413A100260D3E /* PBXTextBookmark */;
 			A1A085ED11842E1B00260D3E /* PBXTextBookmark */ = A1A085ED11842E1B00260D3E /* PBXTextBookmark */;
+			A1D0E6111186840700AC7F7C /* PBXTextBookmark */ = A1D0E6111186840700AC7F7C /* PBXTextBookmark */;
+			A1D0E65011868D0500AC7F7C /* PBXTextBookmark */ = A1D0E65011868D0500AC7F7C /* PBXTextBookmark */;
+			A1D0E65311868D0500AC7F7C /* PBXTextBookmark */ = A1D0E65311868D0500AC7F7C /* PBXTextBookmark */;
+			A1D0E66411868DDC00AC7F7C /* PBXTextBookmark */ = A1D0E66411868DDC00AC7F7C /* PBXTextBookmark */;
+			A1D0E66C11868E3800AC7F7C /* PBXTextBookmark */ = A1D0E66C11868E3800AC7F7C /* PBXTextBookmark */;
+			A1D0E66D11868E3800AC7F7C /* PBXBookmark */ = A1D0E66D11868E3800AC7F7C /* PBXBookmark */;
+			A1D0E67211868FFD00AC7F7C /* PlistBookmark */ = A1D0E67211868FFD00AC7F7C /* PlistBookmark */;
 			A1D9C428118515B0009A4DE1 /* PBXTextBookmark */ = A1D9C428118515B0009A4DE1 /* PBXTextBookmark */;
 			A1D9C46B11851D8A009A4DE1 /* PBXBookmark */ = A1D9C46B11851D8A009A4DE1 /* PBXBookmark */;
 			A1D9C47511851E8E009A4DE1 /* PBXTextBookmark */ = A1D9C47511851E8E009A4DE1 /* PBXTextBookmark */;
-			A1D9C4E111854302009A4DE1 /* PBXTextBookmark */ = A1D9C4E111854302009A4DE1 /* PBXTextBookmark */;
 			A1D9C4E211854302009A4DE1 /* PBXTextBookmark */ = A1D9C4E211854302009A4DE1 /* PBXTextBookmark */;
-			A1DBBCB011860D7A000A6C49 /* PBXTextBookmark */ = A1DBBCB011860D7A000A6C49 /* PBXTextBookmark */;
-			A1DBBCB111860D7A000A6C49 /* PlistBookmark */ = A1DBBCB111860D7A000A6C49 /* PlistBookmark */;
-			A1DBBCB211860D7A000A6C49 /* PBXTextBookmark */ = A1DBBCB211860D7A000A6C49 /* PBXTextBookmark */;
-			A1DBBCB311860D7A000A6C49 /* PBXTextBookmark */ = A1DBBCB311860D7A000A6C49 /* PBXTextBookmark */;
 		};
 		sourceControlManager = A1E751D41180BB9B00A13CA8 /* Source Control */;
 		userBuildSettings = {
@@ -124,6 +125,9 @@
 	};
 	8D1107310486CEB800E47090 /* gfxCardStatus-Info.plist */ = {
 		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {961, 706}}";
+			sepNavSelRange = "{0, 0}";
+			sepNavVisRect = "{{0, 0}, {961, 706}}";
 			sepNavWindowFrame = "{{15, 615}, {750, 558}}";
 		};
 	};
@@ -334,6 +338,85 @@
 		path = /Developer/SDKs/MacOSX10.6.sdk/System/Library/Frameworks/AppKit.framework/Versions/C/Headers/NSPanel.h;
 		sourceTree = "<absolute>";
 	};
+	A1D0E6111186840700AC7F7C /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = A1E751E01180BF0B00A13CA8 /* systemProfiler.m */;
+		name = "systemProfiler.m: 120";
+		rLen = 0;
+		rLoc = 3454;
+		rType = 0;
+		vrLen = 1001;
+		vrLoc = 2544;
+	};
+	A1D0E63E1186890D00AC7F7C /* Growl Registration Ticket.growlRegDict */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {947, 706}}";
+			sepNavSelRange = "{646, 0}";
+			sepNavVisRange = "{0, 668}";
+		};
+	};
+	A1D0E65011868D0500AC7F7C /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = A1D0E65111868D0500AC7F7C /* GrowlDefines.h */;
+		name = "GrowlDefines.h: 1";
+		rLen = 0;
+		rLoc = 0;
+		rType = 0;
+		vrLen = 2017;
+		vrLoc = 2508;
+	};
+	A1D0E65111868D0500AC7F7C /* GrowlDefines.h */ = {
+		isa = PBXFileReference;
+		name = GrowlDefines.h;
+		path = "/Users/codykrieger/Downloads/Growl-1.2.1-Framework/Growl.framework/Versions/A/Headers/GrowlDefines.h";
+		sourceTree = "<absolute>";
+	};
+	A1D0E65311868D0500AC7F7C /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 256AC3D80F4B6AC300CF3369 /* gfxCardStatusAppDelegate.h */;
+		name = "gfxCardStatusAppDelegate.h: 31";
+		rLen = 0;
+		rLoc = 740;
+		rType = 0;
+		vrLen = 986;
+		vrLoc = 0;
+	};
+	A1D0E66411868DDC00AC7F7C /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 256AC3D90F4B6AC300CF3369 /* gfxCardStatusAppDelegate.m */;
+		name = "gfxCardStatusAppDelegate.m: 101";
+		rLen = 0;
+		rLoc = 3959;
+		rType = 0;
+		vrLen = 2375;
+		vrLoc = 2680;
+	};
+	A1D0E66C11868E3800AC7F7C /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = A1D0E63E1186890D00AC7F7C /* Growl Registration Ticket.growlRegDict */;
+		name = "Growl Registration Ticket.growlRegDict: 23";
+		rLen = 0;
+		rLoc = 646;
+		rType = 0;
+		vrLen = 668;
+		vrLoc = 0;
+	};
+	A1D0E66D11868E3800AC7F7C /* PBXBookmark */ = {
+		isa = PBXBookmark;
+		fRef = 8D1107310486CEB800E47090 /* gfxCardStatus-Info.plist */;
+	};
+	A1D0E67211868FFD00AC7F7C /* PlistBookmark */ = {
+		isa = PlistBookmark;
+		fRef = 8D1107310486CEB800E47090 /* gfxCardStatus-Info.plist */;
+		fallbackIsa = PBXBookmark;
+		isK = 0;
+		kPath = (
+			NSMainNibFile,
+		);
+		name = "/Users/codykrieger/projects/gfxCardStatus/gfxCardStatus-Info.plist";
+		rLen = 0;
+		rLoc = 9223372036854775807;
+	};
 	A1D9C428118515B0009A4DE1 /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;
 		fRef = A1D9C429118515B0009A4DE1 /* NSTextField.h */;
@@ -372,16 +455,6 @@
 		path = /Developer/SDKs/MacOSX10.6.sdk/System/Library/Frameworks/AppKit.framework/Versions/C/Headers/NSWindow.h;
 		sourceTree = "<absolute>";
 	};
-	A1D9C4E111854302009A4DE1 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = 256AC3D80F4B6AC300CF3369 /* gfxCardStatusAppDelegate.h */;
-		name = "gfxCardStatusAppDelegate.h: 31";
-		rLen = 0;
-		rLoc = 716;
-		rType = 0;
-		vrLen = 962;
-		vrLoc = 0;
-	};
 	A1D9C4E211854302009A4DE1 /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;
 		fRef = 089C165DFE840E0CC02AAC07 /* English */;
@@ -390,48 +463,6 @@
 		rLoc = 0;
 		rType = 0;
 		vrLen = 45;
-		vrLoc = 0;
-	};
-	A1DBBCB011860D7A000A6C49 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = A1E751E01180BF0B00A13CA8 /* systemProfiler.m */;
-		name = "systemProfiler.m: 115";
-		rLen = 0;
-		rLoc = 3046;
-		rType = 0;
-		vrLen = 1338;
-		vrLoc = 0;
-	};
-	A1DBBCB111860D7A000A6C49 /* PlistBookmark */ = {
-		isa = PlistBookmark;
-		fRef = 8D1107310486CEB800E47090 /* gfxCardStatus-Info.plist */;
-		fallbackIsa = PBXBookmark;
-		isK = 0;
-		kPath = (
-			NSMainNibFile,
-		);
-		name = "/Users/codykrieger/projects/gfxCardStatus/gfxCardStatus-Info.plist";
-		rLen = 0;
-		rLoc = 9223372036854775807;
-	};
-	A1DBBCB211860D7A000A6C49 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = 256AC3D90F4B6AC300CF3369 /* gfxCardStatusAppDelegate.m */;
-		name = "gfxCardStatusAppDelegate.m: 80";
-		rLen = 0;
-		rLoc = 2543;
-		rType = 0;
-		vrLen = 1894;
-		vrLoc = 0;
-	};
-	A1DBBCB311860D7A000A6C49 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = 256AC3D90F4B6AC300CF3369 /* gfxCardStatusAppDelegate.m */;
-		name = "gfxCardStatusAppDelegate.m: 24";
-		rLen = 0;
-		rLoc = 724;
-		rType = 0;
-		vrLen = 1974;
 		vrLoc = 0;
 	};
 	A1E751C81180BB7C00A13CA8 /* gfxCardStatus */ = {
@@ -489,9 +520,9 @@
 	};
 	A1E751E01180BF0B00A13CA8 /* systemProfiler.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1040, 2030}}";
-			sepNavSelRange = "{3046, 0}";
-			sepNavVisRange = "{0, 1338}";
+			sepNavIntBoundsRect = "{{0, 0}, {1040, 1890}}";
+			sepNavSelRange = "{3454, 0}";
+			sepNavVisRange = "{2544, 1001}";
 		};
 	};
 }

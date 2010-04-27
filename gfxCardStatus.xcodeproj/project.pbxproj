@@ -23,6 +23,9 @@
 		A1CA65601181B36A00469317 /* nvidia.png in Resources */ = {isa = PBXBuildFile; fileRef = A1CA655E1181B36A00469317 /* nvidia.png */; };
 		A1CA65761181B4BE00469317 /* intel-2.png in Resources */ = {isa = PBXBuildFile; fileRef = A1CA65741181B4BE00469317 /* intel-2.png */; };
 		A1CA65771181B4BE00469317 /* nvidia-2.png in Resources */ = {isa = PBXBuildFile; fileRef = A1CA65751181B4BE00469317 /* nvidia-2.png */; };
+		A1D0E5FA1186803900AC7F7C /* Growl.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A1D0E5F91186803900AC7F7C /* Growl.framework */; };
+		A1D0E6021186804900AC7F7C /* Growl.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = A1D0E5F91186803900AC7F7C /* Growl.framework */; };
+		A1D0E65F11868DD600AC7F7C /* Growl Registration Ticket.growlRegDict in Resources */ = {isa = PBXBuildFile; fileRef = A1D0E63E1186890D00AC7F7C /* Growl Registration Ticket.growlRegDict */; };
 		A1D6AC5D11826BF00038AD1A /* nvidia-3.png in Resources */ = {isa = PBXBuildFile; fileRef = A1D6AC5C11826BF00038AD1A /* nvidia-3.png */; };
 		A1D9C42011850DEF009A4DE1 /* dsa_pub.pem in Resources */ = {isa = PBXBuildFile; fileRef = A1D9C41F11850DEF009A4DE1 /* dsa_pub.pem */; };
 		A1D9C43A11851B77009A4DE1 /* gfxCardStatus.icns in Resources */ = {isa = PBXBuildFile; fileRef = A1D9C43911851B77009A4DE1 /* gfxCardStatus.icns */; };
@@ -36,6 +39,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				A1D0E6021186804900AC7F7C /* Growl.framework in CopyFiles */,
 				A159E4FC1184EC5100E68428 /* Sparkle.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -70,6 +74,8 @@
 		A1CA655E1181B36A00469317 /* nvidia.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = nvidia.png; sourceTree = "<group>"; };
 		A1CA65741181B4BE00469317 /* intel-2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "intel-2.png"; sourceTree = "<group>"; };
 		A1CA65751181B4BE00469317 /* nvidia-2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "nvidia-2.png"; sourceTree = "<group>"; };
+		A1D0E5F91186803900AC7F7C /* Growl.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Growl.framework; path = "/Users/codykrieger/Downloads/Growl-1.2.1-Framework/Growl.framework"; sourceTree = "<absolute>"; };
+		A1D0E63E1186890D00AC7F7C /* Growl Registration Ticket.growlRegDict */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "Growl Registration Ticket.growlRegDict"; sourceTree = "<group>"; };
 		A1D6AC5C11826BF00038AD1A /* nvidia-3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "nvidia-3.png"; sourceTree = "<group>"; };
 		A1D9C41F11850DEF009A4DE1 /* dsa_pub.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = dsa_pub.pem; sourceTree = "<group>"; };
 		A1D9C43911851B77009A4DE1 /* gfxCardStatus.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = gfxCardStatus.icns; sourceTree = "<group>"; };
@@ -84,6 +90,7 @@
 			files = (
 				8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */,
 				A159E4EA1184E84300E68428 /* Sparkle.framework in Frameworks */,
+				A1D0E5FA1186803900AC7F7C /* Growl.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -107,6 +114,7 @@
 		1058C7A0FEA54F0111CA2CBB /* Linked Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				A1D0E5F91186803900AC7F7C /* Growl.framework */,
 				A159E4E91184E84300E68428 /* Sparkle.framework */,
 				1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */,
 			);
@@ -166,6 +174,7 @@
 				8D1107310486CEB800E47090 /* gfxCardStatus-Info.plist */,
 				089C165CFE840E0CC02AAC07 /* InfoPlist.strings */,
 				1DDD58140DA1D0A300B32029 /* MainMenu.xib */,
+				A1D0E63E1186890D00AC7F7C /* Growl Registration Ticket.growlRegDict */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -247,6 +256,7 @@
 				A1D6AC5D11826BF00038AD1A /* nvidia-3.png in Resources */,
 				A1D9C42011850DEF009A4DE1 /* dsa_pub.pem in Resources */,
 				A1D9C43A11851B77009A4DE1 /* gfxCardStatus.icns in Resources */,
+				A1D0E65F11868DD600AC7F7C /* Growl Registration Ticket.growlRegDict in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -297,6 +307,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
+					"\"$(SRCROOT)/../../Downloads/Growl-1.2.1-Framework\"",
 				);
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
@@ -318,6 +329,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
+					"\"$(SRCROOT)/../../Downloads/Growl-1.2.1-Framework\"",
 				);
 				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;

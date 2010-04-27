@@ -9,8 +9,9 @@
 #import <Cocoa/Cocoa.h>
 #import <Sparkle/Sparkle.h>
 #import <Sparkle/SUUpdater.h>
+#import <Growl/Growl.h>
 
-@interface gfxCardStatusAppDelegate : NSObject <NSApplicationDelegate> {
+@interface gfxCardStatusAppDelegate : NSObject <NSApplicationDelegate,GrowlApplicationBridgeDelegate> {
 	NSWindow *window;
 	
 	IBOutlet SUUpdater *updater;
@@ -21,14 +22,13 @@
 	NSStatusItem *statusItem;
 	
 	IBOutlet NSWindow *preferencesWindow;
-	IBOutlet NSTextField *updateInterval;
 	IBOutlet NSButton *checkForUpdatesOnLaunch;
 	IBOutlet NSButton *useGrowl;
+	IBOutlet NSButton *logToConsole;
 	
-	NSTimer *notificationTimer;
-	int timerHit;
+	NSUserDefaults *defaults;
 	
-	NSTimer *intervalTimer;
+	BOOL canGrowl;
 }
 
 - (IBAction)updateStatus:(id)sender;

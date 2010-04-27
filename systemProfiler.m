@@ -21,8 +21,6 @@
 	
 	NSFileHandle *file = [pipe fileHandleForReading];
 	
-	//NSLog(@"finished setting up task, launching...");
-	
 	[task launch];
 	[task waitUntilExit];
 	
@@ -30,9 +28,6 @@
 	NSString *output = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
 	
 	NSArray *array = [output componentsSeparatedByString:@"\n"];
-	
-	//NSLog(@"done! output:\n%@", output);
-	//NSLog(@"array: %@", array);
 	
 	NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
 	NSMutableArray *currentKeys = [[NSMutableArray alloc] init];
@@ -76,8 +71,6 @@
 		while ([currentKeys count] > (currentLevel)) {
 			[currentKeys removeLastObject];
 		}
-		
-		//NSLog(@"key %@ at level %i", obj, currentLevel);
 		
 		if ([obj hasSuffix:@":"]) {
 			obj = [obj stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@":"]];
@@ -125,10 +118,8 @@
 		for (NSString *otherKey in [tempDict allKeys]) {
 			if ([(NSString *)[tempDict objectForKey:otherKey] isEqualToString:@"No Display Connected"]) {
 				retval = NO;
-				NSLog(@"NVIDIA® GeForce GT 330M is in use. Bummer! No battery life for you.");
 			} else {
 				retval = YES;
-				NSLog(@"Intel® HD Graphics are in use. Sweet deal! More battery life.");
 			}
 			break;
 		}
