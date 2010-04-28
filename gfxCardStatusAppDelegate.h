@@ -16,10 +16,14 @@
 	
 	IBOutlet SUUpdater *updater;
 	
+	NSStatusItem *statusItem;
+	
 	IBOutlet NSMenu *statusMenu;
 	IBOutlet NSMenuItem *currentCard;
 	IBOutlet NSMenuItem *versionItem;
-	NSStatusItem *statusItem;
+	IBOutlet NSMenuItem *processesSeparator;
+	IBOutlet NSMenuItem *dependentProcesses;
+	IBOutlet NSMenuItem *processList;
 	
 	IBOutlet NSWindow *preferencesWindow;
 	IBOutlet NSButton *checkForUpdatesOnLaunch;
@@ -29,6 +33,7 @@
 	NSUserDefaults *defaults;
 	
 	BOOL canGrowl;
+	BOOL usingIntel;
 }
 
 - (IBAction)updateStatus:(id)sender;

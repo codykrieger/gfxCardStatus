@@ -1384,6 +1384,33 @@
 						<reference key="NSOnImage" ref="35465992"/>
 						<reference key="NSMixedImage" ref="502551668"/>
 					</object>
+					<object class="NSMenuItem" id="895611033">
+						<reference key="NSMenu" ref="38435637"/>
+						<string key="NSTitle">Dependent Processes:</string>
+						<string key="NSKeyEquiv"/>
+						<int key="NSMnemonicLoc">2147483647</int>
+						<reference key="NSOnImage" ref="35465992"/>
+						<reference key="NSMixedImage" ref="502551668"/>
+					</object>
+					<object class="NSMenuItem" id="576663025">
+						<reference key="NSMenu" ref="38435637"/>
+						<int key="NSIndent">1</int>
+						<string key="NSTitle">process X</string>
+						<string key="NSKeyEquiv"/>
+						<int key="NSMnemonicLoc">2147483647</int>
+						<reference key="NSOnImage" ref="35465992"/>
+						<reference key="NSMixedImage" ref="502551668"/>
+					</object>
+					<object class="NSMenuItem" id="720037665">
+						<reference key="NSMenu" ref="38435637"/>
+						<bool key="NSIsDisabled">YES</bool>
+						<bool key="NSIsSeparator">YES</bool>
+						<string key="NSTitle"/>
+						<string key="NSKeyEquiv"/>
+						<int key="NSMnemonicLoc">2147483647</int>
+						<reference key="NSOnImage" ref="35465992"/>
+						<reference key="NSMixedImage" ref="502551668"/>
+					</object>
 					<object class="NSMenuItem" id="1067407220">
 						<reference key="NSMenu" ref="38435637"/>
 						<string key="NSTitle">by Cody Krieger</string>
@@ -2332,6 +2359,30 @@
 						<reference key="destination" ref="72571271"/>
 					</object>
 					<int key="connectionID">710</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">dependentProcesses</string>
+						<reference key="source" ref="976324537"/>
+						<reference key="destination" ref="895611033"/>
+					</object>
+					<int key="connectionID">714</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">processesSeparator</string>
+						<reference key="source" ref="976324537"/>
+						<reference key="destination" ref="179521059"/>
+					</object>
+					<int key="connectionID">715</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">processList</string>
+						<reference key="source" ref="976324537"/>
+						<reference key="destination" ref="576663025"/>
+					</object>
+					<int key="connectionID">716</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -3375,6 +3426,9 @@
 							<reference ref="136343906"/>
 							<reference ref="1067407220"/>
 							<reference ref="556294454"/>
+							<reference ref="720037665"/>
+							<reference ref="895611033"/>
+							<reference ref="576663025"/>
 						</object>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -3509,6 +3563,21 @@
 						<int key="objectID">709</int>
 						<reference key="object" ref="421401752"/>
 						<reference key="parent" ref="72571271"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">711</int>
+						<reference key="object" ref="720037665"/>
+						<reference key="parent" ref="38435637"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">712</int>
+						<reference key="object" ref="895611033"/>
+						<reference key="parent" ref="38435637"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">713</int>
+						<reference key="object" ref="576663025"/>
+						<reference key="parent" ref="38435637"/>
 					</object>
 				</object>
 			</object>
@@ -3762,6 +3831,9 @@
 					<string>695.IBPluginDependency</string>
 					<string>708.IBPluginDependency</string>
 					<string>709.IBPluginDependency</string>
+					<string>711.IBPluginDependency</string>
+					<string>712.IBPluginDependency</string>
+					<string>713.IBPluginDependency</string>
 					<string>72.IBPluginDependency</string>
 					<string>72.ImportedFromIB2</string>
 					<string>73.IBPluginDependency</string>
@@ -4038,6 +4110,9 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="1"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="1"/>
@@ -4081,7 +4156,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">710</int>
+			<int key="maxID">716</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -4162,8 +4237,11 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>checkForUpdatesOnLaunch</string>
 							<string>currentCard</string>
+							<string>dependentProcesses</string>
 							<string>logToConsole</string>
 							<string>preferencesWindow</string>
+							<string>processList</string>
+							<string>processesSeparator</string>
 							<string>statusMenu</string>
 							<string>updater</string>
 							<string>useGrowl</string>
@@ -4174,8 +4252,11 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>NSButton</string>
 							<string>NSMenuItem</string>
+							<string>NSMenuItem</string>
 							<string>NSButton</string>
 							<string>NSWindow</string>
+							<string>NSMenuItem</string>
+							<string>NSMenuItem</string>
 							<string>NSMenu</string>
 							<string>SUUpdater</string>
 							<string>NSButton</string>
@@ -4189,8 +4270,11 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>checkForUpdatesOnLaunch</string>
 							<string>currentCard</string>
+							<string>dependentProcesses</string>
 							<string>logToConsole</string>
 							<string>preferencesWindow</string>
+							<string>processList</string>
+							<string>processesSeparator</string>
 							<string>statusMenu</string>
 							<string>updater</string>
 							<string>useGrowl</string>
@@ -4208,12 +4292,24 @@
 								<string key="candidateClassName">NSMenuItem</string>
 							</object>
 							<object class="IBToOneOutletInfo">
+								<string key="name">dependentProcesses</string>
+								<string key="candidateClassName">NSMenuItem</string>
+							</object>
+							<object class="IBToOneOutletInfo">
 								<string key="name">logToConsole</string>
 								<string key="candidateClassName">NSButton</string>
 							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">preferencesWindow</string>
 								<string key="candidateClassName">NSWindow</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">processList</string>
+								<string key="candidateClassName">NSMenuItem</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">processesSeparator</string>
+								<string key="candidateClassName">NSMenuItem</string>
 							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">statusMenu</string>
