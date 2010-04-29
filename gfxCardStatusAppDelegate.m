@@ -54,13 +54,13 @@
 	// set initial process list value
 	[processList setTitle:@"None"];
 	
-	NSNotificationCenter *workspaceNotifications = [[NSWorkspace sharedWorkspace] notificationCenter];
+	//NSNotificationCenter *workspaceNotifications = [[NSWorkspace sharedWorkspace] notificationCenter];
 	NSNotificationCenter *defaultNotifications = [NSNotificationCenter defaultCenter];
 	
-	[workspaceNotifications addObserver:self selector:@selector(handleApplicationNotification:) 
-								   name:NSWorkspaceDidLaunchApplicationNotification object:nil];
-	[workspaceNotifications addObserver:self selector:@selector(handleApplicationNotification:) 
-								   name:NSWorkspaceDidTerminateApplicationNotification object:nil];
+	//[workspaceNotifications addObserver:self selector:@selector(handleApplicationNotification:) 
+//								   name:NSWorkspaceDidLaunchApplicationNotification object:nil];
+//	[workspaceNotifications addObserver:self selector:@selector(handleApplicationNotification:) 
+//								   name:NSWorkspaceDidTerminateApplicationNotification object:nil];
 	[defaultNotifications addObserver:self selector:@selector(handleNotification:)
 								   name:NSApplicationDidChangeScreenParametersNotification object:nil];
 	
@@ -83,86 +83,47 @@
 	[self performSelector:@selector(updateMenuBarIcon)];
 }
 
-- (void)handleApplicationNotification:(NSNotification *)notification {
-	// update dependent processes list if using nvidia card
-	[self performSelectorInBackground:@selector(waitAndUpdateProcessList) withObject:nil];
-}
-
-- (void)waitAndUpdateProcessList {
-	for (int i = 0; i < 5; i++) {
-		[NSThread sleepForTimeInterval:2.0f];
-		[self performSelector:@selector(updateProcessList)];
-	}
-}
-
 - (void)updateProcessList {
-	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-	
 	[processList setTitle:@"None"];
 	
-	//if (!usingIntel) {
-//		NSString *cmd = @"ps cx | /usr/bin/egrep $(echo ${$(/usr/sbin/ioreg -l | /usr/bin/grep task-list | /usr/bin/sed -e 's/(//' | /usr/bin/sed -e 's/)//' | /usr/bin/awk ' { print $6 }')/','/'|'})";
-//		
-//		NSTask *task = [[NSTask alloc] init];
-//		[task setLaunchPath:@"/bin/ps"];
-//		[task setArguments:[NSArray arrayWithObject:@"cx"]];
-//		NSPipe *pipe = [NSPipe pipe];
-//		[task setStandardOutput:pipe];
-//		NSFileHandle *file = [pipe fileHandleForReading];
-//		[task launch];
-//		[task waitUntilExit];
-//		
-//		NSTask *task4 = [[NSTask alloc] init];
-//		[task4 setLaunchPath:@"/usr/sbin/ioreg"];
-//		[task4 setArguments:[NSArray arrayWithObject:@"-l"]];
-//		NSPipe *pipe2 = [NSPipe pipe];
-//		[task4 setStandardOutput:pipe2];
-//		NSFileHandle *file2 = [pipe2 fileHandleForReading];
-//		[task4 launch];
-//		[task4 waitUntilExit];
-//		
-//		NSTask *task4 = [[NSTask alloc] init];
-//		[task4 setLaunchPath:@"/usr/sbin/ioreg"];
-//		[task4 setArguments:[NSArray arrayWithObject:@"-l"]];
-//		NSPipe *pipe2 = [NSPipe pipe];
-//		[task4 setStandardOutput:pipe2];
-//		NSFileHandle *file2 = [pipe2 fileHandleForReading];
-//		[task4 launch];
-//		[task4 waitUntilExit];
-//		
-//		NSTask *task2 = [[NSTask alloc] init];
-//		[task2 setLaunchPath:@"/bin/zsh"];
-//		[task2 setArguments:[NSArray arrayWithObjects:@"echo", @"", nil]];
-//		
-//		NSTask *task3 = [[NSTask alloc] init];
-//		[task3 setLaunchPath:@"/usr/bin/egrep"];
-//		[task3 setArguments:[NSArray arrayWithObject:@""]];
-//		
-//		NSData *data = [file readDataToEndOfFile];
-//		NSString *output = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-//		
-//		if ([output hasPrefix:@"Usage:"]) {
-//			if ([defaults boolForKey:@"logToConsole"])
-//				NSLog(@"Something's up...we're using the NVIDIA® card, but there are no processes in the task-list.");
-//		} else {
-//			output = [output stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-//			if ([output length] == 0) {
-//				if ([defaults boolForKey:@"logToConsole"])
-//					NSLog(@"Something's up...we're using the NVIDIA® card, and there are processes in the task-list, but there is no output.");
-//			} else {
-//				// everything's fine, parse output and unhide menu items
-//				
-//				NSArray *array = [output componentsSeparatedByString:@"\n"];
-//				for (NSString *obj in array) {
-//					// 28th char is where the cmd name starts
-//					NSString *appName = [obj substringFromIndex:27];
-//					[dependentProcesses setTitle:[[dependentProcesses title] stringByAppendingFormat:@"\n%@", appName]];
-//				}
-//			}
-//		}
-//	}
-	
-	[pool drain];
+	if (!usingIntel) {
+		NSString *cmd = @"/bin/ps cx -o \"pid command\" | /usr/bin/egrep $(echo ${$(/usr/sbin/ioreg -l | /usr/bin/grep task-list | /usr/bin/sed -e 's/(//' | /usr/bin/sed -e 's/)//' | /usr/bin/awk ' { print $6 }')/','/'|'})";
+		
+		NSTask *task = [[NSTask alloc] init];
+		[task setLaunchPath:@"/bin/zsh"];
+		[task setArguments:[NSArray arrayWithObjects:@"-c", cmd, nil]];
+		
+		NSPipe *pipe = [NSPipe pipe];
+		[task setStandardOutput:pipe];
+		NSFileHandle *file = [pipe fileHandleForReading];
+		
+		[task launch];
+		[task waitUntilExit];
+		
+		NSData *data = [file readDataToEndOfFile];
+		NSString *output = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+		
+		if ([output hasPrefix:@"Usage:"]) {
+			if ([defaults boolForKey:@"logToConsole"])
+				NSLog(@"Something's up...we're using the NVIDIA® card, but there are no processes in the task-list.");
+		} else {
+			output = [output stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+			if ([output length] == 0) {
+				if ([defaults boolForKey:@"logToConsole"])
+					NSLog(@"Something's up...we're using the NVIDIA® card, and there are processes in the task-list, but there is no output.");
+			} else {
+				// everything's fine, parse output and unhide menu items
+				
+				NSArray *array = [output componentsSeparatedByString:@"\n"];
+				for (NSString *obj in array) {
+					NSArray *appName = [obj componentsSeparatedByString:@" "];
+					if ([appName count] > 1) {
+						[processList setTitle:[NSString stringWithFormat:@"\n%@", [appName objectAtIndex:1]]];
+					}
+				}
+			}
+		}
+	}
 }
 
 - (void)updateMenuBarIcon {
@@ -176,6 +137,7 @@
 		if ([defaults boolForKey:@"useGrowl"] && canGrowl)
 			[GrowlApplicationBridge notifyWithTitle:@"GPU changed" description:@"Intel® HD Graphics now in use." notificationName:@"switchedToIntel" iconData:nil priority:0 isSticky:NO clickContext:nil];
 		usingIntel = YES;
+		[processList setTitle:@"None"];
 	} else {
 		[statusItem setImage:[NSImage imageNamed:@"nvidia-3.png"]];
 		[currentCard setTitle:@"Card: NVIDIA® GeForce GT 330M"];
@@ -184,6 +146,7 @@
 		if ([defaults boolForKey:@"useGrowl"] && canGrowl)
 			[GrowlApplicationBridge notifyWithTitle:@"GPU changed" description:@"NVIDIA® GeForce GT 330M graphics now in use." notificationName:@"switchedToNvidia" iconData:nil priority:0 isSticky:NO clickContext:nil];
 		usingIntel = NO;
+		[self performSelector:@selector(updateProcessList)];
 	}
 }
 
