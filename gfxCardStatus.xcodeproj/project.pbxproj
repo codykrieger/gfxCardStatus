@@ -29,6 +29,9 @@
 		A1D6AC5D11826BF00038AD1A /* nvidia-3.png in Resources */ = {isa = PBXBuildFile; fileRef = A1D6AC5C11826BF00038AD1A /* nvidia-3.png */; };
 		A1D9C42011850DEF009A4DE1 /* dsa_pub.pem in Resources */ = {isa = PBXBuildFile; fileRef = A1D9C41F11850DEF009A4DE1 /* dsa_pub.pem */; };
 		A1D9C43A11851B77009A4DE1 /* gfxCardStatus.icns in Resources */ = {isa = PBXBuildFile; fileRef = A1D9C43911851B77009A4DE1 /* gfxCardStatus.icns */; };
+		A1E07D581194B42100683B07 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A1E07D571194B42100683B07 /* IOKit.framework */; };
+		A1E07E111194B42B00683B07 /* ApplicationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A1E07E101194B42B00683B07 /* ApplicationServices.framework */; };
+		A1E07E421194B7C900683B07 /* switcher.m in Sources */ = {isa = PBXBuildFile; fileRef = A1E07E411194B7C900683B07 /* switcher.m */; };
 		A1E751E11180BF0B00A13CA8 /* systemProfiler.m in Sources */ = {isa = PBXBuildFile; fileRef = A1E751E01180BF0B00A13CA8 /* systemProfiler.m */; };
 /* End PBXBuildFile section */
 
@@ -79,6 +82,10 @@
 		A1D6AC5C11826BF00038AD1A /* nvidia-3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "nvidia-3.png"; sourceTree = "<group>"; };
 		A1D9C41F11850DEF009A4DE1 /* dsa_pub.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = dsa_pub.pem; sourceTree = "<group>"; };
 		A1D9C43911851B77009A4DE1 /* gfxCardStatus.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = gfxCardStatus.icns; sourceTree = "<group>"; };
+		A1E07D571194B42100683B07 /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = System/Library/Frameworks/IOKit.framework; sourceTree = SDKROOT; };
+		A1E07E101194B42B00683B07 /* ApplicationServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ApplicationServices.framework; path = System/Library/Frameworks/ApplicationServices.framework; sourceTree = SDKROOT; };
+		A1E07E401194B7C900683B07 /* switcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = switcher.h; sourceTree = "<group>"; };
+		A1E07E411194B7C900683B07 /* switcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = switcher.m; sourceTree = "<group>"; };
 		A1E751DF1180BF0B00A13CA8 /* systemProfiler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = systemProfiler.h; sourceTree = "<group>"; };
 		A1E751E01180BF0B00A13CA8 /* systemProfiler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = systemProfiler.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -91,6 +98,8 @@
 				8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */,
 				A159E4EA1184E84300E68428 /* Sparkle.framework in Frameworks */,
 				A1D0E5FA1186803900AC7F7C /* Growl.framework in Frameworks */,
+				A1E07D581194B42100683B07 /* IOKit.framework in Frameworks */,
+				A1E07E111194B42B00683B07 /* ApplicationServices.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -107,6 +116,8 @@
 				A1E751E01180BF0B00A13CA8 /* systemProfiler.m */,
 				A159E50E1184F3F800E68428 /* NSButton+TextColor.h */,
 				A159E50F1184F3F800E68428 /* NSButton+TextColor.m */,
+				A1E07E401194B7C900683B07 /* switcher.h */,
+				A1E07E411194B7C900683B07 /* switcher.m */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -117,6 +128,8 @@
 				A1D0E5F91186803900AC7F7C /* Growl.framework */,
 				A159E4E91184E84300E68428 /* Sparkle.framework */,
 				1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */,
+				A1E07D571194B42100683B07 /* IOKit.framework */,
+				A1E07E101194B42B00683B07 /* ApplicationServices.framework */,
 			);
 			name = "Linked Frameworks";
 			sourceTree = "<group>";
@@ -274,6 +287,7 @@
 				A1A0856C11840F6200260D3E /* NSString+SBJSON.m in Sources */,
 				A1A0856D11840F6200260D3E /* SBJSON.m in Sources */,
 				A159E5101184F3F800E68428 /* NSButton+TextColor.m in Sources */,
+				A1E07E421194B7C900683B07 /* switcher.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -357,7 +371,7 @@
 		C01FCF5008A954540054247B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;

@@ -11,7 +11,7 @@
 #import <Sparkle/SUUpdater.h>
 #import <Growl/Growl.h>
 
-@interface gfxCardStatusAppDelegate : NSObject <NSApplicationDelegate,GrowlApplicationBridgeDelegate> {
+@interface gfxCardStatusAppDelegate : NSObject <NSApplicationDelegate,GrowlApplicationBridgeDelegate,NSMenuDelegate> {
 	NSWindow *window;
 	
 	IBOutlet SUUpdater *updater;
@@ -19,24 +19,35 @@
 	NSStatusItem *statusItem;
 	
 	IBOutlet NSMenu *statusMenu;
-	IBOutlet NSMenuItem *currentCard;
+	
+	// dynamic menu items - these change
 	IBOutlet NSMenuItem *versionItem;
+	IBOutlet NSMenuItem *currentCard;
+	IBOutlet NSMenuItem *currentSwitching;
+	IBOutlet NSMenuItem *toggleGPUs;
+	IBOutlet NSMenuItem *toggleSwitching;
 	IBOutlet NSMenuItem *processesSeparator;
 	IBOutlet NSMenuItem *dependentProcesses;
 	IBOutlet NSMenuItem *processList;
 	
+	// preferences window and its controls
 	IBOutlet NSWindow *preferencesWindow;
 	IBOutlet NSButton *checkForUpdatesOnLaunch;
 	IBOutlet NSButton *useGrowl;
 	IBOutlet NSButton *logToConsole;
 	
+	// defaults for all!
 	NSUserDefaults *defaults;
 	
+	// some basic status indicator bools
 	BOOL canGrowl;
 	BOOL usingIntel;
+	BOOL alwaysIntel;
+	BOOL alwaysNvidia;
 }
 
 - (IBAction)updateStatus:(id)sender;
+- (IBAction)toggleGPU:(id)sender;
 - (IBAction)openPreferences:(id)sender;
 - (IBAction)savePreferences:(id)sender;
 - (IBAction)openApplicationURL:(id)sender;

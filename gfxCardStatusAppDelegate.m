@@ -9,6 +9,7 @@
 #import "gfxCardStatusAppDelegate.h"
 #import "systemProfiler.h"
 #import "JSON.h"
+#import "switcher.h"
 
 @implementation gfxCardStatusAppDelegate
 
@@ -42,6 +43,8 @@
 	// set preferences window...preferences
 	[preferencesWindow setLevel:NSModalPanelWindowLevel];
 	
+	[statusMenu setDelegate:self];
+	
 	// set up status item
 	statusItem = [[[NSStatusBar systemStatusBar] statusItemWithLength:NSVariableStatusItemLength] retain];
 	[statusItem setMenu:statusMenu];
@@ -67,6 +70,10 @@
 	// bool to identify the current gfx card without having to parse terminal output again
 	usingIntel = YES;
 	
+	// set 'always' bools
+	alwaysIntel = NO;
+	alwaysNvidia = NO;
+	
 	canGrowl = NO;
 	[self performSelector:@selector(updateMenuBarIcon)];
 	canGrowl = YES;
@@ -76,6 +83,10 @@
 	[self performSelector:@selector(updateMenuBarIcon)];
 }
 
+- (IBAction)toggleGPU:(id)sender {
+	[switcher toggleGPU];
+}
+
 - (void)handleNotification:(NSNotification *)notification {
 	if ([defaults boolForKey:@"logToConsole"])
 		NSLog(@"The following notification has been triggered:\n%@", notification);
@@ -83,11 +94,34 @@
 	[self performSelector:@selector(updateMenuBarIcon)];
 }
 
+- (void)menuNeedsUpdate:(NSMenu *)menu {
+	[self performSelector:@selector(updateMenuBarIcon)];
+	[self performSelector:@selector(updateProcessList)];
+}
+
 - (void)updateProcessList {
+	// reset process list
 	[processList setTitle:@"None"];
+	[processList setHidden:NO];
 	
+	NSMutableArray *itemsToRemove = [[NSMutableArray alloc] init];
+	
+	for (NSMenuItem *mi in [statusMenu itemArray]) {
+		if ([mi indentationLevel] > 0 && ![mi isEqual:processList]) {
+			[itemsToRemove addObject:mi];
+		}
+	}
+	
+	for (NSMenuItem *mi in itemsToRemove) {
+		[statusMenu removeItem:mi];
+	}
+	
+	if ([defaults boolForKey:@"logToConsole"])
+		NSLog(@"Updating process list...");
+	
+	// if we're on intel, no need to update the list
 	if (!usingIntel) {
-		NSString *cmd = @"/bin/ps cx -o \"pid command\" | /usr/bin/egrep $(echo ${$(/usr/sbin/ioreg -l | /usr/bin/grep task-list | /usr/bin/sed -e 's/(//' | /usr/bin/sed -e 's/)//' | /usr/bin/awk ' { print $6 }')/','/'|'})";
+		NSString *cmd = @"/bin/ps cx -o \"pid command\" | /usr/bin/egrep $(echo ${$(/usr/sbin/ioreg -l | /usr/bin/grep task-list | /usr/bin/sed -e 's/(//' | /usr/bin/sed -e 's/)//' | /usr/bin/awk ' { print $6 }')//','/'|'})";
 		
 		NSTask *task = [[NSTask alloc] init];
 		[task setLaunchPath:@"/bin/zsh"];
@@ -104,22 +138,60 @@
 		NSString *output = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
 		
 		if ([output hasPrefix:@"Usage:"]) {
+			
 			if ([defaults boolForKey:@"logToConsole"])
 				NSLog(@"Something's up...we're using the NVIDIA® card, but there are no processes in the task-list.");
+			
 		} else {
+			
 			output = [output stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
 			if ([output length] == 0) {
+				
 				if ([defaults boolForKey:@"logToConsole"])
 					NSLog(@"Something's up...we're using the NVIDIA® card, and there are processes in the task-list, but there is no output.");
+				
 			} else {
 				// everything's fine, parse output and unhide menu items
 				
+				// external display, if connected
+				if ([[NSScreen screens] count] > 1) {
+					NSMenuItem *externalDisplay = [[NSMenuItem alloc] initWithTitle:@"External Display" action:nil keyEquivalent:@""];
+					[externalDisplay setIndentationLevel:1];
+					[statusMenu insertItem:externalDisplay atIndex:([statusMenu indexOfItem:processList] + 1)];
+				}
+				
 				NSArray *array = [output componentsSeparatedByString:@"\n"];
 				for (NSString *obj in array) {
-					NSArray *appName = [obj componentsSeparatedByString:@" "];
-					if ([appName count] > 1) {
-						[processList setTitle:[NSString stringWithFormat:@"\n%@", [appName objectAtIndex:1]]];
+					NSArray *processInfo = [obj componentsSeparatedByString:@" "];
+					NSMutableString *appName = [[NSMutableString alloc] initWithString:@""];
+					if ([processInfo count] > 1) {
+						
+						if ([defaults boolForKey:@"logToConsole"])
+							NSLog(@"Setting title to last few objects concatenated together in array: %@", processInfo);
+						
+						if ([processInfo count] >= 3) {
+							BOOL hitProcessId = NO;
+							for (NSString *s in processInfo) {
+								if ([s intValue] > 0 && !hitProcessId) {
+									hitProcessId = YES;
+									continue;
+								}
+								
+								if (hitProcessId)
+									[appName appendFormat:@"%@ ", s];
+							}
+						} else {
+							[appName appendFormat:@"%@", [processInfo objectAtIndex:1]];
+						}
+						
+						//[processList setTitle:[NSString stringWithFormat:@"\n%@", appName]];
+						[processList setHidden:YES];
+						
+						NSMenuItem *newItem = [[NSMenuItem alloc] initWithTitle:appName action:nil keyEquivalent:@""];
+						[newItem setIndentationLevel:1];
+						[statusMenu insertItem:newItem atIndex:([statusMenu indexOfItem:processList] + 1)];
 					}
+					[appName release];
 				}
 			}
 		}
@@ -134,7 +206,7 @@
 		[currentCard setTitle:@"Card: Intel® HD Graphics"];
 		if ([defaults boolForKey:@"logToConsole"])
 			NSLog(@"Intel® HD Graphics are in use. Sweet deal! More battery life.");
-		if ([defaults boolForKey:@"useGrowl"] && canGrowl)
+		if ([defaults boolForKey:@"useGrowl"] && canGrowl && !usingIntel)
 			[GrowlApplicationBridge notifyWithTitle:@"GPU changed" description:@"Intel® HD Graphics now in use." notificationName:@"switchedToIntel" iconData:nil priority:0 isSticky:NO clickContext:nil];
 		usingIntel = YES;
 		[processList setTitle:@"None"];
@@ -143,7 +215,7 @@
 		[currentCard setTitle:@"Card: NVIDIA® GeForce GT 330M"];
 		if ([defaults boolForKey:@"logToConsole"])
 			NSLog(@"NVIDIA® GeForce GT 330M is in use. Bummer! No battery life for you.");
-		if ([defaults boolForKey:@"useGrowl"] && canGrowl)
+		if ([defaults boolForKey:@"useGrowl"] && canGrowl && usingIntel)
 			[GrowlApplicationBridge notifyWithTitle:@"GPU changed" description:@"NVIDIA® GeForce GT 330M graphics now in use." notificationName:@"switchedToNvidia" iconData:nil priority:0 isSticky:NO clickContext:nil];
 		usingIntel = NO;
 		[self performSelector:@selector(updateProcessList)];
