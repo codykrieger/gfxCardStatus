@@ -14,7 +14,6 @@
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
 		A159E4EA1184E84300E68428 /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A159E4E91184E84300E68428 /* Sparkle.framework */; };
 		A159E4FC1184EC5100E68428 /* Sparkle.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = A159E4E91184E84300E68428 /* Sparkle.framework */; };
-		A159E5101184F3F800E68428 /* NSButton+TextColor.m in Sources */ = {isa = PBXBuildFile; fileRef = A159E50F1184F3F800E68428 /* NSButton+TextColor.m */; };
 		A1A0856B11840F6200260D3E /* NSObject+SBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = A1A0856611840F6200260D3E /* NSObject+SBJSON.m */; };
 		A1A0856C11840F6200260D3E /* NSString+SBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = A1A0856811840F6200260D3E /* NSString+SBJSON.m */; };
 		A1A0856D11840F6200260D3E /* SBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = A1A0856A11840F6200260D3E /* SBJSON.m */; };
@@ -63,8 +62,6 @@
 		8D1107310486CEB800E47090 /* gfxCardStatus-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "gfxCardStatus-Info.plist"; sourceTree = "<group>"; };
 		8D1107320486CEB800E47090 /* gfxCardStatus.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = gfxCardStatus.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A159E4E91184E84300E68428 /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Sparkle.framework; sourceTree = "<group>"; };
-		A159E50E1184F3F800E68428 /* NSButton+TextColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSButton+TextColor.h"; sourceTree = "<group>"; };
-		A159E50F1184F3F800E68428 /* NSButton+TextColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSButton+TextColor.m"; sourceTree = "<group>"; };
 		A1A0856411840F6200260D3E /* JSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSON.h; sourceTree = "<group>"; };
 		A1A0856511840F6200260D3E /* NSObject+SBJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+SBJSON.h"; sourceTree = "<group>"; };
 		A1A0856611840F6200260D3E /* NSObject+SBJSON.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+SBJSON.m"; sourceTree = "<group>"; };
@@ -114,8 +111,6 @@
 				256AC3D90F4B6AC300CF3369 /* gfxCardStatusAppDelegate.m */,
 				A1E751DF1180BF0B00A13CA8 /* systemProfiler.h */,
 				A1E751E01180BF0B00A13CA8 /* systemProfiler.m */,
-				A159E50E1184F3F800E68428 /* NSButton+TextColor.h */,
-				A159E50F1184F3F800E68428 /* NSButton+TextColor.m */,
 				A1E07E401194B7C900683B07 /* switcher.h */,
 				A1E07E411194B7C900683B07 /* switcher.m */,
 			);
@@ -286,7 +281,6 @@
 				A1A0856B11840F6200260D3E /* NSObject+SBJSON.m in Sources */,
 				A1A0856C11840F6200260D3E /* NSString+SBJSON.m in Sources */,
 				A1A0856D11840F6200260D3E /* SBJSON.m in Sources */,
-				A159E5101184F3F800E68428 /* NSButton+TextColor.m in Sources */,
 				A1E07E421194B7C900683B07 /* switcher.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
