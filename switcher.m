@@ -108,19 +108,23 @@ kern_return_t OpenDriverConnection(io_service_t service, io_connect_t *connect)
     kern_return_t kernResult = IOServiceOpen(service, mach_task_self(), 0, connect);
     
     if (kernResult != KERN_SUCCESS) {
-        fprintf(stderr, "IOServiceOpen returned 0x%08x\n", kernResult);
+        if ([gfxCardStatusAppDelegate canLogToConsole]) {
+			fprintf(stderr, "IOServiceOpen returned 0x%08x\n", kernResult);
+		}
     }
     else {
         kern_return_t    kernResult;
         kernResult = IOConnectCallScalarMethod(*connect, kOpen, NULL, 0, NULL, NULL);
         return kernResult;
         
-        if (kernResult == KERN_SUCCESS) {
-            printf("OpenDriverConnection was successful.\n\n");
-        }
-        else {
-            fprintf(stderr, "OpenDriverConnection returned 0x%08x.\n\n", kernResult);
-        }
+		if ([gfxCardStatusAppDelegate canLogToConsole]) {
+			if (kernResult == KERN_SUCCESS) {
+				printf("OpenDriverConnection was successful.\n\n");
+			}
+			else {
+				fprintf(stderr, "OpenDriverConnection returned 0x%08x.\n\n", kernResult);
+			}
+		}
     }
     
     return kernResult;
@@ -132,21 +136,25 @@ void CloseDriverConnection(io_connect_t connect)
     kern_return_t    kernResult;
     kernResult = IOConnectCallScalarMethod(connect, kClose, NULL, 0, NULL, NULL);
     
-    if (kernResult == KERN_SUCCESS) {
-        printf("CloseDriverConnection was successful.\n\n");
-    }
-    else {
-        fprintf(stderr, "CloseDriverConnection returned 0x%08x.\n\n", kernResult);
-    }
+	if ([gfxCardStatusAppDelegate canLogToConsole]) {
+		if (kernResult == KERN_SUCCESS) {
+			printf("CloseDriverConnection was successful.\n\n");
+		}
+		else {
+			fprintf(stderr, "CloseDriverConnection returned 0x%08x.\n\n", kernResult);
+		}
+	}
     
     kernResult = IOServiceClose(connect);
     
-    if (kernResult == KERN_SUCCESS) {
-        printf("IOServiceClose was successful.\n\n");
-    }
-    else {
-        fprintf(stderr, "IOServiceClose returned 0x%08x\n\n", kernResult);
-    }
+	if ([gfxCardStatusAppDelegate canLogToConsole]) {
+		if (kernResult == KERN_SUCCESS) {
+			printf("IOServiceClose was successful.\n\n");
+		}
+		else {
+			fprintf(stderr, "IOServiceClose returned 0x%08x\n\n", kernResult);
+		}
+	}
 }
 
 kern_return_t getMuxState(io_connect_t connect, uint64_t input, uint64_t *output)
@@ -167,14 +175,16 @@ kern_return_t getMuxState(io_connect_t connect, uint64_t input, uint64_t *output
                                            &outputCount                // pointer to the number of scalar output values.
                                            );
     
-    if (kernResult == KERN_SUCCESS) {
-        printf("getMuxState was successful.\n");
-        printf("outputCount = %d\n", outputCount);
-        printf("resultNumber = 0x%08llx\n\n", *output);
-    }
-    else {
-        fprintf(stderr, "getMuxState returned 0x%08x.\n\n", kernResult);
-    }
+	if ([gfxCardStatusAppDelegate canLogToConsole]) {
+		if (kernResult == KERN_SUCCESS) {
+			printf("getMuxState was successful.\n");
+			printf("outputCount = %d\n", outputCount);
+			printf("resultNumber = 0x%08llx\n\n", *output);
+		}
+		else {
+			fprintf(stderr, "getMuxState returned 0x%08x.\n\n", kernResult);
+		}
+	}
     
     return kernResult;
 }
@@ -197,12 +207,14 @@ void setMuxState(io_connect_t connect, enum SetMuxStates state, uint64_t arg)
                                            0                // pointer to the number of scalar output values.
                                            );
     
-    if (kernResult == KERN_SUCCESS) {
-        printf("setMuxState was successful.\n\n");
-    }
-    else {
-        fprintf(stderr, "setMuxState returned 0x%08x.\n\n", kernResult);
-    }
+	if ([gfxCardStatusAppDelegate canLogToConsole]) {
+		if (kernResult == KERN_SUCCESS) {
+			printf("setMuxState was successful.\n\n");
+		}
+		else {
+			fprintf(stderr, "setMuxState returned 0x%08x.\n\n", kernResult);
+		}
+	}
 }
 
 void setFeatureInfoEnabled(io_connect_t connect, uint64_t feature, int enabled)
@@ -228,7 +240,9 @@ void printFeatures(io_connect_t connect)
     getMuxState(connect, GetFeatureInfo, &featureInfo);
     enum FeatureInfos f = Policy;
     for (; f < 19; f++) {
-        printf("%s: %s\n", getFeatureInfoName(f), (featureInfo & (1<<f) ? "enabled" : "disabled"));
+		if ([gfxCardStatusAppDelegate canLogToConsole]) {
+			printf("%s: %s\n", getFeatureInfoName(f), (featureInfo & (1<<f) ? "enabled" : "disabled"));
+		}
     }
 }
 
@@ -273,12 +287,14 @@ void setExclusive(io_connect_t connect)
                                            0                // pointer to the number of scalar output values.
                                            );
     
-    if (kernResult == KERN_SUCCESS) {
-        printf("setExclusive was successful.\n\n");
-    }
-    else {
-        fprintf(stderr, "setExclusive returned 0x%08x.\n\n", kernResult);
-    }
+	if ([gfxCardStatusAppDelegate canLogToConsole]) {
+		if (kernResult == KERN_SUCCESS) {
+			printf("setExclusive was successful.\n\n");
+		}
+		else {
+			fprintf(stderr, "setExclusive returned 0x%08x.\n\n", kernResult);
+		}
+	}
 }
 
 typedef struct StateStruct {
@@ -306,12 +322,14 @@ void dumpState(io_connect_t connect)
     
     // TODO: figure the meaning of the values in StateStruct out
     
-    if (kernResult == KERN_SUCCESS) {
-        printf("setExclusive was successful.\n\n");
-    }
-    else {
-        fprintf(stderr, "setExclusive returned 0x%08x.\n\n", kernResult);
-    }
+	if ([gfxCardStatusAppDelegate canLogToConsole]) {
+		if (kernResult == KERN_SUCCESS) {
+			printf("setExclusive was successful.\n\n");
+		}
+		else {
+			fprintf(stderr, "setExclusive returned 0x%08x.\n\n", kernResult);
+		}
+	}
 }
 
 // returns 1 if nvidia is active and 0 if intel is active
@@ -383,22 +401,28 @@ int runSwitcher(int mode) {
     kernResult = IOServiceGetMatchingServices(kIOMasterPortDefault, IOServiceMatching(kDriverClassName), &iterator);
     
     if (kernResult != KERN_SUCCESS) {
-        fprintf(stderr, "IOServiceGetMatchingServices returned 0x%08x\n\n", kernResult);
+		if ([gfxCardStatusAppDelegate canLogToConsole]) {
+			fprintf(stderr, "IOServiceGetMatchingServices returned 0x%08x\n\n", kernResult);
+		}
         return -1;
     }
     
     while ((service = IOIteratorNext(iterator)) != IO_OBJECT_NULL) {
         driverFound = true;
-        printf("Found a device of class "kDriverClassName".\n\n");
+		if ([gfxCardStatusAppDelegate canLogToConsole]) {
+			printf("Found a device of class "kDriverClassName".\n\n");
+		}
         UseDevice(service ,mode);
     }
     
     // Release the io_iterator_t now that we're done with it.
     IOObjectRelease(iterator);
     
-    if (driverFound == false) {
-        fprintf(stderr, "No matching drivers found.\n");
-    }
+	if ([gfxCardStatusAppDelegate canLogToConsole]) {
+		if (driverFound == false) {
+			fprintf(stderr, "No matching drivers found.\n");
+		}
+	}
     
     return EXIT_SUCCESS;
 }
