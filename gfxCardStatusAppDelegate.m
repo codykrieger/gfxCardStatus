@@ -86,7 +86,52 @@
 	if ([defaults boolForKey:@"logToConsole"])
 		NSLog(@"Switching GPUs...");
 	
-	[switcher toggleGPU];
+	//[switcher toggleGPU];
+}
+
+- (IBAction)intelOnly:(id)sender {
+	if ([defaults boolForKey:@"logToConsole"])
+		NSLog(@"Setting Intel only...");
+	
+	NSInteger state = [intelOnly state];
+	
+	if (state == NSOffState) {
+		[switcher forceIntel];
+		
+		[intelOnly setState:NSOnState];
+		[nvidiaOnly setState:NSOffState];
+		[dynamicSwitching setState:NSOffState];
+	}
+}
+
+- (IBAction)nvidiaOnly:(id)sender {
+	if ([defaults boolForKey:@"logToConsole"])
+		NSLog(@"Setting Intel only...");
+	
+	NSInteger state = [nvidiaOnly state];
+	
+	if (state == NSOffState) {
+		[switcher forceNvidia];
+		
+		[intelOnly setState:NSOffState];
+		[nvidiaOnly setState:NSOnState];
+		[dynamicSwitching setState:NSOffState];
+	}
+}
+
+- (IBAction)enableDynamicSwitching:(id)sender {
+	if ([defaults boolForKey:@"logToConsole"])
+		NSLog(@"Setting Intel only...");
+	
+	NSInteger state = [dynamicSwitching state];
+	
+	if (state == NSOffState) {
+		[switcher dynamicSwitching];
+		
+		[intelOnly setState:NSOffState];
+		[nvidiaOnly setState:NSOffState];
+		[dynamicSwitching setState:NSOnState];
+	}
 }
 
 - (void)handleNotification:(NSNotification *)notification {

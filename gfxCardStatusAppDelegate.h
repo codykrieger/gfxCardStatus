@@ -26,6 +26,9 @@
 	IBOutlet NSMenuItem *currentSwitching;
 	IBOutlet NSMenuItem *toggleGPUs;
 	IBOutlet NSMenuItem *toggleSwitching;
+	IBOutlet NSMenuItem *intelOnly;
+	IBOutlet NSMenuItem *nvidiaOnly;
+	IBOutlet NSMenuItem *dynamicSwitching;
 	
 	// process list menu items
 	IBOutlet NSMenuItem *processesSeparator;
@@ -50,13 +53,16 @@
 }
 
 - (IBAction)updateStatus:(id)sender;
-- (IBAction)toggleGPU:(id)sender;
 - (IBAction)openPreferences:(id)sender;
 - (IBAction)savePreferences:(id)sender;
+- (IBAction)toggleGPU:(id)sender;
 - (IBAction)openAbout:(id)sender;
 - (IBAction)closeAbout:(id)sender;
 - (IBAction)openApplicationURL:(id)sender;
 - (IBAction)quit:(id)sender;
+- (IBAction)intelOnly:(id)sender;
+- (IBAction)nvidiaOnly:(id)sender;
+- (IBAction)enableDynamicSwitching:(id)sender;
 
 + (bool)canLogToConsole;
 

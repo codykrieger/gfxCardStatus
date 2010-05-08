@@ -13,9 +13,9 @@
 #import "gfxCardStatusAppDelegate.h"
 
 #define kDriverClassName "AppleGraphicsControl"
-#define kToggleGPUMode 0
-#define kToggleSwitchingMode 1
-#define kToggleGPUAndSwitchingMode 2
+#define kForceIntel 0
+#define kForceNvidia 1
+#define kEnableSwitchingMode 2
 
 // Stuff to look at:
 // nvram -p -> gpu_policy
@@ -40,12 +40,28 @@ enum {
 };
 
 enum SetMuxStates {
+    // See FeatureInfos
     SetDisableFeatureInfo,
     SetEnableFeatureInfo,
-    SetUnknown2, // Force Switch? 
-    SetPowerChangeGPU,
-    SetGpuSelect, // = Switching on/off with [2] = 0/1
-    SetSwitchPolicy // 0 = default, 2 = no dynamic switching, 3 = no dynamic stuck, others unsupported
+    SetForceSwitch, // Force Graphics Switch regardless of switching mode
+    SetPowerChangeGPU, // power down a gpu, pretty useless since you can't power down the igp and the dedicated gpu is powered down automatically
+    // The same as if you click the checkbox in systemsettings.app
+    SetGpuSelect, // = Dynamic Switching on/off with [2] = 0/1
+    // TODO: Test what happens on older mbps when switchpolicy = 0
+    // Changes if you're able to switch in systemsettings.app without logout
+    SetSwitchPolicy // 0 = dynamic switching, 2 = no dynamic switching, exactly like older mbp switching, 3 = no dynamic stuck, others unsupported
+};
+
+enum GetMuxStates {
+    GetFeatureInfo, // Returns a uint64_t with bits set according to FeatureInfos, 1=enabled
+    GetFeatureInfo2, // The same as GetFeatureInfo
+    Unknown, // always returns 0xdeadbeef
+    GetPoweredOnGPUs, // maybe returns powered on graphics cards, 0x8 = Intel, 0x88 = Nvidia (or probably both, since Intel never gets powered down?)
+    GetGpuSelect, // see SetMuxStates
+    GetSwitchPolicy, // see SetMuxStates, possibly inverted?
+    Unknown2, // always 0xdeadbeef
+    GetGraphicsCard, // returns active graphics card
+    Unknown3 // sometimes 0xffffffff, TODO: figure out what that means
 };
 
 enum FeatureInfos {
@@ -64,7 +80,8 @@ enum FeatureInfos {
     NumberFeatureInfos
 };
 
-char* getFeatureInfoName(int arg) {
+char* getFeatureInfoName(int arg)
+{
     switch (arg) {
         case Policy: return "Policy";
         case Auto_PowerDown_GPU: return "Auto_PowerDown_GPU";
@@ -82,79 +99,65 @@ char* getFeatureInfoName(int arg) {
     }
 }
 
-kern_return_t OpenDriverConnection(io_service_t service, io_connect_t *connect) {
+kern_return_t OpenDriverConnection(io_service_t service, io_connect_t *connect)
+{
     // This call will cause the user client to be instantiated. It returns an io_connect_t handle
     // that is used for all subsequent calls to the user client.
+    // Applications pass the bad-Bit (indicates they need the dedicated gpu here)
+    // as uint32_t type, 0 = no dedicated gpu, 1 = dedicated
     kern_return_t kernResult = IOServiceOpen(service, mach_task_self(), 0, connect);
     
     if (kernResult != KERN_SUCCESS) {
-		if ([gfxCardStatusAppDelegate canLogToConsole]) {
-			fprintf(stderr, "IOServiceOpen returned 0x%08x\n", kernResult);
-		}
+        fprintf(stderr, "IOServiceOpen returned 0x%08x\n", kernResult);
     }
     else {
         kern_return_t    kernResult;
         kernResult = IOConnectCallScalarMethod(*connect, kOpen, NULL, 0, NULL, NULL);
         return kernResult;
         
-		if ([gfxCardStatusAppDelegate canLogToConsole]) {
-			if (kernResult == KERN_SUCCESS) {
-				printf("OpenDriverConnection was successful.\n\n");
-			}
-			else {
-				fprintf(stderr, "OpenDriverConnection returned 0x%08x.\n\n", kernResult);
-			}
-		}
+        if (kernResult == KERN_SUCCESS) {
+            printf("OpenDriverConnection was successful.\n\n");
+        }
+        else {
+            fprintf(stderr, "OpenDriverConnection returned 0x%08x.\n\n", kernResult);
+        }
     }
     
     return kernResult;
 }
 
 
-void CloseDriverConnection(io_connect_t connect) {
+void CloseDriverConnection(io_connect_t connect)
+{
     kern_return_t    kernResult;
     kernResult = IOConnectCallScalarMethod(connect, kClose, NULL, 0, NULL, NULL);
     
-	if ([gfxCardStatusAppDelegate canLogToConsole]) {
-		if (kernResult == KERN_SUCCESS) {
-			printf("CloseDriverConnection was successful.\n\n");
-		}
-		else {
-			fprintf(stderr, "CloseDriverConnection returned 0x%08x.\n\n", kernResult);
-		}
-	}
+    if (kernResult == KERN_SUCCESS) {
+        printf("CloseDriverConnection was successful.\n\n");
+    }
+    else {
+        fprintf(stderr, "CloseDriverConnection returned 0x%08x.\n\n", kernResult);
+    }
     
     kernResult = IOServiceClose(connect);
     
-	if ([gfxCardStatusAppDelegate canLogToConsole]) {
-		if (kernResult == KERN_SUCCESS) {
-			printf("IOServiceClose was successful.\n\n");
-		}
-		else {
-			fprintf(stderr, "IOServiceClose returned 0x%08x\n\n", kernResult);
-		}
-	}
+    if (kernResult == KERN_SUCCESS) {
+        printf("IOServiceClose was successful.\n\n");
+    }
+    else {
+        fprintf(stderr, "IOServiceClose returned 0x%08x\n\n", kernResult);
+    }
 }
 
-kern_return_t getMuxState(io_connect_t connect, uint64_t *output) {
+kern_return_t getMuxState(io_connect_t connect, uint64_t input, uint64_t *output)
+{
     kern_return_t kernResult;
     
     uint64_t    scalarI_64[2];
     uint32_t    outputCount = 1; 
     
     scalarI_64[0] = 1; // Always 1 (kMuxControl?)
-    scalarI_64[1] = 0; // Feature Info
-    
-    // TODO: enum
-    // 0 or 1: getFeatureInfo
-    // 2: 0xdeadbeef
-    // 3: 0x8 for intel graphics, 0x88 for nvidia
-    // 4: 0x1: switching enabled 0x0: disabled
-    // 5: ?
-    // 6: 0xdeadbeef
-    // 7: 0x1: intel 0x0: nvidia
-    // 8: ???, 0xFFFFFFF when stuck in switching mode 3
-    // >8: deadbeef
+    scalarI_64[1] = input; // Feature Info
     
     kernResult = IOConnectCallScalarMethod(connect,                    // an io_connect_t returned from IOServiceOpen().
                                            kGetMuxState,            // selector of the function to be called via the user client.
@@ -164,21 +167,20 @@ kern_return_t getMuxState(io_connect_t connect, uint64_t *output) {
                                            &outputCount                // pointer to the number of scalar output values.
                                            );
     
-	if ([gfxCardStatusAppDelegate canLogToConsole]) {
-		if (kernResult == KERN_SUCCESS) {
-			printf("getMuxState was successful.\n");
-			printf("outputCount = %d\n", outputCount);
-			printf("resultNumber = 0x%08llx\n\n", *output);
-		}
-		else {
-			fprintf(stderr, "getMuxState returned 0x%08x.\n\n", kernResult);
-		}
-	}
+    if (kernResult == KERN_SUCCESS) {
+        printf("getMuxState was successful.\n");
+        printf("outputCount = %d\n", outputCount);
+        printf("resultNumber = 0x%08llx\n\n", *output);
+    }
+    else {
+        fprintf(stderr, "getMuxState returned 0x%08x.\n\n", kernResult);
+    }
     
     return kernResult;
 }
 
-void setMuxState(io_connect_t connect, enum SetMuxStates state, uint64_t arg) {
+void setMuxState(io_connect_t connect, enum SetMuxStates state, uint64_t arg)
+{
     kern_return_t kernResult;
     
     uint64_t    scalarI_64[3];
@@ -195,52 +197,68 @@ void setMuxState(io_connect_t connect, enum SetMuxStates state, uint64_t arg) {
                                            0                // pointer to the number of scalar output values.
                                            );
     
-	if ([gfxCardStatusAppDelegate canLogToConsole]) {
-		if (kernResult == KERN_SUCCESS) {
-			printf("setMuxState was successful.\n\n");
-		} else {
-			fprintf(stderr, "setMuxState returned 0x%08x.\n\n", kernResult);
-		}
-	}
+    if (kernResult == KERN_SUCCESS) {
+        printf("setMuxState was successful.\n\n");
+    }
+    else {
+        fprintf(stderr, "setMuxState returned 0x%08x.\n\n", kernResult);
+    }
 }
 
-void setFeatureInfoEnabled(io_connect_t connect, uint64_t feature, int enabled) {
+void setFeatureInfoEnabled(io_connect_t connect, uint64_t feature, int enabled)
+{
     if (enabled)
         setMuxState(connect, SetEnableFeatureInfo, 1<<feature);
     else 
         setMuxState(connect, SetDisableFeatureInfo, 1<<feature);
 }
 
-int getFeatureInfoEnabled(io_connect_t connect, uint64_t arg) {
+int getFeatureInfoEnabled(io_connect_t connect, uint64_t arg)
+{
     uint64_t featureInfo;
     featureInfo = 0;
-    getMuxState(connect, &featureInfo);
+    getMuxState(connect, GetFeatureInfo, &featureInfo);
     return ((1<<arg) & featureInfo) || 0;
 }
 
-void printFeatures(io_connect_t connect) {
+void printFeatures(io_connect_t connect)
+{
+    uint64_t featureInfo;
+    featureInfo = 0;
+    getMuxState(connect, GetFeatureInfo, &featureInfo);
     enum FeatureInfos f = Policy;
     for (; f < 19; f++) {
-        int featureEnabled = getFeatureInfoEnabled(connect, f);
-		if ([gfxCardStatusAppDelegate canLogToConsole]) {
-			printf("%s: %s\n", getFeatureInfoName(f), (featureEnabled ? "enabled" : "disabled"));
-		}
+        printf("%s: %s\n", getFeatureInfoName(f), (featureInfo & (1<<f) ? "enabled" : "disabled"));
     }
 }
 
-void setDynamicSwitchingEnabled(io_connect_t connect, int enabled) {
-    if (enabled)
+// arg = 2: user needs to logout before switching, arg = 0: instant switching
+void setSwitchPolicy(io_connect_t connect, int arg)
+{
+    if (arg)
         setMuxState(connect, SetSwitchPolicy, 0);
     else
         setMuxState(connect, SetSwitchPolicy, 2);
 }
 
-void forceSwitch(io_connect_t connect) {
-    setMuxState(connect, SetUnknown2, 0);
+// The same as clicking the checkbox in systemsettings.app
+void setDynamicSwitchingEnabled(io_connect_t connect, int enabled)
+{
+    if (enabled)
+        setMuxState(connect, SetGpuSelect, 1);
+    else
+        setMuxState(connect, SetGpuSelect, 0);
+}
+
+// switch graphic cards now regardless of switching mode
+void forceSwitch(io_connect_t connect)
+{
+    setMuxState(connect, SetForceSwitch, 0);
 }
 
 // ???
-void setExclusive(io_connect_t connect) {
+void setExclusive(io_connect_t connect)
+{
     kern_return_t kernResult;
     
     uint64_t    scalarI_64[1];
@@ -255,43 +273,101 @@ void setExclusive(io_connect_t connect) {
                                            0                // pointer to the number of scalar output values.
                                            );
     
-	if ([gfxCardStatusAppDelegate canLogToConsole]) {
-		if (kernResult == KERN_SUCCESS) {
-			printf("setExclusive was successful.\n\n");
-		}
-		else {
-			fprintf(stderr, "setExclusive returned 0x%08x.\n\n", kernResult);
-		}
-	}
+    if (kernResult == KERN_SUCCESS) {
+        printf("setExclusive was successful.\n\n");
+    }
+    else {
+        fprintf(stderr, "setExclusive returned 0x%08x.\n\n", kernResult);
+    }
 }
 
-void UseDevice(io_service_t service, int mode) {
+typedef struct StateStruct {
+    uint32_t field1[25]; // State Struct has to be 100 bytes long
+} StateStruct;
+
+void dumpState(io_connect_t connect)
+{
+    kern_return_t kernResult;
+    
+    StateStruct        stateStruct;
+    size_t            structSize = sizeof(StateStruct);
+    
+    kernResult = IOConnectCallMethod(connect,                        // an io_connect_t returned from IOServiceOpen().
+                                     kDumpState,                    // selector of the function to be called via the user client.
+                                     NULL,                            // array of scalar (64-bit) input values.
+                                     0,                                // the number of scalar input values.
+                                     NULL,                            // a pointer to the struct input parameter.
+                                     0,                                // the size of the input structure parameter.
+                                     NULL,                            // array of scalar (64-bit) output values.
+                                     NULL,                            // pointer to the number of scalar output values.
+                                     &stateStruct,                    // pointer to the struct output parameter.
+                                     &structSize                    // pointer to the size of the output structure parameter.
+                                     );
+    
+    // TODO: figure the meaning of the values in StateStruct out
+    
+    if (kernResult == KERN_SUCCESS) {
+        printf("setExclusive was successful.\n\n");
+    }
+    else {
+        fprintf(stderr, "setExclusive returned 0x%08x.\n\n", kernResult);
+    }
+}
+
+// returns 1 if nvidia is active and 0 if intel is active
+int getActiveCard(connect) {
+    uint64_t output;
+    getMuxState(connect, GetGraphicsCard, &output);
+    return !(output);
+}
+
+void setAlwaysIntel(connect) {
+    setDynamicSwitchingEnabled(connect, 0);
+    // Disable Policy, otherwise gpu switches to Nvidia after a bad app closes
+    setFeatureInfoEnabled(connect, Policy, 0);
+    sleep(1);
+    
+    if (getActiveCard(connect))
+        forceSwitch(connect);
+}
+
+void setAlwaysNvidia(connect) {
+    setDynamicSwitchingEnabled(connect, 0);
+    setFeatureInfoEnabled(connect, Policy, 0);
+    sleep(1);
+    
+    if (!getActiveCard(connect))
+        forceSwitch(connect);
+}
+
+void setDynamicSwitching(connect) {
+    setFeatureInfoEnabled(connect, Policy, 1);
+    setDynamicSwitchingEnabled(connect, 1);
+}
+
+void UseDevice(io_service_t service, int mode)
+{
     kern_return_t                kernResult;
     io_connect_t                connect;
-	
+    
     // Instantiate a connection to the user client.
     kernResult = OpenDriverConnection(service, &connect);
     
     if (connect != IO_OBJECT_NULL) {
-        // Do stuff
         
-        //setMuxState(connect);
-        //setExclusive(connect);
-        //getMuxState(connect);
-        
-        printFeatures(connect);
-        
-        // setFeatureInfoEnabled(connect, Logging, 1);
-        
-        // Disable automatic switching
-		if (mode == kToggleSwitchingMode || mode == kToggleGPUAndSwitchingMode)
-			setFeatureInfoEnabled(connect, Policy, 0);
-        
-        // Switch cards
-		if (mode == kToggleGPUMode || mode == kToggleGPUAndSwitchingMode)
-			forceSwitch(connect);
-        
-        // Close the user client and tear down the connection.
+		switch (mode)
+		{
+			case kForceIntel:
+				setAlwaysIntel(connect);
+				break;
+			case kForceNvidia:
+				setAlwaysNvidia(connect);
+				break;
+			case kEnableSwitchingMode:
+				setDynamicSwitching(connect);
+				break;
+		}
+
         CloseDriverConnection(connect);
     }
 }
@@ -307,40 +383,38 @@ int runSwitcher(int mode) {
     kernResult = IOServiceGetMatchingServices(kIOMasterPortDefault, IOServiceMatching(kDriverClassName), &iterator);
     
     if (kernResult != KERN_SUCCESS) {
-		if ([gfxCardStatusAppDelegate canLogToConsole]) {
-			fprintf(stderr, "IOServiceGetMatchingServices returned 0x%08x\n\n", kernResult);
-		}
+        fprintf(stderr, "IOServiceGetMatchingServices returned 0x%08x\n\n", kernResult);
         return -1;
     }
     
     while ((service = IOIteratorNext(iterator)) != IO_OBJECT_NULL) {
         driverFound = true;
-		if ([gfxCardStatusAppDelegate canLogToConsole]) {
-			printf("Found a device of class "kDriverClassName".\n\n");
-		}
-        UseDevice(service, mode);
+        printf("Found a device of class "kDriverClassName".\n\n");
+        UseDevice(service ,mode);
     }
     
     // Release the io_iterator_t now that we're done with it.
     IOObjectRelease(iterator);
     
-	if ([gfxCardStatusAppDelegate canLogToConsole]) {
-		if (driverFound == false) {
-			fprintf(stderr, "No matching drivers found.\n");
-		}
-	}
+    if (driverFound == false) {
+        fprintf(stderr, "No matching drivers found.\n");
+    }
     
     return EXIT_SUCCESS;
 }
 
 @implementation switcher
 
-+ (void)toggleGPU {
-	runSwitcher(kToggleGPUMode);
++ (void)forceIntel {
+	runSwitcher(kForceIntel);
 }
 
-+ (void)toggleSwitching {
-	runSwitcher(kToggleSwitchingMode);
++ (void)forceNvidia {
+	runSwitcher(kForceNvidia);
+}
+
++ (void)dynamicSwitching {
+	runSwitcher(kEnableSwitchingMode);
 }
 
 @end

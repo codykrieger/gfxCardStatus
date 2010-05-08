@@ -13,7 +13,8 @@
 
 }
 
-+ (void)toggleGPU;
-+ (void)toggleSwitching;
++ (void)forceIntel;
++ (void)forceNvidia;
++ (void)dynamicSwitching;
 
 @end
