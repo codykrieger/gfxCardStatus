@@ -12,8 +12,8 @@
 		</object>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="668"/>
 			<integer value="735"/>
+			<integer value="668"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -1388,7 +1388,7 @@
 					</object>
 					<object class="NSMenuItem" id="727656454">
 						<reference key="NSMenu" ref="38435637"/>
-						<string key="NSTitle">Switch GPUs</string>
+						<string key="NSTitle">Switch GPUs (experimental)</string>
 						<string key="NSKeyEquiv"/>
 						<int key="NSMnemonicLoc">2147483647</int>
 						<reference key="NSOnImage" ref="35465992"/>
@@ -1588,7 +1588,7 @@
 			<object class="NSWindowTemplate" id="204667710">
 				<int key="NSWindowStyleMask">257</int>
 				<int key="NSWindowBacking">2</int>
-				<string key="NSWindowRect">{{780, 431}, {359, 376}}</string>
+				<string key="NSWindowRect">{{780, 414}, {359, 393}}</string>
 				<int key="NSWTFlags">1685586944</int>
 				<string key="NSWindowTitle">About gfxCardStatus</string>
 				<string key="NSWindowClass">NSWindow</string>
@@ -1622,13 +1622,13 @@
 						<object class="NSTextField" id="449800622">
 							<reference key="NSNextResponder" ref="1044176912"/>
 							<int key="NSvFlags">268</int>
-							<string key="NSFrame">{{17, 50}, {325, 306}}</string>
+							<string key="NSFrame">{{17, 50}, {325, 323}}</string>
 							<reference key="NSSuperview" ref="1044176912"/>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSTextFieldCell" key="NSCell" id="243128479">
 								<int key="NSCellFlags">67239424</int>
 								<int key="NSCellFlags2">138412032</int>
-								<string key="NSContents">gfxCardStatus  © 2010 Cody Krieger http://codykrieger.com/gfxCardStatus/  GPU switching is made possible by code from "ah-" of the MacRumors Forums. This code is © 2010 "ah-"  OBLIGATORY DISCLAIMER: I, Cody Krieger, and all of my associated parties, assume no responsibility for any harm the GPU switching features may or may not cause to your computer. These features have been thoroughly tested and have caused no adverse effects to date.  Please report any and all issues to cody@codykrieger.com - thanks!</string>
+								<string key="NSContents">gfxCardStatus  © 2010 Cody Krieger http://codykrieger.com/gfxCardStatus/  GPU switching is made possible by code from ah of the MacRumors Forums. GPU switching code is © 2010 ah  DISCLAIMER: I, and all of my associated parties, assume no responsibility for any harm the GPU switching features may or may not cause to your computer or your data. These features have been thoroughly tested and have been known to cause a few minor (temporary) issues. Use at your own risk.  Please report any and all issues to cody@codykrieger.com - thanks!</string>
 								<object class="NSFont" key="NSSupport">
 									<string key="NSName">LucidaGrande</string>
 									<double key="NSSize">13</double>
@@ -1656,7 +1656,7 @@
 							</object>
 						</object>
 					</object>
-					<string key="NSFrameSize">{359, 376}</string>
+					<string key="NSFrameSize">{359, 393}</string>
 					<reference key="NSSuperview"/>
 				</object>
 				<string key="NSScreenRect">{{0, 0}, {1920, 1178}}</string>
@@ -4346,9 +4346,9 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="1"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{784, 538}, {359, 376}}</string>
+					<string>{{784, 521}, {359, 393}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{784, 538}, {359, 376}}</string>
+					<string>{{784, 521}, {359, 393}}</string>
 					<boolean value="NO"/>
 					<boolean value="NO"/>
 					<boolean value="NO"/>
