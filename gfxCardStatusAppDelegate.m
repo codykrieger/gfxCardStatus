@@ -8,7 +8,6 @@
 
 #import "gfxCardStatusAppDelegate.h"
 #import "systemProfiler.h"
-#import "JSON.h"
 #import "switcher.h"
 
 @implementation gfxCardStatusAppDelegate
@@ -52,7 +51,7 @@
 	
 	// stick cfbundleversion into the topmost menu item
 	NSString *version = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"];
-	[versionItem setTitle:[NSString stringWithFormat: @"gfxCardStatus, v%@", version]];
+	[versionItem setTitle:[NSString stringWithFormat: @"About gfxCardStatus, v%@", version]];
 	
 	// set initial process list value
 	[processList setTitle:@"None"];
@@ -84,6 +83,9 @@
 }
 
 - (IBAction)toggleGPU:(id)sender {
+	if ([defaults boolForKey:@"logToConsole"])
+		NSLog(@"Switching GPUs...");
+	
 	[switcher toggleGPU];
 }
 
@@ -99,11 +101,13 @@
 	[self performSelector:@selector(updateProcessList)];
 }
 
+- (void)setDependencyListVisibility:(NSNumber *)visible {
+	[processList setHidden:![visible boolValue]];
+	[processesSeparator setHidden:![visible boolValue]];
+	[dependentProcesses setHidden:![visible boolValue]];
+}
+
 - (void)updateProcessList {
-	// reset process list
-	[processList setTitle:@"None"];
-	[processList setHidden:NO];
-	
 	NSMutableArray *itemsToRemove = [[NSMutableArray alloc] init];
 	
 	for (NSMenuItem *mi in [statusMenu itemArray]) {
@@ -121,6 +125,10 @@
 	
 	// if we're on intel, no need to update the list
 	if (!usingIntel) {
+		// reset and show process list
+		[self performSelector:@selector(setDependencyListVisibility:) withObject:[NSNumber numberWithBool:YES]];
+		[processList setTitle:@"None"];
+		
 		NSString *cmd = @"/bin/ps cx -o \"pid command\" | /usr/bin/egrep $(echo ${$(/usr/sbin/ioreg -l | /usr/bin/grep task-list | /usr/bin/sed -e 's/(//' | /usr/bin/sed -e 's/)//' | /usr/bin/awk ' { print $6 }')//','/'|'})";
 		
 		NSTask *task = [[NSTask alloc] init];
@@ -166,9 +174,6 @@
 					NSMutableString *appName = [[NSMutableString alloc] initWithString:@""];
 					if ([processInfo count] > 1) {
 						
-						if ([defaults boolForKey:@"logToConsole"])
-							NSLog(@"Setting title to last few objects concatenated together in array: %@", processInfo);
-						
 						if ([processInfo count] >= 3) {
 							BOOL hitProcessId = NO;
 							for (NSString *s in processInfo) {
@@ -184,7 +189,6 @@
 							[appName appendFormat:@"%@", [processInfo objectAtIndex:1]];
 						}
 						
-						//[processList setTitle:[NSString stringWithFormat:@"\n%@", appName]];
 						[processList setHidden:YES];
 						
 						NSMenuItem *newItem = [[NSMenuItem alloc] initWithTitle:appName action:nil keyEquivalent:@""];
@@ -195,12 +199,15 @@
 				}
 			}
 		}
+	} else {
+		[self performSelector:@selector(setDependencyListVisibility:) withObject:[NSNumber numberWithBool:NO]];
 	}
+
 }
 
 - (void)updateMenuBarIcon {
 	if ([defaults boolForKey:@"logToConsole"])
-		NSLog(@"update called");
+		NSLog(@"Updating status...");
 	if ([systemProfiler isUsingIntegratedGraphics]) {
 		[statusItem setImage:[NSImage imageNamed:@"intel-3.png"]];
 		[currentCard setTitle:@"Card: Intel® HD Graphics"];
@@ -246,8 +253,27 @@
 	[preferencesWindow close];
 }
 
+- (IBAction)openAbout:(id)sender {
+	// open window and force to the front
+	[aboutWindow makeKeyAndOrderFront:nil];
+	[aboutWindow orderFrontRegardless];
+	[aboutWindow center];
+}
+
+- (IBAction)closeAbout:(id)sender {
+	[aboutWindow close];
+}
+
 - (IBAction)openApplicationURL:(id)sender {
 	[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"http://codykrieger.com/gfxCardStatus/"]];
+}
+
++ (bool)canLogToConsole {
+	NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+	if ([userDefaults boolForKey:@"logToConsole"])
+		return true;
+	else
+		return false;
 }
 
 - (IBAction)quit:(id)sender {

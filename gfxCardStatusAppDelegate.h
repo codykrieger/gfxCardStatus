@@ -26,11 +26,14 @@
 	IBOutlet NSMenuItem *currentSwitching;
 	IBOutlet NSMenuItem *toggleGPUs;
 	IBOutlet NSMenuItem *toggleSwitching;
+	
+	// process list menu items
 	IBOutlet NSMenuItem *processesSeparator;
 	IBOutlet NSMenuItem *dependentProcesses;
 	IBOutlet NSMenuItem *processList;
 	
-	// preferences window and its controls
+	// preferences & about window and their controls
+	IBOutlet NSWindow *aboutWindow;
 	IBOutlet NSWindow *preferencesWindow;
 	IBOutlet NSButton *checkForUpdatesOnLaunch;
 	IBOutlet NSButton *useGrowl;
@@ -50,8 +53,12 @@
 - (IBAction)toggleGPU:(id)sender;
 - (IBAction)openPreferences:(id)sender;
 - (IBAction)savePreferences:(id)sender;
+- (IBAction)openAbout:(id)sender;
+- (IBAction)closeAbout:(id)sender;
 - (IBAction)openApplicationURL:(id)sender;
 - (IBAction)quit:(id)sender;
+
++ (bool)canLogToConsole;
 
 @property (assign) IBOutlet NSWindow *window;
 
