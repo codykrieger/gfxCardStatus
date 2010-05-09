@@ -106,7 +106,7 @@
 
 - (IBAction)nvidiaOnly:(id)sender {
 	if ([defaults boolForKey:@"logToConsole"])
-		NSLog(@"Setting Intel only...");
+		NSLog(@"Setting NVIDIA only...");
 	
 	NSInteger state = [nvidiaOnly state];
 	
@@ -121,7 +121,7 @@
 
 - (IBAction)enableDynamicSwitching:(id)sender {
 	if ([defaults boolForKey:@"logToConsole"])
-		NSLog(@"Setting Intel only...");
+		NSLog(@"Setting dynamic switching...");
 	
 	NSInteger state = [dynamicSwitching state];
 	
