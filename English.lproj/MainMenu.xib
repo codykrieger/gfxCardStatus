@@ -1366,15 +1366,6 @@
 						<reference key="NSOnImage" ref="35465992"/>
 						<reference key="NSMixedImage" ref="502551668"/>
 					</object>
-					<object class="NSMenuItem" id="25308205">
-						<reference key="NSMenu" ref="38435637"/>
-						<bool key="NSIsHidden">YES</bool>
-						<string key="NSTitle">currentSwitching</string>
-						<string key="NSKeyEquiv"/>
-						<int key="NSMnemonicLoc">2147483647</int>
-						<reference key="NSOnImage" ref="35465992"/>
-						<reference key="NSMixedImage" ref="502551668"/>
-					</object>
 					<object class="NSMenuItem" id="565977072">
 						<reference key="NSMenu" ref="38435637"/>
 						<bool key="NSIsDisabled">YES</bool>
@@ -1389,26 +1380,6 @@
 						<reference key="NSMenu" ref="38435637"/>
 						<bool key="NSIsHidden">YES</bool>
 						<string key="NSTitle">Switch GPUs (experimental)</string>
-						<string key="NSKeyEquiv"/>
-						<int key="NSMnemonicLoc">2147483647</int>
-						<reference key="NSOnImage" ref="35465992"/>
-						<reference key="NSMixedImage" ref="502551668"/>
-					</object>
-					<object class="NSMenuItem" id="106614449">
-						<reference key="NSMenu" ref="38435637"/>
-						<bool key="NSIsHidden">YES</bool>
-						<string key="NSTitle">Toggle Automatic Switching</string>
-						<string key="NSKeyEquiv"/>
-						<int key="NSMnemonicLoc">2147483647</int>
-						<reference key="NSOnImage" ref="35465992"/>
-						<reference key="NSMixedImage" ref="502551668"/>
-					</object>
-					<object class="NSMenuItem" id="614672437">
-						<reference key="NSMenu" ref="38435637"/>
-						<bool key="NSIsDisabled">YES</bool>
-						<bool key="NSIsSeparator">YES</bool>
-						<bool key="NSIsHidden">YES</bool>
-						<string key="NSTitle"/>
 						<string key="NSKeyEquiv"/>
 						<int key="NSMnemonicLoc">2147483647</int>
 						<reference key="NSOnImage" ref="35465992"/>
@@ -2523,14 +2494,6 @@
 						<reference key="destination" ref="727656454"/>
 					</object>
 					<int key="connectionID">731</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
-						<string key="label">toggleSwitching</string>
-						<reference key="source" ref="976324537"/>
-						<reference key="destination" ref="106614449"/>
-					</object>
-					<int key="connectionID">732</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
@@ -3657,13 +3620,10 @@
 							<reference ref="895611033"/>
 							<reference ref="576663025"/>
 							<reference ref="565977072"/>
-							<reference ref="727656454"/>
-							<reference ref="106614449"/>
-							<reference ref="25308205"/>
-							<reference ref="614672437"/>
 							<reference ref="844693468"/>
 							<reference ref="611098486"/>
 							<reference ref="1023494607"/>
+							<reference ref="727656454"/>
 						</object>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -3820,16 +3780,6 @@
 						<reference key="parent" ref="38435637"/>
 					</object>
 					<object class="IBObjectRecord">
-						<int key="objectID">729</int>
-						<reference key="object" ref="106614449"/>
-						<reference key="parent" ref="38435637"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">730</int>
-						<reference key="object" ref="25308205"/>
-						<reference key="parent" ref="38435637"/>
-					</object>
-					<object class="IBObjectRecord">
 						<int key="objectID">734</int>
 						<reference key="object" ref="204667710"/>
 						<object class="NSMutableArray" key="children">
@@ -3875,11 +3825,6 @@
 						<int key="objectID">751</int>
 						<reference key="object" ref="243128479"/>
 						<reference key="parent" ref="449800622"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">755</int>
-						<reference key="object" ref="614672437"/>
-						<reference key="parent" ref="38435637"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">756</int>
@@ -4154,10 +4099,8 @@
 					<string>72.ImportedFromIB2</string>
 					<string>722.IBPluginDependency</string>
 					<string>723.IBPluginDependency</string>
-					<string>729.IBPluginDependency</string>
 					<string>73.IBPluginDependency</string>
 					<string>73.ImportedFromIB2</string>
-					<string>730.IBPluginDependency</string>
 					<string>734.IBEditorWindowLastContentRect</string>
 					<string>734.IBPluginDependency</string>
 					<string>734.IBWindowTemplateEditedContentRect</string>
@@ -4175,7 +4118,6 @@
 					<string>75.ImportedFromIB2</string>
 					<string>750.IBPluginDependency</string>
 					<string>751.IBPluginDependency</string>
-					<string>755.IBPluginDependency</string>
 					<string>756.IBPluginDependency</string>
 					<string>759.IBPluginDependency</string>
 					<string>760.IBPluginDependency</string>
@@ -4409,7 +4351,7 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{605, 320}, {269, 353}}</string>
+					<string>{{971, 574}, {269, 303}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -4453,9 +4395,7 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="1"/>
-					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>{{585, 118}, {359, 393}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>{{585, 118}, {359, 393}}</string>
@@ -4471,7 +4411,6 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="1"/>
-					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>

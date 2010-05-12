@@ -50,6 +50,10 @@
 	BOOL usingIntel;
 	BOOL alwaysIntel;
 	BOOL alwaysNvidia;
+	BOOL usingLate08Or09;
+	
+	NSString *integratedString;
+	NSString *discreteString;
 }
 
 - (IBAction)updateStatus:(id)sender;
@@ -63,6 +67,7 @@
 - (IBAction)intelOnly:(id)sender;
 - (IBAction)nvidiaOnly:(id)sender;
 - (IBAction)enableDynamicSwitching:(id)sender;
+- (void)setUsingLate08Or09Model:(NSNumber *)value;
 
 + (bool)canLogToConsole;
 

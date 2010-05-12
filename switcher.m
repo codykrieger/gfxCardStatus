@@ -333,13 +333,13 @@ void dumpState(io_connect_t connect)
 }
 
 // returns 1 if nvidia is active and 0 if intel is active
-int getActiveCard(connect) {
+int getActiveCard(io_connect_t connect) {
     uint64_t output;
     getMuxState(connect, GetGraphicsCard, &output);
     return !(output);
 }
 
-void setAlwaysIntel(connect) {
+void setAlwaysIntel(io_connect_t connect) {
     setDynamicSwitchingEnabled(connect, 0);
     // Disable Policy, otherwise gpu switches to Nvidia after a bad app closes
     setFeatureInfoEnabled(connect, Policy, 0);
@@ -349,7 +349,7 @@ void setAlwaysIntel(connect) {
         forceSwitch(connect);
 }
 
-void setAlwaysNvidia(connect) {
+void setAlwaysNvidia(io_connect_t connect) {
     setDynamicSwitchingEnabled(connect, 0);
     setFeatureInfoEnabled(connect, Policy, 0);
     sleep(1);
@@ -358,7 +358,7 @@ void setAlwaysNvidia(connect) {
         forceSwitch(connect);
 }
 
-void setDynamicSwitching(connect) {
+void setDynamicSwitching(io_connect_t connect) {
     setFeatureInfoEnabled(connect, Policy, 1);
     setDynamicSwitchingEnabled(connect, 1);
 }

@@ -73,6 +73,10 @@
 	alwaysIntel = NO;
 	alwaysNvidia = NO;
 	
+	usingLate08Or09 = NO;
+	integratedString = @"Intel® HD Graphics";
+	discreteString = @"NVIDIA® GeForce GT 330M";
+	
 	canGrowl = NO;
 	[self performSelector:@selector(updateMenuBarIcon)];
 	canGrowl = YES;
@@ -165,11 +169,11 @@
 		[statusMenu removeItem:mi];
 	}
 	
-	if ([defaults boolForKey:@"logToConsole"])
-		NSLog(@"Updating process list...");
-	
-	// if we're on intel, no need to update the list
-	if (!usingIntel) {
+	// if we're on intel (or using a 9400M/9600M GT model), no need to update the list
+	if (!usingIntel && !usingLate08Or09) {
+		if ([defaults boolForKey:@"logToConsole"])
+			NSLog(@"Updating process list...");
+		
 		// reset and show process list
 		[self performSelector:@selector(setDependencyListVisibility:) withObject:[NSNumber numberWithBool:YES]];
 		[processList setTitle:@"None"];
@@ -253,25 +257,42 @@
 - (void)updateMenuBarIcon {
 	if ([defaults boolForKey:@"logToConsole"])
 		NSLog(@"Updating status...");
-	if ([systemProfiler isUsingIntegratedGraphics]) {
+	if ([systemProfiler isUsingIntegratedGraphics:self]) {
 		[statusItem setImage:[NSImage imageNamed:@"intel-3.png"]];
-		[currentCard setTitle:@"Card: Intel® HD Graphics"];
+		[currentCard setTitle:[NSString stringWithFormat:@"Card: %@", integratedString]];
 		if ([defaults boolForKey:@"logToConsole"])
-			NSLog(@"Intel® HD Graphics are in use. Sweet deal! More battery life.");
+			NSLog(@"%@ in use. Sweet deal! More battery life.", integratedString);
 		if ([defaults boolForKey:@"useGrowl"] && canGrowl && !usingIntel)
-			[GrowlApplicationBridge notifyWithTitle:@"GPU changed" description:@"Intel® HD Graphics now in use." notificationName:@"switchedToIntel" iconData:nil priority:0 isSticky:NO clickContext:nil];
+			[GrowlApplicationBridge notifyWithTitle:@"GPU changed" description:[NSString stringWithFormat:@"%@ now in use.", integratedString] notificationName:@"switchedToIntegrated" iconData:nil priority:0 isSticky:NO clickContext:nil];
 		usingIntel = YES;
-		[processList setTitle:@"None"];
 	} else {
 		[statusItem setImage:[NSImage imageNamed:@"nvidia-3.png"]];
-		[currentCard setTitle:@"Card: NVIDIA® GeForce GT 330M"];
+		[currentCard setTitle:[NSString stringWithFormat:@"Card: %@", discreteString]];
 		if ([defaults boolForKey:@"logToConsole"])
-			NSLog(@"NVIDIA® GeForce GT 330M is in use. Bummer! No battery life for you.");
+			NSLog(@"%@ in use. Bummer! No battery life for you.", discreteString);
 		if ([defaults boolForKey:@"useGrowl"] && canGrowl && usingIntel)
-			[GrowlApplicationBridge notifyWithTitle:@"GPU changed" description:@"NVIDIA® GeForce GT 330M graphics now in use." notificationName:@"switchedToNvidia" iconData:nil priority:0 isSticky:NO clickContext:nil];
+			[GrowlApplicationBridge notifyWithTitle:@"GPU changed" description:[NSString stringWithFormat:@"%@ now in use.", discreteString] notificationName:@"switchedToDiscrete" iconData:nil priority:0 isSticky:NO clickContext:nil];
 		usingIntel = NO;
 		[self performSelector:@selector(updateProcessList)];
 	}
+}
+
+- (void)setUsingLate08Or09Model:(NSNumber *)value {
+	usingLate08Or09 = [value boolValue];
+	[self performSelector:@selector(setDependencyListVisibility:) withObject:[NSNumber numberWithBool:![value boolValue]]];
+	[toggleGPUs setHidden:![value boolValue]];
+	[intelOnly setHidden:[value boolValue]];
+	[nvidiaOnly setHidden:[value boolValue]];
+	[dynamicSwitching setHidden:[value boolValue]];
+	
+	if ([value boolValue]) {
+		integratedString = @"NVIDIA® GeForce 9400M";
+		discreteString = @"NVIDIA® GeForce 9600M GT";
+	} else {
+		integratedString = @"Intel® HD Graphics";
+		discreteString = @"NVIDIA® GeForce GT 330M";
+	}
+
 }
 
 - (NSDictionary *)registrationDictionaryForGrowl {

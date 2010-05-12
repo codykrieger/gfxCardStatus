@@ -10,9 +10,9 @@
 
 
 @interface systemProfiler : NSObject {
-
+	
 }
 
-+ (BOOL)isUsingIntegratedGraphics;
++ (BOOL)isUsingIntegratedGraphics:(id)sender;
 
 @end

@@ -11,7 +11,7 @@
 
 @implementation systemProfiler
 
-+ (BOOL)isUsingIntegratedGraphics {
++ (BOOL)isUsingIntegratedGraphics:(id)sender {
 	NSTask *task = [[NSTask alloc] init];
 	[task setLaunchPath:@"/usr/sbin/system_profiler"];
 	[task setArguments:[NSArray arrayWithObject:@"SPDisplaysDataType"]];
@@ -105,15 +105,19 @@
 	//NSLog(@"dict!:\n%@", dict);
 	
 	NSDictionary *graphics = (NSDictionary *)[dict objectForKey:@"Graphics/Displays"];
-	NSDictionary *intel = (NSDictionary *)[graphics objectForKey:@"Intel HD Graphics"];
-	//NSDictionary *nvidia = (NSDictionary *)[graphics objectForKey:@"NVIDIA GeForce GT 330M"];
-	NSDictionary *intelDisplays = (NSDictionary *)[intel objectForKey:@"Displays"];
-	//NSDictionary *nvidiaDisplays = (NSDictionary *)[nvidia objectForKey:@"Displays"];
+	NSDictionary *integrated = (NSDictionary *)[graphics objectForKey:@"Intel HD Graphics"];
+	if ([integrated isEqual:nil]) {
+		integrated = (NSDictionary *)[graphics objectForKey:@"NVIDIA GeForce 9400M"];
+	}
+	NSDictionary *integratedDisplays = (NSDictionary *)[integrated objectForKey:@"Displays"];
+	
+	//NSDictionary *discrete = (NSDictionary *)[graphics objectForKey:@"NVIDIA GeForce GT 330M"];
+	//NSDictionary *discreteDisplays = (NSDictionary *)[discrete objectForKey:@"Displays"];
 	
 	BOOL retval = NO;
 	
-	for (NSString *key in [intelDisplays allKeys]) {
-		NSDictionary *tempDict = (NSDictionary *)[intelDisplays objectForKey:key];
+	for (NSString *key in [integratedDisplays allKeys]) {
+		NSDictionary *tempDict = (NSDictionary *)[integratedDisplays objectForKey:key];
 		
 		for (NSString *otherKey in [tempDict allKeys]) {
 			if ([(NSString *)[tempDict objectForKey:otherKey] isEqualToString:@"No Display Connected"]) {
