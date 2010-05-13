@@ -65,7 +65,7 @@
 	[processList setTitle:@"None"];
 	
 	NSNotificationCenter *defaultNotifications = [NSNotificationCenter defaultCenter];
-	[defaultNotifications addObserver:self selector:@selector(handleNotification:)
+	[defaultNotifications addObserver:self selector:@selector(handleChangeScreenParametersNotification:)
 								   name:NSApplicationDidChangeScreenParametersNotification object:nil];
 	
 	// bool to identify the current gfx card without having to parse terminal output again
@@ -89,14 +89,14 @@
 }
 
 - (IBAction)toggleGPU:(id)sender {
-	if ([defaults boolForKey:@"logToConsole"])
+	if ([gfxCardStatusAppDelegate canLogToConsole])
 		NSLog(@"Switching GPUs...");
 	
 	[switcher toggleGPU];
 }
 
 - (IBAction)intelOnly:(id)sender {
-	if ([defaults boolForKey:@"logToConsole"])
+	if ([gfxCardStatusAppDelegate canLogToConsole])
 		NSLog(@"Setting Intel only...");
 	
 	NSInteger state = [intelOnly state];
@@ -111,7 +111,7 @@
 }
 
 - (IBAction)nvidiaOnly:(id)sender {
-	if ([defaults boolForKey:@"logToConsole"])
+	if ([gfxCardStatusAppDelegate canLogToConsole])
 		NSLog(@"Setting NVIDIA only...");
 	
 	NSInteger state = [nvidiaOnly state];
@@ -126,7 +126,7 @@
 }
 
 - (IBAction)enableDynamicSwitching:(id)sender {
-	if ([defaults boolForKey:@"logToConsole"])
+	if ([gfxCardStatusAppDelegate canLogToConsole])
 		NSLog(@"Setting dynamic switching...");
 	
 	NSInteger state = [dynamicSwitching state];
@@ -140,8 +140,8 @@
 	}
 }
 
-- (void)handleNotification:(NSNotification *)notification {
-	if ([defaults boolForKey:@"logToConsole"])
+- (void)handleChangeScreenParametersNotification:(NSNotification *)notification {
+	if ([gfxCardStatusAppDelegate canLogToConsole])
 		NSLog(@"The following notification has been triggered:\n%@", notification);
 	
 	[self performSelector:@selector(updateMenuBarIcon)];
@@ -173,7 +173,7 @@
 	
 	// if we're on intel (or using a 9400M/9600M GT model), no need to update the list
 	if (!usingIntegrated && !usingLate08Or09) {
-		if ([defaults boolForKey:@"logToConsole"])
+		if ([gfxCardStatusAppDelegate canLogToConsole])
 			NSLog(@"Updating process list...");
 		
 		// reset and show process list
@@ -200,7 +200,7 @@
 		
 		if ([output hasPrefix:@"Usage:"]) {
 			
-			if ([defaults boolForKey:@"logToConsole"])
+			if ([gfxCardStatusAppDelegate canLogToConsole])
 				NSLog(@"Something's up...we're using the NVIDIA® card, but there are no processes in the task-list.");
 			
 		} else {
@@ -208,7 +208,7 @@
 			output = [output stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
 			if ([output length] == 0) {
 				
-				if ([defaults boolForKey:@"logToConsole"])
+				if ([gfxCardStatusAppDelegate canLogToConsole])
 					NSLog(@"Something's up...we're using the NVIDIA® card, and there are processes in the task-list, but there is no output.");
 				
 			} else {
@@ -261,20 +261,28 @@
 }
 
 - (void)updateMenuBarIcon {
-	if ([defaults boolForKey:@"logToConsole"])
+	if ([gfxCardStatusAppDelegate canLogToConsole])
 		NSLog(@"Updating status...");
 	if ([systemProfiler isUsingIntegratedGraphics:self]) {
 		[statusItem setImage:[NSImage imageNamed:@"intel-3.png"]];
 		[currentCard setTitle:[NSString stringWithFormat:@"Card: %@", integratedString]];
-		if ([defaults boolForKey:@"logToConsole"])
+		if ([gfxCardStatusAppDelegate canLogToConsole])
 			NSLog(@"%@ in use. Sweet deal! More battery life.", integratedString);
 		if ([defaults boolForKey:@"useGrowl"] && canGrowl && !usingIntegrated)
 			[GrowlApplicationBridge notifyWithTitle:@"GPU changed" description:[NSString stringWithFormat:@"%@ now in use.", integratedString] notificationName:@"switchedToIntegrated" iconData:nil priority:0 isSticky:NO clickContext:nil];
 		usingIntegrated = YES;
 	} else {
+		// ensure correct GPU is in use if intel only mode is in use
+		if ([intelOnly state] > 0) {
+			if ([gfxCardStatusAppDelegate canLogToConsole])
+				NSLog(@"Bad OS X! It switched back to the 330M without our permission. Switching back...");
+			[switcher forceIntel];
+			return;
+		}
+		
 		[statusItem setImage:[NSImage imageNamed:@"nvidia-3.png"]];
 		[currentCard setTitle:[NSString stringWithFormat:@"Card: %@", discreteString]];
-		if ([defaults boolForKey:@"logToConsole"])
+		if ([gfxCardStatusAppDelegate canLogToConsole])
 			NSLog(@"%@ in use. Bummer! No battery life for you.", discreteString);
 		if ([defaults boolForKey:@"useGrowl"] && canGrowl && usingIntegrated)
 			[GrowlApplicationBridge notifyWithTitle:@"GPU changed" description:[NSString stringWithFormat:@"%@ now in use.", discreteString] notificationName:@"switchedToDiscrete" iconData:nil priority:0 isSticky:NO clickContext:nil];
@@ -358,14 +366,14 @@
 			if ([[(NSURL *)thePath path] hasSuffix:@"gfxCardStatus.app"]) {
 				exists = YES;
 				removeItem = (LSSharedFileListItemRef)item;
-				if ([defaults boolForKey:@"logToConsole"])
+				if ([gfxCardStatusAppDelegate canLogToConsole])
 					NSLog(@"Already exists in startup items.");
 			}
 		}
 	}
 	
 	if (value && !exists) {
-		if ([defaults boolForKey:@"logToConsole"])
+		if ([gfxCardStatusAppDelegate canLogToConsole])
 			NSLog(@"Adding to startup items.");
 		
 		LSSharedFileListItemRef item = LSSharedFileListInsertItemURL(loginItems, kLSSharedFileListItemLast, NULL, NULL, thePath, NULL, NULL);
@@ -373,7 +381,7 @@
 		if (item)
 			CFRelease(item);
 	} else if (!value && exists) {
-		if ([defaults boolForKey:@"logToConsole"])
+		if ([gfxCardStatusAppDelegate canLogToConsole])
 			NSLog(@"Removing from startup items.");
 		
 		LSSharedFileListItemRemove(loginItems, removeItem);
