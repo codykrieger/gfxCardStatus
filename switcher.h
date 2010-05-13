@@ -16,5 +16,6 @@
 + (void)forceIntel;
 + (void)forceNvidia;
 + (void)dynamicSwitching;
++ (void)toggleGPU;
 
 @end

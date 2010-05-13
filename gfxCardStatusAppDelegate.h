@@ -41,13 +41,14 @@
 	IBOutlet NSButton *checkForUpdatesOnLaunch;
 	IBOutlet NSButton *useGrowl;
 	IBOutlet NSButton *logToConsole;
+	IBOutlet NSButton *loadAtStartup;
 	
 	// defaults for all!
 	NSUserDefaults *defaults;
 	
 	// some basic status indicator bools
 	BOOL canGrowl;
-	BOOL usingIntel;
+	BOOL usingIntegrated;
 	BOOL alwaysIntel;
 	BOOL alwaysNvidia;
 	BOOL usingLate08Or09;
@@ -68,6 +69,7 @@
 - (IBAction)nvidiaOnly:(id)sender;
 - (IBAction)enableDynamicSwitching:(id)sender;
 - (void)setUsingLate08Or09Model:(NSNumber *)value;
+- (void)shouldLoadAtStartup:(BOOL)value;
 
 + (bool)canLogToConsole;
 

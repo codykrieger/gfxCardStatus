@@ -16,6 +16,7 @@
 #define kForceIntel 0
 #define kForceNvidia 1
 #define kEnableSwitchingMode 2
+#define kToggleGPUMode 3
 
 // Stuff to look at:
 // nvram -p -> gpu_policy
@@ -363,6 +364,10 @@ void setDynamicSwitching(io_connect_t connect) {
     setDynamicSwitchingEnabled(connect, 1);
 }
 
+void toggleCard(io_connect_t connect) {
+	forceSwitch(connect);
+}
+
 void UseDevice(io_service_t service, int mode)
 {
     kern_return_t                kernResult;
@@ -383,6 +388,9 @@ void UseDevice(io_service_t service, int mode)
 				break;
 			case kEnableSwitchingMode:
 				setDynamicSwitching(connect);
+				break;
+			case kToggleGPUMode:
+				toggleCard(connect);
 				break;
 		}
 
@@ -412,7 +420,7 @@ int runSwitcher(int mode) {
 		if ([gfxCardStatusAppDelegate canLogToConsole]) {
 			printf("Found a device of class "kDriverClassName".\n\n");
 		}
-        UseDevice(service ,mode);
+        UseDevice(service, mode);
     }
     
     // Release the io_iterator_t now that we're done with it.
@@ -439,6 +447,10 @@ int runSwitcher(int mode) {
 
 + (void)dynamicSwitching {
 	runSwitcher(kEnableSwitchingMode);
+}
+
++ (void)toggleGPU {
+	runSwitcher(kToggleGPUMode);
 }
 
 @end

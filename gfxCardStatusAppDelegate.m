@@ -29,6 +29,14 @@
 		[defaults setBool:NO forKey:@"logToConsole"];
 	}
 	
+	// added for v1.7...not used yet
+	if ( ! [defaults integerForKey:@"hasRun1.7"]) {
+		[defaults setBool:YES forKey:@"hasRun1.7"];
+		[defaults setBool:YES forKey:@"loadAtStartup"];
+		//[self shouldLoadAtStartup:YES];
+		[defaults setInteger:3 forKey:@"lastGPUSetting"];
+	}
+	
 	// check for updates if user has them enabled
 	if ([defaults boolForKey:@"checkForUpdatesOnLaunch"]) {
 		[updater checkForUpdatesInBackground];
@@ -56,18 +64,12 @@
 	// set initial process list value
 	[processList setTitle:@"None"];
 	
-	//NSNotificationCenter *workspaceNotifications = [[NSWorkspace sharedWorkspace] notificationCenter];
 	NSNotificationCenter *defaultNotifications = [NSNotificationCenter defaultCenter];
-	
-	//[workspaceNotifications addObserver:self selector:@selector(handleApplicationNotification:) 
-//								   name:NSWorkspaceDidLaunchApplicationNotification object:nil];
-//	[workspaceNotifications addObserver:self selector:@selector(handleApplicationNotification:) 
-//								   name:NSWorkspaceDidTerminateApplicationNotification object:nil];
 	[defaultNotifications addObserver:self selector:@selector(handleNotification:)
 								   name:NSApplicationDidChangeScreenParametersNotification object:nil];
 	
 	// bool to identify the current gfx card without having to parse terminal output again
-	usingIntel = YES;
+	usingIntegrated = YES;
 	
 	// set 'always' bools
 	alwaysIntel = NO;
@@ -90,7 +92,7 @@
 	if ([defaults boolForKey:@"logToConsole"])
 		NSLog(@"Switching GPUs...");
 	
-	//[switcher toggleGPU];
+	[switcher toggleGPU];
 }
 
 - (IBAction)intelOnly:(id)sender {
@@ -146,7 +148,7 @@
 }
 
 - (void)menuNeedsUpdate:(NSMenu *)menu {
-	[self performSelector:@selector(updateMenuBarIcon)];
+	//[self performSelector:@selector(updateMenuBarIcon)];
 	[self performSelector:@selector(updateProcessList)];
 }
 
@@ -170,7 +172,7 @@
 	}
 	
 	// if we're on intel (or using a 9400M/9600M GT model), no need to update the list
-	if (!usingIntel && !usingLate08Or09) {
+	if (!usingIntegrated && !usingLate08Or09) {
 		if ([defaults boolForKey:@"logToConsole"])
 			NSLog(@"Updating process list...");
 		
@@ -178,7 +180,7 @@
 		[self performSelector:@selector(setDependencyListVisibility:) withObject:[NSNumber numberWithBool:YES]];
 		[processList setTitle:@"None"];
 		
-		NSString *cmd = @"/bin/ps cx -o \"pid command\" | /usr/bin/egrep $(echo ${$(/usr/sbin/ioreg -l | /usr/bin/grep task-list | /usr/bin/sed -e 's/(//' | /usr/bin/sed -e 's/)//' | /usr/bin/awk ' { print $6 }')//','/'|'})";
+		NSString *cmd = @"/bin/ps cx -o \"pid command\" | /usr/bin/egrep ${$(/usr/sbin/ioreg -n AppleGraphicsControl | /usr/bin/grep task-list | /usr/bin/sed -E 's/(.*\\(|\\).*)//g')//','/'|'}";
 		
 		NSTask *task = [[NSTask alloc] init];
 		[task setLaunchPath:@"/bin/zsh"];
@@ -186,13 +188,15 @@
 		
 		NSPipe *pipe = [NSPipe pipe];
 		[task setStandardOutput:pipe];
+		
 		NSFileHandle *file = [pipe fileHandleForReading];
 		
 		[task launch];
 		[task waitUntilExit];
-		
 		NSData *data = [file readDataToEndOfFile];
-		NSString *output = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+		[task release];
+		
+		NSString *output = [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease];
 		
 		if ([output hasPrefix:@"Usage:"]) {
 			
@@ -243,6 +247,7 @@
 						NSMenuItem *newItem = [[NSMenuItem alloc] initWithTitle:appName action:nil keyEquivalent:@""];
 						[newItem setIndentationLevel:1];
 						[statusMenu insertItem:newItem atIndex:([statusMenu indexOfItem:processList] + 1)];
+						[newItem release];
 					}
 					[appName release];
 				}
@@ -251,7 +256,8 @@
 	} else {
 		[self performSelector:@selector(setDependencyListVisibility:) withObject:[NSNumber numberWithBool:NO]];
 	}
-
+	
+	[itemsToRemove release];
 }
 
 - (void)updateMenuBarIcon {
@@ -262,17 +268,17 @@
 		[currentCard setTitle:[NSString stringWithFormat:@"Card: %@", integratedString]];
 		if ([defaults boolForKey:@"logToConsole"])
 			NSLog(@"%@ in use. Sweet deal! More battery life.", integratedString);
-		if ([defaults boolForKey:@"useGrowl"] && canGrowl && !usingIntel)
+		if ([defaults boolForKey:@"useGrowl"] && canGrowl && !usingIntegrated)
 			[GrowlApplicationBridge notifyWithTitle:@"GPU changed" description:[NSString stringWithFormat:@"%@ now in use.", integratedString] notificationName:@"switchedToIntegrated" iconData:nil priority:0 isSticky:NO clickContext:nil];
-		usingIntel = YES;
+		usingIntegrated = YES;
 	} else {
 		[statusItem setImage:[NSImage imageNamed:@"nvidia-3.png"]];
 		[currentCard setTitle:[NSString stringWithFormat:@"Card: %@", discreteString]];
 		if ([defaults boolForKey:@"logToConsole"])
 			NSLog(@"%@ in use. Bummer! No battery life for you.", discreteString);
-		if ([defaults boolForKey:@"useGrowl"] && canGrowl && usingIntel)
+		if ([defaults boolForKey:@"useGrowl"] && canGrowl && usingIntegrated)
 			[GrowlApplicationBridge notifyWithTitle:@"GPU changed" description:[NSString stringWithFormat:@"%@ now in use.", discreteString] notificationName:@"switchedToDiscrete" iconData:nil priority:0 isSticky:NO clickContext:nil];
-		usingIntel = NO;
+		usingIntegrated = NO;
 		[self performSelector:@selector(updateProcessList)];
 	}
 }
@@ -304,10 +310,12 @@
 	[checkForUpdatesOnLaunch setState:([defaults boolForKey:@"checkForUpdatesOnLaunch"] ? 1 : 0)];
 	[useGrowl setState:([defaults boolForKey:@"useGrowl"] ? 1 : 0)];
 	[logToConsole setState:([defaults boolForKey:@"logToConsole"] ? 1 : 0)];
+	[loadAtStartup setState:([defaults boolForKey:@"loadAtStartup"] ? 1 : 0)];
 	
 	// open window and force to the front
 	[preferencesWindow makeKeyAndOrderFront:nil];
 	[preferencesWindow orderFrontRegardless];
+	[preferencesWindow center];
 }
 
 - (IBAction)savePreferences:(id)sender {
@@ -315,6 +323,9 @@
 	[defaults setBool:([checkForUpdatesOnLaunch state] > 0 ? YES : NO) forKey:@"checkForUpdatesOnLaunch"];
 	[defaults setBool:([useGrowl state] > 0 ? YES : NO) forKey:@"useGrowl"];
 	[defaults setBool:([logToConsole state] > 0 ? YES : NO) forKey:@"logToConsole"];
+	[defaults setBool:([loadAtStartup state] > 0 ? YES : NO) forKey:@"loadAtStartup"];
+	
+	//[self shouldLoadAtStartup:([loadAtStartup state] > 0 ? YES : NO)];
 	
 	[preferencesWindow close];
 }
@@ -332,6 +343,41 @@
 
 - (IBAction)openApplicationURL:(id)sender {
 	[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"http://codykrieger.com/gfxCardStatus/"]];
+}
+
+- (void)shouldLoadAtStartup:(BOOL)value {
+	BOOL exists = NO;
+	CFURLRef thePath = (CFURLRef)[[NSBundle mainBundle] bundleURL];
+	UInt32 seedValue;
+	LSSharedFileListRef loginItems = LSSharedFileListCreate(NULL, kLSSharedFileListSessionLoginItems, NULL);
+	NSArray *loginItemsArray = (NSArray *)LSSharedFileListCopySnapshot(loginItems, &seedValue);
+	LSSharedFileListItemRef removeItem;
+	for (id item in loginItemsArray) {
+		LSSharedFileListItemRef itemRef = (LSSharedFileListItemRef)item;
+		if (LSSharedFileListItemResolve(itemRef, 0, (CFURLRef *)&thePath, NULL) == noErr) {
+			if ([[(NSURL *)thePath path] hasSuffix:@"gfxCardStatus.app"]) {
+				exists = YES;
+				removeItem = (LSSharedFileListItemRef)item;
+				if ([defaults boolForKey:@"logToConsole"])
+					NSLog(@"Already exists in startup items.");
+			}
+		}
+	}
+	
+	if (value && !exists) {
+		if ([defaults boolForKey:@"logToConsole"])
+			NSLog(@"Adding to startup items.");
+		
+		LSSharedFileListItemRef item = LSSharedFileListInsertItemURL(loginItems, kLSSharedFileListItemLast, NULL, NULL, thePath, NULL, NULL);
+		
+		if (item)
+			CFRelease(item);
+	} else if (!value && exists) {
+		if ([defaults boolForKey:@"logToConsole"])
+			NSLog(@"Removing from startup items.");
+		
+		LSSharedFileListItemRemove(loginItems, removeItem);
+	}
 }
 
 + (bool)canLogToConsole {

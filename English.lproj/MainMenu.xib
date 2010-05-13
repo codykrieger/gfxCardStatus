@@ -13,6 +13,7 @@
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
 			<integer value="533"/>
+			<integer value="669"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -1479,21 +1480,21 @@
 			<object class="NSWindowTemplate" id="872973130">
 				<int key="NSWindowStyleMask">257</int>
 				<int key="NSWindowBacking">2</int>
-				<string key="NSWindowRect">{{1548, 992}, {324, 138}}</string>
+				<string key="NSWindowRect">{{1548, 973}, {324, 157}}</string>
 				<int key="NSWTFlags">1685586944</int>
 				<string key="NSWindowTitle">gfxCardStatus Preferences</string>
 				<string key="NSWindowClass">NSWindow</string>
 				<nil key="NSViewClass"/>
 				<string key="NSWindowContentMaxSize">{1.79769e+308, 1.79769e+308}</string>
 				<object class="NSView" key="NSWindowView" id="79989840">
-					<nil key="NSNextResponder"/>
+					<reference key="NSNextResponder"/>
 					<int key="NSvFlags">256</int>
 					<object class="NSMutableArray" key="NSSubviews">
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSButton" id="1032634036">
 							<reference key="NSNextResponder" ref="79989840"/>
 							<int key="NSvFlags">292</int>
-							<string key="NSFrame">{{18, 102}, {204, 18}}</string>
+							<string key="NSFrame">{{18, 121}, {204, 18}}</string>
 							<reference key="NSSuperview" ref="79989840"/>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSButtonCell" key="NSCell" id="719303384">
@@ -1544,7 +1545,7 @@
 						<object class="NSButton" id="1047179000">
 							<reference key="NSNextResponder" ref="79989840"/>
 							<int key="NSvFlags">292</int>
-							<string key="NSFrame">{{18, 82}, {282, 18}}</string>
+							<string key="NSFrame">{{18, 101}, {282, 18}}</string>
 							<reference key="NSSuperview" ref="79989840"/>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSButtonCell" key="NSCell" id="1019124363">
@@ -1566,7 +1567,7 @@
 						<object class="NSButton" id="72571271">
 							<reference key="NSNextResponder" ref="79989840"/>
 							<int key="NSvFlags">292</int>
-							<string key="NSFrame">{{18, 62}, {277, 18}}</string>
+							<string key="NSFrame">{{18, 61}, {277, 18}}</string>
 							<reference key="NSSuperview" ref="79989840"/>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSButtonCell" key="NSCell" id="421401752">
@@ -1585,8 +1586,31 @@
 								<int key="NSPeriodicInterval">25</int>
 							</object>
 						</object>
+						<object class="NSButton" id="229860627">
+							<reference key="NSNextResponder" ref="79989840"/>
+							<int key="NSvFlags">292</int>
+							<string key="NSFrame">{{18, 81}, {211, 18}}</string>
+							<reference key="NSSuperview" ref="79989840"/>
+							<bool key="NSEnabled">YES</bool>
+							<object class="NSButtonCell" key="NSCell" id="873470703">
+								<int key="NSCellFlags">-1543373312</int>
+								<int key="NSCellFlags2">0</int>
+								<string key="NSContents">Load gfxCardStatus at startup</string>
+								<reference key="NSSupport" ref="62999710"/>
+								<reference key="NSControlView" ref="229860627"/>
+								<int key="NSButtonFlags">1211912703</int>
+								<int key="NSButtonFlags2">2</int>
+								<reference key="NSNormalImage" ref="260849281"/>
+								<reference key="NSAlternateImage" ref="875307043"/>
+								<string key="NSAlternateContents"/>
+								<string key="NSKeyEquivalent"/>
+								<int key="NSPeriodicDelay">200</int>
+								<int key="NSPeriodicInterval">25</int>
+							</object>
+						</object>
 					</object>
-					<string key="NSFrameSize">{324, 138}</string>
+					<string key="NSFrameSize">{324, 157}</string>
+					<reference key="NSSuperview"/>
 				</object>
 				<string key="NSScreenRect">{{0, 0}, {1920, 1178}}</string>
 				<string key="NSMaxSize">{1.79769e+308, 1.79769e+308}</string>
@@ -2574,6 +2598,14 @@
 						<reference key="destination" ref="611098486"/>
 					</object>
 					<int key="connectionID">764</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">loadAtStartup</string>
+						<reference key="source" ref="976324537"/>
+						<reference key="destination" ref="229860627"/>
+					</object>
+					<int key="connectionID">767</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -3693,8 +3725,9 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<reference ref="1032634036"/>
 							<reference ref="1047179000"/>
-							<reference ref="72571271"/>
+							<reference ref="229860627"/>
 							<reference ref="183480788"/>
+							<reference ref="72571271"/>
 						</object>
 						<reference key="parent" ref="872973130"/>
 					</object>
@@ -3840,6 +3873,20 @@
 						<int key="objectID">760</int>
 						<reference key="object" ref="1023494607"/>
 						<reference key="parent" ref="38435637"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">765</int>
+						<reference key="object" ref="229860627"/>
+						<object class="NSMutableArray" key="children">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<reference ref="873470703"/>
+						</object>
+						<reference key="parent" ref="79989840"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">766</int>
+						<reference key="object" ref="873470703"/>
+						<reference key="parent" ref="229860627"/>
 					</object>
 				</object>
 			</object>
@@ -4121,6 +4168,8 @@
 					<string>756.IBPluginDependency</string>
 					<string>759.IBPluginDependency</string>
 					<string>760.IBPluginDependency</string>
+					<string>765.IBPluginDependency</string>
+					<string>766.IBPluginDependency</string>
 					<string>77.IBPluginDependency</string>
 					<string>77.ImportedFromIB2</string>
 					<string>78.IBPluginDependency</string>
@@ -4370,9 +4419,9 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{597, 670}, {324, 138}}</string>
+					<string>{{410, 795}, {324, 157}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{597, 670}, {324, 138}}</string>
+					<string>{{410, 795}, {324, 157}}</string>
 					<boolean value="NO"/>
 					<boolean value="NO"/>
 					<boolean value="NO"/>
@@ -4411,6 +4460,8 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="1"/>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -4452,7 +4503,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">764</int>
+			<int key="maxID">767</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -4566,6 +4617,7 @@
 							<string>dependentProcesses</string>
 							<string>dynamicSwitching</string>
 							<string>intelOnly</string>
+							<string>loadAtStartup</string>
 							<string>logToConsole</string>
 							<string>nvidiaOnly</string>
 							<string>preferencesWindow</string>
@@ -4588,6 +4640,7 @@
 							<string>NSMenuItem</string>
 							<string>NSMenuItem</string>
 							<string>NSMenuItem</string>
+							<string>NSButton</string>
 							<string>NSButton</string>
 							<string>NSMenuItem</string>
 							<string>NSWindow</string>
@@ -4613,6 +4666,7 @@
 							<string>dependentProcesses</string>
 							<string>dynamicSwitching</string>
 							<string>intelOnly</string>
+							<string>loadAtStartup</string>
 							<string>logToConsole</string>
 							<string>nvidiaOnly</string>
 							<string>preferencesWindow</string>
@@ -4655,6 +4709,10 @@
 							<object class="IBToOneOutletInfo">
 								<string key="name">intelOnly</string>
 								<string key="candidateClassName">NSMenuItem</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">loadAtStartup</string>
+								<string key="candidateClassName">NSButton</string>
 							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">logToConsole</string>

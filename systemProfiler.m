@@ -7,6 +7,7 @@
 //
 
 #import "systemProfiler.h"
+#import "gfxCardStatusAppDelegate.h"
 
 
 @implementation systemProfiler
@@ -23,11 +24,12 @@
 	
 	[task launch];
 	[task waitUntilExit];
-	
 	NSData *data = [file readDataToEndOfFile];
-	NSString *output = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+	[task release];
 	
+	NSString *output = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
 	NSArray *array = [output componentsSeparatedByString:@"\n"];
+	[output release];
 	
 	NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
 	NSMutableArray *currentKeys = [[NSMutableArray alloc] init];
@@ -106,9 +108,15 @@
 	
 	NSDictionary *graphics = (NSDictionary *)[dict objectForKey:@"Graphics/Displays"];
 	NSDictionary *integrated = (NSDictionary *)[graphics objectForKey:@"Intel HD Graphics"];
-	if ([integrated isEqual:nil]) {
+	if (!integrated) {
 		integrated = (NSDictionary *)[graphics objectForKey:@"NVIDIA GeForce 9400M"];
+		if ([gfxCardStatusAppDelegate canLogToConsole])
+			NSLog(@"Looks like we're using an older 9400M/9600M GT system.");
+		[(gfxCardStatusAppDelegate *)sender setUsingLate08Or09Model:[NSNumber numberWithBool:YES]];
+	} else {
+		[(gfxCardStatusAppDelegate *)sender setUsingLate08Or09Model:[NSNumber numberWithBool:NO]];
 	}
+
 	NSDictionary *integratedDisplays = (NSDictionary *)[integrated objectForKey:@"Displays"];
 	
 	//NSDictionary *discrete = (NSDictionary *)[graphics objectForKey:@"NVIDIA GeForce GT 330M"];
@@ -130,6 +138,9 @@
 		
 		break;
 	}
+	
+	[dict release];
+	[currentKeys release];
 	
 	return retval;
 }
