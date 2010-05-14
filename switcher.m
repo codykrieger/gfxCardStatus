@@ -10,7 +10,6 @@
 #import "switcher.h"
 #include <IOKit/IOKitLib.h>
 #include <ApplicationServices/ApplicationServices.h>
-#import "gfxCardStatusAppDelegate.h"
 
 #define kDriverClassName "AppleGraphicsControl"
 #define kForceIntel 0

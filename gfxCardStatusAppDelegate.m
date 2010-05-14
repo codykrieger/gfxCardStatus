@@ -173,8 +173,7 @@
 	
 	// if we're on intel (or using a 9400M/9600M GT model), no need to update the list
 	if (!usingIntegrated && !usingLate08Or09) {
-		if ([gfxCardStatusAppDelegate canLogToConsole])
-			NSLog(@"Updating process list...");
+		LogIfEnabled(@"Updating process list...");
 		
 		// reset and show process list
 		[self performSelector:@selector(setDependencyListVisibility:) withObject:[NSNumber numberWithBool:YES]];
@@ -192,8 +191,8 @@
 		NSFileHandle *file = [pipe fileHandleForReading];
 		
 		[task launch];
-		[task waitUntilExit];
 		NSData *data = [file readDataToEndOfFile];
+		[task waitUntilExit];
 		[task release];
 		
 		NSString *output = [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease];
@@ -266,8 +265,7 @@
 	if ([systemProfiler isUsingIntegratedGraphics:self]) {
 		[statusItem setImage:[NSImage imageNamed:@"intel-3.png"]];
 		[currentCard setTitle:[NSString stringWithFormat:@"Card: %@", integratedString]];
-		if ([gfxCardStatusAppDelegate canLogToConsole])
-			NSLog(@"%@ in use. Sweet deal! More battery life.", integratedString);
+		LogIfEnabled(@"%@ in use. Sweet deal! More battery life.", integratedString);
 		if ([defaults boolForKey:@"useGrowl"] && canGrowl && !usingIntegrated)
 			[GrowlApplicationBridge notifyWithTitle:@"GPU changed" description:[NSString stringWithFormat:@"%@ now in use.", integratedString] notificationName:@"switchedToIntegrated" iconData:nil priority:0 isSticky:NO clickContext:nil];
 		usingIntegrated = YES;
@@ -282,8 +280,7 @@
 		
 		[statusItem setImage:[NSImage imageNamed:@"nvidia-3.png"]];
 		[currentCard setTitle:[NSString stringWithFormat:@"Card: %@", discreteString]];
-		if ([gfxCardStatusAppDelegate canLogToConsole])
-			NSLog(@"%@ in use. Bummer! No battery life for you.", discreteString);
+		LogIfEnabled(@"%@ in use. Bummer! No battery life for you.", discreteString);
 		if ([defaults boolForKey:@"useGrowl"] && canGrowl && usingIntegrated)
 			[GrowlApplicationBridge notifyWithTitle:@"GPU changed" description:[NSString stringWithFormat:@"%@ now in use.", discreteString] notificationName:@"switchedToDiscrete" iconData:nil priority:0 isSticky:NO clickContext:nil];
 		usingIntegrated = NO;
@@ -373,16 +370,14 @@
 	}
 	
 	if (value && !exists) {
-		if ([gfxCardStatusAppDelegate canLogToConsole])
-			NSLog(@"Adding to startup items.");
+		LogIfEnabled(@"Adding to startup items.");
 		
 		LSSharedFileListItemRef item = LSSharedFileListInsertItemURL(loginItems, kLSSharedFileListItemLast, NULL, NULL, thePath, NULL, NULL);
 		
 		if (item)
 			CFRelease(item);
 	} else if (!value && exists) {
-		if ([gfxCardStatusAppDelegate canLogToConsole])
-			NSLog(@"Removing from startup items.");
+		LogIfEnabled(@"Removing from startup items.");
 		
 		LSSharedFileListItemRemove(loginItems, removeItem);
 	}

@@ -7,7 +7,6 @@
 //
 
 #import "systemProfiler.h"
-#import "gfxCardStatusAppDelegate.h"
 
 
 @implementation systemProfiler
@@ -23,8 +22,8 @@
 	NSFileHandle *file = [pipe fileHandleForReading];
 	
 	[task launch];
-	[task waitUntilExit];
 	NSData *data = [file readDataToEndOfFile];
+	[task waitUntilExit];
 	[task release];
 	
 	NSString *output = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
@@ -128,15 +127,16 @@
 		NSDictionary *tempDict = (NSDictionary *)[integratedDisplays objectForKey:key];
 		
 		for (NSString *otherKey in [tempDict allKeys]) {
-			if ([(NSString *)[tempDict objectForKey:otherKey] isEqualToString:@"No Display Connected"]) {
-				retval = NO;
-			} else {
-				retval = YES;
-			}
+			//if ([(NSString *)[tempDict objectForKey:otherKey] isEqualToString:@"No Display Connected"]) {
+//				retval = NO;
+//			} else {
+//				retval = YES;
+//			}
+			retval = ! [(NSString *)[tempDict objectForKey:otherKey] isEqualToString:@"No Display Connected"];
 			break;
 		}
 		
-		break;
+		if (retval) break;
 	}
 	
 	[dict release];

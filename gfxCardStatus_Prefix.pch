@@ -4,4 +4,6 @@
 
 #ifdef __OBJC__
     #import <Cocoa/Cocoa.h>
+	#import "gfxCardStatusAppDelegate.h"
+	#define LogIfEnabled(...) { if ([gfxCardStatusAppDelegate canLogToConsole]) NSLog(__VA_ARGS__); }
 #endif
