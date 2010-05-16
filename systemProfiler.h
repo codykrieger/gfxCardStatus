@@ -8,11 +8,6 @@
 
 #import <Foundation/Foundation.h>
 
-
-@interface systemProfiler : NSObject {
-	
-}
-
-+ (BOOL)isUsingIntegratedGraphics:(id)sender;
-
-@end
+// Whether the integrated graphic is currently in use
+// legacy is set to 'usingLate08Or09Model'
+BOOL isUsingIntegratedGraphics(BOOL* legacy);

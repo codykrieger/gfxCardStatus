@@ -8,21 +8,16 @@
 
 #import "systemProfiler.h"
 
-
-@implementation systemProfiler
-
-+ (BOOL)isUsingIntegratedGraphics:(id)sender {
+BOOL isUsingIntegratedGraphics(BOOL* legacy) {
 	NSTask *task = [[NSTask alloc] init];
 	[task setLaunchPath:@"/usr/sbin/system_profiler"];
 	[task setArguments:[NSArray arrayWithObject:@"SPDisplaysDataType"]];
 	
 	NSPipe *pipe = [NSPipe pipe];
-	[task setStandardOutput:pipe];
-	
-	NSFileHandle *file = [pipe fileHandleForReading];
+	[task setStandardOutput:pipe];	
 	
 	[task launch];
-	NSData *data = [file readDataToEndOfFile];
+	NSData *data = [[pipe fileHandleForReading] readDataToEndOfFile];
 	[task waitUntilExit];
 	[task release];
 	
@@ -40,36 +35,11 @@
 		obj = [obj stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
 		whitespaceLength = lengthBeforeTrim - [obj length];
 		
-		if ([obj isEqualToString:@""]) {
-			continue;
-		}
+		if ([obj isEqualToString:@""]) continue;
+		if (whitespaceLength < 2) currentLevel = 0;
+		else currentLevel = (whitespaceLength / 2) - 1;
 		
-		switch (whitespaceLength / 2) {
-			case 0:
-				// level 0
-				currentLevel = 0;
-				break;
-			case 2:
-				// level 1
-				currentLevel = 1;
-				break;
-			case 3:
-				// level 2
-				currentLevel = 2;
-				break;
-			case 4:
-				// level 3
-				currentLevel = 3;
-				break;
-			case 5:
-				// level 4
-				currentLevel = 4;
-				break;
-			default:
-				break;
-		}
-		
-		while ([currentKeys count] > (currentLevel)) {
+		while ([currentKeys count] > currentLevel) {
 			[currentKeys removeLastObject];
 		}
 		
@@ -81,7 +51,6 @@
 				[currentKeys addObject:obj];
 			} else {
 				NSMutableDictionary *tempDict = dict;
-				
 				for (int i = 0; i < [currentKeys count]; i++) {
 					tempDict = [tempDict objectForKey:[currentKeys objectAtIndex:i]];
 				}
@@ -103,23 +72,17 @@
 		}
 	}
 	
-	//NSLog(@"dict!:\n%@", dict);
-	
 	NSDictionary *graphics = (NSDictionary *)[dict objectForKey:@"Graphics/Displays"];
 	NSDictionary *integrated = (NSDictionary *)[graphics objectForKey:@"Intel HD Graphics"];
-	if (!integrated) {
-		integrated = (NSDictionary *)[graphics objectForKey:@"NVIDIA GeForce 9400M"];
-		if ([gfxCardStatusAppDelegate canLogToConsole])
-			NSLog(@"Looks like we're using an older 9400M/9600M GT system.");
-		[(gfxCardStatusAppDelegate *)sender setUsingLate08Or09Model:[NSNumber numberWithBool:YES]];
-	} else {
-		[(gfxCardStatusAppDelegate *)sender setUsingLate08Or09Model:[NSNumber numberWithBool:NO]];
-	}
-
-	NSDictionary *integratedDisplays = (NSDictionary *)[integrated objectForKey:@"Displays"];
 	
-	//NSDictionary *discrete = (NSDictionary *)[graphics objectForKey:@"NVIDIA GeForce GT 330M"];
-	//NSDictionary *discreteDisplays = (NSDictionary *)[discrete objectForKey:@"Displays"];
+	if (!integrated) {
+		if (legacy) *legacy = YES;
+		integrated = (NSDictionary *)[graphics objectForKey:@"NVIDIA GeForce 9400M"];
+	} else {
+		if (legacy) *legacy = NO;
+	}
+	
+	NSDictionary *integratedDisplays = (NSDictionary *)[integrated objectForKey:@"Displays"];
 	
 	BOOL retval = NO;
 	
@@ -127,15 +90,9 @@
 		NSDictionary *tempDict = (NSDictionary *)[integratedDisplays objectForKey:key];
 		
 		for (NSString *otherKey in [tempDict allKeys]) {
-			//if ([(NSString *)[tempDict objectForKey:otherKey] isEqualToString:@"No Display Connected"]) {
-//				retval = NO;
-//			} else {
-//				retval = YES;
-//			}
-			retval = ! [(NSString *)[tempDict objectForKey:otherKey] isEqualToString:@"No Display Connected"];
+			retval = !([(NSString *)[tempDict objectForKey:otherKey] isEqualToString:@"No Display Connected"]);
 			break;
 		}
-		
 		if (retval) break;
 	}
 	
@@ -144,5 +101,3 @@
 	
 	return retval;
 }
-
-@end

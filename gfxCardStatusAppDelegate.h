@@ -11,21 +11,24 @@
 #import <Sparkle/SUUpdater.h>
 #import <Growl/Growl.h>
 
-@interface gfxCardStatusAppDelegate : NSObject <NSApplicationDelegate,GrowlApplicationBridgeDelegate,NSMenuDelegate> {
-	NSWindow *window;
-	
-	IBOutlet SUUpdater *updater;
-	
+extern BOOL canLog;
+#define Log(...) ({ if (canLog) NSLog(__VA_ARGS__); })
+#define Str(key) NSLocalizedString(key, key)
+
+@interface gfxCardStatusAppDelegate : NSObject <NSApplicationDelegate,GrowlApplicationBridgeDelegate,NSMenuDelegate,NSWindowDelegate> {
 	NSStatusItem *statusItem;
 	
+	IBOutlet SUUpdater *updater;
 	IBOutlet NSMenu *statusMenu;
 	
 	// dynamic menu items - these change
 	IBOutlet NSMenuItem *versionItem;
+	IBOutlet NSMenuItem *updateItem;
+	IBOutlet NSMenuItem *preferencesItem;
+	IBOutlet NSMenuItem *quitItem;
+
 	IBOutlet NSMenuItem *currentCard;
-	IBOutlet NSMenuItem *currentSwitching;
-	IBOutlet NSMenuItem *toggleGPUs;
-	IBOutlet NSMenuItem *toggleSwitching;
+	IBOutlet NSMenuItem *switchGPUs;
 	IBOutlet NSMenuItem *intelOnly;
 	IBOutlet NSMenuItem *nvidiaOnly;
 	IBOutlet NSMenuItem *dynamicSwitching;
@@ -35,13 +38,17 @@
 	IBOutlet NSMenuItem *dependentProcesses;
 	IBOutlet NSMenuItem *processList;
 	
-	// preferences & about window and their controls
-	IBOutlet NSWindow *aboutWindow;
+	// preferences window
 	IBOutlet NSWindow *preferencesWindow;
 	IBOutlet NSButton *checkForUpdatesOnLaunch;
 	IBOutlet NSButton *useGrowl;
 	IBOutlet NSButton *logToConsole;
 	IBOutlet NSButton *loadAtStartup;
+	IBOutlet NSButton *closePrefs;
+	
+	// about window
+	IBOutlet NSWindow *aboutWindow;
+	IBOutlet NSButton *aboutClose;
 	
 	// defaults for all!
 	NSUserDefaults *defaults;
@@ -49,30 +56,24 @@
 	// some basic status indicator bools
 	BOOL canGrowl;
 	BOOL usingIntegrated;
-	BOOL alwaysIntel;
-	BOOL alwaysNvidia;
-	BOOL usingLate08Or09;
+	BOOL usingLegacy;
 	
 	NSString *integratedString;
 	NSString *discreteString;
 }
 
-- (IBAction)updateStatus:(id)sender;
+- (void)updateMenuBarIcon;
+- (void)updateProcessList;
+
+- (IBAction)setMode:(id)sender;
+
 - (IBAction)openPreferences:(id)sender;
 - (IBAction)savePreferences:(id)sender;
-- (IBAction)toggleGPU:(id)sender;
 - (IBAction)openAbout:(id)sender;
 - (IBAction)closeAbout:(id)sender;
 - (IBAction)openApplicationURL:(id)sender;
 - (IBAction)quit:(id)sender;
-- (IBAction)intelOnly:(id)sender;
-- (IBAction)nvidiaOnly:(id)sender;
-- (IBAction)enableDynamicSwitching:(id)sender;
-- (void)setUsingLate08Or09Model:(NSNumber *)value;
+
 - (void)shouldLoadAtStartup:(BOOL)value;
-
-+ (bool)canLogToConsole;
-
-@property (assign) IBOutlet NSWindow *window;
 
 @end

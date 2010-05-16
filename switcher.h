@@ -8,14 +8,16 @@
 
 #import <Foundation/Foundation.h>
 
+typedef enum {
+	modeForceIntel,
+	modeForceNvidia,
+	modeDynamicSwitching,
+	modeToggleGPU
+} switcherMode;
 
-@interface switcher : NSObject {
+BOOL switcherOpen();  // Initialize driver
+void switcherClose(); // Close driver
 
-}
-
-+ (void)forceIntel;
-+ (void)forceNvidia;
-+ (void)dynamicSwitching;
-+ (void)toggleGPU;
-
-@end
+BOOL switcherSetMode(switcherMode mode); // Sets working mode
+BOOL switcherUseIntegrated();			 // Integrated card is in use
+BOOL switcherUseDynamicSwitching();		 // Dynamic switching policy enabled

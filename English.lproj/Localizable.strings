@@ -1,0 +1,33 @@
+/* 
+   Localizable.strings
+   gfxCardStatus
+
+   Created by Thierry Coppey on 15.05.10.
+   Copyright 2010 Thierry Coppey. All rights reserved.
+ */
+
+/* Main menu */
+"About"            = "About gfxCardStatus, v%%";
+"Update"           = "Check for Updates...";
+"Preferences"      = "Preferences...";
+"Card"             = "Card: %%";
+"SwitchGPUs"       = "Switch GPUs (experimental)";
+"IntelOnly"        = "Intel only";
+"NvidiaOnly"       = "NVIDIA only";
+"DynamicSwitching" = "Dynamic switching";
+"Dependencies"     = "Dependencies";
+"NoProcess"        = "None";
+"Quit"             = "Quit";
+"AllDone"		   = "All Done!";
+"Close"            = "Cool!";
+
+/* Preferences window */
+"PrefTitle"        = "gfxCardStatus Preferences";
+"PrefUpdate"       = "Check for updates at startup";
+"PrefGrowl"        = "Use Growl for status change notifications";
+"PrefStartup"      = "Load gfxCardStatus at startup";
+"PrefLog"          = "Log diagnostic messages to the console";
+
+/* About box */
+"AboutTitle"       = "About gfxCardStatus";
+"AboutWebsite"     = "Website";

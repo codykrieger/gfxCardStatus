@@ -12,6 +12,8 @@
 		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
 		8D11072D0486CEB800E47090 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
+		A13C5E01119FA4C300E678FA /* proc.m in Sources */ = {isa = PBXBuildFile; fileRef = A13C5E00119FA4C300E678FA /* proc.m */; };
+		A13C5FC0119FCFCF00E678FA /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = A13C5FBE119FCFCF00E678FA /* Localizable.strings */; };
 		A159E4EA1184E84300E68428 /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A159E4E91184E84300E68428 /* Sparkle.framework */; };
 		A159E4FC1184EC5100E68428 /* Sparkle.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = A159E4E91184E84300E68428 /* Sparkle.framework */; };
 		A16B28AF1196A932006EB263 /* Growl.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A16B28AE1196A932006EB263 /* Growl.framework */; };
@@ -56,6 +58,10 @@
 		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		8D1107310486CEB800E47090 /* gfxCardStatus-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "gfxCardStatus-Info.plist"; sourceTree = "<group>"; };
 		8D1107320486CEB800E47090 /* gfxCardStatus.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = gfxCardStatus.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		A13C5DFF119FA4C300E678FA /* proc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = proc.h; sourceTree = "<group>"; };
+		A13C5E00119FA4C300E678FA /* proc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = proc.m; sourceTree = "<group>"; };
+		A13C5FBF119FCFCF00E678FA /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/Localizable.strings; sourceTree = "<group>"; };
+		A13C5FC1119FCFE700E678FA /* French */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = French; path = French.lproj/Localizable.strings; sourceTree = "<group>"; };
 		A159E4E91184E84300E68428 /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Sparkle.framework; sourceTree = "<group>"; };
 		A16B28AE1196A932006EB263 /* Growl.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Growl.framework; sourceTree = "<group>"; };
 		A16B28DE1196B082006EB263 /* Growl License.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Growl License.txt"; sourceTree = "<group>"; };
@@ -98,6 +104,8 @@
 				A1E751E01180BF0B00A13CA8 /* systemProfiler.m */,
 				A1E07E401194B7C900683B07 /* switcher.h */,
 				A1E07E411194B7C900683B07 /* switcher.m */,
+				A13C5DFF119FA4C300E678FA /* proc.h */,
+				A13C5E00119FA4C300E678FA /* proc.m */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -166,6 +174,7 @@
 				089C165CFE840E0CC02AAC07 /* InfoPlist.strings */,
 				1DDD58140DA1D0A300B32029 /* MainMenu.xib */,
 				A1D0E63E1186890D00AC7F7C /* Growl Registration Ticket.growlRegDict */,
+				A13C5FBE119FCFCF00E678FA /* Localizable.strings */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -232,6 +241,7 @@
 				A1D0E65F11868DD600AC7F7C /* Growl Registration Ticket.growlRegDict in Resources */,
 				A16B28DF1196B082006EB263 /* Growl License.txt in Resources */,
 				A16B28F41196B0E7006EB263 /* README in Resources */,
+				A13C5FC0119FCFCF00E678FA /* Localizable.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -246,6 +256,7 @@
 				256AC3DA0F4B6AC300CF3369 /* gfxCardStatusAppDelegate.m in Sources */,
 				A1E751E11180BF0B00A13CA8 /* systemProfiler.m in Sources */,
 				A1E07E421194B7C900683B07 /* switcher.m in Sources */,
+				A13C5E01119FA4C300E678FA /* proc.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -266,6 +277,15 @@
 				1DDD58150DA1D0A300B32029 /* English */,
 			);
 			name = MainMenu.xib;
+			sourceTree = "<group>";
+		};
+		A13C5FBE119FCFCF00E678FA /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				A13C5FBF119FCFCF00E678FA /* English */,
+				A13C5FC1119FCFE700E678FA /* French */,
+			);
+			name = Localizable.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
