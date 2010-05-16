@@ -13,8 +13,8 @@
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
 			<integer value="734"/>
-			<integer value="669"/>
 			<integer value="533"/>
+			<integer value="669"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -1362,6 +1362,14 @@
 					</object>
 					<object class="NSMenuItem" id="885690766">
 						<reference key="NSMenu" ref="38435637"/>
+						<string key="NSTitle">currentPowerSource</string>
+						<string key="NSKeyEquiv"/>
+						<int key="NSMnemonicLoc">2147483647</int>
+						<reference key="NSOnImage" ref="35465992"/>
+						<reference key="NSMixedImage" ref="502551668"/>
+					</object>
+					<object class="NSMenuItem" id="425056683">
+						<reference key="NSMenu" ref="38435637"/>
 						<string key="NSTitle">currentCard</string>
 						<string key="NSKeyEquiv"/>
 						<int key="NSMnemonicLoc">2147483647</int>
@@ -2624,14 +2632,6 @@ cnQgYW55IGFuZCBhbGwgaXNzdWVzIHRvIGNvZHlAY29keWtyaWVnZXIuY29tIC0gdGhhbmtzIQ</byte
 					<int key="connectionID">650</int>
 				</object>
 				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
-						<string key="label">currentCard</string>
-						<reference key="source" ref="976324537"/>
-						<reference key="destination" ref="885690766"/>
-					</object>
-					<int key="connectionID">655</int>
-				</object>
-				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
 						<string key="label">checkForUpdates:</string>
 						<reference key="source" ref="996892311"/>
@@ -2886,6 +2886,22 @@ cnQgYW55IGFuZCBhbGwgaXNzdWVzIHRvIGNvZHlAY29keWtyaWVnZXIuY29tIC0gdGhhbmtzIQ</byte
 						<reference key="destination" ref="747436009"/>
 					</object>
 					<int key="connectionID">796</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">currentPowerSource</string>
+						<reference key="source" ref="976324537"/>
+						<reference key="destination" ref="885690766"/>
+					</object>
+					<int key="connectionID">806</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">currentCard</string>
+						<reference key="source" ref="976324537"/>
+						<reference key="destination" ref="425056683"/>
+					</object>
+					<int key="connectionID">807</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -3936,6 +3952,7 @@ cnQgYW55IGFuZCBhbGwgaXNzdWVzIHRvIGNvZHlAY29keWtyaWVnZXIuY29tIC0gdGhhbmtzIQ</byte
 							<reference ref="611098486"/>
 							<reference ref="1023494607"/>
 							<reference ref="727656454"/>
+							<reference ref="425056683"/>
 						</object>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -4240,6 +4257,11 @@ cnQgYW55IGFuZCBhbGwgaXNzdWVzIHRvIGNvZHlAY29keWtyaWVnZXIuY29tIC0gdGhhbmtzIQ</byte
 						<reference key="object" ref="473338212"/>
 						<reference key="parent" ref="44289336"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">804</int>
+						<reference key="object" ref="425056683"/>
+						<reference key="parent" ref="38435637"/>
+					</object>
 				</object>
 			</object>
 			<object class="NSMutableDictionary" key="flattenedProperties">
@@ -4540,6 +4562,7 @@ cnQgYW55IGFuZCBhbGwgaXNzdWVzIHRvIGNvZHlAY29keWtyaWVnZXIuY29tIC0gdGhhbmtzIQ</byte
 					<string>80.IBPluginDependency</string>
 					<string>80.ImportedFromIB2</string>
 					<string>800.IBPluginDependency</string>
+					<string>804.IBPluginDependency</string>
 					<string>81.IBEditorWindowLastContentRect</string>
 					<string>81.IBPluginDependency</string>
 					<string>81.ImportedFromIB2</string>
@@ -4762,7 +4785,7 @@ cnQgYW55IGFuZCBhbGwgaXNzdWVzIHRvIGNvZHlAY29keWtyaWVnZXIuY29tIC0gdGhhbmtzIQ</byte
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{1338, 670}, {269, 303}}</string>
+					<string>{{1099, 650}, {269, 323}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -4847,6 +4870,7 @@ cnQgYW55IGFuZCBhbGwgaXNzdWVzIHRvIGNvZHlAY29keWtyaWVnZXIuY29tIC0gdGhhbmtzIQ</byte
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="1"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>{{452, 109}, {196, 203}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="1"/>
@@ -4875,7 +4899,7 @@ cnQgYW55IGFuZCBhbGwgaXNzdWVzIHRvIGNvZHlAY29keWtyaWVnZXIuY29tIC0gdGhhbmtzIQ</byte
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">803</int>
+			<int key="maxID">807</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -4959,6 +4983,7 @@ cnQgYW55IGFuZCBhbGwgaXNzdWVzIHRvIGNvZHlAY29keWtyaWVnZXIuY29tIC0gdGhhbmtzIQ</byte
 							<string>checkForUpdatesOnLaunch</string>
 							<string>closePrefs</string>
 							<string>currentCard</string>
+							<string>currentPowerSource</string>
 							<string>dependentProcesses</string>
 							<string>dynamicSwitching</string>
 							<string>intelOnly</string>
@@ -4983,6 +5008,7 @@ cnQgYW55IGFuZCBhbGwgaXNzdWVzIHRvIGNvZHlAY29keWtyaWVnZXIuY29tIC0gdGhhbmtzIQ</byte
 							<string>NSWindow</string>
 							<string>NSButton</string>
 							<string>NSButton</string>
+							<string>NSMenuItem</string>
 							<string>NSMenuItem</string>
 							<string>NSMenuItem</string>
 							<string>NSMenuItem</string>
@@ -5012,6 +5038,7 @@ cnQgYW55IGFuZCBhbGwgaXNzdWVzIHRvIGNvZHlAY29keWtyaWVnZXIuY29tIC0gdGhhbmtzIQ</byte
 							<string>checkForUpdatesOnLaunch</string>
 							<string>closePrefs</string>
 							<string>currentCard</string>
+							<string>currentPowerSource</string>
 							<string>dependentProcesses</string>
 							<string>dynamicSwitching</string>
 							<string>intelOnly</string>
@@ -5050,6 +5077,10 @@ cnQgYW55IGFuZCBhbGwgaXNzdWVzIHRvIGNvZHlAY29keWtyaWVnZXIuY29tIC0gdGhhbmtzIQ</byte
 							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">currentCard</string>
+								<string key="candidateClassName">NSMenuItem</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">currentPowerSource</string>
 								<string key="candidateClassName">NSMenuItem</string>
 							</object>
 							<object class="IBToOneOutletInfo">

@@ -11,11 +11,13 @@
 #import <Sparkle/SUUpdater.h>
 #import <Growl/Growl.h>
 
+#import "PowerSourceMonitor.h"
+
 extern BOOL canLog;
 #define Log(...) ({ if (canLog) NSLog(__VA_ARGS__); })
 #define Str(key) NSLocalizedString(key, key)
 
-@interface gfxCardStatusAppDelegate : NSObject <NSApplicationDelegate,GrowlApplicationBridgeDelegate,NSMenuDelegate,NSWindowDelegate> {
+@interface gfxCardStatusAppDelegate : NSObject <NSApplicationDelegate,GrowlApplicationBridgeDelegate,NSMenuDelegate,NSWindowDelegate,PowerSourceMonitorDelegate> {
 	NSStatusItem *statusItem;
 	
 	IBOutlet SUUpdater *updater;
@@ -27,6 +29,7 @@ extern BOOL canLog;
 	IBOutlet NSMenuItem *preferencesItem;
 	IBOutlet NSMenuItem *quitItem;
 
+	IBOutlet NSMenuItem *currentPowerSource;
 	IBOutlet NSMenuItem *currentCard;
 	IBOutlet NSMenuItem *switchGPUs;
 	IBOutlet NSMenuItem *intelOnly;
@@ -60,6 +63,10 @@ extern BOOL canLog;
 	
 	NSString *integratedString;
 	NSString *discreteString;
+	
+	// power source monitor
+	PowerSourceMonitor *powerSourceMonitor;
+	PowerSource lastPowerSource;
 }
 
 - (void)updateMenuBarIcon;
