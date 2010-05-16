@@ -2,8 +2,8 @@
 //  PowerSourceMonitor.m
 //  gfxCardStatus
 //
-//  Created by Ikeuchi on 10/05/16.
-//  Copyright 2010 __MyCompanyName__. All rights reserved.
+//  Created by softboysxp on 10/05/16.
+//  Copyright 2010 softboysxp. All rights reserved.
 //
 
 #import "PowerSourceMonitor.h"
