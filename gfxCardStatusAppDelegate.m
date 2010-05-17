@@ -21,7 +21,6 @@ static inline NSString *keyForPowerSource(PowerSource powerSource) {
 
 // helper to return current mode
 switcherMode switcherGetMode() {
-	NSLog(@"isUsing: %d\n", isUsingIntegratedGraphics(NULL));
 	return (switcherUseDynamicSwitching() ? modeDynamicSwitching : (isUsingIntegratedGraphics(NULL) ? modeForceIntel : modeForceNvidia));
 }
 
@@ -161,9 +160,14 @@ BOOL canLog = NO;
 		[nvidiaOnly setState:(sender == nvidiaOnly ? NSOnState : NSOffState)];
 		[dynamicSwitching setState:(sender == dynamicSwitching ? NSOnState : NSOffState)];
 		
+		// moved to checkCardStatus
 		// save user preference for current power source
-		Log(@"Mode: %d, Power Source: %d\n", switcherGetMode(), powerSourceMonitor.currentPowerSource);
-		[defaults setInteger:switcherGetMode() forKey:keyForPowerSource(powerSourceMonitor.currentPowerSource)];
+		// Log(@"Mode: %d, Power Source: %d\n", switcherGetMode(), powerSourceMonitor.currentPowerSource);
+		// [defaults setInteger:switcherGetMode() forKey:keyForPowerSource(powerSourceMonitor.currentPowerSource)];
+		
+		// delayed double-check
+		// only save preference after double-checking
+		[self performSelector:@selector(checkCardState) withObject:nil afterDelay:5.0];
 	}
 }
 
@@ -347,7 +351,6 @@ BOOL canLog = NO;
 	return dynamicSwitching;
 }
 
-
 - (void)powerSourceChanged:(PowerSource)powerSource {
 	if (powerSource == lastPowerSource) {
 		Log(@"Power Source UNCHANGED: false alarm (maybe a wake-up?)\n");
@@ -361,6 +364,33 @@ BOOL canLog = NO;
 	
 	[self setMode:[self senderForMode:newMode]];
 	[self updateMenuBarIcon];
+}
+
+// it seems right after waking-up, locking to single GPU will fail (even if the return value is correct)
+// this is a temporary walk-around to double-check the status
+- (void)checkCardState {
+	switcherMode currentMode = switcherGetMode(); // ACTUAL current mode
+	NSMenuItem *activeCard = [self senderForMode:currentMode]; // corresponding menu item
+	
+	// check if its consistent with menu state
+	if (activeCard.state != NSOnState) { // inconsistent, forcing retry
+		Log(@"Inconsistent menu state and actual card, forcing retry\n");
+		lastPowerSource = -1; // set to uninitialized, forcing retry
+		
+		// set menu item to reflect actual status
+		intelOnly.state = NSOffState;
+		nvidiaOnly.state = NSOffState;
+		dynamicSwitching.state = NSOffState;
+		activeCard.state = NSOnState;
+		
+		[self powerSourceChanged:powerSourceMonitor.currentPowerSource];
+		
+		return;
+	}
+	
+	// save user preference for current power source and card choice combination
+	Log(@"Mode: %d, Power Source: %d\n", switcherGetMode(), powerSourceMonitor.currentPowerSource);
+	[defaults setInteger:switcherGetMode() forKey:keyForPowerSource(powerSourceMonitor.currentPowerSource)];
 }
 
 @end
