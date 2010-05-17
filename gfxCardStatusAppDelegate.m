@@ -353,7 +353,7 @@ BOOL canLog = NO;
 
 - (void)powerSourceChanged:(PowerSource)powerSource {
 	if (powerSource == lastPowerSource) {
-		Log(@"Power Source UNCHANGED: false alarm (maybe a wake-up?)\n");
+		//Log(@"Power Source UNCHANGED: false alarm (maybe a wake-up?)\n");
 		return;
 	}
 	
