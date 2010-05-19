@@ -176,6 +176,9 @@ BOOL canLog = NO;
 - (void)handleNotification:(NSNotification *)notification {
 	Log(@"The following notification has been triggered:\n%@", notification);
 	[self updateMenuBarIcon];
+	
+	// delayed double-check
+	[self performSelector:@selector(checkCardState) withObject:nil afterDelay:5.0];
 }
 
 - (void)menuNeedsUpdate:(NSMenu *)menu {
