@@ -89,6 +89,8 @@ BOOL canLog = NO;
 		discreteString = @"NVIDIA® GeForce GT 330M";
 	}
 	
+	canPreventSwitch = YES;
+	
 	canGrowl = NO;
 	[self performSelector:@selector(updateMenuBarIcon)];
 	canGrowl = YES;
@@ -179,6 +181,15 @@ BOOL canLog = NO;
 - (void)updateMenuBarIcon {
 	BOOL integrated = switcherUseIntegrated();
 	Log(@"Updating status...");
+	
+	// prevent GPU from switching back after apps quit
+	if (!integrated && !usingLegacy && [intelOnly state] > 0 && canPreventSwitch) {
+		Log(@"Preventing switch to 330M. Setting canPreventSwitch to NO so that this doesn't get stuck in a loop, changing in 5 seconds...");
+		switcherSetMode(modeForceIntel);
+		canPreventSwitch = NO;
+		[NSTimer scheduledTimerWithTimeInterval:5 target:self selector:@selector(shouldPreventSwitch) userInfo:nil repeats:NO];
+		return;
+	}
 	
 	// update icon and labels according to selected GPU
 	NSString* cardString = integrated ? integratedString : discreteString;
@@ -278,6 +289,11 @@ BOOL canLog = NO;
 		
 		CFRelease(loginItems);
 	}
+}
+
+- (void)shouldPreventSwitch {
+	Log(@"Can prevent switching again.");
+	canPreventSwitch = YES;
 }
 
 - (IBAction)quit:(id)sender {

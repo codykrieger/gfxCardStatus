@@ -58,6 +58,8 @@ extern BOOL canLog;
 	BOOL usingIntegrated;
 	BOOL usingLegacy;
 	
+	BOOL canPreventSwitch;
+	
 	NSString *integratedString;
 	NSString *discreteString;
 }
@@ -75,5 +77,6 @@ extern BOOL canLog;
 - (IBAction)quit:(id)sender;
 
 - (void)shouldLoadAtStartup:(BOOL)value;
+- (void)shouldPreventSwitch;
 
 @end
