@@ -22,6 +22,7 @@ BOOL canLog = NO;
 	if ([defaults objectForKey:@"useGrowl"]==nil) [defaults setBool:YES forKey:@"useGrowl"];
 	if ([defaults objectForKey:@"logToConsole"]==nil) [defaults setBool:NO forKey:@"logToConsole"];
 	if ([defaults objectForKey:@"loadAtStartup"]==nil) [defaults setBool:YES forKey:@"loadAtStartup"];
+	if ([defaults objectForKey:@"restoreAtStartup"]==nil) [defaults setBool:YES forKey:@"restoreAtStartup"];
 	if ([defaults objectForKey:@"lastGPUSetting"]==nil) [defaults setInteger:3 forKey:@"lastGPUSetting"];
 	
 	// initialize driver and process listing
@@ -33,7 +34,7 @@ BOOL canLog = NO;
 	NSString *version = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"];
 	[versionItem setTitle:[Str(@"About") stringByReplacingOccurrencesOfString:@"%%" withString:version]];
 	NSArray* localized = [[NSArray alloc] initWithObjects:updateItem, preferencesItem, quitItem, switchGPUs, intelOnly, nvidiaOnly, dynamicSwitching, dependentProcesses, processList,
-						  preferencesWindow, checkForUpdatesOnLaunch, useGrowl, loadAtStartup, logToConsole, closePrefs, aboutWindow, aboutClose, nil];
+						  preferencesWindow, checkForUpdatesOnLaunch, useGrowl, loadAtStartup, logToConsole, closePrefs, aboutWindow, aboutClose, restoreModeAtStartup, nil];
 	for (NSButton* loc in localized) {
 		[loc setTitle:Str([loc title])];
 	}
@@ -219,6 +220,7 @@ BOOL canLog = NO;
 	[useGrowl setState:([defaults boolForKey:@"useGrowl"] ? 1 : 0)];
 	[logToConsole setState:([defaults boolForKey:@"logToConsole"] ? 1 : 0)];
 	[loadAtStartup setState:([defaults boolForKey:@"loadAtStartup"] ? 1 : 0)];
+	[restoreModeAtStartup setState:([defaults boolForKey:@"restoreAtStartup"] ? 1 : 0)];
 	
 	// open window and force to the front
 	[preferencesWindow makeKeyAndOrderFront:nil];
@@ -233,6 +235,7 @@ BOOL canLog = NO;
 	[defaults setBool:([useGrowl state] > 0 ? YES : NO) forKey:@"useGrowl"];
 	[defaults setBool:([logToConsole state] > 0 ? YES : NO) forKey:@"logToConsole"];
 	[defaults setBool:([loadAtStartup state] > 0 ? YES : NO) forKey:@"loadAtStartup"];
+	[defaults setBool:([restoreModeAtStartup state] > 0 ? YES : NO) forKey:@"restoreAtStartup"];
 	canLog = [defaults boolForKey:@"logToConsole"];
 	[self shouldLoadAtStartup:[defaults boolForKey:@"loadAtStartup"]];
 }
@@ -298,6 +301,18 @@ BOOL canLog = NO;
 
 - (IBAction)quit:(id)sender {
 	[[NSApplication sharedApplication] terminate:self];
+}
+
+- (void)applicationWillTerminate:(NSNotification *)notification {
+	if ([intelOnly state] > 0) {
+		[defaults setInteger:1 forKey:@"lastGPUSetting"];
+	} else if ([nvidiaOnly state] > 0) {
+		[defaults setInteger:2 forKey:@"lastGPUSetting"];
+	} else if ([dynamicSwitching state] > 0) {
+		[defaults setInteger:3 forKey:@"lastGPUSetting"];
+	}
+	
+	[defaults synchronize];
 }
 
 - (void)dealloc {

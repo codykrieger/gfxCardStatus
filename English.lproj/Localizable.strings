@@ -26,6 +26,7 @@
 "PrefUpdate"       = "Check for updates at startup";
 "PrefGrowl"        = "Use Growl for status change notifications";
 "PrefStartup"      = "Load gfxCardStatus at startup";
+"PrefRestoreState" = "Restore last used mode at startup";
 "PrefLog"          = "Log diagnostic messages to the console";
 
 /* About box */

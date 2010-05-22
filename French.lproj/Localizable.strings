@@ -26,6 +26,7 @@
 "PrefUpdate"       = "Vérifier les mises à jour au démarrage";
 "PrefGrowl"        = "Utiliser Growl pour les notifications";
 "PrefStartup"      = "Charger gfxCardStatus au démarrage";
+"PrefRestoreState" = "";
 "PrefLog"          = "Afficher les messages de diagnostic";
 
 /* About box */

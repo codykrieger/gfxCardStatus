@@ -44,6 +44,7 @@ extern BOOL canLog;
 	IBOutlet NSButton *useGrowl;
 	IBOutlet NSButton *logToConsole;
 	IBOutlet NSButton *loadAtStartup;
+	IBOutlet NSButton *restoreModeAtStartup;
 	IBOutlet NSButton *closePrefs;
 	
 	// about window
