@@ -93,7 +93,24 @@ BOOL canLog = NO;
 	canPreventSwitch = YES;
 	
 	canGrowl = NO;
-	[self performSelector:@selector(updateMenuBarIcon)];
+	[self updateMenuBarIcon];
+	if ([[defaults objectForKey:@"restoreAtStartup"] boolValue]) {
+		Log(@"Restoring last used mode (%@)...", [defaults objectForKey:@"lastGPUSetting"]);
+		id modeItem;
+		switch ([[defaults objectForKey:@"lastGPUSetting"] intValue]) {
+			case 1:
+				modeItem = intelOnly;
+				break;
+			case 2:
+				modeItem = nvidiaOnly;
+				break;
+			case 3:
+				modeItem = dynamicSwitching;
+				break;
+		}
+		
+		[self setMode:modeItem];
+	}
 	canGrowl = YES;
 }
 
@@ -156,18 +173,26 @@ BOOL canLog = NO;
 	
 	Log(@"Updating process list...");
 	
-	// external display, if connected
-	if ([[NSScreen screens] count] > 1) {
-		NSMenuItem *externalDisplay = [[NSMenuItem alloc] initWithTitle:@"External Display" action:nil keyEquivalent:@""];
-		[externalDisplay setIndentationLevel:1];
-		[statusMenu insertItem:externalDisplay atIndex:([statusMenu indexOfItem:processList] + 1)];
+	// find out if an external monitor is forcing the 330M on
+	BOOL usingExternalDisplay = NO;
+	CGDirectDisplayID displays[8];
+	CGDisplayCount displayCount = 0;
+	if (CGGetOnlineDisplayList(8, displays, &displayCount) == noErr) {
+		for (int i = 0; i < displayCount; i++) {
+			if ( ! CGDisplayIsBuiltin(displays[i])) {
+				NSMenuItem *externalDisplay = [[NSMenuItem alloc] initWithTitle:@"External Display" action:nil keyEquivalent:@""];
+				[externalDisplay setIndentationLevel:1];
+				[statusMenu insertItem:externalDisplay atIndex:([statusMenu indexOfItem:processList] + 1)];
+				usingExternalDisplay = YES;
+			}
+		}
 	}
 	
 	NSMutableDictionary* procs = [[NSMutableDictionary alloc] init];
 	if (!procGet(procs)) Log(@"Can't obtain I/O Kit's root service");
 	
-	[processList setHidden:([procs count] > 0)];
-	if ([procs count]==0) Log(@"Something's up...we're using the NVIDIA® card, but no process requires it.");
+	[processList setHidden:([procs count] > 0 || usingExternalDisplay)];
+	if ([procs count]==0) Log(@"We're using the NVIDIA® card, but no process requires it. An external monitor may be connected, or we may be in NVIDIA® Only mode.");
 	
 	for (NSString* appName in [procs allValues]) {
 		NSMenuItem *appItem = [[NSMenuItem alloc] initWithTitle:appName action:nil keyEquivalent:@""];
@@ -186,8 +211,8 @@ BOOL canLog = NO;
 	// prevent GPU from switching back after apps quit
 	if (!integrated && !usingLegacy && [intelOnly state] > 0 && canPreventSwitch) {
 		Log(@"Preventing switch to 330M. Setting canPreventSwitch to NO so that this doesn't get stuck in a loop, changing in 5 seconds...");
-		switcherSetMode(modeForceIntel);
 		canPreventSwitch = NO;
+		[self setMode:intelOnly];
 		[NSTimer scheduledTimerWithTimeInterval:5 target:self selector:@selector(shouldPreventSwitch) userInfo:nil repeats:NO];
 		return;
 	}
