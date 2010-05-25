@@ -94,7 +94,7 @@ BOOL canLog = NO;
 	
 	canGrowl = NO;
 	[self updateMenuBarIcon];
-	if ([[defaults objectForKey:@"restoreAtStartup"] boolValue]) {
+	if ([[defaults objectForKey:@"restoreAtStartup"] boolValue] && !usingLegacy) {
 		Log(@"Restoring last used mode (%@)...", [defaults objectForKey:@"lastGPUSetting"]);
 		id modeItem;
 		switch ([[defaults objectForKey:@"lastGPUSetting"] intValue]) {
