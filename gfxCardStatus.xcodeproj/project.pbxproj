@@ -62,6 +62,7 @@
 		A13C5E00119FA4C300E678FA /* proc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = proc.m; sourceTree = "<group>"; };
 		A13C5FBF119FCFCF00E678FA /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/Localizable.strings; sourceTree = "<group>"; };
 		A13C5FC1119FCFE700E678FA /* French */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = French; path = French.lproj/Localizable.strings; sourceTree = "<group>"; };
+		A14390AE11C53FCD00E4D2A5 /* German */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = German; path = German.lproj/Localizable.strings; sourceTree = "<group>"; };
 		A159E4E91184E84300E68428 /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Sparkle.framework; sourceTree = "<group>"; };
 		A16B28AE1196A932006EB263 /* Growl.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Growl.framework; sourceTree = "<group>"; };
 		A16B28DE1196B082006EB263 /* Growl License.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Growl License.txt"; sourceTree = "<group>"; };
@@ -284,6 +285,7 @@
 			children = (
 				A13C5FBF119FCFCF00E678FA /* English */,
 				A13C5FC1119FCFE700E678FA /* French */,
+				A14390AE11C53FCD00E4D2A5 /* German */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
