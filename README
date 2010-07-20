@@ -1,3 +1,9 @@
+this is a fork of cody's gfxCardStatus, aiming to provide Power Source and Power Management related features, notably the ability to save separate settings for battery and ac power.
+
+also may consider a more complex version of the app (probably a preference panel), to have features like presets for even different battery levels, and whitelist/blacklist, etc. (i.e. a complete dual GPU manager if Apple continue to screw things up like using nVIDIA for Tweetie, :( )
+
+original README
+
 ***********************************
 *  GFXCARDSTATUS by Cody Krieger  *
 ***********************************
