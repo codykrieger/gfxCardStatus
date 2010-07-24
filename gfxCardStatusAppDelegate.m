@@ -315,6 +315,7 @@ BOOL canLog = NO;
 			LSSharedFileListItemRemove(loginItems, removeItem);
 		}
 		
+		[loginItemsArray release];
 		CFRelease(loginItems);
 	}
 }
