@@ -29,7 +29,6 @@ extern BOOL canLog;
 	IBOutlet NSMenuItem *preferencesItem;
 	IBOutlet NSMenuItem *quitItem;
 
-	IBOutlet NSMenuItem *currentPowerSource;
 	IBOutlet NSMenuItem *currentCard;
 	IBOutlet NSMenuItem *currentPowerSource;
 	IBOutlet NSMenuItem *switchGPUs;
