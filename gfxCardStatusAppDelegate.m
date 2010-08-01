@@ -11,12 +11,12 @@
 #import "switcher.h"
 #import "proc.h"
 
-#define kLastGPUSettingACAdaptor	@"lastGPUSetting_ACAdaptor"
-#define kLastGPUSettingBattery		@"lastGPUSetting_Battery"
+#define kGPUSettingACAdaptor	@"GPUSetting_ACAdaptor"
+#define kGPUSettingBattery		@"GPUSetting_Battery"
 
 // helper to get preference key from PowerSource enum
 static inline NSString *keyForPowerSource(PowerSource powerSource) {
-	return ((powerSource == psBattery) ? kLastGPUSettingBattery : kLastGPUSettingACAdaptor);
+	return ((powerSource == psBattery) ? kGPUSettingBattery : kGPUSettingACAdaptor);
 }
 
 // helper to return current mode
@@ -38,9 +38,9 @@ BOOL canLog = NO;
 	if ([defaults objectForKey:@"loadAtStartup"]==nil) [defaults setBool:YES forKey:@"loadAtStartup"];
 	if ([defaults objectForKey:@"restoreAtStartup"]==nil) [defaults setBool:YES forKey:@"restoreAtStartup"];
 	if ([defaults objectForKey:@"lastGPUSetting"]==nil) [defaults setInteger:3 forKey:@"lastGPUSetting"];
-	
-	if ([defaults objectForKey:@"lastGPUSetting_ACAdaptor"]==nil) [defaults setInteger:modeDynamicSwitching forKey:kLastGPUSettingACAdaptor];
-	if ([defaults objectForKey:@"lastGPUSetting_Battery"]==nil) [defaults setInteger:modeDynamicSwitching forKey:kLastGPUSettingBattery];
+	if ([defaults objectForKey:@"usePowerSourceBasedSwitching"]==nil) [defaults setBool:NO forKey:@"usePowerSourceBasedSwitching"];
+	if ([defaults objectForKey:kGPUSettingACAdaptor]==nil) [defaults setInteger:2 forKey:kGPUSettingACAdaptor];
+	if ([defaults objectForKey:kGPUSettingBattery]==nil) [defaults setInteger:2 forKey:kGPUSettingBattery];
 	
 	// initialize driver and process listing
 	canLog = [[defaults objectForKey:@"logToConsole"] boolValue];
@@ -51,7 +51,8 @@ BOOL canLog = NO;
 	NSString *version = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"];
 	[versionItem setTitle:[Str(@"About") stringByReplacingOccurrencesOfString:@"%%" withString:version]];
 	NSArray* localized = [[NSArray alloc] initWithObjects:updateItem, preferencesItem, quitItem, switchGPUs, intelOnly, nvidiaOnly, dynamicSwitching, dependentProcesses, processList,
-						  preferencesWindow, checkForUpdatesOnLaunch, useGrowl, loadAtStartup, logToConsole, closePrefs, aboutWindow, aboutClose, restoreModeAtStartup, nil];
+						  preferencesWindow, checkForUpdatesOnLaunch, useGrowl, loadAtStartup, logToConsole, closePrefs, aboutWindow, aboutClose, 
+						  restoreModeAtStartup, usePowerSourceBasedSwitching, nil];
 	for (NSButton* loc in localized) {
 		[loc setTitle:Str([loc title])];
 	}
@@ -111,7 +112,9 @@ BOOL canLog = NO;
 	
 	canGrowl = NO;
 	[self updateMenuBarIcon];
-	if ([[defaults objectForKey:@"restoreAtStartup"] boolValue] && !usingLegacy) {
+	
+	// only resture last mode if preference is set, and we're NOT using power source-based switching
+	if ([defaults boolForKey:@"restoreAtStartup"] && ![defaults boolForKey:@"usePowerSourceBasedSwitching"] && !usingLegacy) {
 		Log(@"Restoring last used mode (%@)...", [defaults objectForKey:@"lastGPUSetting"]);
 		id modeItem;
 		switch ([[defaults objectForKey:@"lastGPUSetting"] intValue]) {
@@ -131,22 +134,14 @@ BOOL canLog = NO;
 	canGrowl = YES;
 	
 	// monitor power source
-	powerSourceMonitor = [PowerSourceMonitor monitorWithDelegate:self];
-	lastPowerSource = -1; // uninitialized
-	
-	// currently ONLY works for Intel/nVIDIA MBPs
-	if (usingLegacy) {
-		return;
+	// currently only works for 2010 MBPs
+	if (!usingLegacy) {
+		powerSourceMonitor = [PowerSourceMonitor monitorWithDelegate:self];
+		lastPowerSource = -1; // uninitialized
+		
+		// check current power source and load preference for it
+		[self powerSourceChanged:powerSourceMonitor.currentPowerSource];
 	}
-	
-	// check current power source and load preference for it
-	// the idea is to save user's preference for each power source (battery, adaptor)
-	// e.g. user set Intel on Battery and Dynamic on Adaptor and shut down machine with Adaptor attached
-	//      next time user unplugs Adaptor and power on
-	//		the app should set card to Intel
-	//
-	// the process is transparent to user
-	[self powerSourceChanged:powerSourceMonitor.currentPowerSource];
 }
 
 - (IBAction)setMode:(id)sender {
@@ -180,20 +175,15 @@ BOOL canLog = NO;
 		[nvidiaOnly setState:(sender == nvidiaOnly ? NSOnState : NSOffState)];
 		[dynamicSwitching setState:(sender == dynamicSwitching ? NSOnState : NSOffState)];
 		
-		// moved to checkCardStatus
-		// save user preference for current power source
-		// Log(@"Mode: %d, Power Source: %d\n", switcherGetMode(), powerSourceMonitor.currentPowerSource);
-		// [defaults setInteger:switcherGetMode() forKey:keyForPowerSource(powerSourceMonitor.currentPowerSource)];
-		
 		// delayed double-check
-		// only save preference after double-checking
 		[self performSelector:@selector(checkCardState) withObject:nil afterDelay:5.0];
 	}
 }
 
-// Notification observer
-// NOTE: If we open the menu while a slow app like Interface Builder is loading, we have the icon not changing
 - (void)handleNotification:(NSNotification *)notification {
+	// Notification observer
+	// NOTE: If we open the menu while a slow app like Interface Builder is loading, we have the icon not changing
+	
 	Log(@"The following notification has been triggered:\n%@", notification);
 	[self updateMenuBarIcon];
 	
@@ -268,7 +258,7 @@ BOOL canLog = NO;
 	NSString* cardString = integrated ? integratedString : discreteString;
 	[statusItem setImage:[NSImage imageNamed:integrated ? @"intel-3.png" : @"nvidia-3.png"]];
 	[currentCard setTitle:[Str(@"Card") stringByReplacingOccurrencesOfString:@"%%" withString:cardString]];
-	[currentPowerSource setTitle:(powerSourceMonitor.currentPowerSource == psBattery) ? @"Battery" : @"AC Adaptor"];
+	[currentPowerSource setTitle:[NSString stringWithFormat:@"Power: %@", (powerSourceMonitor.currentPowerSource == psBattery) ? @"Battery" : @"AC Adaptor"]];
 	
 	if (integrated) Log(@"%@ in use. Sweet deal! More battery life.", integratedString);
 	else Log(@"%@ in use. Bummer! No battery life for you.", discreteString);
@@ -294,6 +284,9 @@ BOOL canLog = NO;
 	[logToConsole setState:([defaults boolForKey:@"logToConsole"] ? 1 : 0)];
 	[loadAtStartup setState:([defaults boolForKey:@"loadAtStartup"] ? 1 : 0)];
 	[restoreModeAtStartup setState:([defaults boolForKey:@"restoreAtStartup"] ? 1 : 0)];
+	[usePowerSourceBasedSwitching setState:([defaults boolForKey:@"usePowerSourceBasedSwitching"] ? 1 : 0)];
+	[gpuOnBattery setSelectedSegment:[defaults integerForKey:kGPUSettingBattery]];
+	[gpuOnAdaptor setSelectedSegment:[defaults integerForKey:kGPUSettingACAdaptor]];
 	
 	// open window and force to the front
 	[preferencesWindow makeKeyAndOrderFront:nil];
@@ -301,14 +294,18 @@ BOOL canLog = NO;
 	[preferencesWindow center];
 }
 
-// NSWindowDelegate for preferences window
 - (void)windowWillClose:(NSNotification *)notification {
+	// NSWindowDelegate for preferences window
+	
 	// save values to defaults
 	[defaults setBool:([checkForUpdatesOnLaunch state] > 0 ? YES : NO) forKey:@"checkForUpdatesOnLaunch"];
 	[defaults setBool:([useGrowl state] > 0 ? YES : NO) forKey:@"useGrowl"];
 	[defaults setBool:([logToConsole state] > 0 ? YES : NO) forKey:@"logToConsole"];
 	[defaults setBool:([loadAtStartup state] > 0 ? YES : NO) forKey:@"loadAtStartup"];
 	[defaults setBool:([restoreModeAtStartup state] > 0 ? YES : NO) forKey:@"restoreAtStartup"];
+	[defaults setBool:([usePowerSourceBasedSwitching state] > 0 ? YES : NO) forKey:@"usePowerSourceBasedSwitching"];
+	[defaults setInteger:[gpuOnBattery selectedSegment] forKey:kGPUSettingBattery];
+	[defaults setInteger:[gpuOnAdaptor selectedSegment] forKey:kGPUSettingACAdaptor];
 	canLog = [defaults boolForKey:@"logToConsole"];
 	[self shouldLoadAtStartup:[defaults boolForKey:@"loadAtStartup"]];
 }
@@ -373,6 +370,65 @@ BOOL canLog = NO;
 	canPreventSwitch = YES;
 }
 
+- (NSMenuItem *)senderForMode:(switcherMode)mode {
+	// convert switcher mode to a menu item (consumed by setMode:)
+	
+	switch (mode) {
+		case modeForceIntel:
+			return intelOnly;
+		case modeForceNvidia:
+			return nvidiaOnly;
+		case modeDynamicSwitching:
+			return dynamicSwitching;
+		case modeToggleGPU:
+			// warnings suck. all your base are belong to us.
+			break;
+	}
+	
+	return dynamicSwitching;
+}
+
+- (void)powerSourceChanged:(PowerSource)powerSource {
+	if (powerSource == lastPowerSource) {
+		Log(@"Power source unchanged, false alarm (maybe a wake from sleep?)");
+		return;
+	}
+	
+	Log(@"Power source changed: %d => %d", lastPowerSource, powerSource);
+	lastPowerSource = powerSource;
+	
+	switcherMode newMode = [[defaults objectForKey:keyForPowerSource(powerSource)] intValue];
+	
+	[self setMode:[self senderForMode:newMode]];
+	[self updateMenuBarIcon];
+}
+
+- (void)checkCardState {
+	// it seems right after waking from sleep, locking to single GPU will fail (even if the return value is correct)
+	// this is a temporary workaround to double-check the status
+	
+	if (!usingLegacy) {
+		switcherMode currentMode = switcherGetMode(); // actual current mode
+		NSMenuItem *activeCard = [self senderForMode:currentMode]; // corresponding menu item
+		
+		// check if its consistent with menu state
+		if ([activeCard state] != NSOnState) {
+			Log(@"Inconsistent menu state and active card, forcing retry");
+			lastPowerSource = -1; // set to uninitialized
+			
+			// set menu item to reflect actual status
+			[intelOnly setState:NSOffState];
+			[nvidiaOnly setState:NSOffState];
+			[dynamicSwitching setState:NSOffState];
+			[activeCard setState:NSOnState];
+			
+			[self powerSourceChanged:powerSourceMonitor.currentPowerSource];
+			
+			return;
+		}
+	}
+}
+
 - (IBAction)quit:(id)sender {
 	[[NSApplication sharedApplication] terminate:self];
 }
@@ -395,62 +451,6 @@ BOOL canLog = NO;
 	
 	[statusItem release];
 	[super dealloc];
-}
-
-// convert switcher mode to a menu item (consumed by setMode:)
-- (NSMenuItem *)senderForMode:(switcherMode)mode {
-	switch (mode) {
-		case modeForceIntel:
-			return intelOnly;
-		case modeForceNvidia:
-			return nvidiaOnly;
-		case modeDynamicSwitching:
-			return dynamicSwitching;
-	}
-	
-	return dynamicSwitching;
-}
-
-- (void)powerSourceChanged:(PowerSource)powerSource {
-	if (powerSource == lastPowerSource) {
-		//Log(@"Power Source UNCHANGED: false alarm (maybe a wake-up?)\n");
-		return;
-	}
-	
-	Log(@"Power Source Changed: %d -> %d\n", lastPowerSource, powerSource);
-	lastPowerSource = powerSource;
-	
-	switcherMode newMode = [[defaults objectForKey:keyForPowerSource(powerSource)] intValue];
-	
-	[self setMode:[self senderForMode:newMode]];
-	[self updateMenuBarIcon];
-}
-
-// it seems right after waking-up, locking to single GPU will fail (even if the return value is correct)
-// this is a temporary walk-around to double-check the status
-- (void)checkCardState {
-	switcherMode currentMode = switcherGetMode(); // ACTUAL current mode
-	NSMenuItem *activeCard = [self senderForMode:currentMode]; // corresponding menu item
-	
-	// check if its consistent with menu state
-	if (activeCard.state != NSOnState) { // inconsistent, forcing retry
-		Log(@"Inconsistent menu state and actual card, forcing retry\n");
-		lastPowerSource = -1; // set to uninitialized, forcing retry
-		
-		// set menu item to reflect actual status
-		intelOnly.state = NSOffState;
-		nvidiaOnly.state = NSOffState;
-		dynamicSwitching.state = NSOffState;
-		activeCard.state = NSOnState;
-		
-		[self powerSourceChanged:powerSourceMonitor.currentPowerSource];
-		
-		return;
-	}
-	
-	// save user preference for current power source and card choice combination
-	Log(@"Mode: %d, Power Source: %d\n", switcherGetMode(), powerSourceMonitor.currentPowerSource);
-	[defaults setInteger:switcherGetMode() forKey:keyForPowerSource(powerSourceMonitor.currentPowerSource)];
 }
 
 @end

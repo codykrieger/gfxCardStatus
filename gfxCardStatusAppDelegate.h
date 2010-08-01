@@ -48,6 +48,9 @@ extern BOOL canLog;
 	IBOutlet NSButton *logToConsole;
 	IBOutlet NSButton *loadAtStartup;
 	IBOutlet NSButton *restoreModeAtStartup;
+	IBOutlet NSButton *usePowerSourceBasedSwitching;
+	IBOutlet NSSegmentedControl *gpuOnBattery;
+	IBOutlet NSSegmentedControl *gpuOnAdaptor;
 	IBOutlet NSButton *closePrefs;
 	
 	// about window
