@@ -258,7 +258,7 @@ BOOL canLog = NO;
 	NSString* cardString = integrated ? integratedString : discreteString;
 	[statusItem setImage:[NSImage imageNamed:integrated ? @"intel-3.png" : @"nvidia-3.png"]];
 	[currentCard setTitle:[Str(@"Card") stringByReplacingOccurrencesOfString:@"%%" withString:cardString]];
-	[currentPowerSource setTitle:[NSString stringWithFormat:@"Power: %@", (powerSourceMonitor.currentPowerSource == psBattery) ? @"Battery" : @"AC Adaptor"]];
+	[currentPowerSource setTitle:[NSString stringWithFormat:@"Power Source: %@", (powerSourceMonitor.currentPowerSource == psBattery) ? @"Battery" : @"AC Adaptor"]];
 	
 	if (integrated) Log(@"%@ in use. Sweet deal! More battery life.", integratedString);
 	else Log(@"%@ in use. Bummer! No battery life for you.", discreteString);

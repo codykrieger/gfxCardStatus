@@ -79,14 +79,15 @@ static void procTask(const void * value, void * param) {
 	cp = buf + sizeof(int);
 	if ((sp=strrchr(cp,'/'))) cp = sp+1;
 	
-	val = [[NSString alloc] initWithUTF8String:cp];
+	NSString *procName = [[NSString alloc] initWithUTF8String:cp];
+	val = [NSString stringWithFormat:@"%@, PID: %@", procName, [key stringValue]];
 	free(buf);
 	goto add;
 err:
 	val = [[NSString alloc] initWithUTF8String:k->kp_proc.p_comm];
 add:
 	[dict setObject:val forKey:key];
-	[key release]; [val release];
+	[key release]; [procName release];
 }
 
 static void procScan(io_registry_entry_t service, NSMutableDictionary* dict) {
