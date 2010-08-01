@@ -107,7 +107,7 @@ static BOOL setMuxState(io_connect_t connect, muxState state, uint64_t arg) {
                                            3,            // the number of scalar input values.
                                            NULL,         // array of scalar (64-bit) output values.
                                            0);           // pointer to the number of scalar output values.
-	if (kernResult != KERN_SUCCESS) {
+	if (kernResult == KERN_SUCCESS) {
 		Log(@"setMuxState was successful.");
 	} else {
 		Log(@"setMuxState returned 0x%08x.", kernResult);

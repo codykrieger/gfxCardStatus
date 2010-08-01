@@ -7,28 +7,29 @@
  */
 
 /* Main menu */
-"About"            = "Über gfxCardStatus, v%%";
-"Update"           = "Prüfe auf Updates...";
-"Preferences"      = "Einstellungen...";
-"Card"             = "Karte: %%";
-"SwitchGPUs"       = "Wechsle GPUs (experimental)";
-"IntelOnly"        = "Nur Intel";
-"NvidiaOnly"       = "Nur NVIDIA";
-"DynamicSwitching" = "Automatischer Wechsel";
-"Dependencies"     = "Abhängigkeiten";
-"NoProcess"        = "Keine";
-"Quit"             = "Beenden";
-"AllDone"		   = "Alles Erledigt!";
-"Close"            = "Cool!";
+"About"					= "Über gfxCardStatus, v%%";
+"Update"				= "Prüfe auf Updates...";
+"Preferences"			= "Einstellungen...";
+"Card"					= "Karte: %%";
+"SwitchGPUs"			= "Wechsle GPUs (experimental)";
+"IntelOnly"				= "Nur Intel®";
+"NvidiaOnly"			= "Nur NVIDIA®";
+"DynamicSwitching"		= "Automatischer Wechsel";
+"Dependencies"			= "Abhängigkeiten";
+"NoProcess"				= "Keine";
+"Quit"					= "Beenden";
+"AllDone"				= "Alles Erledigt!";
+"Close"					= "Cool!";
 
 /* Preferences window */
-"PrefTitle"        = "gfxCardStatus Einstellungen";
-"PrefUpdate"       = "Prüfe auf Updates beim starten";
-"PrefGrowl"        = "Benutze Growl für Statuswechsel Benachrichtigungen";
-"PrefStartup"      = "Starte gfxCardStatus beim booten";
-"PrefRestoreState" = "Letzten genutzten Modus beim Starten wiederherstellen";
-"PrefLog"          = "Diagnose Nachrichten in der Konsole speichern";
+"PrefTitle"				= "gfxCardStatus Einstellungen";
+"PrefUpdate"			= "Prüfe auf Updates beim starten";
+"PrefGrowl"				= "Benutze Growl für Statuswechsel Benachrichtigungen";
+"PrefStartup"			= "Starte gfxCardStatus beim booten";
+"PrefLog"				= "Diagnose Nachrichten in der Konsole speichern";
+"PrefRestoreState"		= "Letzten genutzten Modus beim Starten wiederherstellen";
+"PrefPowerSwitching"	= "Use power source-based switching";
 
 /* About box */
-"AboutTitle"       = "Über gfxCardStatus";
-"AboutWebsite"     = "Website";
+"AboutTitle"			= "Über gfxCardStatus";
+"AboutWebsite"			= "Website";
