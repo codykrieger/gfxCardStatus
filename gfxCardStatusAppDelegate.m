@@ -397,10 +397,12 @@ BOOL canLog = NO;
 	Log(@"Power source changed: %d => %d", lastPowerSource, powerSource);
 	lastPowerSource = powerSource;
 	
-	switcherMode newMode = [[defaults objectForKey:keyForPowerSource(powerSource)] intValue];
-	
-	[self setMode:[self senderForMode:newMode]];
-	[self updateMenuBarIcon];
+	if ([defaults boolForKey:@"usePowerSourceBasedSwitching"]) {
+		switcherMode newMode = [[defaults objectForKey:keyForPowerSource(powerSource)] intValue];
+		
+		[self setMode:[self senderForMode:newMode]];
+		[self updateMenuBarIcon];
+	}
 }
 
 - (void)checkCardState {
