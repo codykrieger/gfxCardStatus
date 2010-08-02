@@ -141,6 +141,12 @@ BOOL canLog = NO;
 		
 		// check current power source and load preference for it
 		[self powerSourceChanged:powerSourceMonitor.currentPowerSource];
+	} else {
+		// disable these controls for legacy users until power source switching works for them
+		[currentPowerSource setHidden:YES];
+		[gpuOnAdaptor setEnabled:NO];
+		[gpuOnBattery setEnabled:NO];
+		[usePowerSourceBasedSwitching setEnabled:NO];
 	}
 }
 
