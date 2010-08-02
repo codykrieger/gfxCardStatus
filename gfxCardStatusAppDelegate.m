@@ -306,6 +306,9 @@ BOOL canLog = NO;
 	[defaults setBool:([usePowerSourceBasedSwitching state] > 0 ? YES : NO) forKey:@"usePowerSourceBasedSwitching"];
 	[defaults setInteger:[gpuOnBattery selectedSegment] forKey:kGPUSettingBattery];
 	[defaults setInteger:[gpuOnAdaptor selectedSegment] forKey:kGPUSettingACAdaptor];
+	
+	[defaults synchronize];
+	
 	canLog = [defaults boolForKey:@"logToConsole"];
 	[self shouldLoadAtStartup:[defaults boolForKey:@"loadAtStartup"]];
 }
