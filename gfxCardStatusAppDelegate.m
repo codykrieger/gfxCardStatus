@@ -406,9 +406,8 @@ BOOL canLog = NO;
 	Log(@"Power source changed: %d => %d", lastPowerSource, powerSource);
 	lastPowerSource = powerSource;
 	
-	if ([defaults boolForKey:@"usePowerSourceBasedSwitching"]) {
+	if ([defaults boolForKey:@"usePowerSourceBasedSwitching"] && !usingLegacy) {
 		switcherMode newMode = [[defaults objectForKey:keyForPowerSource(powerSource)] intValue];
-		
 		[self setMode:[self senderForMode:newMode]];
 	}
 	

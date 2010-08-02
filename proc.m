@@ -41,6 +41,7 @@ static void procTask(const void * value, void * param) {
 	NSMutableDictionary* dict = (NSMutableDictionary*)param;
 	NSNumber *key = NULL;
 	NSString *val = NULL;
+	NSString *procName = NULL;
 	
 	int mib[3] = {CTL_KERN, KERN_ARGMAX, 0};
 	struct kinfo_proc* k = NULL;
@@ -79,7 +80,7 @@ static void procTask(const void * value, void * param) {
 	cp = buf + sizeof(int);
 	if ((sp=strrchr(cp,'/'))) cp = sp+1;
 	
-	NSString *procName = [[NSString alloc] initWithUTF8String:cp];
+	procName = [[NSString alloc] initWithUTF8String:cp];
 	val = [NSString stringWithFormat:@"%@, PID: %@", procName, [key stringValue]];
 	free(buf);
 	goto add;
