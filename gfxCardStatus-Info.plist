@@ -35,7 +35,7 @@
 	<key>SUFeedURL</key>
 	<string>http://codykrieger.com/gfxCardStatus/appcast.xml</string>
 	<key>SUShowReleaseNotes</key>
-	<string>NO</string>
+	<string>YES</string>
 	<key>SUEnableAutomaticChecks</key>
 	<string>NO</string>
 </dict>

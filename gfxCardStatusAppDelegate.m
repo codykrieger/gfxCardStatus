@@ -404,8 +404,9 @@ BOOL canLog = NO;
 		switcherMode newMode = [[defaults objectForKey:keyForPowerSource(powerSource)] intValue];
 		
 		[self setMode:[self senderForMode:newMode]];
-		[self updateMenuBarIcon];
 	}
+	
+	[self updateMenuBarIcon];
 }
 
 - (void)checkCardState {
