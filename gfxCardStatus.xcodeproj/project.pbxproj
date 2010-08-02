@@ -62,6 +62,8 @@
 		8D1107310486CEB800E47090 /* gfxCardStatus-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "gfxCardStatus-Info.plist"; sourceTree = "<group>"; };
 		8D1107320486CEB800E47090 /* gfxCardStatus.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = gfxCardStatus.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A10D2E5811C63CC100E8E2C7 /* Italian */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Italian; path = Italian.lproj/Localizable.strings; sourceTree = "<group>"; };
+		A12DE37712064D3F00D8E08C /* zh_CN */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = zh_CN; path = zh_CN.lproj/Localizable.strings; sourceTree = "<group>"; };
+		A12DE37812064D4400D8E08C /* zh_TW */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = zh_TW; path = zh_TW.lproj/Localizable.strings; sourceTree = "<group>"; };
 		A13C5DFF119FA4C300E678FA /* proc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = proc.h; sourceTree = "<group>"; };
 		A13C5E00119FA4C300E678FA /* proc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = proc.m; sourceTree = "<group>"; };
 		A13C5FBF119FCFCF00E678FA /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -232,6 +234,8 @@
 				French,
 				German,
 				Italian,
+				zh_CN,
+				zh_TW,
 			);
 			mainGroup = 29B97314FDCFA39411CA2CEA /* gfxCardStatus */;
 			projectDirPath = "";
@@ -302,6 +306,8 @@
 				A13C5FC1119FCFE700E678FA /* French */,
 				A14390AE11C53FCD00E4D2A5 /* German */,
 				A10D2E5811C63CC100E8E2C7 /* Italian */,
+				A12DE37712064D3F00D8E08C /* zh_CN */,
+				A12DE37812064D4400D8E08C /* zh_TW */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";

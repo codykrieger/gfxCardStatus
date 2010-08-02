@@ -1,0 +1,35 @@
+/* 
+   Localizable.strings
+   gfxCardStatus
+
+   Created by Edwin Chan on 15.05.10.
+   Copyright 2010 Edwin Chan. All rights reserved.
+ */
+
+/* Main menu */
+"About"            = "关于 gfxCardStatus, v%%";
+"Update"           = "检查更新...";
+"Preferences"      = "偏好设置...";
+"Card"             = "图形处理器: %%";
+"SwitchGPUs"       = "变更 GPUs (试验)";
+"IntelOnly"        = "Intel 集成图形处理器";
+"NvidiaOnly"       = "NVIDIA 独立图形处理器";
+"DynamicSwitching" = "自动切换图形处理器";
+"Dependencies"     = "相依程序";
+"NoProcess"        = "无";
+"Quit"             = "退出";
+"AllDone"		   = "完成！";
+"Close"            = "关闭！";
+
+/* Preferences window */
+"PrefTitle"        = "gfxCardStatus 偏好设置";
+"PrefUpdate"       = "启动时检查更新";
+"PrefGrowl"        = "以 Growl 顕示状态更改讯息";
+"PrefStartup"      = "启动时载入 gfxCardStatus";
+"PrefLog"          = "记录诊断讯息到控制台信息";
+"PrefRestoreState" = "启动时恢复上次的使用模式";
+"PrefPowerSwitching"	= "Use power source-based switching";
+
+/* About box */
+"AboutTitle"       = "关于 gfxCardStatus";
+"AboutWebsite"     = "网站";
