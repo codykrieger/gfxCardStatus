@@ -9,9 +9,9 @@
 #import <Cocoa/Cocoa.h>
 
 typedef enum {
-	psACAdaptor,
-	psBattery,
-	psUnknown
+    psACAdaptor,
+    psBattery,
+    psUnknown
 } PowerSource;
 
 @protocol PowerSourceMonitorDelegate<NSObject>
@@ -20,7 +20,7 @@ typedef enum {
 
 
 @interface PowerSourceMonitor : NSObject {
-	id<PowerSourceMonitorDelegate> delegate;
+    id<PowerSourceMonitorDelegate> delegate;
 }
 
 @property (nonatomic, assign) id<PowerSourceMonitorDelegate> delegate;

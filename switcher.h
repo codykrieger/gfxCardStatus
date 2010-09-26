@@ -9,15 +9,15 @@
 #import <Foundation/Foundation.h>
 
 typedef enum {
-	modeForceIntel,
-	modeForceNvidia,
-	modeDynamicSwitching,
-	modeToggleGPU
+    modeForceIntel,
+    modeForceNvidia,
+    modeDynamicSwitching,
+    modeToggleGPU
 } switcherMode;
 
 BOOL switcherOpen();  // Initialize driver
 void switcherClose(); // Close driver
 
 BOOL switcherSetMode(switcherMode mode); // Sets working mode
-BOOL switcherUseIntegrated();			 // Integrated card is in use
-BOOL switcherUseDynamicSwitching();		 // Dynamic switching policy enabled
+BOOL switcherUseIntegrated();             // Integrated card is in use
+BOOL switcherUseDynamicSwitching();         // Dynamic switching policy enabled

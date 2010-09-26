@@ -15,6 +15,12 @@
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
 		A13C5E01119FA4C300E678FA /* proc.m in Sources */ = {isa = PBXBuildFile; fileRef = A13C5E00119FA4C300E678FA /* proc.m */; };
 		A13C5FC0119FCFCF00E678FA /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = A13C5FBE119FCFCF00E678FA /* Localizable.strings */; };
+		A14C17F7124EBBFA00816A4A /* discrete-3-white.png in Resources */ = {isa = PBXBuildFile; fileRef = A14C17F5124EBBFA00816A4A /* discrete-3-white.png */; };
+		A14C17F8124EBBFA00816A4A /* discrete-3.png in Resources */ = {isa = PBXBuildFile; fileRef = A14C17F6124EBBFA00816A4A /* discrete-3.png */; };
+		A14C17FB124EBC1100816A4A /* intel-3-white.png in Resources */ = {isa = PBXBuildFile; fileRef = A14C17F9124EBC1100816A4A /* intel-3-white.png */; };
+		A14C17FC124EBC1100816A4A /* nvidia-3-white.png in Resources */ = {isa = PBXBuildFile; fileRef = A14C17FA124EBC1100816A4A /* nvidia-3-white.png */; };
+		A14C180B124EFE6300816A4A /* PrefsController.m in Sources */ = {isa = PBXBuildFile; fileRef = A14C180A124EFE6300816A4A /* PrefsController.m */; };
+		A14C181C124F201400816A4A /* PrefsWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = A14C181A124F201400816A4A /* PrefsWindow.xib */; };
 		A159E4EA1184E84300E68428 /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A159E4E91184E84300E68428 /* Sparkle.framework */; };
 		A159E4FC1184EC5100E68428 /* Sparkle.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = A159E4E91184E84300E68428 /* Sparkle.framework */; };
 		A16B28F41196B0E7006EB263 /* README in Resources */ = {isa = PBXBuildFile; fileRef = A16B28F31196B0E7006EB263 /* README */; };
@@ -69,6 +75,13 @@
 		A13C5FBF119FCFCF00E678FA /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/Localizable.strings; sourceTree = "<group>"; };
 		A13C5FC1119FCFE700E678FA /* French */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = French; path = French.lproj/Localizable.strings; sourceTree = "<group>"; };
 		A14390AE11C53FCD00E4D2A5 /* German */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = German; path = German.lproj/Localizable.strings; sourceTree = "<group>"; };
+		A14C17F5124EBBFA00816A4A /* discrete-3-white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "discrete-3-white.png"; sourceTree = "<group>"; };
+		A14C17F6124EBBFA00816A4A /* discrete-3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "discrete-3.png"; sourceTree = "<group>"; };
+		A14C17F9124EBC1100816A4A /* intel-3-white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "intel-3-white.png"; sourceTree = "<group>"; };
+		A14C17FA124EBC1100816A4A /* nvidia-3-white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "nvidia-3-white.png"; sourceTree = "<group>"; };
+		A14C1809124EFE6300816A4A /* PrefsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrefsController.h; sourceTree = "<group>"; };
+		A14C180A124EFE6300816A4A /* PrefsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrefsController.m; sourceTree = "<group>"; };
+		A14C181B124F201400816A4A /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/PrefsWindow.xib; sourceTree = "<group>"; };
 		A159E4E91184E84300E68428 /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Sparkle.framework; sourceTree = "<group>"; };
 		A16B28F31196B0E7006EB263 /* README */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README; sourceTree = "<group>"; };
 		A17220621236D90800636797 /* Growl.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Growl.framework; sourceTree = "<group>"; };
@@ -107,14 +120,16 @@
 			children = (
 				256AC3D80F4B6AC300CF3369 /* gfxCardStatusAppDelegate.h */,
 				256AC3D90F4B6AC300CF3369 /* gfxCardStatusAppDelegate.m */,
+				A14C1809124EFE6300816A4A /* PrefsController.h */,
+				A14C180A124EFE6300816A4A /* PrefsController.m */,
+				8013EE1211A026EA000ECA36 /* PowerSourceMonitor.h */,
+				8013EE1311A026EA000ECA36 /* PowerSourceMonitor.m */,
 				A1E751DF1180BF0B00A13CA8 /* systemProfiler.h */,
 				A1E751E01180BF0B00A13CA8 /* systemProfiler.m */,
 				A1E07E401194B7C900683B07 /* switcher.h */,
 				A1E07E411194B7C900683B07 /* switcher.m */,
 				A13C5DFF119FA4C300E678FA /* proc.h */,
 				A13C5E00119FA4C300E678FA /* proc.m */,
-				8013EE1211A026EA000ECA36 /* PowerSourceMonitor.h */,
-				8013EE1311A026EA000ECA36 /* PowerSourceMonitor.m */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -177,12 +192,17 @@
 			children = (
 				A1D9C43911851B77009A4DE1 /* gfxCardStatus.icns */,
 				A1D6AC5C11826BF00038AD1A /* nvidia-3.png */,
+				A14C17FA124EBC1100816A4A /* nvidia-3-white.png */,
 				A1A3A6F8118214E2008B8145 /* intel-3.png */,
+				A14C17F9124EBC1100816A4A /* intel-3-white.png */,
+				A14C17F6124EBBFA00816A4A /* discrete-3.png */,
+				A14C17F5124EBBFA00816A4A /* discrete-3-white.png */,
 				A1D9C41F11850DEF009A4DE1 /* dsa_pub.pem */,
 				A17220981236DA0B00636797 /* Growl Registration Ticket.growlRegDict */,
 				8D1107310486CEB800E47090 /* gfxCardStatus-Info.plist */,
 				089C165CFE840E0CC02AAC07 /* InfoPlist.strings */,
 				1DDD58140DA1D0A300B32029 /* MainMenu.xib */,
+				A14C181A124F201400816A4A /* PrefsWindow.xib */,
 				A13C5FBE119FCFCF00E678FA /* Localizable.strings */,
 			);
 			name = Resources;
@@ -261,6 +281,11 @@
 				A13C5FC0119FCFCF00E678FA /* Localizable.strings in Resources */,
 				A17220A91236DA8A00636797 /* Growl Registration Ticket.growlRegDict in Resources */,
 				A17221841236DE4200636797 /* Growl License.txt in Resources */,
+				A14C17F7124EBBFA00816A4A /* discrete-3-white.png in Resources */,
+				A14C17F8124EBBFA00816A4A /* discrete-3.png in Resources */,
+				A14C17FB124EBC1100816A4A /* intel-3-white.png in Resources */,
+				A14C17FC124EBC1100816A4A /* nvidia-3-white.png in Resources */,
+				A14C181C124F201400816A4A /* PrefsWindow.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -277,6 +302,7 @@
 				A1E07E421194B7C900683B07 /* switcher.m in Sources */,
 				A13C5E01119FA4C300E678FA /* proc.m in Sources */,
 				8013EE1411A026EA000ECA36 /* PowerSourceMonitor.m in Sources */,
+				A14C180B124EFE6300816A4A /* PrefsController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -310,6 +336,14 @@
 				A12DE37812064D4400D8E08C /* zh_TW */,
 			);
 			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+		A14C181A124F201400816A4A /* PrefsWindow.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				A14C181B124F201400816A4A /* English */,
+			);
+			name = PrefsWindow.xib;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

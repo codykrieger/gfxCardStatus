@@ -1,0 +1,220 @@
+//
+//  PrefsController.m
+//  gfxCardStatus
+//
+//  Created by Cody Krieger on 9/26/10.
+//  Copyright 2010 Cody Krieger. All rights reserved.
+//
+
+#import "PrefsController.h"
+
+static PrefsController *sharedInstance = nil;
+
+@implementation PrefsController
+
+#pragma mark -
+#pragma mark class instance methods
+
+- (id)init {
+    if (self = [super initWithWindowNibName:@"PrefsWindow"]) {
+        // set preferences path
+        prefsPath = [@"~/Library/Preferences/com.codykrieger.gfxCardStatus-Preferences.plist" stringByExpandingTildeInPath];
+        
+        // load preferences in from file
+        prefs = [[NSMutableDictionary alloc] initWithContentsOfFile:prefsPath];
+        if (!prefs) {
+            // if preferences file doesn't exist, set the defaults
+            prefs = [[NSMutableDictionary alloc] init];
+            [self setDefaults];
+        }
+        
+        // ensure that application will be loaded at startup
+        if ([self shouldStartAtLogin])
+            [self loadAtStartup:YES];
+        
+        // localization
+        NSArray* localized = [[NSArray alloc] initWithObjects:prefChkGrowl, prefChkLog, prefChkPowerSourceBasedSwitching, 
+                              prefChkRestoreState, prefChkStartup, prefChkUpdate, nil];
+        for (NSButton *loc in localized) {
+            [loc setTitle:Str([loc title])];
+        }
+        [localized release];
+        
+        if (usingLegacy) {
+            [prefSegOnBattery setSegmentCount:2];
+            for (int i = 0; i < [prefSegOnBattery segmentCount]; i++) {
+                [prefSegOnBattery setLabel:Str([prefSegOnBattery labelForSegment:i]) forSegment:i];
+            }
+            [prefSegOnAc setSegmentCount:2];
+            for (int i = 0; i < [prefSegOnAc segmentCount]; i++) {
+                [prefSegOnAc setLabel:Str([prefSegOnAc labelForSegment:i]) forSegment:i];
+            }
+        } else {
+            [prefSegOnBattery setLabel:@"Intel®" forSegment:0];
+            [prefSegOnBattery setLabel:@"NVIDIA®" forSegment:1];
+            [prefSegOnAc setLabel:@"Intel®" forSegment:0];
+            [prefSegOnAc setLabel:@"NVIDIA®" forSegment:1];
+        }
+        
+        // preferences window
+        [[self window] setLevel:NSModalPanelWindowLevel];
+        [[self window] setDelegate:self];
+    }
+    return self;
+}
+
+- (void)setDefaults {
+    NSNumber *yesNumber = [NSNumber numberWithBool:YES];
+    NSNumber *noNumber = [NSNumber numberWithBool:NO];
+    
+    [prefs setObject:yesNumber forKey:@"checkForUpdatesOnLaunch"];
+    [prefs setObject:yesNumber forKey:@"useGrowl"];
+    [prefs setObject:noNumber forKey:@"logToConsole"];
+    [prefs setObject:yesNumber forKey:@"loadAtStartup"];
+    [prefs setObject:yesNumber forKey:@"restoreAtStartup"];
+    [prefs setObject:noNumber forKey:@"usePowerSourceBasedSwitching"];
+    [prefs setObject:[NSNumber numberWithInt:3] forKey:@"lastGPUSetting"];
+    [prefs setObject:[NSNumber numberWithInt:0] forKey:kGPUSettingBattery]; // defaults to integrated
+    [prefs setObject:[NSNumber numberWithInt:2] forKey:kGPUSettingACAdaptor]; // defaults to dynamic
+    
+    [self savePreferences];
+}
+
+- (void)savePreferences {
+    [prefs writeToFile:prefsPath atomically:YES];
+}
+
+- (void)openPreferences {
+    [[self window] makeKeyAndOrderFront:nil];
+    [[self window] orderFrontRegardless];
+    [[self window] center];
+}
+
+- (IBAction)preferenceChanged:(id)sender {
+    if (sender == prefChkUpdate) {
+        
+    } else if (sender == prefChkGrowl) {
+        
+    } else if (sender == prefChkStartup) {
+        
+    } else if (sender == prefChkLog) {
+        
+    } else if (sender == prefChkRestoreState) {
+        
+    } else if (sender == prefChkPowerSourceBasedSwitching) {
+        
+    } else if (sender == prefSegOnBattery) {
+        
+    } else if (sender == prefSegOnAc) {
+        
+    }
+}
+
+- (void)windowWillClose:(NSNotification *)notification {
+    
+}
+
+- (BOOL)existsInStartupItems {
+    BOOL exists = NO;
+    LSSharedFileListRef loginItems = LSSharedFileListCreate(NULL, kLSSharedFileListSessionLoginItems, NULL);
+    if (loginItems) {
+        UInt32 seedValue;
+        NSArray *loginItemsArray = (NSArray *)LSSharedFileListCopySnapshot(loginItems, &seedValue);
+        LSSharedFileListItemRef removeItem;
+        for (id item in loginItemsArray) {
+            LSSharedFileListItemRef itemRef = (LSSharedFileListItemRef)item;
+            CFURLRef URL = NULL;
+            if (LSSharedFileListItemResolve(itemRef, 0, &URL, NULL) == noErr) {
+                if ([[(NSURL *)URL path] hasSuffix:@"gfxCardStatus.app"]) {
+                    exists = YES;
+                    CFRelease(URL);
+                    removeItem = (LSSharedFileListItemRef)item;
+                    break;
+                }
+            }
+        }
+        
+        [loginItemsArray release];
+        CFRelease(loginItems);
+    }
+    return exists;
+}
+
+- (void)loadAtStartup:(BOOL)value {
+    NSURL *thePath = [[NSBundle mainBundle] bundleURL];
+    LSSharedFileListRef loginItems = LSSharedFileListCreate(NULL, kLSSharedFileListSessionLoginItems, NULL);
+    if (loginItems) {
+        BOOL exists = NO;
+        
+        UInt32 seedValue;
+        NSArray *loginItemsArray = (NSArray *)LSSharedFileListCopySnapshot(loginItems, &seedValue);
+        LSSharedFileListItemRef removeItem;
+        for (id item in loginItemsArray) {
+            LSSharedFileListItemRef itemRef = (LSSharedFileListItemRef)item;
+            CFURLRef URL = NULL;
+            if (LSSharedFileListItemResolve(itemRef, 0, &URL, NULL) == noErr) {
+                if ([[(NSURL *)URL path] hasSuffix:@"gfxCardStatus.app"]) {
+                    exists = YES;
+                    Log(@"Already exists in startup items");
+                    CFRelease(URL);
+                    removeItem = (LSSharedFileListItemRef)item;
+                    break;
+                }
+            }
+        }
+        
+        if (value && !exists) {
+            Log(@"Adding to startup items.");
+            LSSharedFileListItemRef item = LSSharedFileListInsertItemURL(loginItems, kLSSharedFileListItemBeforeFirst, NULL, NULL, (CFURLRef)thePath, NULL, NULL);
+            if (item) CFRelease(item);
+        } else if (!value && exists) {
+            Log(@"Removing from startup items.");        
+            LSSharedFileListItemRemove(loginItems, removeItem);
+        }
+        
+        [loginItemsArray release];
+        CFRelease(loginItems);
+    }
+}
+
+#pragma mark -
+#pragma mark Singleton methods
+
++ (PrefsController*)sharedInstance {
+    @synchronized(self) {
+        if (sharedInstance == nil)
+            sharedInstance = [[PrefsController alloc] init];
+    }
+    return sharedInstance;
+}
+
++ (id)allocWithZone:(NSZone *)zone {
+    @synchronized(self) {
+        if (sharedInstance == nil) {
+            sharedInstance = [super allocWithZone:zone];
+            return sharedInstance; // assignment and return on first allocation
+        }
+    }
+    return nil; // on subsequent allocation attempts return nil
+}
+
+- (id)copyWithZone:(NSZone *)zone {
+    return self;
+}
+
+- (id)retain {
+    return self;
+}
+
+- (unsigned)retainCount {
+    return UINT_MAX; // denotes an object that cannot be released
+}
+
+- (void)release {
+}
+
+- (id)autorelease {
+    return self;
+}
+
+@end

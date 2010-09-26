@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
+BOOL isUsingLegacyModel(BOOL *legacy);
+
 // Whether the integrated graphic is currently in use
 // legacy is set to 'usingLate08Or09Model'
-BOOL isUsingIntegratedGraphics(BOOL* legacy);
+BOOL isUsingIntegratedGraphics(BOOL *legacy);

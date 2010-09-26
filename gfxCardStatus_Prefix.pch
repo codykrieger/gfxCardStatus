@@ -4,6 +4,11 @@
 
 #ifdef __OBJC__
     #import <Cocoa/Cocoa.h>
-	#import "gfxCardStatusAppDelegate.h"
-	#define LogIfEnabled(...) { if ([gfxCardStatusAppDelegate canLogToConsole]) NSLog(__VA_ARGS__); }
+    #import "gfxCardStatusAppDelegate.h"
+    
+    #define Str(key) NSLocalizedString(key, key)
+    #define LogIfEnabled(...) { if ([gfxCardStatusAppDelegate canLogToConsole]) NSLog(__VA_ARGS__); }
+    
+    #define kGPUSettingACAdaptor    @"GPUSetting_ACAdaptor"
+    #define kGPUSettingBattery      @"GPUSetting_Battery"
 #endif
