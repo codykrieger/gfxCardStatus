@@ -24,6 +24,9 @@
     IBOutlet NSButton *prefChkPowerSourceBasedSwitching; // use power source-based switching
     IBOutlet NSSegmentedControl *prefSegOnBattery; // pref for gpu on battery
     IBOutlet NSSegmentedControl *prefSegOnAc; // pref for gpu on ac
+    
+    NSNumber *yesNumber;
+    NSNumber *noNumber;
 }
 
 - (void)setDefaults;
@@ -37,8 +40,12 @@
 - (BOOL)shouldLogToConsole;
 - (BOOL)shouldRestoreStateOnStartup;
 - (BOOL)shouldUsePowerSourceBasedSwitching;
+- (int)shouldRestoreToMode;
 
+- (void)setLastMode:(int)value;
 
 - (IBAction)preferenceChanged:(id)sender;
+
++ (PrefsController *)sharedInstance;
 
 @end

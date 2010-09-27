@@ -8,10 +8,6 @@
 
 #import "systemProfiler.h"
 
-BOOL isUsingLegacyModel(BOOL *legacy) {
-    
-}
-
 BOOL isUsingIntegratedGraphics(BOOL *legacy) {
     NSTask *task = [[NSTask alloc] init];
     [task setLaunchPath:@"/usr/sbin/system_profiler"];

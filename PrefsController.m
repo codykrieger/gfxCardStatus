@@ -7,6 +7,7 @@
 //
 
 #import "PrefsController.h"
+#import "systemProfiler.h"
 
 static PrefsController *sharedInstance = nil;
 
@@ -17,6 +18,10 @@ static PrefsController *sharedInstance = nil;
 
 - (id)init {
     if (self = [super initWithWindowNibName:@"PrefsWindow"]) {
+        // set yes/no numbers
+        yesNumber = [NSNumber numberWithBool:YES];
+        noNumber = [NSNumber numberWithBool:NO];
+        
         // set preferences path
         prefsPath = [@"~/Library/Preferences/com.codykrieger.gfxCardStatus-Preferences.plist" stringByExpandingTildeInPath];
         
@@ -40,6 +45,8 @@ static PrefsController *sharedInstance = nil;
         }
         [localized release];
         
+        BOOL usingLegacy = NO;
+        isUsingIntegratedGraphics(&usingLegacy);
         if (usingLegacy) {
             [prefSegOnBattery setSegmentCount:2];
             for (int i = 0; i < [prefSegOnBattery segmentCount]; i++) {
@@ -64,18 +71,18 @@ static PrefsController *sharedInstance = nil;
 }
 
 - (void)setDefaults {
-    NSNumber *yesNumber = [NSNumber numberWithBool:YES];
-    NSNumber *noNumber = [NSNumber numberWithBool:NO];
+    [prefs setObject:yesNumber forKey:@"shouldCheckForUpdatesOnStartup"];
+    [prefs setObject:yesNumber forKey:@"shouldGrowl"];
+    [prefs setObject:yesNumber forKey:@"shouldStartAtLogin"];
+    [prefs setObject:noNumber forKey:@"shouldLogToConsole"];
+    [prefs setObject:yesNumber forKey:@"shouldRestoreStateOnStartup"];
+    [prefs setObject:noNumber forKey:@"shouldUsePowerSourceBasedSwitching"];
     
-    [prefs setObject:yesNumber forKey:@"checkForUpdatesOnLaunch"];
-    [prefs setObject:yesNumber forKey:@"useGrowl"];
-    [prefs setObject:noNumber forKey:@"logToConsole"];
-    [prefs setObject:yesNumber forKey:@"loadAtStartup"];
-    [prefs setObject:yesNumber forKey:@"restoreAtStartup"];
-    [prefs setObject:noNumber forKey:@"usePowerSourceBasedSwitching"];
-    [prefs setObject:[NSNumber numberWithInt:3] forKey:@"lastGPUSetting"];
     [prefs setObject:[NSNumber numberWithInt:0] forKey:kGPUSettingBattery]; // defaults to integrated
     [prefs setObject:[NSNumber numberWithInt:2] forKey:kGPUSettingACAdaptor]; // defaults to dynamic
+    
+    // last mode used before termination
+    [prefs setObject:[NSNumber numberWithInt:3] forKey:@"shouldRestoreToMode"];
     
     [self savePreferences];
 }
@@ -90,19 +97,23 @@ static PrefsController *sharedInstance = nil;
     [[self window] center];
 }
 
+- (void)windowWillClose:(NSNotification *)notification {
+    
+}
+
 - (IBAction)preferenceChanged:(id)sender {
     if (sender == prefChkUpdate) {
-        
+        [prefs setObject:([prefChkUpdate state] ? yesNumber : noNumber) forKey:@"shouldCheckForUpdatesOnStartup"];
     } else if (sender == prefChkGrowl) {
-        
+        [prefs setObject:([prefChkGrowl state] ? yesNumber : noNumber) forKey:@"shouldGrowl"];
     } else if (sender == prefChkStartup) {
-        
+        [prefs setObject:([prefChkStartup state] ? yesNumber : noNumber) forKey:@"shouldStartAtLogin"];
     } else if (sender == prefChkLog) {
-        
+        [prefs setObject:([prefChkLog state] ? yesNumber : noNumber) forKey:@"shouldLogToConsole"];
     } else if (sender == prefChkRestoreState) {
-        
+        [prefs setObject:([prefChkRestoreState state] ? yesNumber : noNumber) forKey:@"shouldRestoreStateOnStartup"];
     } else if (sender == prefChkPowerSourceBasedSwitching) {
-        
+        [prefs setObject:([prefChkPowerSourceBasedSwitching state] ? yesNumber : noNumber) forKey:@"shouldUsePowerSourceBasedSwitching"];
     } else if (sender == prefSegOnBattery) {
         
     } else if (sender == prefSegOnAc) {
@@ -110,8 +121,36 @@ static PrefsController *sharedInstance = nil;
     }
 }
 
-- (void)windowWillClose:(NSNotification *)notification {
-    
+- (BOOL)shouldCheckForUpdatesOnStartup {
+    return [(NSNumber *)[prefs objectForKey:@"shouldCheckForUpdatesOnStartup"] boolValue];
+}
+
+- (BOOL)shouldGrowl {
+    return [(NSNumber *)[prefs objectForKey:@"shouldGrowl"] boolValue];
+}
+
+- (BOOL)shouldStartAtLogin {
+    return [(NSNumber *)[prefs objectForKey:@"shouldStartAtLogin"] boolValue];
+}
+
+- (BOOL)shouldLogToConsole {
+    return [(NSNumber *)[prefs objectForKey:@"shouldLogToConsole"] boolValue];
+}
+
+- (BOOL)shouldRestoreStateOnStartup {
+    return [(NSNumber *)[prefs objectForKey:@"shouldRestoreStateOnStartup"] boolValue];
+}
+
+- (BOOL)shouldUsePowerSourceBasedSwitching {
+    return [(NSNumber *)[prefs objectForKey:@"shouldUsePowerSourceBasedSwitching"] boolValue];
+}
+
+- (int)shouldRestoreToMode {
+    return [(NSNumber *)[prefs objectForKey:@"shouldRestoreToMode"] intValue];
+}
+
+- (void)setLastMode:(int)value {
+    [prefs setObject:[NSNumber numberWithInt:value] forKey:@"shouldRestoreToMode"];
 }
 
 - (BOOL)existsInStartupItems {
@@ -180,7 +219,7 @@ static PrefsController *sharedInstance = nil;
 #pragma mark -
 #pragma mark Singleton methods
 
-+ (PrefsController*)sharedInstance {
++ (PrefsController *)sharedInstance {
     @synchronized(self) {
         if (sharedInstance == nil)
             sharedInstance = [[PrefsController alloc] init];
@@ -206,8 +245,8 @@ static PrefsController *sharedInstance = nil;
     return self;
 }
 
-- (unsigned)retainCount {
-    return UINT_MAX; // denotes an object that cannot be released
+- (NSUInteger)retainCount {
+    return NSUIntegerMax; // denotes an object that cannot be released
 }
 
 - (void)release {

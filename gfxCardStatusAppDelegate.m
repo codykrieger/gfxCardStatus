@@ -40,7 +40,7 @@ switcherMode switcherGetMode() {
     prefs = [PrefsController sharedInstance];
     
     // initialize driver and process listing
-    canLog = [[defaults objectForKey:@"logToConsole"] boolValue];
+    canLog = [prefs shouldLogToConsole];
     if (!switcherOpen()) Log(@"Can't open driver");
     if (!procInit()) Log(@"Can't obtain I/O Kit's master port");
     
@@ -100,9 +100,9 @@ switcherMode switcherGetMode() {
     
     // only resture last mode if preference is set, and we're NOT using power source-based switching
     if ([prefs shouldRestoreStateOnStartup] && ![prefs shouldUsePowerSourceBasedSwitching] && !usingLegacy) {
-        Log(@"Restoring last used mode (%@)...", [defaults objectForKey:@"lastGPUSetting"]);
+        Log(@"Restoring last used mode (%i)...", [prefs shouldRestoreToMode]);
         id modeItem;
-        switch ([[defaults objectForKey:@"lastGPUSetting"] intValue]) {
+        switch ([prefs shouldRestoreToMode]) {
             case 1:
                 modeItem = intelOnly;
                 break;
@@ -129,9 +129,9 @@ switcherMode switcherGetMode() {
     } else {
         // disable these controls for legacy users until power source switching works for them
         [currentPowerSource setHidden:YES];
-        [gpuOnAdaptor setEnabled:NO];
-        [gpuOnBattery setEnabled:NO];
-        [usePowerSourceBasedSwitching setEnabled:NO];
+        //[gpuOnAdaptor setEnabled:NO];
+//        [gpuOnBattery setEnabled:NO];
+//        [usePowerSourceBasedSwitching setEnabled:NO];
     }
 }
 
@@ -254,7 +254,7 @@ switcherMode switcherGetMode() {
     if (integrated) Log(@"%@ in use. Sweet deal! More battery life.", integratedString);
     else Log(@"%@ in use. Bummer! No battery life for you.", discreteString);
     
-    if ([defaults boolForKey:@"useGrowl"] && canGrowl && usingIntegrated != integrated) {
+    if ([prefs shouldGrowl] && canGrowl && usingIntegrated != integrated) {
         NSString *msg  = [NSString stringWithFormat:@"%@ now in use.", cardString];
         NSString *name = integrated ? @"switchedToIntegrated" : @"switchedToDiscrete";
         [GrowlApplicationBridge notifyWithTitle:@"GPU changed" description:msg notificationName:name iconData:nil priority:0 isSticky:NO clickContext:nil];
@@ -355,7 +355,7 @@ switcherMode switcherGetMode() {
     Log(@"Power source changed: %d => %d", lastPowerSource, powerSource);
     lastPowerSource = powerSource;
     
-    if ([defaults boolForKey:@"usePowerSourceBasedSwitching"] && !usingLegacy) {
+    if ([prefs shouldUsePowerSourceBasedSwitching] && !usingLegacy) {
         switcherMode newMode = [[defaults objectForKey:keyForPowerSource(powerSource)] intValue];
         [self setMode:[self senderForMode:newMode]];
     }
@@ -395,14 +395,12 @@ switcherMode switcherGetMode() {
 
 - (void)applicationWillTerminate:(NSNotification *)notification {
     if ([intelOnly state] > 0) {
-        [defaults setInteger:1 forKey:@"lastGPUSetting"];
+        [prefs setLastMode:1];
     } else if ([nvidiaOnly state] > 0) {
-        [defaults setInteger:2 forKey:@"lastGPUSetting"];
+        [prefs setLastMode:2];
     } else if ([dynamicSwitching state] > 0) {
-        [defaults setInteger:3 forKey:@"lastGPUSetting"];
+        [prefs setLastMode:3];
     }
-    
-    [defaults synchronize];
 }
 
 - (void)dealloc {
