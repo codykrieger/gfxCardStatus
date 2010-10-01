@@ -82,7 +82,7 @@ static PrefsController *sharedInstance = nil;
     [prefs setObject:[NSNumber numberWithInt:2] forKey:kGPUSettingACAdaptor]; // defaults to dynamic
     
     // last mode used before termination
-    [prefs setObject:[NSNumber numberWithInt:3] forKey:@"shouldRestoreToMode"];
+    [prefs setObject:[NSNumber numberWithInt:2] forKey:@"shouldRestoreToMode"];
     
     [self savePreferences];
 }
@@ -115,9 +115,9 @@ static PrefsController *sharedInstance = nil;
     } else if (sender == prefChkPowerSourceBasedSwitching) {
         [prefs setObject:([prefChkPowerSourceBasedSwitching state] ? yesNumber : noNumber) forKey:@"shouldUsePowerSourceBasedSwitching"];
     } else if (sender == prefSegOnBattery) {
-        
+        [prefs setObject:[NSNumber numberWithInt:[prefSegOnBattery selectedSegment]] forKey:kGPUSettingBattery];
     } else if (sender == prefSegOnAc) {
-        
+        [prefs setObject:[NSNumber numberWithInt:[prefSegOnAc selectedSegment]] forKey:kGPUSettingACAdaptor];
     }
 }
 
@@ -147,6 +147,10 @@ static PrefsController *sharedInstance = nil;
 
 - (int)shouldRestoreToMode {
     return [(NSNumber *)[prefs objectForKey:@"shouldRestoreToMode"] intValue];
+}
+
+- (int)modeForPowerSource:(NSString *)powerSource {
+    return [(NSNumber *)[prefs objectForKey:powerSource] intValue];
 }
 
 - (void)setLastMode:(int)value {

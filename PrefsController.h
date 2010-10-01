@@ -41,6 +41,7 @@
 - (BOOL)shouldRestoreStateOnStartup;
 - (BOOL)shouldUsePowerSourceBasedSwitching;
 - (int)shouldRestoreToMode;
+- (int)modeForPowerSource:(NSString *)powerSource;
 
 - (void)setLastMode:(int)value;
 

@@ -103,13 +103,13 @@ switcherMode switcherGetMode() {
         Log(@"Restoring last used mode (%i)...", [prefs shouldRestoreToMode]);
         id modeItem;
         switch ([prefs shouldRestoreToMode]) {
-            case 1:
+            case 0:
                 modeItem = intelOnly;
                 break;
-            case 2:
+            case 1:
                 modeItem = nvidiaOnly;
                 break;
-            case 3:
+            case 2:
                 modeItem = dynamicSwitching;
                 break;
         }
@@ -355,8 +355,8 @@ switcherMode switcherGetMode() {
     Log(@"Power source changed: %d => %d", lastPowerSource, powerSource);
     lastPowerSource = powerSource;
     
-    if ([prefs shouldUsePowerSourceBasedSwitching] && !usingLegacy) {
-        switcherMode newMode = [[defaults objectForKey:keyForPowerSource(powerSource)] intValue];
+    if ([prefs shouldUsePowerSourceBasedSwitching]) {
+        switcherMode newMode = [prefs modeForPowerSource:keyForPowerSource(powerSource)];
         [self setMode:[self senderForMode:newMode]];
     }
     
@@ -395,11 +395,11 @@ switcherMode switcherGetMode() {
 
 - (void)applicationWillTerminate:(NSNotification *)notification {
     if ([intelOnly state] > 0) {
-        [prefs setLastMode:1];
+        [prefs setLastMode:0];
     } else if ([nvidiaOnly state] > 0) {
-        [prefs setLastMode:2];
+        [prefs setLastMode:1];
     } else if ([dynamicSwitching state] > 0) {
-        [prefs setLastMode:3];
+        [prefs setLastMode:2];
     }
 }
 
