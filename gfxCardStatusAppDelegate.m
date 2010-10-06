@@ -26,17 +26,6 @@ switcherMode switcherGetMode() {
 @implementation gfxCardStatusAppDelegate
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
-    // set up defaults values if unset
-    //defaults = [NSUserDefaults standardUserDefaults];
-//    if ([defaults objectForKey:@"checkForUpdatesOnLaunch"]==nil) [defaults setBool:YES forKey:@"checkForUpdatesOnLaunch"];
-//    if ([defaults objectForKey:@"useGrowl"]==nil) [defaults setBool:YES forKey:@"useGrowl"];
-//    if ([defaults objectForKey:@"logToConsole"]==nil) [defaults setBool:NO forKey:@"logToConsole"];
-//    if ([defaults objectForKey:@"loadAtStartup"]==nil) [defaults setBool:YES forKey:@"loadAtStartup"];
-//    if ([defaults objectForKey:@"restoreAtStartup"]==nil) [defaults setBool:YES forKey:@"restoreAtStartup"];
-//    if ([defaults objectForKey:@"lastGPUSetting"]==nil) [defaults setInteger:3 forKey:@"lastGPUSetting"];
-//    if ([defaults objectForKey:@"usePowerSourceBasedSwitching"]==nil) [defaults setBool:NO forKey:@"usePowerSourceBasedSwitching"];
-//    if ([defaults objectForKey:kGPUSettingACAdaptor]==nil) [defaults setInteger:2 forKey:kGPUSettingACAdaptor];
-//    if ([defaults objectForKey:kGPUSettingBattery]==nil) [defaults setInteger:2 forKey:kGPUSettingBattery];
     prefs = [PrefsController sharedInstance];
     
     // initialize driver and process listing
@@ -269,20 +258,7 @@ switcherMode switcherGetMode() {
 }
 
 - (IBAction)openPreferences:(id)sender {
-//    // set up values on prefs window
-//    [checkForUpdatesOnLaunch setState:([defaults boolForKey:@"checkForUpdatesOnLaunch"] ? 1 : 0)];
-//    [useGrowl setState:([defaults boolForKey:@"useGrowl"] ? 1 : 0)];
-//    [logToConsole setState:([defaults boolForKey:@"logToConsole"] ? 1 : 0)];
-//    [loadAtStartup setState:([defaults boolForKey:@"loadAtStartup"] ? 1 : 0)];
-//    [restoreModeAtStartup setState:([defaults boolForKey:@"restoreAtStartup"] ? 1 : 0)];
-//    [usePowerSourceBasedSwitching setState:([defaults boolForKey:@"usePowerSourceBasedSwitching"] ? 1 : 0)];
-//    [gpuOnBattery setSelectedSegment:[defaults integerForKey:kGPUSettingBattery]];
-//    [gpuOnAdaptor setSelectedSegment:[defaults integerForKey:kGPUSettingACAdaptor]];
-//    
-//    // open window and force to the front
-//    [preferencesWindow makeKeyAndOrderFront:nil];
-//    [preferencesWindow orderFrontRegardless];
-//    [preferencesWindow center];
+    [prefs openPreferences];
 }
 
 //- (void)windowWillClose:(NSNotification *)notification {

@@ -33,6 +33,7 @@
 - (void)savePreferences;
 - (BOOL)existsInStartupItems;
 - (void)loadAtStartup:(BOOL)value;
+- (NSString *)getPrefsPath;
 
 - (BOOL)shouldCheckForUpdatesOnStartup;
 - (BOOL)shouldGrowl;
@@ -44,6 +45,9 @@
 - (int)modeForPowerSource:(NSString *)powerSource;
 
 - (void)setLastMode:(int)value;
+
+- (void)savePreferences;
+- (void)openPreferences;
 
 - (IBAction)preferenceChanged:(id)sender;
 

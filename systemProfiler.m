@@ -78,6 +78,15 @@ BOOL isUsingIntegratedGraphics(BOOL *legacy) {
     if (!integrated) {
         if (legacy) *legacy = YES;
         integrated = (NSDictionary *)[graphics objectForKey:@"NVIDIA GeForce 9400M"];
+        
+        if (!integrated) {
+            // display a message - must be using an unsupported model
+            Log(@"*** UNSUPPORTED SYSTEM BEING USED ***");
+            NSAlert *alert = [NSAlert alertWithMessageText:@"You are using a system that gfxCardStatus does not support. Please ensure that you are using a MacBook Pro with dual GPUs (15\" or 17\")." 
+                              defaultButton:@"Oh, I see." alternateButton:nil otherButton:nil informativeTextWithFormat:@""];
+            [alert runModal];
+        }
+        
     } else {
         if (legacy) *legacy = NO;
     }

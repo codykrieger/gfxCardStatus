@@ -22,11 +22,8 @@ static PrefsController *sharedInstance = nil;
         yesNumber = [NSNumber numberWithBool:YES];
         noNumber = [NSNumber numberWithBool:NO];
         
-        // set preferences path
-        prefsPath = [@"~/Library/Preferences/com.codykrieger.gfxCardStatus-Preferences.plist" stringByExpandingTildeInPath];
-        
         // load preferences in from file
-        prefs = [[NSMutableDictionary alloc] initWithContentsOfFile:prefsPath];
+        prefs = [[NSMutableDictionary alloc] initWithContentsOfFile:[self getPrefsPath]];
         if (!prefs) {
             // if preferences file doesn't exist, set the defaults
             prefs = [[NSMutableDictionary alloc] init];
@@ -70,11 +67,15 @@ static PrefsController *sharedInstance = nil;
     return self;
 }
 
+- (NSString *)getPrefsPath {
+    return [@"~/Library/Preferences/com.codykrieger.gfxCardStatus-Preferences.plist" stringByExpandingTildeInPath];
+}
+
 - (void)setDefaults {
     [prefs setObject:yesNumber forKey:@"shouldCheckForUpdatesOnStartup"];
     [prefs setObject:yesNumber forKey:@"shouldGrowl"];
     [prefs setObject:yesNumber forKey:@"shouldStartAtLogin"];
-    [prefs setObject:noNumber forKey:@"shouldLogToConsole"];
+    [prefs setObject:yesNumber forKey:@"shouldLogToConsole"];
     [prefs setObject:yesNumber forKey:@"shouldRestoreStateOnStartup"];
     [prefs setObject:noNumber forKey:@"shouldUsePowerSourceBasedSwitching"];
     
@@ -88,7 +89,7 @@ static PrefsController *sharedInstance = nil;
 }
 
 - (void)savePreferences {
-    [prefs writeToFile:prefsPath atomically:YES];
+    [prefs writeToFile:[self getPrefsPath] atomically:YES];
 }
 
 - (void)openPreferences {
@@ -98,10 +99,13 @@ static PrefsController *sharedInstance = nil;
 }
 
 - (void)windowWillClose:(NSNotification *)notification {
-    
+    NSLog(@"received windowWillClose");
+    [self savePreferences];
 }
 
 - (IBAction)preferenceChanged:(id)sender {
+    NSLog(@"received preferenceChanged:%@", sender);
+    
     if (sender == prefChkUpdate) {
         [prefs setObject:([prefChkUpdate state] ? yesNumber : noNumber) forKey:@"shouldCheckForUpdatesOnStartup"];
     } else if (sender == prefChkGrowl) {
