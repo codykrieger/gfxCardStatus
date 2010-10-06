@@ -85,7 +85,7 @@ switcherMode switcherGetMode() {
     canPreventSwitch = YES;
     
     canGrowl = NO;
-    [self updateMenuBarIcon];
+    [self updateMenu];
     
     // only resture last mode if preference is set, and we're NOT using power source-based switching
     if ([prefs shouldRestoreStateOnStartup] && ![prefs shouldUsePowerSourceBasedSwitching] && !usingLegacy) {
@@ -165,15 +165,25 @@ switcherMode switcherGetMode() {
     // NOTE: If we open the menu while a slow app like Interface Builder is loading, we have the icon not changing
     
     Log(@"The following notification has been triggered:\n%@", notification);
-    [self updateMenuBarIcon];
+    [self updateMenu];
     
     // delayed double-check
     [self performSelector:@selector(checkCardState) withObject:nil afterDelay:5.0];
 }
 
 - (void)menuNeedsUpdate:(NSMenu *)menu {
-    //[self updateMenuBarIcon];
+    //[self updateMenu];
     [self updateProcessList];
+}
+
+- (void)menuWillOpen:(NSMenu *)menu {
+    // white image when menu is open
+    [statusItem setImage:[NSImage imageNamed:[[[statusItem image] name] stringByAppendingString:@"-white.png"]]];
+}
+
+- (void)menuDidClose:(NSMenu *)menu {
+    // black image when menu is closed
+    [statusItem setImage:[NSImage imageNamed:[[[statusItem image] name] stringByReplacingOccurrencesOfString:@"-white" withString:@".png"]]];
 }
 
 - (void)updateProcessList {
@@ -221,7 +231,7 @@ switcherMode switcherGetMode() {
     [procs release];
 }
 
-- (void)updateMenuBarIcon {
+- (void)updateMenu {
     BOOL integrated = switcherUseIntegrated();
     Log(@"Updating status...");
     
@@ -260,29 +270,6 @@ switcherMode switcherGetMode() {
 - (IBAction)openPreferences:(id)sender {
     [prefs openPreferences];
 }
-
-//- (void)windowWillClose:(NSNotification *)notification {
-//    // NSWindowDelegate for preferences window
-//    
-//    // save values to defaults
-//    [defaults setBool:([checkForUpdatesOnLaunch state] > 0 ? YES : NO) forKey:@"checkForUpdatesOnLaunch"];
-//    [defaults setBool:([useGrowl state] > 0 ? YES : NO) forKey:@"useGrowl"];
-//    [defaults setBool:([logToConsole state] > 0 ? YES : NO) forKey:@"logToConsole"];
-//    [defaults setBool:([loadAtStartup state] > 0 ? YES : NO) forKey:@"loadAtStartup"];
-//    [defaults setBool:([restoreModeAtStartup state] > 0 ? YES : NO) forKey:@"restoreAtStartup"];
-//    [defaults setBool:([usePowerSourceBasedSwitching state] > 0 ? YES : NO) forKey:@"usePowerSourceBasedSwitching"];
-//    [defaults setInteger:[gpuOnBattery selectedSegment] forKey:kGPUSettingBattery];
-//    [defaults setInteger:[gpuOnAdaptor selectedSegment] forKey:kGPUSettingACAdaptor];
-//    
-//    [defaults synchronize];
-//    
-//    canLog = [defaults boolForKey:@"logToConsole"];
-//    [self shouldLoadAtStartup:[defaults boolForKey:@"loadAtStartup"]];
-//}
-
-//- (IBAction)savePreferences:(id)sender {
-//    [preferencesWindow close];
-//}
 
 - (IBAction)openAbout:(id)sender {
     // open window and force to the front
@@ -336,7 +323,7 @@ switcherMode switcherGetMode() {
         [self setMode:[self senderForMode:newMode]];
     }
     
-    [self updateMenuBarIcon];
+    [self updateMenu];
 }
 
 - (void)checkCardState {

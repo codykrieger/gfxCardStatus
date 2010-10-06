@@ -63,7 +63,7 @@ extern BOOL canLog;
     PowerSource lastPowerSource;
 }
 
-- (void)updateMenuBarIcon;
+- (void)updateMenu;
 - (void)updateProcessList;
 
 - (IBAction)setMode:(id)sender;

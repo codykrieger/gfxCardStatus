@@ -29,6 +29,7 @@
     NSNumber *noNumber;
 }
 
+- (void)setUpPreferences;
 - (void)setDefaults;
 - (void)savePreferences;
 - (BOOL)existsInStartupItems;
@@ -46,6 +47,7 @@
 
 - (void)setLastMode:(int)value;
 
+- (void)setControlsToPreferences;
 - (void)savePreferences;
 - (void)openPreferences;
 

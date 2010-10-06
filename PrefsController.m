@@ -18,53 +18,65 @@ static PrefsController *sharedInstance = nil;
 
 - (id)init {
     if (self = [super initWithWindowNibName:@"PrefsWindow"]) {
-        // set yes/no numbers
-        yesNumber = [NSNumber numberWithBool:YES];
-        noNumber = [NSNumber numberWithBool:NO];
-        
-        // load preferences in from file
-        prefs = [[NSMutableDictionary alloc] initWithContentsOfFile:[self getPrefsPath]];
-        if (!prefs) {
-            // if preferences file doesn't exist, set the defaults
-            prefs = [[NSMutableDictionary alloc] init];
-            [self setDefaults];
-        }
-        
-        // ensure that application will be loaded at startup
-        if ([self shouldStartAtLogin])
-            [self loadAtStartup:YES];
-        
-        // localization
-        NSArray* localized = [[NSArray alloc] initWithObjects:prefChkGrowl, prefChkLog, prefChkPowerSourceBasedSwitching, 
-                              prefChkRestoreState, prefChkStartup, prefChkUpdate, nil];
-        for (NSButton *loc in localized) {
-            [loc setTitle:Str([loc title])];
-        }
-        [localized release];
-        
-        BOOL usingLegacy = NO;
-        isUsingIntegratedGraphics(&usingLegacy);
-        if (usingLegacy) {
-            [prefSegOnBattery setSegmentCount:2];
-            for (int i = 0; i < [prefSegOnBattery segmentCount]; i++) {
-                [prefSegOnBattery setLabel:Str([prefSegOnBattery labelForSegment:i]) forSegment:i];
-            }
-            [prefSegOnAc setSegmentCount:2];
-            for (int i = 0; i < [prefSegOnAc segmentCount]; i++) {
-                [prefSegOnAc setLabel:Str([prefSegOnAc labelForSegment:i]) forSegment:i];
-            }
-        } else {
-            [prefSegOnBattery setLabel:@"Intel®" forSegment:0];
-            [prefSegOnBattery setLabel:@"NVIDIA®" forSegment:1];
-            [prefSegOnAc setLabel:@"Intel®" forSegment:0];
-            [prefSegOnAc setLabel:@"NVIDIA®" forSegment:1];
-        }
-        
-        // preferences window
-        [[self window] setLevel:NSModalPanelWindowLevel];
-        [[self window] setDelegate:self];
+        Log(@"Initializing PrefsController");
+        [self setUpPreferences];
     }
     return self;
+}
+
+- (void)setUpPreferences {
+    Log(@"Loading preferences and defaults");
+    
+    // set yes/no numbers
+    yesNumber = [NSNumber numberWithBool:YES];
+    noNumber = [NSNumber numberWithBool:NO];
+    
+    // load preferences in from file
+    prefs = [[NSMutableDictionary alloc] initWithContentsOfFile:[self getPrefsPath]];
+    if (!prefs) {
+        // if preferences file doesn't exist, set the defaults
+        prefs = [[NSMutableDictionary alloc] init];
+        [self setDefaults];
+    }
+    
+    // ensure that application will be loaded at startup
+    if ([self shouldStartAtLogin])
+        [self loadAtStartup:YES];
+}
+
+- (void)awakeFromNib {
+    // localization
+    NSArray* localized = [[NSArray alloc] initWithObjects:prefChkGrowl, prefChkLog, prefChkPowerSourceBasedSwitching, 
+                          prefChkRestoreState, prefChkStartup, prefChkUpdate, nil];
+    for (NSButton *loc in localized) {
+        [loc setTitle:Str([loc title])];
+    }
+    [localized release];
+    
+    BOOL usingLegacy = NO;
+    isUsingIntegratedGraphics(&usingLegacy);
+    if (usingLegacy) {
+        [prefSegOnBattery setSegmentCount:2];
+        for (int i = 0; i < [prefSegOnBattery segmentCount]; i++) {
+            [prefSegOnBattery setLabel:Str([prefSegOnBattery labelForSegment:i]) forSegment:i];
+        }
+        [prefSegOnAc setSegmentCount:2];
+        for (int i = 0; i < [prefSegOnAc segmentCount]; i++) {
+            [prefSegOnAc setLabel:Str([prefSegOnAc labelForSegment:i]) forSegment:i];
+        }
+    } else {
+        [prefSegOnBattery setLabel:@"Intel®" forSegment:0];
+        [prefSegOnBattery setLabel:@"NVIDIA®" forSegment:1];
+        [prefSegOnAc setLabel:@"Intel®" forSegment:0];
+        [prefSegOnAc setLabel:@"NVIDIA®" forSegment:1];
+    }
+    
+    // set controls according to values set in preferences
+    [self setControlsToPreferences];
+    
+    // preferences window
+    [[self window] setLevel:NSModalPanelWindowLevel];
+    [[self window] setDelegate:self];
 }
 
 - (NSString *)getPrefsPath {
@@ -88,7 +100,21 @@ static PrefsController *sharedInstance = nil;
     [self savePreferences];
 }
 
+- (void)setControlsToPreferences {
+    Log(@"Setting controls to mirror saved preferences");
+    
+    [prefChkUpdate setState:[self shouldCheckForUpdatesOnStartup]];
+    [prefChkGrowl setState:[self shouldGrowl]];
+    [prefChkStartup setState:[self shouldStartAtLogin]];
+    [prefChkLog setState:[self shouldLogToConsole]];
+    [prefChkRestoreState setState:[self shouldRestoreStateOnStartup]];
+    [prefChkPowerSourceBasedSwitching setState:[self shouldUsePowerSourceBasedSwitching]];
+    [prefSegOnBattery setSelectedSegment:[self modeForPowerSource:kGPUSettingBattery]];
+    [prefSegOnAc setSelectedSegment:[self modeForPowerSource:kGPUSettingACAdaptor]];
+}
+
 - (void)savePreferences {
+    Log(@"Writing preferences to disk");
     [prefs writeToFile:[self getPrefsPath] atomically:YES];
 }
 
@@ -99,13 +125,10 @@ static PrefsController *sharedInstance = nil;
 }
 
 - (void)windowWillClose:(NSNotification *)notification {
-    NSLog(@"received windowWillClose");
     [self savePreferences];
 }
 
 - (IBAction)preferenceChanged:(id)sender {
-    NSLog(@"received preferenceChanged:%@", sender);
-    
     if (sender == prefChkUpdate) {
         [prefs setObject:([prefChkUpdate state] ? yesNumber : noNumber) forKey:@"shouldCheckForUpdatesOnStartup"];
     } else if (sender == prefChkGrowl) {
@@ -114,6 +137,7 @@ static PrefsController *sharedInstance = nil;
         [prefs setObject:([prefChkStartup state] ? yesNumber : noNumber) forKey:@"shouldStartAtLogin"];
     } else if (sender == prefChkLog) {
         [prefs setObject:([prefChkLog state] ? yesNumber : noNumber) forKey:@"shouldLogToConsole"];
+        canLog = ([prefChkLog state] ? YES : NO);
     } else if (sender == prefChkRestoreState) {
         [prefs setObject:([prefChkRestoreState state] ? yesNumber : noNumber) forKey:@"shouldRestoreStateOnStartup"];
     } else if (sender == prefChkPowerSourceBasedSwitching) {
@@ -262,6 +286,10 @@ static PrefsController *sharedInstance = nil;
 
 - (id)autorelease {
     return self;
+}
+
+- (void)dealoc {
+    [prefs release];
 }
 
 @end
