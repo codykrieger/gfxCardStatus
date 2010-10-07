@@ -18,7 +18,6 @@
 "Dependencies"     = "相依程式";
 "NoProcess"        = "沒有";
 "Quit"             = "結束";
-"AllDone"		   = "完成！";
 "Close"            = "關閉！";
 
 /* Preferences window */

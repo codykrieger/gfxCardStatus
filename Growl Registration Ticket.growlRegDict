@@ -9,17 +9,17 @@
 -->
 <plist version="1.0">
     <dict>
-		<key>TicketVersion</key>
-		<integer>1</integer>
-		<key>AllNotifications</key>
-		<array>
-			<string>switchedToDiscrete</string>
-			<string>switchedToIntegrated</string>
-		</array>
-		<key>DefaultNotifications</key>
-		<array>
-			<string>switchedToDiscrete</string>
-			<string>switchedToIntegrated</string>
-		</array>
+        <key>TicketVersion</key>
+        <integer>1</integer>
+        <key>AllNotifications</key>
+        <array>
+            <string>switchedToDiscrete</string>
+            <string>switchedToIntegrated</string>
+        </array>
+        <key>DefaultNotifications</key>
+        <array>
+            <string>switchedToDiscrete</string>
+            <string>switchedToIntegrated</string>
+        </array>
     </dict>
 </plist>

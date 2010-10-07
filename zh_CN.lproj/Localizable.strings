@@ -18,7 +18,6 @@
 "Dependencies"     = "相依程序";
 "NoProcess"        = "无";
 "Quit"             = "退出";
-"AllDone"		   = "完成！";
 "Close"            = "关闭！";
 
 /* Preferences window */
