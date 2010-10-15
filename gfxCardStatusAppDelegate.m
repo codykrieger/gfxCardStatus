@@ -62,12 +62,12 @@ switcherMode switcherGetMode() {
                                    name:NSApplicationDidChangeScreenParametersNotification object:nil];
     
     // identify current gpu and set up menus accordingly
-    usingIntegrated = isUsingIntegratedGraphics(&usingLegacy);
-    [switchGPUs setHidden:!usingLegacy];
-    [intelOnly setHidden:usingLegacy];
-    [nvidiaOnly setHidden:usingLegacy];
-    [dynamicSwitching setHidden:usingLegacy];
-    if (usingLegacy) {
+    usingIntegrated = isUsingIntegratedGraphics(NULL);
+    [switchGPUs setHidden:![prefs usingLegacy]];
+    [intelOnly setHidden:[prefs usingLegacy]];
+    [nvidiaOnly setHidden:[prefs usingLegacy]];
+    [dynamicSwitching setHidden:[prefs usingLegacy]];
+    if ([prefs usingLegacy]) {
         Log(@"Looks like we're using an older 9400M/9600M GT system.");
         
         integratedString = @"NVIDIA® GeForce 9400M";
@@ -88,7 +88,7 @@ switcherMode switcherGetMode() {
     [self updateMenu];
     
     // only resture last mode if preference is set, and we're NOT using power source-based switching
-    if ([prefs shouldRestoreStateOnStartup] && ![prefs shouldUsePowerSourceBasedSwitching] && !usingLegacy) {
+    if ([prefs shouldRestoreStateOnStartup] && ![prefs shouldUsePowerSourceBasedSwitching] && ![prefs usingLegacy]) {
         Log(@"Restoring last used mode (%i)...", [prefs shouldRestoreToMode]);
         id modeItem;
         switch ([prefs shouldRestoreToMode]) {
@@ -108,20 +108,16 @@ switcherMode switcherGetMode() {
     canGrowl = YES;
     
     // monitor power source
-    // currently only works for 2010 MBPs
-    if (!usingLegacy) {
-        powerSourceMonitor = [PowerSourceMonitor monitorWithDelegate:self];
-        lastPowerSource = -1; // uninitialized
-        
-        // check current power source and load preference for it
-        [self powerSourceChanged:powerSourceMonitor.currentPowerSource];
-    } else {
-        // disable these controls for legacy users until power source switching works for them
-        [currentPowerSource setHidden:YES];
-        //[gpuOnAdaptor setEnabled:NO];
-//        [gpuOnBattery setEnabled:NO];
-//        [usePowerSourceBasedSwitching setEnabled:NO];
-    }
+    //if (![prefs usingLegacy]) {
+    
+    powerSourceMonitor = [PowerSourceMonitor monitorWithDelegate:self];
+    // uninitialized
+    lastPowerSource = -1;
+    
+    // check current power source and load preference for it
+    [self powerSourceChanged:powerSourceMonitor.currentPowerSource];
+    
+    //}
 }
 
 - (IBAction)setMode:(id)sender {
@@ -192,7 +188,7 @@ switcherMode switcherGetMode() {
     }
     
     // if we're on Intel (or using a 9400M/9600M GT model), no need to display/update the list
-    BOOL procList = !usingIntegrated && !usingLegacy;
+    BOOL procList = !usingIntegrated && ![prefs usingLegacy];
     [processList setHidden:!procList];
     [processesSeparator setHidden:!procList];
     [dependentProcesses setHidden:!procList];
@@ -236,7 +232,7 @@ switcherMode switcherGetMode() {
     Log(@"Updating status...");
     
     // prevent GPU from switching back after apps quit
-    if (!integrated && !usingLegacy && [intelOnly state] > 0 && canPreventSwitch) {
+    if (!integrated && ![prefs usingLegacy] && [intelOnly state] > 0 && canPreventSwitch) {
         Log(@"Preventing switch to 330M. Setting canPreventSwitch to NO so that this doesn't get stuck in a loop, changing in 5 seconds...");
         canPreventSwitch = NO;
         [self setMode:intelOnly];
@@ -320,7 +316,16 @@ switcherMode switcherGetMode() {
     
     if ([prefs shouldUsePowerSourceBasedSwitching]) {
         switcherMode newMode = [prefs modeForPowerSource:keyForPowerSource(powerSource)];
-        [self setMode:[self senderForMode:newMode]];
+        
+        if (![prefs usingLegacy]) {
+            Log(@"Using a newer machine, setting appropriate mode based on power source...");
+            [self setMode:[self senderForMode:newMode]];
+        } else {
+            if ((usingIntegrated && newMode == 1) || (!usingIntegrated && newMode == 0)) {
+                Log(@"Using a legacy machine, setting appropriate mode based on power source...");
+                [self setMode:switchGPUs];
+            }
+        }
     }
     
     [self updateMenu];
@@ -330,7 +335,7 @@ switcherMode switcherGetMode() {
     // it seems right after waking from sleep, locking to single GPU will fail (even if the return value is correct)
     // this is a temporary workaround to double-check the status
     
-    if (!usingLegacy) {
+    if (![prefs usingLegacy]) {
         switcherMode currentMode = switcherGetMode(); // actual current mode
         NSMenuItem *activeCard = [self senderForMode:currentMode]; // corresponding menu item
         

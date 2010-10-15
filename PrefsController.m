@@ -13,6 +13,8 @@ static PrefsController *sharedInstance = nil;
 
 @implementation PrefsController
 
+@synthesize usingLegacy;
+
 #pragma mark -
 #pragma mark class instance methods
 
@@ -42,6 +44,9 @@ static PrefsController *sharedInstance = nil;
     // ensure that application will be loaded at startup
     if ([self shouldStartAtLogin])
         [self loadAtStartup:YES];
+    
+    usingLegacy = NO;
+    isUsingIntegratedGraphics(&usingLegacy);
 }
 
 - (void)awakeFromNib {
@@ -53,8 +58,6 @@ static PrefsController *sharedInstance = nil;
     }
     [localized release];
     
-    BOOL usingLegacy = NO;
-    isUsingIntegratedGraphics(&usingLegacy);
     if (usingLegacy) {
         [prefSegOnBattery setSegmentCount:2];
         for (int i = 0; i < [prefSegOnBattery segmentCount]; i++) {
@@ -107,8 +110,11 @@ static PrefsController *sharedInstance = nil;
     [prefChkGrowl setState:[self shouldGrowl]];
     [prefChkStartup setState:[self shouldStartAtLogin]];
     [prefChkLog setState:[self shouldLogToConsole]];
+    
     [prefChkRestoreState setState:[self shouldRestoreStateOnStartup]];
     [prefChkPowerSourceBasedSwitching setState:[self shouldUsePowerSourceBasedSwitching]];
+    [prefChkRestoreState setEnabled:![self shouldUsePowerSourceBasedSwitching]];
+    
     [prefSegOnBattery setSelectedSegment:[self modeForPowerSource:kGPUSettingBattery]];
     [prefSegOnAc setSelectedSegment:[self modeForPowerSource:kGPUSettingACAdaptor]];
 }
@@ -142,6 +148,7 @@ static PrefsController *sharedInstance = nil;
         [prefs setObject:([prefChkRestoreState state] ? yesNumber : noNumber) forKey:@"shouldRestoreStateOnStartup"];
     } else if (sender == prefChkPowerSourceBasedSwitching) {
         [prefs setObject:([prefChkPowerSourceBasedSwitching state] ? yesNumber : noNumber) forKey:@"shouldUsePowerSourceBasedSwitching"];
+        [prefChkRestoreState setEnabled:![self shouldUsePowerSourceBasedSwitching]];
     } else if (sender == prefSegOnBattery) {
         [prefs setObject:[NSNumber numberWithInt:[prefSegOnBattery selectedSegment]] forKey:kGPUSettingBattery];
     } else if (sender == prefSegOnAc) {

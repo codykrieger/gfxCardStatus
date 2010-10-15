@@ -12,8 +12,8 @@
 		</object>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="735"/>
 			<integer value="533"/>
+			<integer value="735"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -1637,46 +1637,146 @@
 										<object class="NSTextView" id="473338212">
 											<reference key="NSNextResponder" ref="931296078"/>
 											<int key="NSvFlags">2322</int>
-											<string key="NSFrameSize">{381, 154}</string>
+											<object class="NSMutableSet" key="NSDragTypes">
+												<bool key="EncodedWithXMLCoder">YES</bool>
+												<object class="NSArray" key="set.sortedObjects">
+													<bool key="EncodedWithXMLCoder">YES</bool>
+													<string>Apple HTML pasteboard type</string>
+													<string>Apple PDF pasteboard type</string>
+													<string>Apple PICT pasteboard type</string>
+													<string>Apple PNG pasteboard type</string>
+													<string>Apple URL pasteboard type</string>
+													<string>CorePasteboardFlavorType 0x6D6F6F76</string>
+													<string>NSColor pasteboard type</string>
+													<string>NSFilenamesPboardType</string>
+													<string>NSStringPboardType</string>
+													<string>NeXT Encapsulated PostScript v1.2 pasteboard type</string>
+													<string>NeXT RTFD pasteboard type</string>
+													<string>NeXT Rich Text Format v1.0 pasteboard type</string>
+													<string>NeXT TIFF v4.0 pasteboard type</string>
+													<string>NeXT font pasteboard type</string>
+													<string>NeXT ruler pasteboard type</string>
+													<string>WebURLsWithTitlesPboardType</string>
+													<string>public.url</string>
+												</object>
+											</object>
+											<string key="NSFrameSize">{381, 196}</string>
 											<reference key="NSSuperview" ref="931296078"/>
 											<int key="NSViewLayerContentsRedrawPolicy">2</int>
 											<object class="NSTextContainer" key="NSTextContainer" id="798109971">
 												<object class="NSLayoutManager" key="NSLayoutManager">
 													<object class="NSTextStorage" key="NSTextStorage">
 														<object class="NSMutableString" key="NSString">
-															<bytes key="NS.bytes">R1BVIHN3aXRjaGluZyBpcyBtYWRlIHBvc3NpYmxlIGJ5IGNvZGUgZnJvbSBhaCBvZiB0aGUgTWFjUnVt
-b3JzIEZvcnVtcy7igKhHUFUgc3dpdGNoaW5nIGNvZGUgaXMgwqkgMjAxMCBhaOKAqOKAqERJU0NMQUlN
-RVI6IEksIGFuZCBhbGwgb2YgbXkgYXNzb2NpYXRlZCBwYXJ0aWVzLCBhc3N1bWUgbm8gcmVzcG9uc2li
-aWxpdHkgZm9yIGFueSBoYXJtIHRoZSBHUFUgc3dpdGNoaW5nIGZlYXR1cmVzIG1heSBvciBtYXkgbm90
-IGNhdXNlIHRvIHlvdXIgY29tcHV0ZXIgb3IgeW91ciBkYXRhLiBUaGVzZSBmZWF0dXJlcyBoYXZlIGJl
-ZW4gdGhvcm91Z2hseSB0ZXN0ZWQgYW5kIGhhdmUgYmVlbiBrbm93biB0byBjYXVzZSBhIGZldyBtaW5v
-ciAodGVtcG9yYXJ5KSBpc3N1ZXMuIFVzZSBhdCB5b3VyIG93biByaXNrLuKAqOKAqFBsZWFzZSByZXBv
-cnQgYW55IGFuZCBhbGwgaXNzdWVzIHRvIGNvZHlAY29keWtyaWVnZXIuY29tIC0gdGhhbmtzIQ</bytes>
+															<bytes key="NS.bytes">R1BVIHN3aXRjaGluZyBvcmlnaW5hbGx5IG1hZGUgcG9zc2libGUgYnkgY29kZSBmcm9tIGFoIG9mIHRo
+ZSBNYWNSdW1vcnMgRm9ydW1zLCBhbmQgaXMgwqkgMjAxMCBhaC7igKgKUGxlYXNlIHJlcG9ydCBhbnkg
+YW5kIGFsbCBpc3N1ZXMgdG8gY29keUBjb2R5a3JpZWdlci5jb20gLSB0aGFua3MhCuKAqCoqKioqKiBE
+SVNDTEFJTUVSICoqKioqKioKCkksIGFuZCBhbGwgb2YgbXkgYXNzb2NpYXRlZCBwYXJ0aWVzLCBhc3N1
+bWUgbm8gcmVzcG9uc2liaWxpdHkgZm9yIGFueSBoYXJtIHRoZSBHUFUgc3dpdGNoaW5nIGZlYXR1cmVz
+IG1heSBvciBtYXkgbm90IGNhdXNlIHRvIHlvdXIgY29tcHV0ZXIgb3IgeW91ciBkYXRhLiBUaGVzZSBm
+ZWF0dXJlcyBoYXZlIGJlZW4gdGhvcm91Z2hseSB0ZXN0ZWQgYW5kIGhhdmUgYmVlbiBrbm93biwgb24g
+b2NjYXNpb24sIHRvIGNhdXNlIGEgZmV3IHRlbXBvcmFyeSwgbWlub3IgaXNzdWVzLiBVc2UgYXQgeW91
+ciBvd24gcmlzay4KCioqKiogRU5EIERJU0NMQUlNRVIgKioqKg</bytes>
 														</object>
-														<object class="NSDictionary" key="NSAttributes">
+														<object class="NSMutableArray" key="NSAttributes">
 															<bool key="EncodedWithXMLCoder">YES</bool>
-															<object class="NSArray" key="dict.sortedKeys">
+															<object class="NSDictionary">
 																<bool key="EncodedWithXMLCoder">YES</bool>
-																<string>NSColor</string>
-																<string>NSFont</string>
-																<string>NSParagraphStyle</string>
+																<object class="NSArray" key="dict.sortedKeys">
+																	<bool key="EncodedWithXMLCoder">YES</bool>
+																	<string>NSColor</string>
+																	<string>NSFont</string>
+																	<string>NSParagraphStyle</string>
+																</object>
+																<object class="NSMutableArray" key="dict.values">
+																	<bool key="EncodedWithXMLCoder">YES</bool>
+																	<object class="NSColor" id="728046950">
+																		<int key="NSColorSpace">1</int>
+																		<bytes key="NSRGB">MCAwIDAAA</bytes>
+																	</object>
+																	<object class="NSFont" id="680608298">
+																		<string key="NSName">Helvetica</string>
+																		<double key="NSSize">12</double>
+																		<int key="NSfFlags">16</int>
+																	</object>
+																	<object class="NSParagraphStyle">
+																		<int key="NSAlignment">4</int>
+																		<nil key="NSTabStops"/>
+																	</object>
+																</object>
 															</object>
-															<object class="NSMutableArray" key="dict.values">
+															<object class="NSDictionary">
 																<bool key="EncodedWithXMLCoder">YES</bool>
-																<object class="NSColor">
-																	<int key="NSColorSpace">1</int>
-																	<bytes key="NSRGB">MCAwIDAAA</bytes>
+																<object class="NSArray" key="dict.sortedKeys">
+																	<bool key="EncodedWithXMLCoder">YES</bool>
+																	<string>NSFont</string>
+																	<string>NSParagraphStyle</string>
 																</object>
-																<object class="NSFont">
-																	<string key="NSName">Helvetica</string>
-																	<double key="NSSize">12</double>
-																	<int key="NSfFlags">16</int>
-																</object>
-																<object class="NSParagraphStyle">
-																	<int key="NSAlignment">4</int>
-																	<nil key="NSTabStops"/>
+																<object class="NSMutableArray" key="dict.values">
+																	<bool key="EncodedWithXMLCoder">YES</bool>
+																	<reference ref="680608298"/>
+																	<object class="NSParagraphStyle" id="936432473">
+																		<int key="NSAlignment">4</int>
+																		<double key="NSTighteningFactorForTruncation">0.05000000074505806</double>
+																		<object class="NSArray" key="NSTabStops">
+																			<bool key="EncodedWithXMLCoder">YES</bool>
+																			<object class="NSTextTab">
+																				<double key="NSLocation">28</double>
+																			</object>
+																			<object class="NSTextTab">
+																				<double key="NSLocation">56</double>
+																			</object>
+																			<object class="NSTextTab">
+																				<double key="NSLocation">84</double>
+																			</object>
+																			<object class="NSTextTab">
+																				<double key="NSLocation">112</double>
+																			</object>
+																			<object class="NSTextTab">
+																				<double key="NSLocation">140</double>
+																			</object>
+																			<object class="NSTextTab">
+																				<double key="NSLocation">168</double>
+																			</object>
+																			<object class="NSTextTab">
+																				<double key="NSLocation">196</double>
+																			</object>
+																			<object class="NSTextTab">
+																				<double key="NSLocation">224</double>
+																			</object>
+																			<object class="NSTextTab">
+																				<double key="NSLocation">252</double>
+																			</object>
+																			<object class="NSTextTab">
+																				<double key="NSLocation">280</double>
+																			</object>
+																			<object class="NSTextTab">
+																				<double key="NSLocation">308</double>
+																			</object>
+																			<object class="NSTextTab">
+																				<double key="NSLocation">336</double>
+																			</object>
+																		</object>
+																	</object>
 																</object>
 															</object>
+															<object class="NSDictionary">
+																<bool key="EncodedWithXMLCoder">YES</bool>
+																<object class="NSArray" key="dict.sortedKeys">
+																	<bool key="EncodedWithXMLCoder">YES</bool>
+																	<string>NSColor</string>
+																	<string>NSFont</string>
+																	<string>NSParagraphStyle</string>
+																</object>
+																<object class="NSMutableArray" key="dict.values">
+																	<bool key="EncodedWithXMLCoder">YES</bool>
+																	<reference ref="728046950"/>
+																	<reference ref="680608298"/>
+																	<reference ref="936432473"/>
+																</object>
+															</object>
+														</object>
+														<object class="NSMutableData" key="NSAttributeInfo">
+															<bytes key="NS.bytes">YwBCAQEC2gIAA</bytes>
 														</object>
 														<nil key="NSDelegate"/>
 													</object>
@@ -1692,7 +1792,7 @@ cnQgYW55IGFuZCBhbGwgaXNzdWVzIHRvIGNvZHlAY29keWtyaWVnZXIuY29tIC0gdGhhbmtzIQ</byte
 												<int key="NSTCFlags">1</int>
 											</object>
 											<object class="NSTextViewSharedData" key="NSSharedData">
-												<int key="NSFlags">11237</int>
+												<int key="NSFlags">11239</int>
 												<int key="NSTextCheckingTypes">0</int>
 												<nil key="NSMarkedAttributes"/>
 												<object class="NSColor" key="NSBackgroundColor" id="630876879">
@@ -1770,6 +1870,7 @@ cnQgYW55IGFuZCBhbGwgaXNzdWVzIHRvIGNvZHlAY29keWtyaWVnZXIuY29tIC0gdGhhbmtzIQ</byte
 									<reference key="NSSuperview" ref="44289336"/>
 									<reference key="NSTarget" ref="44289336"/>
 									<string key="NSAction">_doScroller:</string>
+									<double key="NSCurValue">0.5</double>
 									<double key="NSPercent">0.37142857142857144</double>
 								</object>
 								<object class="NSScroller" id="659660126">
@@ -1780,7 +1881,7 @@ cnQgYW55IGFuZCBhbGwgaXNzdWVzIHRvIGNvZHlAY29keWtyaWVnZXIuY29tIC0gdGhhbmtzIQ</byte
 									<int key="NSsFlags">1</int>
 									<reference key="NSTarget" ref="44289336"/>
 									<string key="NSAction">_doScroller:</string>
-									<double key="NSCurValue">0.80291970802919732</double>
+									<double key="NSCurValue">0.78717167653313458</double>
 									<double key="NSPercent">0.94565218687057495</double>
 								</object>
 							</object>
@@ -4576,12 +4677,10 @@ cnQgYW55IGFuZCBhbGwgaXNzdWVzIHRvIGNvZHlAY29keWtyaWVnZXIuY29tIC0gdGhhbmtzIQ</byte
 							<string>openApplicationURL:</string>
 							<string>openPreferences:</string>
 							<string>quit:</string>
-							<string>savePreferences:</string>
 							<string>setMode:</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>id</string>
 							<string>id</string>
 							<string>id</string>
 							<string>id</string>
@@ -4599,7 +4698,6 @@ cnQgYW55IGFuZCBhbGwgaXNzdWVzIHRvIGNvZHlAY29keWtyaWVnZXIuY29tIC0gdGhhbmtzIQ</byte
 							<string>openApplicationURL:</string>
 							<string>openPreferences:</string>
 							<string>quit:</string>
-							<string>savePreferences:</string>
 							<string>setMode:</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
@@ -4625,10 +4723,6 @@ cnQgYW55IGFuZCBhbGwgaXNzdWVzIHRvIGNvZHlAY29keWtyaWVnZXIuY29tIC0gdGhhbmtzIQ</byte
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBActionInfo">
-								<string key="name">savePreferences:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
 								<string key="name">setMode:</string>
 								<string key="candidateClassName">id</string>
 							</object>
@@ -4640,60 +4734,40 @@ cnQgYW55IGFuZCBhbGwgaXNzdWVzIHRvIGNvZHlAY29keWtyaWVnZXIuY29tIC0gdGhhbmtzIQ</byte
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>aboutClose</string>
 							<string>aboutWindow</string>
-							<string>checkForUpdatesOnLaunch</string>
-							<string>closePrefs</string>
 							<string>currentCard</string>
 							<string>currentPowerSource</string>
 							<string>dependentProcesses</string>
 							<string>dynamicSwitching</string>
-							<string>gpuOnAdaptor</string>
-							<string>gpuOnBattery</string>
 							<string>intelOnly</string>
-							<string>loadAtStartup</string>
-							<string>logToConsole</string>
 							<string>nvidiaOnly</string>
 							<string>preferencesItem</string>
-							<string>preferencesWindow</string>
 							<string>processList</string>
 							<string>processesSeparator</string>
 							<string>quitItem</string>
-							<string>restoreModeAtStartup</string>
 							<string>statusMenu</string>
 							<string>switchGPUs</string>
 							<string>updateItem</string>
 							<string>updater</string>
-							<string>useGrowl</string>
-							<string>usePowerSourceBasedSwitching</string>
 							<string>versionItem</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>NSButton</string>
 							<string>NSWindow</string>
-							<string>NSButton</string>
-							<string>NSButton</string>
 							<string>NSMenuItem</string>
 							<string>NSMenuItem</string>
 							<string>NSMenuItem</string>
 							<string>NSMenuItem</string>
-							<string>NSSegmentedControl</string>
-							<string>NSSegmentedControl</string>
-							<string>NSMenuItem</string>
-							<string>NSButton</string>
-							<string>NSButton</string>
-							<string>NSMenuItem</string>
-							<string>NSMenuItem</string>
-							<string>NSWindow</string>
 							<string>NSMenuItem</string>
 							<string>NSMenuItem</string>
 							<string>NSMenuItem</string>
-							<string>NSButton</string>
+							<string>NSMenuItem</string>
+							<string>NSMenuItem</string>
+							<string>NSMenuItem</string>
 							<string>NSMenu</string>
 							<string>NSMenuItem</string>
 							<string>NSMenuItem</string>
 							<string>SUUpdater</string>
-							<string>NSButton</string>
-							<string>NSButton</string>
 							<string>NSMenuItem</string>
 						</object>
 					</object>
@@ -4703,30 +4777,20 @@ cnQgYW55IGFuZCBhbGwgaXNzdWVzIHRvIGNvZHlAY29keWtyaWVnZXIuY29tIC0gdGhhbmtzIQ</byte
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>aboutClose</string>
 							<string>aboutWindow</string>
-							<string>checkForUpdatesOnLaunch</string>
-							<string>closePrefs</string>
 							<string>currentCard</string>
 							<string>currentPowerSource</string>
 							<string>dependentProcesses</string>
 							<string>dynamicSwitching</string>
-							<string>gpuOnAdaptor</string>
-							<string>gpuOnBattery</string>
 							<string>intelOnly</string>
-							<string>loadAtStartup</string>
-							<string>logToConsole</string>
 							<string>nvidiaOnly</string>
 							<string>preferencesItem</string>
-							<string>preferencesWindow</string>
 							<string>processList</string>
 							<string>processesSeparator</string>
 							<string>quitItem</string>
-							<string>restoreModeAtStartup</string>
 							<string>statusMenu</string>
 							<string>switchGPUs</string>
 							<string>updateItem</string>
 							<string>updater</string>
-							<string>useGrowl</string>
-							<string>usePowerSourceBasedSwitching</string>
 							<string>versionItem</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
@@ -4738,14 +4802,6 @@ cnQgYW55IGFuZCBhbGwgaXNzdWVzIHRvIGNvZHlAY29keWtyaWVnZXIuY29tIC0gdGhhbmtzIQ</byte
 							<object class="IBToOneOutletInfo">
 								<string key="name">aboutWindow</string>
 								<string key="candidateClassName">NSWindow</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">checkForUpdatesOnLaunch</string>
-								<string key="candidateClassName">NSButton</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">closePrefs</string>
-								<string key="candidateClassName">NSButton</string>
 							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">currentCard</string>
@@ -4764,24 +4820,8 @@ cnQgYW55IGFuZCBhbGwgaXNzdWVzIHRvIGNvZHlAY29keWtyaWVnZXIuY29tIC0gdGhhbmtzIQ</byte
 								<string key="candidateClassName">NSMenuItem</string>
 							</object>
 							<object class="IBToOneOutletInfo">
-								<string key="name">gpuOnAdaptor</string>
-								<string key="candidateClassName">NSSegmentedControl</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">gpuOnBattery</string>
-								<string key="candidateClassName">NSSegmentedControl</string>
-							</object>
-							<object class="IBToOneOutletInfo">
 								<string key="name">intelOnly</string>
 								<string key="candidateClassName">NSMenuItem</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">loadAtStartup</string>
-								<string key="candidateClassName">NSButton</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">logToConsole</string>
-								<string key="candidateClassName">NSButton</string>
 							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">nvidiaOnly</string>
@@ -4790,10 +4830,6 @@ cnQgYW55IGFuZCBhbGwgaXNzdWVzIHRvIGNvZHlAY29keWtyaWVnZXIuY29tIC0gdGhhbmtzIQ</byte
 							<object class="IBToOneOutletInfo">
 								<string key="name">preferencesItem</string>
 								<string key="candidateClassName">NSMenuItem</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">preferencesWindow</string>
-								<string key="candidateClassName">NSWindow</string>
 							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">processList</string>
@@ -4806,10 +4842,6 @@ cnQgYW55IGFuZCBhbGwgaXNzdWVzIHRvIGNvZHlAY29keWtyaWVnZXIuY29tIC0gdGhhbmtzIQ</byte
 							<object class="IBToOneOutletInfo">
 								<string key="name">quitItem</string>
 								<string key="candidateClassName">NSMenuItem</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">restoreModeAtStartup</string>
-								<string key="candidateClassName">NSButton</string>
 							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">statusMenu</string>
@@ -4826,14 +4858,6 @@ cnQgYW55IGFuZCBhbGwgaXNzdWVzIHRvIGNvZHlAY29keWtyaWVnZXIuY29tIC0gdGhhbmtzIQ</byte
 							<object class="IBToOneOutletInfo">
 								<string key="name">updater</string>
 								<string key="candidateClassName">SUUpdater</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">useGrowl</string>
-								<string key="candidateClassName">NSButton</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">usePowerSourceBasedSwitching</string>
-								<string key="candidateClassName">NSButton</string>
 							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">versionItem</string>
@@ -5483,14 +5507,6 @@ cnQgYW55IGFuZCBhbGwgaXNzdWVzIHRvIGNvZHlAY29keWtyaWVnZXIuY29tIC0gdGhhbmtzIQ</byte
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBFrameworkSource</string>
 						<string key="minorKey">AppKit.framework/Headers/NSScroller.h</string>
-					</object>
-				</object>
-				<object class="IBPartialClassDescription">
-					<string key="className">NSSegmentedControl</string>
-					<string key="superclassName">NSControl</string>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBFrameworkSource</string>
-						<string key="minorKey">AppKit.framework/Headers/NSSegmentedControl.h</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">

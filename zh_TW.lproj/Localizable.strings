@@ -11,7 +11,7 @@
 "Update"           = "檢查更新...";
 "Preferences"      = "偏好設定...";
 "Card"             = "晶片: %%";
-"SwitchGPUs"       = "變更 GPU (試驗)";
+"SwitchGPUs"       = "變更 GPU";
 "IntelOnly"        = "僅 Intel® 晶片";
 "NvidiaOnly"       = "僅 NVIDIA® 晶片";
 "DynamicSwitching" = "自動切換繪圖晶片";
@@ -28,6 +28,8 @@
 "PrefLog"          = "記錄診斷訊息至系統監視程式";
 "PrefRestoreState" = "起始時回復到上次使用的模式";
 "PrefPowerSwitching"	= "Use power source-based switching";
+"Integrated"            = "9400M";
+"Discrete"              = "9600M GT";
 
 /* About box */
 "AboutTitle"       = "關於 gfxCardStatus";

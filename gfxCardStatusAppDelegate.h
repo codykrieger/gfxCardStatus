@@ -51,7 +51,6 @@ extern BOOL canLog;
     // some basic status indicator bools
     BOOL canGrowl;
     BOOL usingIntegrated;
-    BOOL usingLegacy;
     
     BOOL canPreventSwitch;
     

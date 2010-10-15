@@ -11,7 +11,7 @@
 "Update"           = "检查更新...";
 "Preferences"      = "偏好设置...";
 "Card"             = "图形处理器: %%";
-"SwitchGPUs"       = "变更 GPUs (试验)";
+"SwitchGPUs"       = "变更 GPUs";
 "IntelOnly"        = "Intel 集成图形处理器";
 "NvidiaOnly"       = "NVIDIA 独立图形处理器";
 "DynamicSwitching" = "自动切换图形处理器";
@@ -28,6 +28,8 @@
 "PrefLog"          = "记录诊断讯息到控制台信息";
 "PrefRestoreState" = "启动时恢复上次的使用模式";
 "PrefPowerSwitching"	= "Use power source-based switching";
+"Integrated"            = "9400M";
+"Discrete"              = "9600M GT";
 
 /* About box */
 "AboutTitle"       = "关于 gfxCardStatus";

@@ -14,7 +14,7 @@ BOOL isUsingIntegratedGraphics(BOOL *legacy) {
     [task setArguments:[NSArray arrayWithObject:@"SPDisplaysDataType"]];
     
     NSPipe *pipe = [NSPipe pipe];
-    [task setStandardOutput:pipe];    
+    [task setStandardOutput:pipe];
     
     [task launch];
     NSData *data = [[pipe fileHandleForReading] readDataToEndOfFile];

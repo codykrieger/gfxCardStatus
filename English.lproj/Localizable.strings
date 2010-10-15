@@ -11,7 +11,7 @@
 "Update"				= "Check for Updates...";
 "Preferences"			= "Preferences...";
 "Card"					= "Card: %%";
-"SwitchGPUs"			= "Switch GPUs (experimental)";
+"SwitchGPUs"			= "Switch GPUs";
 "IntelOnly"				= "Intel® Only";
 "NvidiaOnly"			= "NVIDIA® Only";
 "DynamicSwitching"		= "Dynamic Switching";
@@ -28,6 +28,8 @@
 "PrefLog"				= "Log diagnostic messages to the console";
 "PrefRestoreState"		= "Restore last used mode at startup";
 "PrefPowerSwitching"	= "Use power source-based switching";
+"Integrated"            = "9400M";
+"Discrete"              = "9600M GT";
 
 /* About box */
 "AboutTitle"			= "About gfxCardStatus";
