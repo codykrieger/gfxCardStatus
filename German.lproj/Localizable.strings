@@ -22,12 +22,12 @@
 
 /* Preferences window */
 "PrefTitle"				= "gfxCardStatus Einstellungen";
-"PrefUpdate"			= "Prüfe auf Updates beim starten";
+"PrefUpdate"			= "Prüfe auf Updates beim Starten";
 "PrefGrowl"				= "Benutze Growl für Statuswechsel Benachrichtigungen";
-"PrefStartup"			= "Starte gfxCardStatus beim booten";
-"PrefLog"				= "Diagnose Nachrichten in der Konsole speichern";
+"PrefStartup"			= "Starte gfxCardStatus beim Booten";
+"PrefLog"				= "Diagnosenachrichten in der Konsole speichern";
 "PrefRestoreState"		= "Letzten genutzten Modus beim Starten wiederherstellen";
-"PrefPowerSwitching"	= "Use power source-based switching";
+"PrefPowerSwitching"	= "Nutze Stromquellenabhängigen Wechsel";
 "Integrated"            = "9400M";
 "Discrete"              = "9600M GT";
 

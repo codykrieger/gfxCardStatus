@@ -1,0 +1,37 @@
+/* 
+   Localizable.strings
+   gfxCardStatus
+
+   Created by Allan Kimmer Jensenk on 13.08.10.
+   Copyright 2010 Allan Kimmer Jensen. All rights reserved.
+   www.saturate.dk
+ */
+
+/* Main menu */
+"About"					= "Om gfxCardStatus, v%%";
+"Update"				= "Tjek for Opdateringer…";
+"Preferences"			= "Indstillinger...";
+"Card"					= "Kort: %%";
+"SwitchGPUs"			= "Skift GPUs (eksperimentel)";
+"IntelOnly"				= "Kun Intel®";
+"NvidiaOnly"			= "Kun NVIDIA®";
+"DynamicSwitching"		= "Skift Dynamisk";
+"Dependencies"			= "Dependencies";
+"NoProcess"				= "Ingen";
+"Quit"					= "Afslut";
+"Close"					= "Cool!";
+
+/* Preferences window */
+"PrefTitle"				= "gfxCardStatus Indstillinger";
+"PrefUpdate"			= "Tjek for opdateringer ved start";
+"PrefGrowl"				= "Brug Growl til at vise status ændringer";
+"PrefStartup"			= "kør gfxCardStatus ved opstart";
+"PrefLog"				= "Log diagnostiske beskeder til konsol";
+"PrefRestoreState"		= "Gendan sidst anvendte tilstand ved start";
+"PrefPowerSwitching"	= "Brug strømkilde baseret skiftning";
+"Integrated"            = "9400M";
+"Discrete"              = "9600M GT";
+
+/* About box */
+"AboutTitle"			= "Om gfxCardStatus";
+"AboutWebsite"			= "Website";

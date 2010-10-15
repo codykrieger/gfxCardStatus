@@ -1,0 +1,37 @@
+/* 
+   Localizable.strings
+   gfxCardStatus
+
+   Created by Thierry Coppey on 18.09.10.
+   Copyright 2010 Giovanni Peláez. All rights reserved.
+ */
+
+/* Main menu */
+"About"					= "Acerca de gfxCardStatus, v%%";
+"Update"				= "Buscar Actualizaciones...";
+"Preferences"			= "Ajustes...";
+"Card"					= "Tarjeta: %%";
+"SwitchGPUs"			= "Cambiar de GPU (experimental)";
+"IntelOnly"				= "Solo Intel®";
+"NvidiaOnly"			= "Solo NVIDIA®";
+"DynamicSwitching"		= "Cambiar Dinámicamente";
+"Dependencies"			= "Dependencias";
+"NoProcess"				= "Ninguna";
+"Quit"					= "Cerrar";
+"Close"                 = "¡Listo!";
+
+/* Preferences window */
+"PrefTitle"				= "Ajustes de gfxCardStatus";
+"PrefUpdate"			= "Buscar actualizaciones al iniciar";
+"PrefGrowl"				= "Usar Growl para las notificaciones de cambio de estado";
+"PrefStartup"			= "Abrir gfxCardStatus al iniciar";
+"PrefLog"				= "Transcribir los mensajes de diagnóstico a la consola";
+"PrefRestoreState"		= "Restaurar el último modo usado al iniciar";
+"PrefPowerSwitching"	= "Cambiar de GPU según la fuente de energía";
+"Integrated"            = "9400M";
+"Discrete"              = "9600M GT";
+
+/* About box */
+"AboutTitle"			= "Acerca de gfxCardStatus";
+"AboutWebsite"			= "Sitio Web";
+"Close"					= "¡Bien!";

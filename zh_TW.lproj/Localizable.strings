@@ -11,10 +11,10 @@
 "Update"           = "檢查更新...";
 "Preferences"      = "偏好設定...";
 "Card"             = "晶片: %%";
-"SwitchGPUs"       = "變更 GPU";
+"SwitchGPUs"       = "變更 GPU (試驗)";
 "IntelOnly"        = "僅 Intel® 晶片";
 "NvidiaOnly"       = "僅 NVIDIA® 晶片";
-"DynamicSwitching" = "自動切換繪圖晶片";
+"DynamicSwitching" = "自動圖形切換";
 "Dependencies"     = "相依程式";
 "NoProcess"        = "沒有";
 "Quit"             = "結束";
@@ -27,10 +27,37 @@
 "PrefStartup"      = "起始時載入 gfxCardStatus";
 "PrefLog"          = "記錄診斷訊息至系統監視程式";
 "PrefRestoreState" = "起始時回復到上次使用的模式";
-"PrefPowerSwitching"	= "Use power source-based switching";
+"PrefPowerSwitching"	= "以電源供應模式切換圖形晶片";
 "Integrated"            = "9400M";
 "Discrete"              = "9600M GT";
 
 /* About box */
 "AboutTitle"       = "關於 gfxCardStatus";
 "AboutWebsite"     = "網址";
+
+/***** NOT YET LOCALIZED ******/
+
+/* Not yet localized - Menu item */
+"Power Source:"     = "電源供應:";
+"AC Adaptor"        = "電源荭換器";
+"Battery"           = "電池";
+
+/* Not yet localized - Preferences window */
+"General"									 = "一般";
+"Switching"									 = "轉換";
+"(overrides restoration on load preference)" = "（將取代回復到上次使用的模式）";
+"On Battery"								 = "使用電池時";
+"Plugged In"								 = "電源荭換器";
+"Dynamic"									 = "自動切換";
+
+/* Not yet localized - Update window */
+"Updating gfxCardStatus"					 = "更新 gfxCardStatus";
+"Checking for Updates..."					 = "正在檢查更新...";
+
+/* Not yet localized - Update window dialog */
+"You're up to date!"											 = "您的軟體是最新的版本";
+"gfxCardStatus 1.8.1 is currently the newest version available." = "gfxCardStatus %% 已是最新的版本，目前無法為您提供任何更新。";
+"OK"															 = "好";
+
+/* Not yet localized - About window */
+"About gfxCardStatus"			= "關於 gfxCardStatus";

@@ -74,6 +74,8 @@
 		A13C5E00119FA4C300E678FA /* proc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = proc.m; sourceTree = "<group>"; };
 		A13C5FBF119FCFCF00E678FA /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/Localizable.strings; sourceTree = "<group>"; };
 		A13C5FC1119FCFE700E678FA /* French */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = French; path = French.lproj/Localizable.strings; sourceTree = "<group>"; };
+		A13D891D1268F832007EB119 /* Spanish */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Spanish; path = Spanish.lproj/Localizable.strings; sourceTree = "<group>"; };
+		A13D891E1268FE8C007EB119 /* Danish */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Danish; path = Danish.lproj/Localizable.strings; sourceTree = "<group>"; };
 		A14390AE11C53FCD00E4D2A5 /* German */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = German; path = German.lproj/Localizable.strings; sourceTree = "<group>"; };
 		A14C17F5124EBBFA00816A4A /* discrete-3-white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "discrete-3-white.png"; sourceTree = "<group>"; };
 		A14C17F6124EBBFA00816A4A /* discrete-3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "discrete-3.png"; sourceTree = "<group>"; };
@@ -256,6 +258,8 @@
 				Italian,
 				zh_CN,
 				zh_TW,
+				Spanish,
+				Danish,
 			);
 			mainGroup = 29B97314FDCFA39411CA2CEA /* gfxCardStatus */;
 			projectDirPath = "";
@@ -334,6 +338,8 @@
 				A10D2E5811C63CC100E8E2C7 /* Italian */,
 				A12DE37712064D3F00D8E08C /* zh_CN */,
 				A12DE37812064D4400D8E08C /* zh_TW */,
+				A13D891D1268F832007EB119 /* Spanish */,
+				A13D891E1268FE8C007EB119 /* Danish */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
