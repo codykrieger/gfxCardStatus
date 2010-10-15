@@ -242,7 +242,11 @@ switcherMode switcherGetMode() {
     
     // update icon and labels according to selected GPU
     NSString* cardString = integrated ? integratedString : discreteString;
-    [statusItem setImage:[NSImage imageNamed:integrated ? @"intel-3.png" : @"nvidia-3.png"]];
+    if ([prefs usingLegacy])
+        [statusItem setImage:[NSImage imageNamed:integrated ? @"intel-3.png" : @"discrete-3.png"]];
+    else
+        [statusItem setImage:[NSImage imageNamed:integrated ? @"intel-3.png" : @"nvidia-3.png"]];
+    
     [currentCard setTitle:[Str(@"Card") stringByReplacingOccurrencesOfString:@"%%" withString:cardString]];
     [currentPowerSource setTitle:[NSString stringWithFormat:@"Power Source: %@", (powerSourceMonitor.currentPowerSource == psBattery) ? @"Battery" : @"AC Adaptor"]];
     
