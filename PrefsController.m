@@ -39,6 +39,11 @@ static PrefsController *sharedInstance = nil;
         // if preferences file doesn't exist, set the defaults
         prefs = [[NSMutableDictionary alloc] init];
         [self setDefaults];
+    } else {
+        if ([self existsInStartupItems])
+            [prefs setObject:yesNumber forKey:@"shouldStartAtLogin"];
+        else
+            [prefs setObject:noNumber forKey:@"shouldStartAtLogin"];
     }
     
     // ensure that application will be loaded at startup
@@ -141,6 +146,7 @@ static PrefsController *sharedInstance = nil;
         [prefs setObject:([prefChkGrowl state] ? yesNumber : noNumber) forKey:@"shouldGrowl"];
     } else if (sender == prefChkStartup) {
         [prefs setObject:([prefChkStartup state] ? yesNumber : noNumber) forKey:@"shouldStartAtLogin"];
+        [self loadAtStartup:([prefChkStartup state] ? YES : NO)];
     } else if (sender == prefChkLog) {
         [prefs setObject:([prefChkLog state] ? yesNumber : noNumber) forKey:@"shouldLogToConsole"];
         canLog = ([prefChkLog state] ? YES : NO);

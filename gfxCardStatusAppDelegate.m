@@ -60,6 +60,8 @@ switcherMode switcherGetMode() {
     NSNotificationCenter *defaultNotifications = [NSNotificationCenter defaultCenter];
     [defaultNotifications addObserver:self selector:@selector(handleNotification:)
                                    name:NSApplicationDidChangeScreenParametersNotification object:nil];
+    [defaultNotifications addObserver:self selector:@selector(handleNotification:)
+                                 name:NSWorkspaceDidWakeNotification object:nil];
     
     // identify current gpu and set up menus accordingly
     usingIntegrated = isUsingIntegratedGraphics(NULL);
@@ -339,26 +341,22 @@ switcherMode switcherGetMode() {
     // it seems right after waking from sleep, locking to single GPU will fail (even if the return value is correct)
     // this is a temporary workaround to double-check the status
     
-    if (![prefs usingLegacy]) {
-        switcherMode currentMode = switcherGetMode(); // actual current mode
-        NSMenuItem *activeCard = [self senderForMode:currentMode]; // corresponding menu item
+    switcherMode currentMode = switcherGetMode(); // actual current mode
+    NSMenuItem *activeCard = [self senderForMode:currentMode]; // corresponding menu item
+    
+    // check if its consistent with menu state
+    if ([activeCard state] != NSOnState && ![prefs usingLegacy]) {
+        Log(@"Inconsistent menu state and active card, forcing retry");
         
-        // check if its consistent with menu state
-        if ([activeCard state] != NSOnState) {
-            Log(@"Inconsistent menu state and active card, forcing retry");
-            lastPowerSource = -1; // set to uninitialized
-            
-            // set menu item to reflect actual status
-            [intelOnly setState:NSOffState];
-            [nvidiaOnly setState:NSOffState];
-            [dynamicSwitching setState:NSOffState];
-            [activeCard setState:NSOnState];
-            
-            [self powerSourceChanged:powerSourceMonitor.currentPowerSource];
-            
-            return;
-        }
+        // set menu item to reflect actual status
+        [intelOnly setState:NSOffState];
+        [nvidiaOnly setState:NSOffState];
+        [dynamicSwitching setState:NSOffState];
+        [activeCard setState:NSOnState];
     }
+    
+    lastPowerSource = -1; // set to uninitialized
+    [self powerSourceChanged:powerSourceMonitor.currentPowerSource];
 }
 
 - (IBAction)quit:(id)sender {
