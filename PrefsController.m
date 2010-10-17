@@ -92,6 +92,8 @@ static PrefsController *sharedInstance = nil;
 }
 
 - (void)setDefaults {
+    Log(@"Setting initial defaults...");
+    
     [prefs setObject:yesNumber forKey:@"shouldCheckForUpdatesOnStartup"];
     [prefs setObject:yesNumber forKey:@"shouldGrowl"];
     [prefs setObject:yesNumber forKey:@"shouldStartAtLogin"];
@@ -126,7 +128,11 @@ static PrefsController *sharedInstance = nil;
 
 - (void)savePreferences {
     Log(@"Writing preferences to disk");
-    [prefs writeToFile:[self getPrefsPath] atomically:YES];
+    
+    if ([prefs writeToFile:[self getPrefsPath] atomically:YES])
+        Log(@"Successfully wrote preferences to disk.");
+    else
+        Log(@"Failed to write preferences to disk. Permissions problem in ~/Library/Preferences?");
 }
 
 - (void)openPreferences {
@@ -196,6 +202,7 @@ static PrefsController *sharedInstance = nil;
 
 - (void)setLastMode:(int)value {
     [prefs setObject:[NSNumber numberWithInt:value] forKey:@"shouldRestoreToMode"];
+    [self savePreferences];
 }
 
 - (BOOL)existsInStartupItems {
