@@ -3,8 +3,7 @@
 //  gfxCardStatus
 //
 //  Created by Cody Krieger on 5/7/10.
-//  95% of the following code was written by ah. I have only modified and customized it to better fit
-//  the purpose of gfxCardStatus.
+//  The following code has been adapted from ah's original version (from the MacRumors forums).
 //
 
 #import "switcher.h"
