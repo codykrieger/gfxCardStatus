@@ -11,6 +11,9 @@
 #import "switcher.h"
 #import "proc.h"
 
+#pragma mark Power Source & Switcher Helpers
+#pragma mark -
+
 BOOL canLog = NO;
 
 // helper to get preference key from PowerSource enum
@@ -24,6 +27,9 @@ switcherMode switcherGetMode() {
 }
 
 @implementation gfxCardStatusAppDelegate
+
+#pragma mark Initialization
+#pragma mark -
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
     prefs = [PrefsController sharedInstance];
@@ -122,6 +128,57 @@ switcherMode switcherGetMode() {
     //}
 }
 
+- (void)applicationWillTerminate:(NSNotification *)notification {
+}
+
+- (NSDictionary *)registrationDictionaryForGrowl {
+    return [NSDictionary dictionaryWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"Growl Registration Ticket" ofType:@"growlRegDict"]];
+}
+
+- (void)handleNotification:(NSNotification *)notification {
+    // Notification observer
+    // NOTE: If we open the menu while a slow app like Interface Builder is loading, we have the icon not changing
+    
+    Log(@"The following notification has been triggered:\n%@", notification);
+    [self updateMenu];
+    
+    // delayed double-check
+    [self performSelector:@selector(checkCardState) withObject:nil afterDelay:5.0];
+}
+
+#pragma mark Menu Actions
+#pragma mark -
+
+- (void)menuNeedsUpdate:(NSMenu *)menu {
+    //[self updateMenu];
+    [self updateProcessList];
+}
+
+- (void)menuWillOpen:(NSMenu *)menu {
+    // white image when menu is open
+    [statusItem setImage:[NSImage imageNamed:[[[statusItem image] name] stringByAppendingString:@"-white.png"]]];
+}
+
+- (void)menuDidClose:(NSMenu *)menu {
+    // black image when menu is closed
+    [statusItem setImage:[NSImage imageNamed:[[[statusItem image] name] stringByReplacingOccurrencesOfString:@"-white" withString:@".png"]]];
+}
+
+- (IBAction)openPreferences:(id)sender {
+    [prefs openPreferences];
+}
+
+- (IBAction)openAbout:(id)sender {
+    // open window and force to the front
+    [aboutWindow makeKeyAndOrderFront:nil];
+    [aboutWindow orderFrontRegardless];
+    [aboutWindow center];
+}
+
+- (IBAction)closeAbout:(id)sender {
+    [aboutWindow close];
+}
+
 - (IBAction)setMode:(id)sender {
     // legacy cards
     if (sender == switchGPUs) {
@@ -158,30 +215,48 @@ switcherMode switcherGetMode() {
     }
 }
 
-- (void)handleNotification:(NSNotification *)notification {
-    // Notification observer
-    // NOTE: If we open the menu while a slow app like Interface Builder is loading, we have the icon not changing
+- (IBAction)openApplicationURL:(id)sender {
+    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"http://codykrieger.com/gfxCardStatus/"]];
+}
+
+- (IBAction)quit:(id)sender {
+    [[NSApplication sharedApplication] terminate:self];
+}
+
+- (void)updateMenu {
+    BOOL integrated = switcherUseIntegrated();
+    Log(@"Updating status...");
     
-    Log(@"The following notification has been triggered:\n%@", notification);
-    [self updateMenu];
+    // prevent GPU from switching back after apps quit
+    if (!integrated && ![prefs usingLegacy] && [intelOnly state] > 0 && canPreventSwitch) {
+        Log(@"Preventing switch to 330M. Setting canPreventSwitch to NO so that this doesn't get stuck in a loop, changing in 5 seconds...");
+        canPreventSwitch = NO;
+        [self setMode:intelOnly];
+        [NSTimer scheduledTimerWithTimeInterval:5 target:self selector:@selector(shouldPreventSwitch) userInfo:nil repeats:NO];
+        return;
+    }
     
-    // delayed double-check
-    [self performSelector:@selector(checkCardState) withObject:nil afterDelay:5.0];
-}
-
-- (void)menuNeedsUpdate:(NSMenu *)menu {
-    //[self updateMenu];
-    [self updateProcessList];
-}
-
-- (void)menuWillOpen:(NSMenu *)menu {
-    // white image when menu is open
-    [statusItem setImage:[NSImage imageNamed:[[[statusItem image] name] stringByAppendingString:@"-white.png"]]];
-}
-
-- (void)menuDidClose:(NSMenu *)menu {
-    // black image when menu is closed
-    [statusItem setImage:[NSImage imageNamed:[[[statusItem image] name] stringByReplacingOccurrencesOfString:@"-white" withString:@".png"]]];
+    // update icon and labels according to selected GPU
+    NSString* cardString = integrated ? integratedString : discreteString;
+    if ([prefs usingLegacy])
+        [statusItem setImage:[NSImage imageNamed:integrated ? @"intel-3.png" : @"discrete-3.png"]];
+    else
+        [statusItem setImage:[NSImage imageNamed:integrated ? @"intel-3.png" : @"nvidia-3.png"]];
+    
+    [currentCard setTitle:[Str(@"Card") stringByReplacingOccurrencesOfString:@"%%" withString:cardString]];
+    [currentPowerSource setTitle:[NSString stringWithFormat:@"Power Source: %@", (powerSourceMonitor.currentPowerSource == psBattery) ? @"Battery" : @"AC Adaptor"]];
+    
+    if (integrated) Log(@"%@ in use. Sweet deal! More battery life.", integratedString);
+    else Log(@"%@ in use. Bummer! No battery life for you.", discreteString);
+    
+    if ([prefs shouldGrowl] && canGrowl && usingIntegrated != integrated) {
+        NSString *msg  = [NSString stringWithFormat:@"%@ now in use.", cardString];
+        NSString *name = integrated ? @"switchedToIntegrated" : @"switchedToDiscrete";
+        [GrowlApplicationBridge notifyWithTitle:@"GPU changed" description:msg notificationName:name iconData:nil priority:0 isSticky:NO clickContext:nil];
+    }
+    
+    usingIntegrated = integrated;
+    if (!integrated) [self updateProcessList];
 }
 
 - (void)updateProcessList {
@@ -229,69 +304,8 @@ switcherMode switcherGetMode() {
     [procs release];
 }
 
-- (void)updateMenu {
-    BOOL integrated = switcherUseIntegrated();
-    Log(@"Updating status...");
-    
-    // prevent GPU from switching back after apps quit
-    if (!integrated && ![prefs usingLegacy] && [intelOnly state] > 0 && canPreventSwitch) {
-        Log(@"Preventing switch to 330M. Setting canPreventSwitch to NO so that this doesn't get stuck in a loop, changing in 5 seconds...");
-        canPreventSwitch = NO;
-        [self setMode:intelOnly];
-        [NSTimer scheduledTimerWithTimeInterval:5 target:self selector:@selector(shouldPreventSwitch) userInfo:nil repeats:NO];
-        return;
-    }
-    
-    // update icon and labels according to selected GPU
-    NSString* cardString = integrated ? integratedString : discreteString;
-    if ([prefs usingLegacy])
-        [statusItem setImage:[NSImage imageNamed:integrated ? @"intel-3.png" : @"discrete-3.png"]];
-    else
-        [statusItem setImage:[NSImage imageNamed:integrated ? @"intel-3.png" : @"nvidia-3.png"]];
-    
-    [currentCard setTitle:[Str(@"Card") stringByReplacingOccurrencesOfString:@"%%" withString:cardString]];
-    [currentPowerSource setTitle:[NSString stringWithFormat:@"Power Source: %@", (powerSourceMonitor.currentPowerSource == psBattery) ? @"Battery" : @"AC Adaptor"]];
-    
-    if (integrated) Log(@"%@ in use. Sweet deal! More battery life.", integratedString);
-    else Log(@"%@ in use. Bummer! No battery life for you.", discreteString);
-    
-    if ([prefs shouldGrowl] && canGrowl && usingIntegrated != integrated) {
-        NSString *msg  = [NSString stringWithFormat:@"%@ now in use.", cardString];
-        NSString *name = integrated ? @"switchedToIntegrated" : @"switchedToDiscrete";
-        [GrowlApplicationBridge notifyWithTitle:@"GPU changed" description:msg notificationName:name iconData:nil priority:0 isSticky:NO clickContext:nil];
-    }
-    
-    usingIntegrated = integrated;
-    if (!integrated) [self updateProcessList];
-}
-
-- (NSDictionary *)registrationDictionaryForGrowl {
-    return [NSDictionary dictionaryWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"Growl Registration Ticket" ofType:@"growlRegDict"]];
-}
-
-- (IBAction)openPreferences:(id)sender {
-    [prefs openPreferences];
-}
-
-- (IBAction)openAbout:(id)sender {
-    // open window and force to the front
-    [aboutWindow makeKeyAndOrderFront:nil];
-    [aboutWindow orderFrontRegardless];
-    [aboutWindow center];
-}
-
-- (IBAction)closeAbout:(id)sender {
-    [aboutWindow close];
-}
-
-- (IBAction)openApplicationURL:(id)sender {
-    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"http://codykrieger.com/gfxCardStatus/"]];
-}
-
-- (void)shouldPreventSwitch {
-    Log(@"Can prevent switching again.");
-    canPreventSwitch = YES;
-}
+#pragma mark Helpers
+#pragma mark -
 
 - (NSMenuItem *)senderForMode:(switcherMode)mode {
     // convert switcher mode to a menu item (consumed by setMode:)
@@ -311,9 +325,39 @@ switcherMode switcherGetMode() {
     return dynamicSwitching;
 }
 
+- (void)checkCardState {
+    // it seems right after waking from sleep, locking to single GPU will fail (even if the return value is correct)
+    // this is a temporary workaround to double-check the status
+    
+    switcherMode currentMode = switcherGetMode(); // actual current mode
+    NSMenuItem *activeCard = [self senderForMode:currentMode]; // corresponding menu item
+    
+    // check if its consistent with menu state
+    if ([activeCard state] != NSOnState && ![prefs usingLegacy]) {
+        Log(@"Inconsistent menu state and active card, forcing retry");
+        
+        // set menu item to reflect actual status
+        [intelOnly setState:NSOffState];
+        [nvidiaOnly setState:NSOffState];
+        [dynamicSwitching setState:NSOffState];
+        [activeCard setState:NSOnState];
+    }
+    
+    if ([intelOnly state] > 0) {
+        [prefs setLastMode:0];
+    } else if ([nvidiaOnly state] > 0) {
+        [prefs setLastMode:1];
+    } else if ([dynamicSwitching state] > 0) {
+        [prefs setLastMode:2];
+    }
+    
+    lastPowerSource = -1; // set to uninitialized
+    [self powerSourceChanged:powerSourceMonitor.currentPowerSource];
+}
+
 - (void)powerSourceChanged:(PowerSource)powerSource {
     if (powerSource == lastPowerSource) {
-        Log(@"Power source unchanged, false alarm (maybe a wake from sleep?)");
+        //Log(@"Power source unchanged, false alarm (maybe a wake from sleep?)");
         return;
     }
     
@@ -337,40 +381,9 @@ switcherMode switcherGetMode() {
     [self updateMenu];
 }
 
-- (void)checkCardState {
-    // it seems right after waking from sleep, locking to single GPU will fail (even if the return value is correct)
-    // this is a temporary workaround to double-check the status
-    
-    switcherMode currentMode = switcherGetMode(); // actual current mode
-    NSMenuItem *activeCard = [self senderForMode:currentMode]; // corresponding menu item
-    
-    // check if its consistent with menu state
-    if ([activeCard state] != NSOnState && ![prefs usingLegacy]) {
-        Log(@"Inconsistent menu state and active card, forcing retry");
-        
-        // set menu item to reflect actual status
-        [intelOnly setState:NSOffState];
-        [nvidiaOnly setState:NSOffState];
-        [dynamicSwitching setState:NSOffState];
-        [activeCard setState:NSOnState];
-    }
-    
-    lastPowerSource = -1; // set to uninitialized
-    [self powerSourceChanged:powerSourceMonitor.currentPowerSource];
-}
-
-- (IBAction)quit:(id)sender {
-    [[NSApplication sharedApplication] terminate:self];
-}
-
-- (void)applicationWillTerminate:(NSNotification *)notification {
-    if ([intelOnly state] > 0) {
-        [prefs setLastMode:0];
-    } else if ([nvidiaOnly state] > 0) {
-        [prefs setLastMode:1];
-    } else if ([dynamicSwitching state] > 0) {
-        [prefs setLastMode:2];
-    }
+- (void)shouldPreventSwitch {
+    Log(@"Can prevent switching again.");
+    canPreventSwitch = YES;
 }
 
 - (void)dealloc {

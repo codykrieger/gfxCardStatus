@@ -12,8 +12,8 @@
 		</object>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
+			<integer value="797"/>
 			<integer value="533"/>
-			<integer value="735"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -1637,29 +1637,6 @@
 										<object class="NSTextView" id="473338212">
 											<reference key="NSNextResponder" ref="931296078"/>
 											<int key="NSvFlags">2322</int>
-											<object class="NSMutableSet" key="NSDragTypes">
-												<bool key="EncodedWithXMLCoder">YES</bool>
-												<object class="NSArray" key="set.sortedObjects">
-													<bool key="EncodedWithXMLCoder">YES</bool>
-													<string>Apple HTML pasteboard type</string>
-													<string>Apple PDF pasteboard type</string>
-													<string>Apple PICT pasteboard type</string>
-													<string>Apple PNG pasteboard type</string>
-													<string>Apple URL pasteboard type</string>
-													<string>CorePasteboardFlavorType 0x6D6F6F76</string>
-													<string>NSColor pasteboard type</string>
-													<string>NSFilenamesPboardType</string>
-													<string>NSStringPboardType</string>
-													<string>NeXT Encapsulated PostScript v1.2 pasteboard type</string>
-													<string>NeXT RTFD pasteboard type</string>
-													<string>NeXT Rich Text Format v1.0 pasteboard type</string>
-													<string>NeXT TIFF v4.0 pasteboard type</string>
-													<string>NeXT font pasteboard type</string>
-													<string>NeXT ruler pasteboard type</string>
-													<string>WebURLsWithTitlesPboardType</string>
-													<string>public.url</string>
-												</object>
-											</object>
 											<string key="NSFrameSize">{381, 196}</string>
 											<reference key="NSSuperview" ref="931296078"/>
 											<int key="NSViewLayerContentsRedrawPolicy">2</int>
@@ -1792,7 +1769,7 @@ ciBvd24gcmlzay4KCioqKiogRU5EIERJU0NMQUlNRVIgKioqKg</bytes>
 												<int key="NSTCFlags">1</int>
 											</object>
 											<object class="NSTextViewSharedData" key="NSSharedData">
-												<int key="NSFlags">11239</int>
+												<int key="NSFlags">11237</int>
 												<int key="NSTextCheckingTypes">0</int>
 												<nil key="NSMarkedAttributes"/>
 												<object class="NSColor" key="NSBackgroundColor" id="630876879">
@@ -4593,9 +4570,9 @@ ciBvd24gcmlzay4KCioqKiogRU5EIERJU0NMQUlNRVIgKioqKg</bytes>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="1"/>
-					<string>{{867, 151}, {543, 404}}</string>
+					<string>{{847, 206}, {543, 404}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{867, 151}, {543, 404}}</string>
+					<string>{{847, 206}, {543, 404}}</string>
 					<boolean value="NO"/>
 					<boolean value="NO"/>
 					<boolean value="NO"/>
