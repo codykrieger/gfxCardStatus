@@ -1,0 +1,36 @@
+/* 
+   Localizable.strings
+   gfxCardStatus
+
+   Created by Anton Eriksson on 30.08.10.
+   Copyright 2010 Anton Eriksson. All rights reserved.
+ */
+
+/* Main menu */
+"About"					= "Om gfxCardStatus, v%%";
+"Update"				= "Sök efter uppdateringar...";
+"Preferences"			= "Inställningar...";
+"Card"					= "Kort: %%";
+"SwitchGPUs"			= "Växla GPU (experimentell)";
+"IntelOnly"				= "Enbart Intel®";
+"NvidiaOnly"			= "Enbart NVIDIA®";
+"DynamicSwitching"		= "Dynamisk grafikväxling";
+"Dependencies"			= "Programberoenden";
+"NoProcess"				= "Ingen";
+"Quit"					= "Avsluta";
+"Close"					= "Cool!";
+
+/* Preferences window */
+"PrefTitle"				= "gfxCardStatus inställningar";
+"PrefUpdate"			= "Sök efter uppdateringar vid start";
+"PrefGrowl"				= "Använd Growl för statusmeddelanden";
+"PrefStartup"			= "Starta gfxCardStatus vid inloggning";
+"PrefLog"				= "Logga diagnosmeddelanden till konsoll";
+"PrefRestoreState"		= "Återställ senast använda läge vid start";
+"PrefPowerSwitching"	= "Basera växling på strömkälla";
+"Integrated"            = "9400M";
+"Discrete"              = "9600M GT";
+
+/* About box */
+"AboutTitle"			= "Om gfxCardStatus";
+"AboutWebsite"			= "Webbsida";
