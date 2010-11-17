@@ -371,8 +371,9 @@ switcherMode switcherGetMode() {
             Log(@"Using a newer machine, setting appropriate mode based on power source...");
             [self setMode:[self senderForMode:newMode]];
         } else {
+            Log(@"Using a legacy machine, setting appropriate mode based on power source...");
+            Log(@"usingIntegrated=%i, newMode=%i", usingIntegrated, newMode);
             if ((usingIntegrated && newMode == 1) || (!usingIntegrated && newMode == 0)) {
-                Log(@"Using a legacy machine, setting appropriate mode based on power source...");
                 [self setMode:switchGPUs];
             }
         }

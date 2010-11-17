@@ -184,8 +184,6 @@
 		29B97314FDCFA39411CA2CEA /* gfxCardStatus */ = {
 			isa = PBXGroup;
 			children = (
-				A17221831236DE4200636797 /* Growl License.txt */,
-				A16B28F31196B0E7006EB263 /* README */,
 				080E96DDFE201D6D7F000001 /* Classes */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
@@ -207,6 +205,8 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				A16B28F31196B0E7006EB263 /* README */,
+				A17221831236DE4200636797 /* Growl License.txt */,
 				A1D9C43911851B77009A4DE1 /* gfxCardStatus.icns */,
 				A1D6AC5C11826BF00038AD1A /* nvidia-3.png */,
 				A14C17FA124EBC1100816A4A /* nvidia-3-white.png */,
