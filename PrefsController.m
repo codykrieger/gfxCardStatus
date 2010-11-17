@@ -33,6 +33,9 @@ static PrefsController *sharedInstance = nil;
     yesNumber = [NSNumber numberWithBool:YES];
     noNumber = [NSNumber numberWithBool:NO];
     
+    usingLegacy = NO;
+    isUsingIntegratedGraphics(&usingLegacy);
+    
     // load preferences in from file
     prefs = [[NSMutableDictionary alloc] initWithContentsOfFile:[self getPrefsPath]];
     if (!prefs) {
@@ -49,9 +52,6 @@ static PrefsController *sharedInstance = nil;
     // ensure that application will be loaded at startup
     if ([self shouldStartAtLogin])
         [self loadAtStartup:YES];
-    
-    usingLegacy = NO;
-    isUsingIntegratedGraphics(&usingLegacy);
 }
 
 - (void)awakeFromNib {
@@ -102,7 +102,10 @@ static PrefsController *sharedInstance = nil;
     [prefs setObject:noNumber forKey:@"shouldUsePowerSourceBasedSwitching"];
     
     [prefs setObject:[NSNumber numberWithInt:0] forKey:kGPUSettingBattery]; // defaults to integrated
-    [prefs setObject:[NSNumber numberWithInt:2] forKey:kGPUSettingACAdaptor]; // defaults to dynamic
+    if (usingLegacy)
+        [prefs setObject:[NSNumber numberWithInt:1] forKey:kGPUSettingACAdaptor]; // defaults to discrete for legacy machines
+    else
+        [prefs setObject:[NSNumber numberWithInt:2] forKey:kGPUSettingACAdaptor]; // defaults to dynamic for new machines
     
     // last mode used before termination
     [prefs setObject:[NSNumber numberWithInt:2] forKey:@"shouldRestoreToMode"];
