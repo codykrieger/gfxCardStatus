@@ -229,7 +229,8 @@ switcherMode switcherGetMode() {
 }
 
 - (void)dynamicIgnoreMonitor {
-	Log(@"Dynamic Ignore Monitor");
+    BOOL integrated = switcherUseIntegrated();
+	//Log(@"Dynamic Ignore Monitor");
     NSMutableDictionary* procs = [[NSMutableDictionary alloc] init];
     if (!procGet(procs)) Log(@"Can't obtain I/O Kit's root service");
 	
@@ -242,9 +243,9 @@ switcherMode switcherGetMode() {
 		}
     }
 	
-	if (shouldUseDiscrete) {
+	if (shouldUseDiscrete && integrated) {
 		switcherSetMode(modeForceNvidia);
-	} else {
+	} else if (!shouldUseDiscrete && !integrated) {
 		switcherSetMode(modeForceIntel);
 	}
     
@@ -354,15 +355,29 @@ switcherMode switcherGetMode() {
 	if (dynamicIgnoreOn) {
 		menuAction = @selector(ignoreAction:);
 	}
+	NSMutableArray *tmpIgnoreArray = [NSMutableArray arrayWithArray:ignoreArray];
 	
     for (NSString* appName in [procs allValues]) {
         NSMenuItem *appItem = [[NSMenuItem alloc] initWithTitle:appName action:menuAction keyEquivalent:@""];
 		appName = [[appName componentsSeparatedByString:@","] objectAtIndex:0];
-		[appItem setState:([ignoreArray containsObject:appName] && dynamicIgnoreOn)];
+		if ([ignoreArray containsObject:appName]) {
+			[tmpIgnoreArray removeObject:appName];
+			[appItem setState:NSOnState];
+		}
+
         [appItem setIndentationLevel:1];
         [statusMenu insertItem:appItem atIndex:([statusMenu indexOfItem:processList] + 1)];
         [appItem release];
     }
+	
+	for (NSString *tmpAppName in tmpIgnoreArray) {
+		NSMenuItem *appItem = [[NSMenuItem alloc] initWithTitle:tmpAppName action:nil keyEquivalent:@""];
+        [appItem setIndentationLevel:1];
+		[appItem setState:NSOnState];
+		[appItem setAction:@selector(ignoreAction:)];
+        [statusMenu insertItem:appItem atIndex:([statusMenu indexOfItem:processList] + 1)];
+        [appItem release];
+	}
 	
     [procs release];
 }
