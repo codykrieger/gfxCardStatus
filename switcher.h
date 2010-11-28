@@ -12,7 +12,8 @@ typedef enum {
     modeForceIntel,
     modeForceNvidia,
     modeDynamicSwitching,
-    modeToggleGPU
+    modeToggleGPU, 
+	modeDynamicIgnore
 } switcherMode;
 
 BOOL switcherOpen();  // Initialize driver

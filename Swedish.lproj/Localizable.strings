@@ -15,6 +15,7 @@
 "IntelOnly"				= "Enbart Intel®";
 "NvidiaOnly"			= "Enbart NVIDIA®";
 "DynamicSwitching"		= "Dynamisk grafikväxling";
+"DynamicIgnore"			= "DynamicIgnore";
 "Dependencies"			= "Programberoenden";
 "NoProcess"				= "Ingen";
 "Quit"					= "Avsluta";

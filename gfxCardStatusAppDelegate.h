@@ -35,6 +35,7 @@ extern BOOL canLog;
     IBOutlet NSMenuItem *intelOnly;
     IBOutlet NSMenuItem *nvidiaOnly;
     IBOutlet NSMenuItem *dynamicSwitching;
+    IBOutlet NSMenuItem *dynamicIgnore;
     
     // process list menu items
     IBOutlet NSMenuItem *processesSeparator;
@@ -60,12 +61,17 @@ extern BOOL canLog;
     // power source monitor
     PowerSourceMonitor *powerSourceMonitor;
     PowerSource lastPowerSource;
+	
+	//dynamic ignore
+	NSMutableArray *ignoreArray;
 }
 
 - (void)updateMenu;
 - (void)updateProcessList;
 
 - (IBAction)setMode:(id)sender;
+- (void)dynamicIgnoreMonitor;
+- (void)ignoreAction:(id)sender;
 
 - (IBAction)openPreferences:(id)sender;
 - (IBAction)openAbout:(id)sender;

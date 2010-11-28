@@ -15,6 +15,7 @@
 "IntelOnly"        = "僅 Intel® 晶片";
 "NvidiaOnly"       = "僅 NVIDIA® 晶片";
 "DynamicSwitching" = "自動圖形切換";
+"DynamicIgnore"	   = "DynamicIgnore";
 "Dependencies"     = "相依程式";
 "NoProcess"        = "沒有";
 "Quit"             = "結束";

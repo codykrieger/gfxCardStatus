@@ -10,6 +10,7 @@
 #import "systemProfiler.h"
 #import "switcher.h"
 #import "proc.h"
+#import "dynamicIgnoreTimer.h"
 
 #pragma mark Power Source & Switcher Helpers
 #pragma mark -
@@ -32,6 +33,10 @@ switcherMode switcherGetMode() {
 #pragma mark -
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
+	[dynamicIgnoreTimer sharedTimerWithTarget:self selector:@selector(dynamicIgnoreMonitor)];
+	ignoreArray = [[NSUserDefaults standardUserDefaults] objectForKey:@"ignoreArray"];
+	ignoreArray = [[NSMutableArray alloc] initWithArray:ignoreArray];
+	
     prefs = [PrefsController sharedInstance];
     
     // initialize driver and process listing
@@ -75,6 +80,7 @@ switcherMode switcherGetMode() {
     [intelOnly setHidden:[prefs usingLegacy]];
     [nvidiaOnly setHidden:[prefs usingLegacy]];
     [dynamicSwitching setHidden:[prefs usingLegacy]];
+    [dynamicIgnore setHidden:[prefs usingLegacy]];
     if ([prefs usingLegacy]) {
         Log(@"Looks like we're using an older 9400M/9600M GT system.");
         
@@ -186,7 +192,8 @@ switcherMode switcherGetMode() {
         switcherSetMode(modeToggleGPU);
         return;
     }
-    
+	
+    [dynamicIgnoreTimer pause];
     // current cards
     if ([sender state] == NSOnState) return;
     
@@ -203,16 +210,64 @@ switcherMode switcherGetMode() {
         Log(@"Setting dynamic switching...");
         retval = switcherSetMode(modeDynamicSwitching);
     }
-    
+    if (sender == dynamicIgnore) {
+        Log(@"Setting dynamic ignore...");
+		[dynamicIgnoreTimer start];
+        retval = YES;
+    }
+	
     // only change status in case of success
     if (retval) {
         [intelOnly setState:(sender == intelOnly ? NSOnState : NSOffState)];
         [nvidiaOnly setState:(sender == nvidiaOnly ? NSOnState : NSOffState)];
         [dynamicSwitching setState:(sender == dynamicSwitching ? NSOnState : NSOffState)];
+        [dynamicIgnore setState:(sender == dynamicIgnore ? NSOnState : NSOffState)];
         
         // delayed double-check
         [self performSelector:@selector(checkCardState) withObject:nil afterDelay:5.0];
     }
+}
+
+- (void)dynamicIgnoreMonitor {
+	Log(@"Dynamic Ignore Monitor");
+    NSMutableDictionary* procs = [[NSMutableDictionary alloc] init];
+    if (!procGet(procs)) Log(@"Can't obtain I/O Kit's root service");
+	
+	BOOL shouldUseDiscrete = NO;
+	
+	for (NSString* appName in [procs allValues]) {
+		appName = [[appName componentsSeparatedByString:@","] objectAtIndex:0];
+		if (![ignoreArray containsObject:appName]) {
+			shouldUseDiscrete = YES;	
+		}
+    }
+	
+	if (shouldUseDiscrete) {
+		switcherSetMode(modeForceNvidia);
+	} else {
+		switcherSetMode(modeForceIntel);
+	}
+    
+    [procs release];
+}
+
+- (void)ignoreAction:(id)sender {
+	NSString *appName = [[[sender title] componentsSeparatedByString:@","] objectAtIndex:0];
+	for (int i = 0; i < [ignoreArray count]; i++) {
+		NSString *tmpAppName = [ignoreArray objectAtIndex:i];
+		if ([appName isEqualToString:tmpAppName]) {
+			[sender setState:NSOffState];
+			[ignoreArray removeObject:tmpAppName];
+			appName = nil;
+			break;
+		} 
+	}
+	if (appName) {
+		[ignoreArray addObject:appName];
+		[sender setState:NSOnState];
+	}
+	[[NSUserDefaults standardUserDefaults] setObject:ignoreArray forKey:@"ignoreArray"];
+	[[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 - (IBAction)openApplicationURL:(id)sender {
@@ -265,7 +320,7 @@ switcherMode switcherGetMode() {
     }
     
     // if we're on Intel (or using a 9400M/9600M GT model), no need to display/update the list
-    BOOL procList = !usingIntegrated && ![prefs usingLegacy];
+    BOOL procList = (!usingIntegrated && ![prefs usingLegacy]) || [dynamicIgnore state];
     [processList setHidden:!procList];
     [processesSeparator setHidden:!procList];
     [dependentProcesses setHidden:!procList];
@@ -294,13 +349,21 @@ switcherMode switcherGetMode() {
     [processList setHidden:([procs count] > 0 || usingExternalDisplay)];
     if ([procs count]==0) Log(@"We're using the NVIDIA® card, but no process requires it. An external monitor may be connected, or we may be in NVIDIA® Only mode.");
     
+	BOOL dynamicIgnoreOn = [dynamicIgnore state];
+	SEL menuAction = NULL;
+	if (dynamicIgnoreOn) {
+		menuAction = @selector(ignoreAction:);
+	}
+	
     for (NSString* appName in [procs allValues]) {
-        NSMenuItem *appItem = [[NSMenuItem alloc] initWithTitle:appName action:nil keyEquivalent:@""];
+        NSMenuItem *appItem = [[NSMenuItem alloc] initWithTitle:appName action:menuAction keyEquivalent:@""];
+		appName = [[appName componentsSeparatedByString:@","] objectAtIndex:0];
+		[appItem setState:([ignoreArray containsObject:appName] && dynamicIgnoreOn)];
         [appItem setIndentationLevel:1];
         [statusMenu insertItem:appItem atIndex:([statusMenu indexOfItem:processList] + 1)];
         [appItem release];
     }
-    
+	
     [procs release];
 }
 
@@ -333,7 +396,7 @@ switcherMode switcherGetMode() {
     NSMenuItem *activeCard = [self senderForMode:currentMode]; // corresponding menu item
     
     // check if its consistent with menu state
-    if ([activeCard state] != NSOnState && ![prefs usingLegacy]) {
+    if ([activeCard state] != NSOnState && ![prefs usingLegacy] && ![dynamicIgnore state]) {
         Log(@"Inconsistent menu state and active card, forcing retry");
         
         // set menu item to reflect actual status

@@ -15,6 +15,7 @@
 "IntelOnly"				= "Solo Intel®";
 "NvidiaOnly"			= "Solo NVIDIA®";
 "DynamicSwitching"		= "Scambio Dinamico";
+"DynamicIgnore"			= "DynamicIgnore";
 "Dependencies"			= "Dipendenze";
 "NoProcess"				= "Nessuna";
 "Quit"					= "Esci";

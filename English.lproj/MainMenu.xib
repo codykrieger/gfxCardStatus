@@ -2,9 +2,9 @@
 <archive type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="7.10">
 	<data>
 		<int key="IBDocument.SystemTarget">1060</int>
-		<string key="IBDocument.SystemVersion">10F569</string>
+		<string key="IBDocument.SystemVersion">10H574</string>
 		<string key="IBDocument.InterfaceBuilderVersion">804</string>
-		<string key="IBDocument.AppKitVersion">1038.29</string>
+		<string key="IBDocument.AppKitVersion">1038.35</string>
 		<string key="IBDocument.HIToolboxVersion">461.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -12,8 +12,9 @@
 		</object>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="797"/>
 			<integer value="533"/>
+			<integer value="29"/>
+			<integer value="797"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -1414,6 +1415,14 @@
 						<reference key="NSOnImage" ref="35465992"/>
 						<reference key="NSMixedImage" ref="502551668"/>
 					</object>
+					<object class="NSMenuItem" id="928951277">
+						<reference key="NSMenu" ref="38435637"/>
+						<string key="NSTitle">DynamicIgnore</string>
+						<string key="NSKeyEquiv"/>
+						<int key="NSMnemonicLoc">2147483647</int>
+						<reference key="NSOnImage" ref="35465992"/>
+						<reference key="NSMixedImage" ref="502551668"/>
+					</object>
 					<object class="NSMenuItem" id="179521059">
 						<reference key="NSMenu" ref="38435637"/>
 						<bool key="NSIsDisabled">YES</bool>
@@ -2769,6 +2778,22 @@ ciBvd24gcmlzay4KCioqKiogRU5EIERJU0NMQUlNRVIgKioqKg</bytes>
 					</object>
 					<int key="connectionID">808</int>
 				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">setMode:</string>
+						<reference key="source" ref="976324537"/>
+						<reference key="destination" ref="928951277"/>
+					</object>
+					<int key="connectionID">833</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">dynamicIgnore</string>
+						<reference key="source" ref="976324537"/>
+						<reference key="destination" ref="928951277"/>
+					</object>
+					<int key="connectionID">834</int>
+				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
 				<object class="NSArray" key="orderedObjects">
@@ -3821,6 +3846,7 @@ ciBvd24gcmlzay4KCioqKiogRU5EIERJU0NMQUlNRVIgKioqKg</bytes>
 							<reference ref="1023494607"/>
 							<reference ref="727656454"/>
 							<reference ref="114424774"/>
+							<reference ref="928951277"/>
 						</object>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -4037,6 +4063,11 @@ ciBvd24gcmlzay4KCioqKiogRU5EIERJU0NMQUlNRVIgKioqKg</bytes>
 						<int key="objectID">798</int>
 						<reference key="object" ref="231402444"/>
 						<reference key="parent" ref="44289336"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">832</int>
+						<reference key="object" ref="928951277"/>
+						<reference key="parent" ref="38435637"/>
 					</object>
 				</object>
 			</object>
@@ -4328,6 +4359,7 @@ ciBvd24gcmlzay4KCioqKiogRU5EIERJU0NMQUlNRVIgKioqKg</bytes>
 					<string>82.ImportedFromIB2</string>
 					<string>83.IBPluginDependency</string>
 					<string>83.ImportedFromIB2</string>
+					<string>832.IBPluginDependency</string>
 					<string>92.IBPluginDependency</string>
 					<string>92.ImportedFromIB2</string>
 				</object>
@@ -4542,7 +4574,7 @@ ciBvd24gcmlzay4KCioqKiogRU5EIERJU0NMQUlNRVIgKioqKg</bytes>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{1338, 650}, {269, 323}}</string>
+					<string>{{1338, 630}, {269, 343}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -4618,6 +4650,7 @@ ciBvd24gcmlzay4KCioqKiogRU5EIERJU0NMQUlNRVIgKioqKg</bytes>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="1"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="1"/>
 				</object>
 			</object>
@@ -4637,7 +4670,7 @@ ciBvd24gcmlzay4KCioqKiogRU5EIERJU0NMQUlNRVIgKioqKg</bytes>
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">831</int>
+			<int key="maxID">834</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -4714,6 +4747,7 @@ ciBvd24gcmlzay4KCioqKiogRU5EIERJU0NMQUlNRVIgKioqKg</bytes>
 							<string>currentCard</string>
 							<string>currentPowerSource</string>
 							<string>dependentProcesses</string>
+							<string>dynamicIgnore</string>
 							<string>dynamicSwitching</string>
 							<string>intelOnly</string>
 							<string>nvidiaOnly</string>
@@ -4741,6 +4775,7 @@ ciBvd24gcmlzay4KCioqKiogRU5EIERJU0NMQUlNRVIgKioqKg</bytes>
 							<string>NSMenuItem</string>
 							<string>NSMenuItem</string>
 							<string>NSMenuItem</string>
+							<string>NSMenuItem</string>
 							<string>NSMenu</string>
 							<string>NSMenuItem</string>
 							<string>NSMenuItem</string>
@@ -4757,6 +4792,7 @@ ciBvd24gcmlzay4KCioqKiogRU5EIERJU0NMQUlNRVIgKioqKg</bytes>
 							<string>currentCard</string>
 							<string>currentPowerSource</string>
 							<string>dependentProcesses</string>
+							<string>dynamicIgnore</string>
 							<string>dynamicSwitching</string>
 							<string>intelOnly</string>
 							<string>nvidiaOnly</string>
@@ -4790,6 +4826,10 @@ ciBvd24gcmlzay4KCioqKiogRU5EIERJU0NMQUlNRVIgKioqKg</bytes>
 							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">dependentProcesses</string>
+								<string key="candidateClassName">NSMenuItem</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">dynamicIgnore</string>
 								<string key="candidateClassName">NSMenuItem</string>
 							</object>
 							<object class="IBToOneOutletInfo">

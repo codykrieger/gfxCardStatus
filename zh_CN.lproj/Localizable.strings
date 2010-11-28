@@ -15,6 +15,7 @@
 "IntelOnly"        = "Intel 集成图形处理器";
 "NvidiaOnly"       = "NVIDIA 独立图形处理器";
 "DynamicSwitching" = "自动切换图形处理器";
+"DynamicIgnore"	   = "DynamicIgnore";
 "Dependencies"     = "相依程序";
 "NoProcess"        = "无";
 "Quit"             = "退出";
