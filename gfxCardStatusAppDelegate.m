@@ -10,7 +10,6 @@
 #import "systemProfiler.h"
 #import "switcher.h"
 #import "proc.h"
-#import "dynamicIgnoreTimer.h"
 
 #pragma mark Power Source & Switcher Helpers
 #pragma mark -
@@ -33,7 +32,6 @@ switcherMode switcherGetMode() {
 #pragma mark -
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
-	[dynamicIgnoreTimer sharedTimerWithTarget:self selector:@selector(dynamicIgnoreMonitor)];
 	ignoreArray = [[NSUserDefaults standardUserDefaults] objectForKey:@"ignoreArray"];
 	ignoreArray = [[NSMutableArray alloc] initWithArray:ignoreArray];
 	
@@ -193,7 +191,6 @@ switcherMode switcherGetMode() {
         return;
     }
 	
-    [dynamicIgnoreTimer pause];
     // current cards
     if ([sender state] == NSOnState) return;
     
@@ -212,8 +209,10 @@ switcherMode switcherGetMode() {
     }
     if (sender == dynamicIgnore) {
         Log(@"Setting dynamic ignore...");
-		[dynamicIgnoreTimer start];
-        retval = YES;
+		[[[NSWorkspace sharedWorkspace] notificationCenter] addObserver:self selector:@selector(dynamicIgnoreMonitor:) name:NSWorkspaceWillLaunchApplicationNotification object:nil];
+		[[[NSWorkspace sharedWorkspace] notificationCenter] addObserver:self selector:@selector(dynamicIgnoreMonitor:) name:NSWorkspaceDidTerminateApplicationNotification object:nil];
+        [self dynamicIgnoreCheck];
+		retval = YES;
     }
 	
     // only change status in case of success
@@ -228,9 +227,9 @@ switcherMode switcherGetMode() {
     }
 }
 
-- (void)dynamicIgnoreMonitor {
+- (void)dynamicIgnoreCheck {
     BOOL integrated = switcherUseIntegrated();
-	//Log(@"Dynamic Ignore Monitor");
+	Log(@"Dynamic Ignore Monitor");
     NSMutableDictionary* procs = [[NSMutableDictionary alloc] init];
     if (!procGet(procs)) Log(@"Can't obtain I/O Kit's root service");
 	
@@ -250,6 +249,42 @@ switcherMode switcherGetMode() {
 	}
     
     [procs release];
+}
+
+void runSystemCommand(NSString *cmd)
+{
+    [NSTask launchedTaskWithLaunchPath:@"/bin/sh" arguments:[NSArray arrayWithObjects:@"-c", cmd, nil]];
+}
+
+- (void)dynamicIgnoreMonitor:(id)sender {
+	Log(@"Dynamic Ignore Monitor");
+	
+	NSString *appName = [[sender userInfo] objectForKey:@"NSApplicationName"];
+	
+	if ([[sender name] isEqualToString:@"NSWorkspaceDidTerminateApplicationNotification"]) {
+		if (![ignoreArray containsObject:appName]) {
+			switcherSetMode(modeForceIntel);
+		} else {
+			switcherSetMode(modeForceNvidia);
+		}
+	} else {
+		NSString *pid = [[sender userInfo] objectForKey:@"NSApplicationProcessIdentifier"];		
+		NSString *cmd = [NSString stringWithFormat:@"kill -s STOP %@; sleep 2; kill -s CONT %@",pid,pid];
+		runSystemCommand(cmd);
+		
+		if (![ignoreArray containsObject:appName]) {
+			switcherSetMode(modeForceNvidia);
+		} else {
+			switcherSetMode(modeForceIntel);
+		}
+	}
+	
+}
+
+- (void)unfreeze:(id)pid {
+	NSString *cmd = [NSString stringWithFormat:@"kill -s CONT %@",pid];
+	runSystemCommand(cmd);
+
 }
 
 - (void)ignoreAction:(id)sender {

@@ -70,7 +70,9 @@ extern BOOL canLog;
 - (void)updateProcessList;
 
 - (IBAction)setMode:(id)sender;
-- (void)dynamicIgnoreMonitor;
+- (void)dynamicIgnoreMonitor:(id)sender;
+- (void)dynamicIgnoreCheck;
+- (void)unfreeze:(id)pid;
 - (void)ignoreAction:(id)sender;
 
 - (IBAction)openPreferences:(id)sender;
