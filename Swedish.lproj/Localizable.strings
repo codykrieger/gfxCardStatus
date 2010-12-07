@@ -11,7 +11,7 @@
 "Update"				= "Sök efter uppdateringar...";
 "Preferences"			= "Inställningar...";
 "Card"					= "Kort: %%";
-"SwitchGPUs"			= "Växla GPU (experimentell)";
+"SwitchGPUs"			= "Växla GPU";
 "IntelOnly"				= "Enbart Intel®";
 "NvidiaOnly"			= "Enbart NVIDIA®";
 "DynamicSwitching"		= "Dynamisk grafikväxling";

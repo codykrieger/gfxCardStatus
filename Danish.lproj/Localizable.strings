@@ -12,7 +12,7 @@
 "Update"				= "Tjek for Opdateringer…";
 "Preferences"			= "Indstillinger...";
 "Card"					= "Kort: %%";
-"SwitchGPUs"			= "Skift GPUs (eksperimentel)";
+"SwitchGPUs"			= "Skift GPUs";
 "IntelOnly"				= "Kun Intel®";
 "NvidiaOnly"			= "Kun NVIDIA®";
 "DynamicSwitching"		= "Skift Dynamisk";

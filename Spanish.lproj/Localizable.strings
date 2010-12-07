@@ -11,7 +11,7 @@
 "Update"				= "Buscar Actualizaciones...";
 "Preferences"			= "Ajustes...";
 "Card"					= "Tarjeta: %%";
-"SwitchGPUs"			= "Cambiar de GPU (experimental)";
+"SwitchGPUs"			= "Cambiar de GPU";
 "IntelOnly"				= "Solo Intel®";
 "NvidiaOnly"			= "Solo NVIDIA®";
 "DynamicSwitching"		= "Cambiar Dinámicamente";

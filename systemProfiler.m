@@ -84,7 +84,7 @@ BOOL isUsingIntegratedGraphics(BOOL *legacy) {
             Log(@"*** UNSUPPORTED SYSTEM BEING USED ***");
             NSAlert *alert = [NSAlert alertWithMessageText:@"You are using a system that gfxCardStatus does not support. Please ensure that you are using a MacBook Pro with dual GPUs (15\" or 17\")." 
                               defaultButton:@"Oh, I see." alternateButton:nil otherButton:nil informativeTextWithFormat:@""];
-            [alert runModal];
+            Log(@"runModal: %i", [alert runModal]);
         }
         
     } else {

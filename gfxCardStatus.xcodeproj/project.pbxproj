@@ -98,6 +98,7 @@
 		A14C1809124EFE6300816A4A /* PrefsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrefsController.h; sourceTree = "<group>"; };
 		A14C180A124EFE6300816A4A /* PrefsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrefsController.m; sourceTree = "<group>"; };
 		A14C181B124F201400816A4A /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/PrefsWindow.xib; sourceTree = "<group>"; };
+		A14EC42112AE709D006B394D /* pt */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pt; path = pt.lproj/Localizable.strings; sourceTree = "<group>"; };
 		A1510B3A128D0A760076D88E /* Swedish */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Swedish; path = Swedish.lproj/Localizable.strings; sourceTree = "<group>"; };
 		A159E4E91184E84300E68428 /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Sparkle.framework; sourceTree = "<group>"; };
 		A16B28F31196B0E7006EB263 /* README */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README; sourceTree = "<group>"; };
@@ -276,6 +277,7 @@
 				Spanish,
 				Danish,
 				Swedish,
+				pt,
 			);
 			mainGroup = 29B97314FDCFA39411CA2CEA /* gfxCardStatus */;
 			projectDirPath = "";
@@ -374,6 +376,7 @@
 				A13D891D1268F832007EB119 /* Spanish */,
 				A13D891E1268FE8C007EB119 /* Danish */,
 				A1510B3A128D0A760076D88E /* Swedish */,
+				A14EC42112AE709D006B394D /* pt */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
