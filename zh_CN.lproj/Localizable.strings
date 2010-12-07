@@ -35,6 +35,10 @@
 "AboutTitle"       = "关于 gfxCardStatus";
 "AboutWebsite"     = "网站";
 
+/* Growl */
+"GrowlGPUChanged"       = "GPU changed";
+"GrowlSwitch"           = "now in use.";
+
 /***** NOT YET LOCALIZED ******/
 
 /* Not yet localized - Menu item */

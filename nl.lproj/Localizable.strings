@@ -1,0 +1,40 @@
+/* 
+   Localizable.strings
+   gfxCardStatus
+
+   Created by Jelle Kuin on 20.11.10.
+   Copyright 2010 Jelle Kuin. All rights reserved.
+ */
+
+/* Main menu */
+"About"					= "Uitgaveopmerkingen";
+"Update"				= "Controleren op updates...";
+"Preferences"			= "Voorkeuren...";
+"Card"					= "GPU: %%";
+"SwitchGPUs"			= "Van GPU wisselen";
+"IntelOnly"				= "Alleen Intel® gebruiken";
+"NvidiaOnly"			= "Alleen NVIDIA® gebruiken";
+"DynamicSwitching"		= "Dynamisch wisselen";
+"Dependencies"			= "GPU-afhankelijkheid";
+"NoProcess"				= "Geen";
+"Quit"					= "Stop";
+"Close"					= "Sluiten";
+
+/* Preferences window */
+"PrefTitle"				= "gfxCardStatus Voorkeuren";
+"PrefUpdate"			= "Automatisch controleren op updates";
+"PrefGrowl"				= "Gebruik Growl voor notificaties";
+"PrefStartup"			= "Open gfxCardStatus na inloggen";
+"PrefLog"				= "Log diagnostische berichten naar het console";
+"PrefRestoreState"		= "Wisselen naar laatst gebruikte GPU na inloggen";
+"PrefPowerSwitching"	= "Op basis van gebruik lichtnetadapter/batterij";
+"Integrated"            = "9400M";
+"Discrete"              = "9600M GT";
+
+/* About box */
+"AboutTitle"			= "Uitgaveopmerkingen gfxCardStatus";
+"AboutWebsite"			= "Website";
+
+/* Growl */
+"GrowlGPUChanged"       = "Videomodus";
+"GrowlSwitch"           = "wordt nu gebruikt.";

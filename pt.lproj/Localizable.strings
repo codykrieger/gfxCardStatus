@@ -34,3 +34,7 @@
 /* About box */
 "AboutTitle"			= "Sobre gfxCardStatus";
 "AboutWebsite"			= "Website";
+
+/* Growl */
+"GrowlGPUChanged"       = "GPU changed";
+"GrowlSwitch"           = "now in use.";
