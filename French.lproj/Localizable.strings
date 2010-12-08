@@ -19,6 +19,8 @@
 "NoProcess"				=	"Aucune";
 "Quit"					= "Quitter";
 "Close"					= "Fermer";
+"OnBattery"             = "On Battery";
+"PluggedIn"             = "Plugged In";
 
 /* Preferences window */
 "PrefTitle"				= "Préférences de gfxCardStatus";

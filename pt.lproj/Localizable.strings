@@ -19,6 +19,8 @@
 "NoProcess"				= "Nenhum";
 "Quit"					= "Fechar";
 "Close"					= "Legal!";
+"OnBattery"             = "Utilizando a Bateria";
+"PluggedIn"             = "Conectado á Fonte de Energia";
 
 /* Preferences window */
 "PrefTitle"				= "Preferências gfxCardStatus";
@@ -36,5 +38,5 @@
 "AboutWebsite"			= "Website";
 
 /* Growl */
-"GrowlGPUChanged"       = "GPU changed";
-"GrowlSwitch"           = "now in use.";
+"GrowlGPUChanged"       = "Placa de vídeo alternada!";
+"GrowlSwitch"           = "em uso.";
