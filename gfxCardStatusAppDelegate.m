@@ -23,7 +23,7 @@ static inline NSString *keyForPowerSource(PowerSource powerSource) {
 
 // helper to return current mode
 switcherMode switcherGetMode() {
-    return (switcherUseDynamicSwitching() ? modeDynamicSwitching : (isUsingIntegratedGraphics(NULL) ? modeForceIntel : modeForceNvidia));
+    return (switcherUseDynamicSwitching() ? modeDynamicSwitching : (isUsingIntegratedGraphics(NULL, NO) ? modeForceIntel : modeForceNvidia));
 }
 
 @implementation gfxCardStatusAppDelegate
@@ -70,7 +70,15 @@ switcherMode switcherGetMode() {
                                  name:NSWorkspaceDidWakeNotification object:nil];
     
     // identify current gpu and set up menus accordingly
-    usingIntegrated = isUsingIntegratedGraphics(NULL);
+    @try {
+        usingIntegrated = isUsingIntegratedGraphics(NULL, YES);
+    } @catch (NSException * e) {
+        usingIntegrated = NO;
+        NSAlert *alert = [NSAlert alertWithMessageText:@"You are using a system that gfxCardStatus does not support. Please ensure that you are using a MacBook Pro with dual GPUs (15\" or 17\")." 
+                                         defaultButton:@"Oh, I see." alternateButton:nil otherButton:nil informativeTextWithFormat:@""];
+        [alert runModal];
+    }
+    
     [switchGPUs setHidden:![prefs usingLegacy]];
     [intelOnly setHidden:[prefs usingLegacy]];
     [nvidiaOnly setHidden:[prefs usingLegacy]];

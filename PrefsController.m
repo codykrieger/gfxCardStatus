@@ -34,7 +34,7 @@ static PrefsController *sharedInstance = nil;
     noNumber = [NSNumber numberWithBool:NO];
     
     usingLegacy = NO;
-    isUsingIntegratedGraphics(&usingLegacy);
+    isUsingIntegratedGraphics(&usingLegacy, NO);
     
     // load preferences in from file
     prefs = [[NSMutableDictionary alloc] initWithContentsOfFile:[self getPrefsPath]];

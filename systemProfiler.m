@@ -8,7 +8,7 @@
 
 #import "systemProfiler.h"
 
-BOOL isUsingIntegratedGraphics(BOOL *legacy) {
+BOOL isUsingIntegratedGraphics(BOOL *legacy, BOOL throwExceptionIfUnsupportedSystem) {
     NSTask *task = [[NSTask alloc] init];
     [task setLaunchPath:@"/usr/sbin/system_profiler"];
     [task setArguments:[NSArray arrayWithObject:@"SPDisplaysDataType"]];
@@ -82,9 +82,11 @@ BOOL isUsingIntegratedGraphics(BOOL *legacy) {
         if (!integrated) {
             // display a message - must be using an unsupported model
             Log(@"*** UNSUPPORTED SYSTEM BEING USED ***");
-            NSAlert *alert = [NSAlert alertWithMessageText:@"You are using a system that gfxCardStatus does not support. Please ensure that you are using a MacBook Pro with dual GPUs (15\" or 17\")." 
-                              defaultButton:@"Oh, I see." alternateButton:nil otherButton:nil informativeTextWithFormat:@""];
-            Log(@"runModal: %i", [alert runModal]);
+            
+            if (throwExceptionIfUnsupportedSystem) {
+                NSException *exception = [NSException exceptionWithName:@"UnsupportedMachineException" reason:@"An unsupported machine is being used." userInfo:nil];
+                @throw exception;
+            }
         }
         
     } else {
