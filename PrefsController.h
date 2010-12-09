@@ -51,6 +51,9 @@
 
 - (void)setLastMode:(int)value;
 
+- (void)setBool:(BOOL)value forKey:(NSString *)key;
+- (BOOL)boolForKey:(NSString *)key;
+
 - (void)setControlsToPreferences;
 - (void)savePreferences;
 - (void)openPreferences;

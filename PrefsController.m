@@ -171,6 +171,14 @@ static PrefsController *sharedInstance = nil;
     }
 }
 
+- (void)setBool:(BOOL)value forKey:(NSString *)key {
+    [prefs setObject:(value ? yesNumber : noNumber) forKey:key];
+}
+
+- (BOOL)boolForKey:(NSString *)key {
+    return [(NSNumber *)[prefs objectForKey:key] boolValue];
+}
+
 - (BOOL)shouldCheckForUpdatesOnStartup {
     return [(NSNumber *)[prefs objectForKey:@"shouldCheckForUpdatesOnStartup"] boolValue];
 }
