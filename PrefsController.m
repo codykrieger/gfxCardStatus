@@ -173,6 +173,7 @@ static PrefsController *sharedInstance = nil;
 
 - (void)setBool:(BOOL)value forKey:(NSString *)key {
     [prefs setObject:(value ? yesNumber : noNumber) forKey:key];
+    [self savePreferences];
 }
 
 - (BOOL)boolForKey:(NSString *)key {

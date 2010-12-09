@@ -10,6 +10,7 @@
 #import "systemProfiler.h"
 #import "switcher.h"
 #import "proc.h"
+#import "NSAttributedString+Hyperlink.h"
 
 #pragma mark Power Source & Switcher Helpers
 #pragma mark -
@@ -63,6 +64,26 @@ switcherMode switcherGetMode() {
     [statusItem setMenu:statusMenu];
     [statusItem setHighlightMode:YES];
     
+    // v2.0 alert
+    if (![prefs boolForKey:@"hasSeenVersionTwoMessage"]) {
+        NSAlert *versionInfo = [[NSAlert alloc] init];
+        [versionInfo setMessageText:@"Thanks for downloading gfxCardStatus!"];
+        [versionInfo setInformativeText:@"If you find it useful, please consider donating to support development and hosting costs. You can find the donate link, and the FAQ page (which you should REALLY read) at the gfxCardStatus website:"];
+        NSTextView *accessory = [[NSTextView alloc] initWithFrame:NSMakeRect(0,0,300,15)];
+        [accessory insertText:[NSAttributedString hyperlinkFromString:@"http://codykrieger.com/gfxCardStatus" 
+                                                              withURL:[NSURL URLWithString:@"http://codykrieger.com/gfxCardStatus"]]];
+        [accessory setEditable:NO];
+        [accessory setDrawsBackground:NO];
+        [versionInfo setAccessoryView:accessory];
+        [versionInfo addButtonWithTitle:@"Don't show this again!"];
+        [versionInfo runModal];
+        [versionInfo release];
+        [accessory release];
+        
+        [prefs setBool:YES forKey:@"hasSeenVersionTwoMessage"];
+    }
+    
+    // notifications
     NSNotificationCenter *defaultNotifications = [NSNotificationCenter defaultCenter];
     [defaultNotifications addObserver:self selector:@selector(handleNotification:)
                                    name:NSApplicationDidChangeScreenParametersNotification object:nil];
