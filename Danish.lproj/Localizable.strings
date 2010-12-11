@@ -22,6 +22,7 @@
 "Close"					= "Cool!";
 "OnBattery"             = "On Battery";
 "PluggedIn"             = "Plugged In";
+"PowerSource"           = "Power Source";
 
 /* Preferences window */
 "PrefTitle"				= "gfxCardStatus Indstillinger";

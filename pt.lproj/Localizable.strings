@@ -21,6 +21,7 @@
 "Close"					= "Legal!";
 "OnBattery"             = "Utilizando a Bateria";
 "PluggedIn"             = "Conectado á Fonte de Energia";
+"PowerSource"           = "Power Source";
 
 /* Preferences window */
 "PrefTitle"				= "Preferências gfxCardStatus";

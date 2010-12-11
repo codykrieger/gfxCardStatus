@@ -11,7 +11,7 @@
 "Update"				= "Controllo degli aggiornamenti...";
 "Preferences"			= "Preferenze...";
 "Card"					= "Scheda: %%";
-"SwitchGPUs"			= "Scambia GPUs";
+"SwitchGPUs"			= "Cambia GPUs";
 "IntelOnly"				= "Solo Intel®";
 "NvidiaOnly"			= "Solo NVIDIA®";
 "DynamicSwitching"		= "Scambio Dinamico";
@@ -21,6 +21,7 @@
 "Close"					= "Ganzo!";
 "OnBattery"             = "On Battery";
 "PluggedIn"             = "Plugged In";
+"PowerSource"           = "Alimentazione";
 
 /* Preferences window */
 "PrefTitle"				= "Preferenze di gfxCardStatus";
