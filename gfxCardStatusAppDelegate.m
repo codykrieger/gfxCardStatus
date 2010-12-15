@@ -93,7 +93,7 @@ switcherMode switcherGetMode() {
         usingIntegrated = isUsingIntegratedGraphics(NULL, YES);
     } @catch (NSException * e) {
         usingIntegrated = NO;
-        NSAlert *alert = [NSAlert alertWithMessageText:@"You are using a system that gfxCardStatus does not support. Please ensure that you are using a MacBook Pro with dual GPUs (15\" or 17\")." 
+        NSAlert *alert = [NSAlert alertWithMessageText:@"You are using a system that gfxCardStatus does not support. Please ensure that you are using a MacBook Pro with dual GPUs." 
                                          defaultButton:@"Oh, I see." alternateButton:nil otherButton:nil informativeTextWithFormat:@""];
         [alert runModal];
     }
@@ -149,9 +149,6 @@ switcherMode switcherGetMode() {
     [self powerSourceChanged:powerSourceMonitor.currentPowerSource];
 }
 
-- (void)applicationWillTerminate:(NSNotification *)notification {
-}
-
 - (NSDictionary *)registrationDictionaryForGrowl {
     return [NSDictionary dictionaryWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"Growl Registration Ticket" ofType:@"growlRegDict"]];
 }
@@ -159,12 +156,13 @@ switcherMode switcherGetMode() {
 - (void)handleNotification:(NSNotification *)notification {
     // Notification observer
     // NOTE: If we open the menu while a slow app like Interface Builder is loading, we have the icon not changing
+    // TODO: Look into way AirPort menu item handles updating while open
     
     Log(@"The following notification has been triggered:\n%@", notification);
     [self updateMenu];
     
     // verify state
-    [self performSelector:@selector(checkCardState) withObject:nil]; // afterDelay:5.0];
+    [self performSelector:@selector(checkCardState) withObject:nil afterDelay:2.0];
 }
 
 - (void)handleWake:(NSNotification *)notification {
