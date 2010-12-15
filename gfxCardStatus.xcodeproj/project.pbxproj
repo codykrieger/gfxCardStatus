@@ -154,7 +154,7 @@
 				A13C5DFF119FA4C300E678FA /* proc.h */,
 				A13C5E00119FA4C300E678FA /* proc.m */,
 			);
-			name = Classes;
+			path = Classes;
 			sourceTree = "<group>";
 		};
 		1058C7A0FEA54F0111CA2CBB /* Linked Frameworks */ = {
@@ -211,15 +211,9 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				A18123D812B96F3F00266D46 /* Images */,
 				A16B28F31196B0E7006EB263 /* README */,
 				A17221831236DE4200636797 /* Growl License.txt */,
-				A1D9C43911851B77009A4DE1 /* gfxCardStatus.icns */,
-				A1D6AC5C11826BF00038AD1A /* nvidia-3.png */,
-				A14C17FA124EBC1100816A4A /* nvidia-3-white.png */,
-				A1A3A6F8118214E2008B8145 /* intel-3.png */,
-				A14C17F9124EBC1100816A4A /* intel-3-white.png */,
-				A14C17F6124EBBFA00816A4A /* discrete-3.png */,
-				A14C17F5124EBBFA00816A4A /* discrete-3-white.png */,
 				A1D9C41F11850DEF009A4DE1 /* dsa_pub.pem */,
 				A17220981236DA0B00636797 /* Growl Registration Ticket.growlRegDict */,
 				8D1107310486CEB800E47090 /* gfxCardStatus-Info.plist */,
@@ -238,6 +232,20 @@
 				1058C7A2FEA54F0111CA2CBB /* Other Frameworks */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		A18123D812B96F3F00266D46 /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				A1D9C43911851B77009A4DE1 /* gfxCardStatus.icns */,
+				A1D6AC5C11826BF00038AD1A /* nvidia-3.png */,
+				A14C17FA124EBC1100816A4A /* nvidia-3-white.png */,
+				A1A3A6F8118214E2008B8145 /* intel-3.png */,
+				A14C17F9124EBC1100816A4A /* intel-3-white.png */,
+				A14C17F6124EBBFA00816A4A /* discrete-3.png */,
+				A14C17F5124EBBFA00816A4A /* discrete-3-white.png */,
+			);
+			path = Images;
 			sourceTree = "<group>";
 		};
 		A1CCE1FC12B13CC1006D07A4 /* Custom */ = {
