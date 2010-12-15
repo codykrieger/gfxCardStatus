@@ -87,7 +87,7 @@ switcherMode switcherGetMode() {
     NSNotificationCenter *defaultNotifications = [NSNotificationCenter defaultCenter];
     [defaultNotifications addObserver:self selector:@selector(handleNotification:)
                                    name:NSApplicationDidChangeScreenParametersNotification object:nil];
-    [defaultNotifications addObserver:self selector:@selector(handleNotification:)
+    [defaultNotifications addObserver:self selector:@selector(handleWake:)
                                  name:NSWorkspaceDidWakeNotification object:nil];
     
     // identify current gpu and set up menus accordingly
@@ -144,17 +144,11 @@ switcherMode switcherGetMode() {
     }
     canGrowl = YES;
     
-    // monitor power source
-    //if (![prefs usingLegacy]) {
-    
     powerSourceMonitor = [PowerSourceMonitor monitorWithDelegate:self];
-    // uninitialized
-    lastPowerSource = -1;
+    lastPowerSource = -1; // uninitialized
     
     // check current power source and load preference for it
     [self powerSourceChanged:powerSourceMonitor.currentPowerSource];
-    
-    //}
 }
 
 - (void)applicationWillTerminate:(NSNotification *)notification {
@@ -171,8 +165,16 @@ switcherMode switcherGetMode() {
     Log(@"The following notification has been triggered:\n%@", notification);
     [self updateMenu];
     
-    // delayed double-check
-    [self performSelector:@selector(checkCardState) withObject:nil afterDelay:5.0];
+    // verify state
+    [self performSelector:@selector(checkCardState) withObject:nil]; // afterDelay:5.0];
+}
+
+- (void)handleWake:(NSNotification *)notification {
+    [self performSelector:@selector(delayedPowerSourceCheck) withObject:nil afterDelay:7.0];
+}
+
+- (void)delayedPowerSourceCheck {
+    [self powerSourceChanged:powerSourceMonitor.currentPowerSource];
 }
 
 #pragma mark Menu Actions
@@ -245,7 +247,7 @@ switcherMode switcherGetMode() {
 }
 
 - (IBAction)openApplicationURL:(id)sender {
-    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"http://codykrieger.com/gfxCardStatus/"]];
+    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"http://codykrieger.com/gfxCardStatus"]];
 }
 
 - (IBAction)quit:(id)sender {
@@ -276,12 +278,12 @@ switcherMode switcherGetMode() {
     [currentPowerSource setTitle:[NSString stringWithFormat:@"Power Source: %@", (powerSourceMonitor.currentPowerSource == psBattery) ? @"Battery" : @"AC Adaptor"]];
     
     if (integrated) Log(@"%@ in use. Sweet deal! More battery life.", integratedString);
-    else Log(@"%@ in use. Bummer! No battery life for you.", discreteString);
+    else Log(@"%@ in use. Bummer! Less battery life for you.", discreteString);
     
     if ([prefs shouldGrowl] && canGrowl && usingIntegrated != integrated) {
-        NSString *msg  = [NSString stringWithFormat:@"%@ now in use.", cardString];
+        NSString *msg  = [NSString stringWithFormat:@"%@ %@", cardString, Str(@"GrowlSwitch")];
         NSString *name = integrated ? @"switchedToIntegrated" : @"switchedToDiscrete";
-        [GrowlApplicationBridge notifyWithTitle:@"GPU changed" description:msg notificationName:name iconData:nil priority:0 isSticky:NO clickContext:nil];
+        [GrowlApplicationBridge notifyWithTitle:Str(@"GrowlGPUChanged") description:msg notificationName:name iconData:nil priority:0 isSticky:NO clickContext:nil];
     }
     
     usingIntegrated = integrated;
@@ -380,7 +382,8 @@ switcherMode switcherGetMode() {
         [prefs setLastMode:2];
     }
     
-    lastPowerSource = -1; // set to uninitialized
+    // this is being problematic
+    // lastPowerSource = -1; // set to uninitialized
     [self powerSourceChanged:powerSourceMonitor.currentPowerSource];
 }
 
