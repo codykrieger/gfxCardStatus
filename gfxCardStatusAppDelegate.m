@@ -51,12 +51,10 @@ switcherMode switcherGetMode() {
     [localized release];
     
     // set up growl notifications
-    if ([prefs shouldGrowl])
-        [GrowlApplicationBridge setGrowlDelegate:self];
+    if ([prefs shouldGrowl]) [GrowlApplicationBridge setGrowlDelegate:self];
     
     // check for updates if user has them enabled
-    if ([prefs shouldCheckForUpdatesOnStartup])
-        [updater checkForUpdatesInBackground];
+    if ([prefs shouldCheckForUpdatesOnStartup]) [updater checkForUpdatesInBackground];
     
     // status item
     [statusMenu setDelegate:self];
@@ -68,7 +66,7 @@ switcherMode switcherGetMode() {
     if (![prefs boolForKey:@"hasSeenVersionTwoMessage"]) {
         NSAlert *versionInfo = [[NSAlert alloc] init];
         [versionInfo setMessageText:@"Thanks for downloading gfxCardStatus!"];
-        [versionInfo setInformativeText:@"If you find it useful, please consider donating to support development and hosting costs. You can find the donate link, and the FAQ page (which you should REALLY read) at the gfxCardStatus website:"];
+        [versionInfo setInformativeText:@"If you find it useful, please consider donating to support development and hosting costs. You can find the donate link, and the FAQ page (which you should REALLY read, especially for this version) at the gfxCardStatus website:"];
         NSTextView *accessory = [[NSTextView alloc] initWithFrame:NSMakeRect(0,0,300,15)];
         [accessory insertText:[NSAttributedString hyperlinkFromString:@"http://codykrieger.com/gfxCardStatus" 
                                                               withURL:[NSURL URLWithString:@"http://codykrieger.com/gfxCardStatus"]]];
@@ -275,7 +273,7 @@ switcherMode switcherGetMode() {
         [statusItem setImage:[NSImage imageNamed:integrated ? @"intel-3.png" : @"nvidia-3.png"]];
     
     [currentCard setTitle:[Str(@"Card") stringByReplacingOccurrencesOfString:@"%%" withString:cardString]];
-    [currentPowerSource setTitle:[NSString stringWithFormat:@"Power Source: %@", (powerSourceMonitor.currentPowerSource == psBattery) ? @"Battery" : @"AC Adaptor"]];
+    [currentPowerSource setTitle:[NSString stringWithFormat:@"Power Source: %@", (powerSourceMonitor.currentPowerSource == psBattery) ? @"Battery" : @"AC Adapter"]];
     
     if (integrated) Log(@"%@ in use. Sweet deal! More battery life.", integratedString);
     else Log(@"%@ in use. Bummer! Less battery life for you.", discreteString);
@@ -393,7 +391,7 @@ switcherMode switcherGetMode() {
         return;
     }
     
-    Log(@"Power source changed: %d => %d", lastPowerSource, powerSource);
+    Log(@"Power source changed: %d => %d (%@)", lastPowerSource, powerSource, (powerSource == psBattery ? @"Battery" : @"AC Adapter"));
     lastPowerSource = powerSource;
     
     if ([prefs shouldUsePowerSourceBasedSwitching]) {
