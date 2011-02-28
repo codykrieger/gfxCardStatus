@@ -19,7 +19,7 @@ static PrefsController *sharedInstance = nil;
 #pragma mark class instance methods
 
 - (id)init {
-    if (self = [super initWithWindowNibName:@"PrefsWindow"]) {
+    if ((self = [super initWithWindowNibName:@"PrefsWindow"])) {
         Log(@"Initializing PrefsController");
         [self setUpPreferences];
     }
@@ -223,7 +223,6 @@ static PrefsController *sharedInstance = nil;
     if (loginItems) {
         UInt32 seedValue;
         NSArray *loginItemsArray = (NSArray *)LSSharedFileListCopySnapshot(loginItems, &seedValue);
-        LSSharedFileListItemRef removeItem;
         for (id item in loginItemsArray) {
             LSSharedFileListItemRef itemRef = (LSSharedFileListItemRef)item;
             CFURLRef URL = NULL;
@@ -231,7 +230,6 @@ static PrefsController *sharedInstance = nil;
                 if ([[(NSURL *)URL path] hasSuffix:@"gfxCardStatus.app"]) {
                     exists = YES;
                     CFRelease(URL);
-                    removeItem = (LSSharedFileListItemRef)item;
                     break;
                 }
             }

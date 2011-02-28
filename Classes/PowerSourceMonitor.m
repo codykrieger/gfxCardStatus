@@ -17,7 +17,7 @@ static BOOL stringsAreEqual(CFStringRef a, CFStringRef b) {
         return NO;
     }
     
-    return (CFStringCompare (a, b, 0) == kCFCompareEqualTo);
+    return (CFStringCompare(a, b, 0) == kCFCompareEqualTo);
 }
 
 static PowerSource getCurrentPowerSource() {
@@ -40,12 +40,12 @@ static PowerSource getCurrentPowerSource() {
         source = CFArrayGetValueAtIndex(list, i);
         description = IOPSGetPowerSourceDescription(blob, source);
         
-        if (stringsAreEqual(CFDictionaryGetValue(description, CFSTR (kIOPSTransportTypeKey)), CFSTR (kIOPSInternalType))) {
-            CFStringRef currentState = CFDictionaryGetValue(description, CFSTR (kIOPSPowerSourceStateKey));
+        if (stringsAreEqual(CFDictionaryGetValue(description, CFSTR(kIOPSTransportTypeKey)), CFSTR(kIOPSInternalType))) {
+            CFStringRef currentState = CFDictionaryGetValue(description, CFSTR(kIOPSPowerSourceStateKey));
             
-            if (stringsAreEqual(currentState, CFSTR (kIOPSACPowerValue))) {
+            if (stringsAreEqual(currentState, CFSTR(kIOPSACPowerValue))) {
                 status = psACAdaptor;
-            } else if (stringsAreEqual(currentState, CFSTR (kIOPSBatteryPowerValue))) {
+            } else if (stringsAreEqual(currentState, CFSTR(kIOPSBatteryPowerValue))) {
                 status = psBattery;
             } else {
                 status = psUnknown;
@@ -55,15 +55,15 @@ static PowerSource getCurrentPowerSource() {
     }
     
 cleanup:
-    CFRelease (list);
-    CFRelease (blob);
+    CFRelease(list);
+    CFRelease(blob);
     
     return status;
 }
 
 
 void powerSourceChanged(void * context) {
-    PowerSourceMonitor *powerSourceMonitor = (PowerSourceMonitor *) context;
+    PowerSourceMonitor *powerSourceMonitor = (PowerSourceMonitor *)context;
     
     [powerSourceMonitor powerSourceChanged:getCurrentPowerSource()];
 }
@@ -77,7 +77,7 @@ void registerPowerSourceNotification(PowerSourceMonitor *powerSourceMonitor) {
         NSLog(@"Creating RunLoop failed!\n");
     }
     
-    CFRelease (loopSource);
+    CFRelease(loopSource);
 }
 
 @implementation PowerSourceMonitor
@@ -91,7 +91,7 @@ void registerPowerSourceNotification(PowerSourceMonitor *powerSourceMonitor) {
 }
 
 - (PowerSourceMonitor *)initWithDelegate:(id<PowerSourceMonitorDelegate>)__delegate {
-    if (self = [super init]) {
+    if ((self = [super init])) {
         self.delegate = __delegate;
         
         registerPowerSourceNotification([self retain]);

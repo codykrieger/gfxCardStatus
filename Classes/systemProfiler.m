@@ -47,7 +47,7 @@ BOOL isUsingIntegratedGraphics(BOOL *legacy, BOOL throwExceptionIfUnsupportedSys
             obj = [obj stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@":"]];
             
             if ([currentKeys count] == 0) {
-                [dict setObject:[[NSMutableDictionary alloc] init] forKey: obj];
+                [dict setObject:[[[NSMutableDictionary alloc] init] autorelease] forKey: obj];
                 [currentKeys addObject:obj];
             } else {
                 NSMutableDictionary *tempDict = dict;
@@ -55,7 +55,7 @@ BOOL isUsingIntegratedGraphics(BOOL *legacy, BOOL throwExceptionIfUnsupportedSys
                     tempDict = [tempDict objectForKey:[currentKeys objectAtIndex:i]];
                 }
                 
-                [tempDict setObject:[[NSMutableDictionary alloc] init] forKey:obj];
+                [tempDict setObject:[[[NSMutableDictionary alloc] init] autorelease] forKey:obj];
                 [currentKeys addObject:obj];
             }
             

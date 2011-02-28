@@ -307,7 +307,7 @@ switcherMode switcherGetMode() {
     if (CGGetOnlineDisplayList(8, displays, &displayCount) == noErr) {
         for (int i = 0; i < displayCount; i++) {
             if ( ! CGDisplayIsBuiltin(displays[i])) {
-                NSMenuItem *externalDisplay = [[NSMenuItem alloc] initWithTitle:@"External Display" action:nil keyEquivalent:@""];
+                NSMenuItem *externalDisplay = [[[NSMenuItem alloc] initWithTitle:@"External Display" action:nil keyEquivalent:@""] autorelease];
                 [externalDisplay setIndentationLevel:1];
                 [statusMenu insertItem:externalDisplay atIndex:([statusMenu indexOfItem:processList] + 1)];
                 usingExternalDisplay = YES;
