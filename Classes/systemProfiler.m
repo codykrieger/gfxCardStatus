@@ -8,7 +8,7 @@
 
 #import "systemProfiler.h"
 
-NSDictionary* getGraphicsProfile(BOOL throwExceptionIfUnsupportedSystem) {
+NSDictionary* getGraphicsProfile() {
     NSMutableDictionary *profile = [NSMutableDictionary dictionary];
     
     // call system_profiler SPDisplaysDataType in order to get GPU profile
@@ -92,15 +92,12 @@ NSDictionary* getGraphicsProfile(BOOL throwExceptionIfUnsupportedSystem) {
             // display a message - must be using an unsupported model
             Log(@"*** UNSUPPORTED SYSTEM BEING USED ***");
             [profile setObject:[NSNumber numberWithBool:YES] forKey:@"unsupported"];
-            
-            if (throwExceptionIfUnsupportedSystem) {
-                NSException *exception = [NSException exceptionWithName:@"UnsupportedMachineException" reason:@"An unsupported machine is being used." userInfo:nil];
-                @throw exception;
-            }
+        } else {
+            [profile setObject:[NSNumber numberWithBool:NO] forKey:@"unsupported"];
         }
-        
     } else {
         [profile setObject:[NSNumber numberWithBool:NO] forKey:@"legacy"];
+        [profile setObject:[NSNumber numberWithBool:NO] forKey:@"unsupported"];
     }
     
     // figure out whether or not we're using the integrated GPU

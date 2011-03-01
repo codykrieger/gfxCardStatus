@@ -25,7 +25,7 @@ static inline NSString *keyForPowerSource(PowerSource powerSource) {
 // helper to return current mode
 switcherMode switcherGetMode() {
     if (switcherUseDynamicSwitching()) return modeDynamicSwitching;
-    NSDictionary *profile = getGraphicsProfile(NO);
+    NSDictionary *profile = getGraphicsProfile();
     return ([(NSNumber *)[profile objectForKey:@"usingIntegrated"] boolValue] ? modeForceIntel : modeForceNvidia);
 }
 
@@ -91,14 +91,18 @@ switcherMode switcherGetMode() {
                                  name:NSWorkspaceDidWakeNotification object:nil];
     
     // identify current gpu and set up menus accordingly
-    @try {
-        usingIntegrated = isUsingIntegratedGraphics(NULL, YES);
-    } @catch (NSException * e) {
+    NSDictionary *profile = getGraphicsProfile();
+    if ([(NSNumber *)[profile objectForKey:@"unsupported"] boolValue]) {
         usingIntegrated = NO;
         NSAlert *alert = [NSAlert alertWithMessageText:@"You are using a system that gfxCardStatus does not support. Please ensure that you are using a MacBook Pro with dual GPUs." 
                                          defaultButton:@"Oh, I see." alternateButton:nil otherButton:nil informativeTextWithFormat:@""];
         [alert runModal];
+    } else {
+        usingIntegrated = [(NSNumber *)[profile objectForKey:@"usingIntegrated"] boolValue];
     }
+    
+    integratedString = (NSString *)[profile objectForKey:@"integratedString"];
+    discreteString = (NSString *)[profile objectForKey:@"discreteString"];
     
     [switchGPUs setHidden:![prefs usingLegacy]];
     [intelOnly setHidden:[prefs usingLegacy]];
@@ -107,16 +111,16 @@ switcherMode switcherGetMode() {
     if ([prefs usingLegacy]) {
         Log(@"Looks like we're using an older 9400M/9600M GT system.");
         
-        integratedString = @"NVIDIA® GeForce 9400M";
-        discreteString = @"NVIDIA® GeForce 9600M GT";
+//        integratedString = @"NVIDIA® GeForce 9400M";
+//        discreteString = @"NVIDIA® GeForce 9600M GT";
     } else {
         BOOL dynamic = switcherUseDynamicSwitching();
         [intelOnly setState:(!dynamic && usingIntegrated) ? NSOnState : NSOffState];
         [nvidiaOnly setState:(!dynamic && !usingIntegrated) ? NSOnState : NSOffState];
         [dynamicSwitching setState:dynamic ? NSOnState : NSOffState];
         
-        integratedString = @"Intel® HD Graphics";
-        discreteString = @"NVIDIA® GeForce GT 330M";
+//        integratedString = @"Intel® HD Graphics";
+//        discreteString = @"NVIDIA® GeForce GT 330M";
     }
     
     canPreventSwitch = YES;

@@ -10,4 +10,4 @@
 
 // get back a dictionary with some information indicative of what GPUs the machine
 // contains, and whether it's using an integrated chipset or not
-NSDictionary* getGraphicsProfile(BOOL throwExceptionIfUnsupportedSystem);
+NSDictionary* getGraphicsProfile();
