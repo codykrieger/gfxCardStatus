@@ -1403,7 +1403,7 @@
 					</object>
 					<object class="NSMenuItem" id="844693468">
 						<reference key="NSMenu" ref="38435637"/>
-						<string key="NSTitle">IntelOnly</string>
+						<string key="NSTitle">IntegratedOnly</string>
 						<string key="NSKeyEquiv"/>
 						<int key="NSMnemonicLoc">2147483647</int>
 						<reference key="NSOnImage" ref="35465992"/>
@@ -1411,7 +1411,7 @@
 					</object>
 					<object class="NSMenuItem" id="611098486">
 						<reference key="NSMenu" ref="38435637"/>
-						<string key="NSTitle">NvidiaOnly</string>
+						<string key="NSTitle">DiscreteOnly</string>
 						<string key="NSKeyEquiv"/>
 						<int key="NSMnemonicLoc">2147483647</int>
 						<reference key="NSOnImage" ref="35465992"/>
@@ -1658,7 +1658,7 @@
 										<object class="NSTextView" id="473338212">
 											<reference key="NSNextResponder" ref="931296078"/>
 											<int key="NSvFlags">2322</int>
-											<string key="NSFrameSize">{533, 215}</string>
+											<string key="NSFrameSize">{533, 210}</string>
 											<reference key="NSSuperview" ref="931296078"/>
 											<reference key="NSWindow"/>
 											<reference key="NSNextKeyView" ref="231402444"/>
