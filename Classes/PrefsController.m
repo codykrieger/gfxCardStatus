@@ -33,8 +33,8 @@ static PrefsController *sharedInstance = nil;
     yesNumber = [NSNumber numberWithBool:YES];
     noNumber = [NSNumber numberWithBool:NO];
     
-    usingLegacy = NO;
-    isUsingIntegratedGraphics(&usingLegacy, NO);
+    NSDictionary *profile = getGraphicsProfile(NO);
+    usingLegacy = [(NSNumber *)[profile objectForKey:@"legacy"] boolValue];
     
     // load preferences in from file
     prefs = [[NSMutableDictionary alloc] initWithContentsOfFile:[self getPrefsPath]];
@@ -73,10 +73,10 @@ static PrefsController *sharedInstance = nil;
             [prefSegOnAc setLabel:Str([prefSegOnAc labelForSegment:i]) forSegment:i];
         }
     } else {
-        [prefSegOnBattery setLabel:@"Intel®" forSegment:0];
-        [prefSegOnBattery setLabel:@"NVIDIA®" forSegment:1];
-        [prefSegOnAc setLabel:@"Intel®" forSegment:0];
-        [prefSegOnAc setLabel:@"NVIDIA®" forSegment:1];
+        [prefSegOnBattery setLabel:@"Integrated" forSegment:0];
+        [prefSegOnBattery setLabel:@"Discrete" forSegment:1];
+        [prefSegOnAc setLabel:@"Integrated" forSegment:0];
+        [prefSegOnAc setLabel:@"Discrete" forSegment:1];
     }
     
     // set controls according to values set in preferences

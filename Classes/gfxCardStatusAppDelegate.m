@@ -24,7 +24,9 @@ static inline NSString *keyForPowerSource(PowerSource powerSource) {
 
 // helper to return current mode
 switcherMode switcherGetMode() {
-    return (switcherUseDynamicSwitching() ? modeDynamicSwitching : (isUsingIntegratedGraphics(NULL, NO) ? modeForceIntel : modeForceNvidia));
+    if (switcherUseDynamicSwitching()) return modeDynamicSwitching;
+    NSDictionary *profile = getGraphicsProfile(NO);
+    return ([(NSNumber *)[profile objectForKey:@"usingIntegrated"] boolValue] ? modeForceIntel : modeForceNvidia);
 }
 
 @implementation gfxCardStatusAppDelegate
