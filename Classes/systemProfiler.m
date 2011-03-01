@@ -8,7 +8,9 @@
 
 #import "systemProfiler.h"
 
-BOOL isUsingIntegratedGraphics(BOOL *legacy, BOOL throwExceptionIfUnsupportedSystem) {
+NSDictionary* getGraphicsProfile(BOOL throwExceptionIfUnsupportedSystem) {
+    NSMutableDictionary *profile = [NSMutableDictionary dictionary];
+    
     NSTask *task = [[NSTask alloc] init];
     [task setLaunchPath:@"/usr/sbin/system_profiler"];
     [task setArguments:[NSArray arrayWithObject:@"SPDisplaysDataType"]];
@@ -74,9 +76,10 @@ BOOL isUsingIntegratedGraphics(BOOL *legacy, BOOL throwExceptionIfUnsupportedSys
     
     NSDictionary *graphics = (NSDictionary *)[dict objectForKey:@"Graphics/Displays"];
     NSDictionary *integrated = (NSDictionary *)[graphics objectForKey:@"Intel HD Graphics"];
+    if (!integrated) integrated = (NSDictionary *)[graphics objectForKey:@"Intel HD Graphics 3000"];
     
     if (!integrated) {
-        if (legacy) *legacy = YES;
+        [profile setObject:[NSNumber numberWithBool:YES] forKey:@"legacy"];
         integrated = (NSDictionary *)[graphics objectForKey:@"NVIDIA GeForce 9400M"];
         
         if (!integrated) {
@@ -90,25 +93,39 @@ BOOL isUsingIntegratedGraphics(BOOL *legacy, BOOL throwExceptionIfUnsupportedSys
         }
         
     } else {
-        if (legacy) *legacy = NO;
+        [profile setObject:[NSNumber numberWithBool:NO] forKey:@"legacy"];
     }
     
     NSDictionary *integratedDisplays = (NSDictionary *)[integrated objectForKey:@"Displays"];
     
-    BOOL retval = NO;
+    BOOL usingIntegrated = NO;
     
     for (NSString *key in [integratedDisplays allKeys]) {
         NSDictionary *tempDict = (NSDictionary *)[integratedDisplays objectForKey:key];
         
         for (NSString *otherKey in [tempDict allKeys]) {
-            retval = !([(NSString *)[tempDict objectForKey:otherKey] isEqualToString:@"No Display Connected"]);
+            usingIntegrated = !([(NSString *)[tempDict objectForKey:otherKey] isEqualToString:@"No Display Connected"]);
             break;
         }
-        if (retval) break;
+        if (usingIntegrated) break;
     }
+    
+    NSEnumerator *keys = [graphics keyEnumerator];
+    NSString *key;
+    while ((key = (NSString *)[keys nextObject])) {
+        if ([key isEqualToString:@"Intel HD Graphics"] || 
+            [key isEqualToString:@"Intel HD Graphics 3000"] || 
+            [key isEqualToString:@"NVIDIA GeForce 9400M"]) {
+            [profile setObject:key forKey:@"integratedString"];
+        } else {
+            [profile setObject:key forKey:@"discreteString"];
+        }
+    }
+    
+    [profile setObject:[NSNumber numberWithBool:usingIntegrated] forKey:@"usingIntegrated"];
     
     [dict release];
     [currentKeys release];
     
-    return retval;
+    return profile;
 }
