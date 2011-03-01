@@ -12,8 +12,8 @@
 "Preferences"			= "Preferenze...";
 "Card"					= "Scheda: %%";
 "SwitchGPUs"			= "Cambia GPUs";
-"IntelOnly"				= "Solo Intel®";
-"NvidiaOnly"			= "Solo NVIDIA®";
+"IntegratedOnly"				= "Solo Integrated®";
+"NvidiaOnly"			= "Solo Discrete®";
 "DynamicSwitching"		= "Scambio Dinamico";
 "Dependencies"			= "Dipendenze";
 "NoProcess"				= "Nessuna";

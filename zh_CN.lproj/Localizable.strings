@@ -12,7 +12,7 @@
 "Preferences"      = "偏好设置...";
 "Card"             = "图形处理器: %%";
 "SwitchGPUs"       = "变更 GPUs (试验)";
-"IntelOnly"        = "Intel 集成图形处理器";
+"IntegratedOnly"        = "Integrated 集成图形处理器";
 "NvidiaOnly"       = "NVIDIA 独立图形处理器";
 "DynamicSwitching" = "自动切换图形处理器";
 "Dependencies"     = "相依程序";

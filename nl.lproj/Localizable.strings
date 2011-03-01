@@ -12,7 +12,7 @@
 "Preferences"			= "Voorkeuren...";
 "Card"					= "GPU: %%";
 "SwitchGPUs"			= "Van GPU wisselen";
-"IntelOnly"				= "Alleen Intel® gebruiken";
+"IntegratedOnly"				= "Alleen Integrated® gebruiken";
 "NvidiaOnly"			= "Alleen NVIDIA® gebruiken";
 "DynamicSwitching"		= "Dynamisch wisselen";
 "Dependencies"			= "GPU-afhankelijkheid";

@@ -104,13 +104,13 @@ switcherMode switcherGetMode() {
     integratedString = (NSString *)[profile objectForKey:@"integratedString"];
     discreteString = (NSString *)[profile objectForKey:@"discreteString"];
     
+    Log(@"Fetched machine profile: %@", profile);
+    
     [switchGPUs setHidden:![prefs usingLegacy]];
     [integratedOnly setHidden:[prefs usingLegacy]];
     [discreteOnly setHidden:[prefs usingLegacy]];
     [dynamicSwitching setHidden:[prefs usingLegacy]];
     if ([prefs usingLegacy]) {
-        Log(@"Looks like we're using an older 9400M/9600M GT system.");
-        
 //        integratedString = @"NVIDIA® GeForce 9400M";
 //        discreteString = @"NVIDIA® GeForce 9600M GT";
     } else {
@@ -225,7 +225,7 @@ switcherMode switcherGetMode() {
     
     BOOL retval = NO;
     if (sender == integratedOnly) {
-        Log(@"Setting Intel only...");
+        Log(@"Setting Integrated only...");
         retval = switcherSetMode(modeForceIntegrated);
     }
     if (sender == discreteOnly) { 
@@ -271,10 +271,10 @@ switcherMode switcherGetMode() {
     
     // update icon and labels according to selected GPU
     NSString* cardString = integrated ? integratedString : discreteString;
-    if ([prefs usingLegacy])
-        [statusItem setImage:[NSImage imageNamed:integrated ? @"intel-3.png" : @"discrete-3.png"]];
-    else
-        [statusItem setImage:[NSImage imageNamed:integrated ? @"intel-3.png" : @"nvidia-3.png"]];
+//    if ([prefs usingLegacy])
+//        [statusItem setImage:[NSImage imageNamed:integrated ? @"integrated-3.png" : @"discrete-3.png"]];
+//    else
+    [statusItem setImage:[NSImage imageNamed:integrated ? @"integrated-3.png" : @"discrete-3.png"]];
     
     [currentCard setTitle:[Str(@"Card") stringByReplacingOccurrencesOfString:@"%%" withString:cardString]];
     [currentPowerSource setTitle:[NSString stringWithFormat:@"Power Source: %@", (powerSourceMonitor.currentPowerSource == psBattery) ? @"Battery" : @"AC Adapter"]];
@@ -297,7 +297,7 @@ switcherMode switcherGetMode() {
         if ([mi indentationLevel] > 0 && ![mi isEqual:processList]) [statusMenu removeItem:mi];
     }
     
-    // if we're on Intel (or using a 9400M/9600M GT model), no need to display/update the list
+    // if we're on Integrated (or using a 9400M/9600M GT model), no need to display/update the list
     BOOL procList = !usingIntegrated && ![prefs usingLegacy];
     [processList setHidden:!procList];
     [processesSeparator setHidden:!procList];

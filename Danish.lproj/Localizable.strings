@@ -13,7 +13,7 @@
 "Preferences"			= "Indstillinger...";
 "Card"					= "Kort: %%";
 "SwitchGPUs"			= "Skift GPUs";
-"IntelOnly"				= "Kun Intel®";
+"IntegratedOnly"				= "Kun Integrated®";
 "NvidiaOnly"			= "Kun NVIDIA®";
 "DynamicSwitching"		= "Skift Dynamisk";
 "Dependencies"			= "Dependencies";
