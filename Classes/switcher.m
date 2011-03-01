@@ -45,7 +45,7 @@ typedef enum {
                              // get: always returns 0xdeadbeef
     
     muxPowerGPU            = 3, // set: power down a gpu, pretty useless since you can't power down the igp and the dedicated gpu is powered down automatically
-                             // get: maybe returns powered on graphics cards, 0x8 = Intel, 0x88 = Nvidia (or probably both, since Intel never gets powered down?)
+                             // get: maybe returns powered on graphics cards, 0x8 = integrated, 0x88 = discrete (or probably both, since integrated never gets powered down?)
     
     muxGpuSelect        = 4, // set/get: Dynamic Switching on/off with [2] = 0/1 (the same as if you click the checkbox in systemsettings.app)
     
@@ -289,15 +289,15 @@ BOOL switcherUseDynamicSwitching() {
 BOOL switcherSetMode(switcherMode mode) {
     if (switcherConnect == IO_OBJECT_NULL) return NO;
     switch (mode) {
-        case modeForceIntel:
-        case modeForceNvidia:
+        case modeForceIntegrated:
+        case modeForceDiscrete:
             setDynamicSwitchingEnabled(switcherConnect, NO);
             // Disable Policy, otherwise gpu switches to Nvidia after a bad app closes
             setFeatureInfo(switcherConnect, Policy, NO);
             sleep(1);
             
             BOOL integrated = switcherUseIntegrated();
-            if (mode==modeForceIntel && !integrated || mode==modeForceNvidia && integrated)
+            if (mode==modeForceIntegrated && !integrated || mode==modeForceDiscrete && integrated)
                 forceSwitch(switcherConnect);
             break;
         case modeDynamicSwitching:

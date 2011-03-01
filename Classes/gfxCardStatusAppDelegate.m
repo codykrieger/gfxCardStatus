@@ -26,7 +26,7 @@ static inline NSString *keyForPowerSource(PowerSource powerSource) {
 switcherMode switcherGetMode() {
     if (switcherUseDynamicSwitching()) return modeDynamicSwitching;
     NSDictionary *profile = getGraphicsProfile();
-    return ([(NSNumber *)[profile objectForKey:@"usingIntegrated"] boolValue] ? modeForceIntel : modeForceNvidia);
+    return ([(NSNumber *)[profile objectForKey:@"usingIntegrated"] boolValue] ? modeForceIntegrated : modeForceDiscrete);
 }
 
 @implementation gfxCardStatusAppDelegate
@@ -45,8 +45,8 @@ switcherMode switcherGetMode() {
     // localization
     NSString *version = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"];
     [versionItem setTitle:[Str(@"About") stringByReplacingOccurrencesOfString:@"%%" withString:version]];
-    NSArray* localized = [[NSArray alloc] initWithObjects:updateItem, preferencesItem, quitItem, switchGPUs, intelOnly, 
-                          nvidiaOnly, dynamicSwitching, dependentProcesses, processList, aboutWindow, aboutClose, nil];
+    NSArray* localized = [[NSArray alloc] initWithObjects:updateItem, preferencesItem, quitItem, switchGPUs, integratedOnly, 
+                          discreteOnly, dynamicSwitching, dependentProcesses, processList, aboutWindow, aboutClose, nil];
     for (NSButton *loc in localized) {
         [loc setTitle:Str([loc title])];
     }
@@ -105,8 +105,8 @@ switcherMode switcherGetMode() {
     discreteString = (NSString *)[profile objectForKey:@"discreteString"];
     
     [switchGPUs setHidden:![prefs usingLegacy]];
-    [intelOnly setHidden:[prefs usingLegacy]];
-    [nvidiaOnly setHidden:[prefs usingLegacy]];
+    [integratedOnly setHidden:[prefs usingLegacy]];
+    [discreteOnly setHidden:[prefs usingLegacy]];
     [dynamicSwitching setHidden:[prefs usingLegacy]];
     if ([prefs usingLegacy]) {
         Log(@"Looks like we're using an older 9400M/9600M GT system.");
@@ -115,8 +115,8 @@ switcherMode switcherGetMode() {
 //        discreteString = @"NVIDIA® GeForce 9600M GT";
     } else {
         BOOL dynamic = switcherUseDynamicSwitching();
-        [intelOnly setState:(!dynamic && usingIntegrated) ? NSOnState : NSOffState];
-        [nvidiaOnly setState:(!dynamic && !usingIntegrated) ? NSOnState : NSOffState];
+        [integratedOnly setState:(!dynamic && usingIntegrated) ? NSOnState : NSOffState];
+        [discreteOnly setState:(!dynamic && !usingIntegrated) ? NSOnState : NSOffState];
         [dynamicSwitching setState:dynamic ? NSOnState : NSOffState];
         
 //        integratedString = @"Intel® HD Graphics";
@@ -134,10 +134,10 @@ switcherMode switcherGetMode() {
         id modeItem;
         switch ([prefs shouldRestoreToMode]) {
             case 0:
-                modeItem = intelOnly;
+                modeItem = integratedOnly;
                 break;
             case 1:
-                modeItem = nvidiaOnly;
+                modeItem = discreteOnly;
                 break;
             case 2:
                 modeItem = dynamicSwitching;
@@ -224,13 +224,13 @@ switcherMode switcherGetMode() {
     if ([sender state] == NSOnState) return;
     
     BOOL retval = NO;
-    if (sender == intelOnly) {
+    if (sender == integratedOnly) {
         Log(@"Setting Intel only...");
-        retval = switcherSetMode(modeForceIntel);
+        retval = switcherSetMode(modeForceIntegrated);
     }
-    if (sender == nvidiaOnly) { 
+    if (sender == discreteOnly) { 
         Log(@"Setting NVIDIA only...");
-        retval = switcherSetMode(modeForceNvidia);
+        retval = switcherSetMode(modeForceDiscrete);
     }
     if (sender == dynamicSwitching) {
         Log(@"Setting dynamic switching...");
@@ -239,8 +239,8 @@ switcherMode switcherGetMode() {
     
     // only change status in case of success
     if (retval) {
-        [intelOnly setState:(sender == intelOnly ? NSOnState : NSOffState)];
-        [nvidiaOnly setState:(sender == nvidiaOnly ? NSOnState : NSOffState)];
+        [integratedOnly setState:(sender == integratedOnly ? NSOnState : NSOffState)];
+        [discreteOnly setState:(sender == discreteOnly ? NSOnState : NSOffState)];
         [dynamicSwitching setState:(sender == dynamicSwitching ? NSOnState : NSOffState)];
         
         // delayed double-check
@@ -261,10 +261,10 @@ switcherMode switcherGetMode() {
     Log(@"Updating status...");
     
     // prevent GPU from switching back after apps quit
-    if (!integrated && ![prefs usingLegacy] && [intelOnly state] > 0 && canPreventSwitch) {
+    if (!integrated && ![prefs usingLegacy] && [integratedOnly state] > 0 && canPreventSwitch) {
         Log(@"Preventing switch to 330M. Setting canPreventSwitch to NO so that this doesn't get stuck in a loop, changing in 5 seconds...");
         canPreventSwitch = NO;
-        [self setMode:intelOnly];
+        [self setMode:integratedOnly];
         [NSTimer scheduledTimerWithTimeInterval:5 target:self selector:@selector(shouldPreventSwitch) userInfo:nil repeats:NO];
         return;
     }
@@ -344,10 +344,10 @@ switcherMode switcherGetMode() {
     // convert switcher mode to a menu item (consumed by setMode:)
     
     switch (mode) {
-        case modeForceIntel:
-            return intelOnly;
-        case modeForceNvidia:
-            return nvidiaOnly;
+        case modeForceIntegrated:
+            return integratedOnly;
+        case modeForceDiscrete:
+            return discreteOnly;
         case modeDynamicSwitching:
             return dynamicSwitching;
         case modeToggleGPU:
@@ -370,15 +370,15 @@ switcherMode switcherGetMode() {
         Log(@"Inconsistent menu state and active card, forcing retry");
         
         // set menu item to reflect actual status
-        [intelOnly setState:NSOffState];
-        [nvidiaOnly setState:NSOffState];
+        [integratedOnly setState:NSOffState];
+        [discreteOnly setState:NSOffState];
         [dynamicSwitching setState:NSOffState];
         [activeCard setState:NSOnState];
     }
     
-    if ([intelOnly state] > 0) {
+    if ([integratedOnly state] > 0) {
         [prefs setLastMode:0];
-    } else if ([nvidiaOnly state] > 0) {
+    } else if ([discreteOnly state] > 0) {
         [prefs setLastMode:1];
     } else if ([dynamicSwitching state] > 0) {
         [prefs setLastMode:2];

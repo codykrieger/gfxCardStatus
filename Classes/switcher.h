@@ -9,8 +9,8 @@
 #import <Foundation/Foundation.h>
 
 typedef enum {
-    modeForceIntel,
-    modeForceNvidia,
+    modeForceIntegrated,
+    modeForceDiscrete,
     modeDynamicSwitching,
     modeToggleGPU
 } switcherMode;

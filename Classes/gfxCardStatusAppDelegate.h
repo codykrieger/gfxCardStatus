@@ -32,8 +32,8 @@ extern BOOL canLog;
     IBOutlet NSMenuItem *currentCard;
     IBOutlet NSMenuItem *currentPowerSource;
     IBOutlet NSMenuItem *switchGPUs;
-    IBOutlet NSMenuItem *intelOnly;
-    IBOutlet NSMenuItem *nvidiaOnly;
+    IBOutlet NSMenuItem *integratedOnly;
+    IBOutlet NSMenuItem *discreteOnly;
     IBOutlet NSMenuItem *dynamicSwitching;
     
     // process list menu items

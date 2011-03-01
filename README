@@ -7,6 +7,7 @@ with dual GPUs to monitor the status of, and switch between said GPUs. Supported
 
 Late 2008-2009 MacBook Pros with NVIDIA GeForce 9400M integrated and 9600M GT discrete GPUs
 2010 MacBook Pros with Intel HD integrated and NVIDIA GeForce 330M GT discrete GPUs
+2011 MacBook Pros with Intel HD 3000 integrated and AMD Radeon HD 6xxxM discrete GPUs
 
 Features:
 - allows locking the system on one GPU or the other, or allowing automatic switching
