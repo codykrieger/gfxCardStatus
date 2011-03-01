@@ -31,7 +31,7 @@
 		A13C5FC0119FCFCF00E678FA /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = A13C5FBE119FCFCF00E678FA /* Localizable.strings */; };
 		A14C17F7124EBBFA00816A4A /* discrete-3-white.png in Resources */ = {isa = PBXBuildFile; fileRef = A14C17F5124EBBFA00816A4A /* discrete-3-white.png */; };
 		A14C17F8124EBBFA00816A4A /* discrete-3.png in Resources */ = {isa = PBXBuildFile; fileRef = A14C17F6124EBBFA00816A4A /* discrete-3.png */; };
-		A14C17FB124EBC1100816A4A /* intel-3-white.png in Resources */ = {isa = PBXBuildFile; fileRef = A14C17F9124EBC1100816A4A /* intel-3-white.png */; };
+		A14C17FB124EBC1100816A4A /* integrated-3-white.png in Resources */ = {isa = PBXBuildFile; fileRef = A14C17F9124EBC1100816A4A /* integrated-3-white.png */; };
 		A14C17FC124EBC1100816A4A /* nvidia-3-white.png in Resources */ = {isa = PBXBuildFile; fileRef = A14C17FA124EBC1100816A4A /* nvidia-3-white.png */; };
 		A14C180B124EFE6300816A4A /* PrefsController.m in Sources */ = {isa = PBXBuildFile; fileRef = A14C180A124EFE6300816A4A /* PrefsController.m */; };
 		A14C181C124F201400816A4A /* PrefsWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = A14C181A124F201400816A4A /* PrefsWindow.xib */; };
@@ -42,7 +42,7 @@
 		A17220661236D91200636797 /* Growl.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = A17220621236D90800636797 /* Growl.framework */; };
 		A17220A91236DA8A00636797 /* Growl Registration Ticket.growlRegDict in Resources */ = {isa = PBXBuildFile; fileRef = A17220981236DA0B00636797 /* Growl Registration Ticket.growlRegDict */; };
 		A17221841236DE4200636797 /* Growl License.txt in Resources */ = {isa = PBXBuildFile; fileRef = A17221831236DE4200636797 /* Growl License.txt */; };
-		A1A3A6F9118214E2008B8145 /* intel-3.png in Resources */ = {isa = PBXBuildFile; fileRef = A1A3A6F8118214E2008B8145 /* intel-3.png */; };
+		A1A3A6F9118214E2008B8145 /* integrated-3.png in Resources */ = {isa = PBXBuildFile; fileRef = A1A3A6F8118214E2008B8145 /* integrated-3.png */; };
 		A1CCE20012B13CE4006D07A4 /* NSAttributedString+Hyperlink.m in Sources */ = {isa = PBXBuildFile; fileRef = A1CCE1FF12B13CE4006D07A4 /* NSAttributedString+Hyperlink.m */; };
 		A1D6AC5D11826BF00038AD1A /* nvidia-3.png in Resources */ = {isa = PBXBuildFile; fileRef = A1D6AC5C11826BF00038AD1A /* nvidia-3.png */; };
 		A1D9C42011850DEF009A4DE1 /* dsa_pub.pem in Resources */ = {isa = PBXBuildFile; fileRef = A1D9C41F11850DEF009A4DE1 /* dsa_pub.pem */; };
@@ -94,7 +94,7 @@
 		A14390AE11C53FCD00E4D2A5 /* German */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = German; path = German.lproj/Localizable.strings; sourceTree = "<group>"; };
 		A14C17F5124EBBFA00816A4A /* discrete-3-white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "discrete-3-white.png"; sourceTree = "<group>"; };
 		A14C17F6124EBBFA00816A4A /* discrete-3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "discrete-3.png"; sourceTree = "<group>"; };
-		A14C17F9124EBC1100816A4A /* intel-3-white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "intel-3-white.png"; sourceTree = "<group>"; };
+		A14C17F9124EBC1100816A4A /* integrated-3-white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "integrated-3-white.png"; sourceTree = "<group>"; };
 		A14C17FA124EBC1100816A4A /* nvidia-3-white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "nvidia-3-white.png"; sourceTree = "<group>"; };
 		A14C1809124EFE6300816A4A /* PrefsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrefsController.h; sourceTree = "<group>"; };
 		A14C180A124EFE6300816A4A /* PrefsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrefsController.m; sourceTree = "<group>"; };
@@ -107,7 +107,7 @@
 		A17220621236D90800636797 /* Growl.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Growl.framework; sourceTree = "<group>"; };
 		A17220981236DA0B00636797 /* Growl Registration Ticket.growlRegDict */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Growl Registration Ticket.growlRegDict"; sourceTree = "<group>"; };
 		A17221831236DE4200636797 /* Growl License.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Growl License.txt"; sourceTree = "<group>"; };
-		A1A3A6F8118214E2008B8145 /* intel-3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "intel-3.png"; sourceTree = "<group>"; };
+		A1A3A6F8118214E2008B8145 /* integrated-3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "integrated-3.png"; sourceTree = "<group>"; };
 		A1CCE1FE12B13CE4006D07A4 /* NSAttributedString+Hyperlink.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSAttributedString+Hyperlink.h"; sourceTree = "<group>"; };
 		A1CCE1FF12B13CE4006D07A4 /* NSAttributedString+Hyperlink.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSAttributedString+Hyperlink.m"; sourceTree = "<group>"; };
 		A1D6AC5C11826BF00038AD1A /* nvidia-3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "nvidia-3.png"; sourceTree = "<group>"; };
@@ -240,8 +240,8 @@
 				A1D9C43911851B77009A4DE1 /* gfxCardStatus.icns */,
 				A1D6AC5C11826BF00038AD1A /* nvidia-3.png */,
 				A14C17FA124EBC1100816A4A /* nvidia-3-white.png */,
-				A1A3A6F8118214E2008B8145 /* intel-3.png */,
-				A14C17F9124EBC1100816A4A /* intel-3-white.png */,
+				A1A3A6F8118214E2008B8145 /* integrated-3.png */,
+				A14C17F9124EBC1100816A4A /* integrated-3-white.png */,
 				A14C17F6124EBBFA00816A4A /* discrete-3.png */,
 				A14C17F5124EBBFA00816A4A /* discrete-3-white.png */,
 			);
@@ -319,7 +319,7 @@
 			files = (
 				8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */,
 				1DDD58160DA1D0A300B32029 /* MainMenu.xib in Resources */,
-				A1A3A6F9118214E2008B8145 /* intel-3.png in Resources */,
+				A1A3A6F9118214E2008B8145 /* integrated-3.png in Resources */,
 				A1D6AC5D11826BF00038AD1A /* nvidia-3.png in Resources */,
 				A1D9C42011850DEF009A4DE1 /* dsa_pub.pem in Resources */,
 				A1D9C43A11851B77009A4DE1 /* gfxCardStatus.icns in Resources */,
@@ -329,7 +329,7 @@
 				A17221841236DE4200636797 /* Growl License.txt in Resources */,
 				A14C17F7124EBBFA00816A4A /* discrete-3-white.png in Resources */,
 				A14C17F8124EBBFA00816A4A /* discrete-3.png in Resources */,
-				A14C17FB124EBC1100816A4A /* intel-3-white.png in Resources */,
+				A14C17FB124EBC1100816A4A /* integrated-3-white.png in Resources */,
 				A14C17FC124EBC1100816A4A /* nvidia-3-white.png in Resources */,
 				A14C181C124F201400816A4A /* PrefsWindow.xib in Resources */,
 			);

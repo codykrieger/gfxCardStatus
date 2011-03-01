@@ -101,8 +101,8 @@ switcherMode switcherGetMode() {
         usingIntegrated = [(NSNumber *)[profile objectForKey:@"usingIntegrated"] boolValue];
     }
     
-    integratedString = (NSString *)[profile objectForKey:@"integratedString"];
-    discreteString = (NSString *)[profile objectForKey:@"discreteString"];
+    integratedString = [(NSString *)[profile objectForKey:@"integratedString"] copy];
+    discreteString = [(NSString *)[profile objectForKey:@"discreteString"] copy];
     
     Log(@"Fetched machine profile: %@", profile);
     
@@ -262,7 +262,7 @@ switcherMode switcherGetMode() {
     
     // prevent GPU from switching back after apps quit
     if (!integrated && ![prefs usingLegacy] && [integratedOnly state] > 0 && canPreventSwitch) {
-        Log(@"Preventing switch to 330M. Setting canPreventSwitch to NO so that this doesn't get stuck in a loop, changing in 5 seconds...");
+        Log(@"Preventing switch to Discrete GPU. Setting canPreventSwitch to NO so that this doesn't get stuck in a loop, changing in 5 seconds...");
         canPreventSwitch = NO;
         [self setMode:integratedOnly];
         [NSTimer scheduledTimerWithTimeInterval:5 target:self selector:@selector(shouldPreventSwitch) userInfo:nil repeats:NO];
