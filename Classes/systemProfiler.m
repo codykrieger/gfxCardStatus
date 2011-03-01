@@ -113,6 +113,8 @@ NSDictionary* getGraphicsProfile(BOOL throwExceptionIfUnsupportedSystem) {
     NSEnumerator *keys = [graphics keyEnumerator];
     NSString *key;
     while ((key = (NSString *)[keys nextObject])) {
+        if ([[key stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]] isEqualToString:@""]) continue;
+        
         if ([key isEqualToString:@"Intel HD Graphics"] || 
             [key isEqualToString:@"Intel HD Graphics 3000"] || 
             [key isEqualToString:@"NVIDIA GeForce 9400M"]) {
