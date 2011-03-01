@@ -325,7 +325,7 @@ switcherMode switcherGetMode() {
     if (!procGet(procs)) Log(@"Can't obtain I/O Kit's root service");
     
     [processList setHidden:([procs count] > 0 || usingExternalDisplay)];
-    if ([procs count]==0) Log(@"We're using the NVIDIA® card, but no process requires it. An external monitor may be connected, or we may be in NVIDIA® Only mode.");
+    if ([procs count]==0) Log(@"We're using the Discrete card, but no process requires it. An external monitor may be connected, or we may be in Discrete Only mode.");
     
     for (NSString* appName in [procs allValues]) {
         NSMenuItem *appItem = [[NSMenuItem alloc] initWithTitle:appName action:nil keyEquivalent:@""];

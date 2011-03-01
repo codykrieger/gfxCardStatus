@@ -292,7 +292,7 @@ BOOL switcherSetMode(switcherMode mode) {
         case modeForceIntegrated:
         case modeForceDiscrete:
             setDynamicSwitchingEnabled(switcherConnect, NO);
-            // Disable Policy, otherwise gpu switches to Nvidia after a bad app closes
+            // Disable Policy, otherwise gpu switches to Discrete after a bad app closes
             setFeatureInfo(switcherConnect, Policy, NO);
             sleep(1);
             

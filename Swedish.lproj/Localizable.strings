@@ -13,7 +13,7 @@
 "Card"					= "Kort: %%";
 "SwitchGPUs"			= "Växla GPU";
 "IntegratedOnly"				= "Enbart Integrated®";
-"NvidiaOnly"			= "Enbart NVIDIA®";
+"DiscreteOnly"			= "Enbart Discrete®";
 "DynamicSwitching"		= "Dynamisk grafikväxling";
 "Dependencies"			= "Programberoenden";
 "NoProcess"				= "Ingen";

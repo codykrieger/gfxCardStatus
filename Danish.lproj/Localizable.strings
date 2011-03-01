@@ -14,7 +14,7 @@
 "Card"					= "Kort: %%";
 "SwitchGPUs"			= "Skift GPUs";
 "IntegratedOnly"				= "Kun Integrated®";
-"NvidiaOnly"			= "Kun NVIDIA®";
+"DiscreteOnly"			= "Kun Discrete®";
 "DynamicSwitching"		= "Skift Dynamisk";
 "Dependencies"			= "Dependencies";
 "NoProcess"				= "Ingen";
