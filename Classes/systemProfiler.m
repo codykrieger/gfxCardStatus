@@ -11,6 +11,7 @@
 NSDictionary* getGraphicsProfile(BOOL throwExceptionIfUnsupportedSystem) {
     NSMutableDictionary *profile = [NSMutableDictionary dictionary];
     
+    // call system_profiler SPDisplaysDataType in order to get GPU profile
     NSTask *task = [[NSTask alloc] init];
     [task setLaunchPath:@"/usr/sbin/system_profiler"];
     [task setArguments:[NSArray arrayWithObject:@"SPDisplaysDataType"]];
@@ -23,15 +24,18 @@ NSDictionary* getGraphicsProfile(BOOL throwExceptionIfUnsupportedSystem) {
     [task waitUntilExit];
     [task release];
     
+    // split up the output into lines
     NSString *output = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-    NSArray *array = [output componentsSeparatedByString:@"\n"];
+    NSArray *lines = [output componentsSeparatedByString:@"\n"];
     [output release];
     
-    NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
+    // parse the output into a dictionary of dictionaries based on section names,
+    // which are determined by whitespace indentation level
+    NSMutableDictionary *profilerInfo = [[NSMutableDictionary alloc] init];
     NSMutableArray *currentKeys = [[NSMutableArray alloc] init];
     int currentLevel = 0;
     
-    for (NSString *obj in array) {
+    for (NSString *obj in lines) {
         int lengthBeforeTrim = [obj length];
         int whitespaceLength = 0;
         obj = [obj stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
@@ -49,10 +53,10 @@ NSDictionary* getGraphicsProfile(BOOL throwExceptionIfUnsupportedSystem) {
             obj = [obj stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@":"]];
             
             if ([currentKeys count] == 0) {
-                [dict setObject:[[[NSMutableDictionary alloc] init] autorelease] forKey: obj];
+                [profilerInfo setObject:[[[NSMutableDictionary alloc] init] autorelease] forKey: obj];
                 [currentKeys addObject:obj];
             } else {
-                NSMutableDictionary *tempDict = dict;
+                NSMutableDictionary *tempDict = profilerInfo;
                 for (int i = 0; i < [currentKeys count]; i++) {
                     tempDict = [tempDict objectForKey:[currentKeys objectAtIndex:i]];
                 }
@@ -64,7 +68,7 @@ NSDictionary* getGraphicsProfile(BOOL throwExceptionIfUnsupportedSystem) {
             continue;
         } else {
             NSArray *tempArray = [obj componentsSeparatedByString:@": "];
-            NSMutableDictionary *tempDict = dict; // = [dict objectForKey:currentKey];
+            NSMutableDictionary *tempDict = profilerInfo; // = [dict objectForKey:currentKey];
             
             for (int i = 0; i < [currentKeys count]; i++) {
                 tempDict = [tempDict objectForKey:[currentKeys objectAtIndex:i]];
@@ -74,7 +78,9 @@ NSDictionary* getGraphicsProfile(BOOL throwExceptionIfUnsupportedSystem) {
         }
     }
     
-    NSDictionary *graphics = (NSDictionary *)[dict objectForKey:@"Graphics/Displays"];
+    // begin figuring out which machine we're using by attempting to get dictionaries
+    // based on the integrated chipset names
+    NSDictionary *graphics = (NSDictionary *)[profilerInfo objectForKey:@"Graphics/Displays"];
     NSDictionary *integrated = (NSDictionary *)[graphics objectForKey:@"Intel HD Graphics"];
     if (!integrated) integrated = (NSDictionary *)[graphics objectForKey:@"Intel HD Graphics 3000"];
     
@@ -85,6 +91,7 @@ NSDictionary* getGraphicsProfile(BOOL throwExceptionIfUnsupportedSystem) {
         if (!integrated) {
             // display a message - must be using an unsupported model
             Log(@"*** UNSUPPORTED SYSTEM BEING USED ***");
+            [profile setObject:[NSNumber numberWithBool:YES] forKey:@"unsupported"];
             
             if (throwExceptionIfUnsupportedSystem) {
                 NSException *exception = [NSException exceptionWithName:@"UnsupportedMachineException" reason:@"An unsupported machine is being used." userInfo:nil];
@@ -96,8 +103,8 @@ NSDictionary* getGraphicsProfile(BOOL throwExceptionIfUnsupportedSystem) {
         [profile setObject:[NSNumber numberWithBool:NO] forKey:@"legacy"];
     }
     
+    // figure out whether or not we're using the integrated GPU
     NSDictionary *integratedDisplays = (NSDictionary *)[integrated objectForKey:@"Displays"];
-    
     BOOL usingIntegrated = NO;
     
     for (NSString *key in [integratedDisplays allKeys]) {
@@ -110,23 +117,32 @@ NSDictionary* getGraphicsProfile(BOOL throwExceptionIfUnsupportedSystem) {
         if (usingIntegrated) break;
     }
     
-    NSEnumerator *keys = [graphics keyEnumerator];
-    NSString *key;
-    while ((key = (NSString *)[keys nextObject])) {
-        if ([[key stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]] isEqualToString:@""]) continue;
-        
-        if ([key isEqualToString:@"Intel HD Graphics"] || 
-            [key isEqualToString:@"Intel HD Graphics 3000"] || 
-            [key isEqualToString:@"NVIDIA GeForce 9400M"]) {
-            [profile setObject:key forKey:@"integratedString"];
-        } else {
-            [profile setObject:key forKey:@"discreteString"];
+    // if we're using an unsupported machine config, set profile values to empty strings just in case
+    // otherwise, set the integrated and discrete GPU names in the profile, as well as whether or not
+    // we're using the integrated GPU
+    if ([[profile objectForKey:@"unsupported"] boolValue]) {
+        [profile setObject:@"" forKey:@"integratedString"];
+        [profile setObject:@"" forKey:@"discreteString"];
+        [profile setObject:@"" forKey:@"usingIntegrated"];
+    } else {
+        NSEnumerator *keys = [graphics keyEnumerator];
+        NSString *key;
+        while ((key = (NSString *)[keys nextObject])) {
+            if ([[key stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]] isEqualToString:@""]) continue;
+            
+            if ([key isEqualToString:@"Intel HD Graphics"] || 
+                [key isEqualToString:@"Intel HD Graphics 3000"] || 
+                [key isEqualToString:@"NVIDIA GeForce 9400M"]) {
+                [profile setObject:key forKey:@"integratedString"];
+            } else {
+                [profile setObject:key forKey:@"discreteString"];
+            }
         }
+        
+        [profile setObject:[NSNumber numberWithBool:usingIntegrated] forKey:@"usingIntegrated"];
     }
     
-    [profile setObject:[NSNumber numberWithBool:usingIntegrated] forKey:@"usingIntegrated"];
-    
-    [dict release];
+    [profilerInfo release];
     [currentKeys release];
     
     return profile;

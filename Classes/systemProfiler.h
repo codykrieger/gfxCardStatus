@@ -8,6 +8,6 @@
 
 #import <Foundation/Foundation.h>
 
-// Whether the integrated graphic is currently in use
-// legacy is set to 'usingLate08Or09Model'
+// get back a dictionary with some information indicative of what GPUs the machine
+// contains, and whether it's using an integrated chipset or not
 NSDictionary* getGraphicsProfile(BOOL throwExceptionIfUnsupportedSystem);
