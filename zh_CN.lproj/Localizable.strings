@@ -12,16 +12,16 @@
 "Preferences"      = "偏好设置...";
 "Card"             = "图形处理器: %%";
 "SwitchGPUs"       = "变更 GPUs (试验)";
-"IntegratedOnly"        = "Integrated 集成图形处理器";
-"DiscreteOnly"       = "Discrete 独立图形处理器";
+"IntegratedOnly"   = "Integrated 集成图形处理器";
+"DiscreteOnly"     = "Discrete 独立图形处理器";
 "DynamicSwitching" = "自动切换图形处理器";
 "Dependencies"     = "相依程序";
 "NoProcess"        = "无";
 "Quit"             = "退出";
 "Close"            = "关闭！";
-"OnBattery"             = "On Battery";
-"PluggedIn"             = "Plugged In";
-"PowerSource"           = "Power Source";
+"OnBattery"        = "On Battery";
+"PluggedIn"        = "Plugged In";
+"PowerSource"      = "Power Source";
 
 /* Preferences window */
 "PrefTitle"        = "gfxCardStatus 偏好设置";

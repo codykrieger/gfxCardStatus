@@ -12,7 +12,7 @@
 "Preferences"			= "Inställningar...";
 "Card"					= "Kort: %%";
 "SwitchGPUs"			= "Växla GPU";
-"IntegratedOnly"				= "Enbart Integrated®";
+"IntegratedOnly"		= "Enbart Integrated®";
 "DiscreteOnly"			= "Enbart Discrete®";
 "DynamicSwitching"		= "Dynamisk grafikväxling";
 "Dependencies"			= "Programberoenden";

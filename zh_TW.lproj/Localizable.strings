@@ -12,16 +12,16 @@
 "Preferences"      = "偏好設定...";
 "Card"             = "晶片: %%";
 "SwitchGPUs"       = "變更 GPU (試驗)";
-"IntegratedOnly"        = "僅 Integrated® 晶片";
-"DiscreteOnly"       = "僅 Discrete® 晶片";
+"IntegratedOnly"   = "僅 Integrated® 晶片";
+"DiscreteOnly"     = "僅 Discrete® 晶片";
 "DynamicSwitching" = "自動圖形切換";
 "Dependencies"     = "相依程式";
 "NoProcess"        = "沒有";
 "Quit"             = "結束";
 "Close"            = "關閉！";
-"OnBattery"             = "On Battery";
-"PluggedIn"             = "Plugged In";
-"PowerSource"           = "Power Source";
+"OnBattery"        = "On Battery";
+"PluggedIn"        = "Plugged In";
+"PowerSource"      = "Power Source";
 
 /* Preferences window */
 "PrefTitle"        = "gfxCardStatus 偏好設定";
