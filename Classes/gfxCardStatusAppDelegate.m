@@ -68,7 +68,7 @@ switcherMode switcherGetMode() {
     if (![prefs boolForKey:@"hasSeenVersionTwoMessage"]) {
         NSAlert *versionInfo = [[NSAlert alloc] init];
         [versionInfo setMessageText:@"Thanks for downloading gfxCardStatus!"];
-        [versionInfo setInformativeText:@"If you find it useful, please consider donating to support development and hosting costs. You can find the donate link, and the FAQ page (which you should REALLY read, especially for this version) at the gfxCardStatus website:"];
+        [versionInfo setInformativeText:@"If you find it useful, please consider donating to support development and hosting costs. You can find the donate link, and the FAQ page (which you should REALLY read) at the gfxCardStatus website:"];
         NSTextView *accessory = [[NSTextView alloc] initWithFrame:NSMakeRect(0,0,300,15)];
         [accessory insertText:[NSAttributedString hyperlinkFromString:@"http://codykrieger.com/gfxCardStatus" 
                                                               withURL:[NSURL URLWithString:@"http://codykrieger.com/gfxCardStatus"]]];
