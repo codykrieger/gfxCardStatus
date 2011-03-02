@@ -14,6 +14,7 @@
 				A17C30FD1273B9450020D7ED /* ShellScript */,
 			);
 			dependencies = (
+				A168C0C3131DDE66007B1225 /* PBXTargetDependency */,
 			);
 			name = Distribution;
 			productName = Distribution;
@@ -52,6 +53,16 @@
 		A1E07E421194B7C900683B07 /* switcher.m in Sources */ = {isa = PBXBuildFile; fileRef = A1E07E411194B7C900683B07 /* switcher.m */; };
 		A1E751E11180BF0B00A13CA8 /* systemProfiler.m in Sources */ = {isa = PBXBuildFile; fileRef = A1E751E01180BF0B00A13CA8 /* systemProfiler.m */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		A168C0C2131DDE66007B1225 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8D1107260486CEB800E47090;
+			remoteInfo = gfxCardStatus;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		A159E5011184EC5D00E68428 /* CopyFiles */ = {
@@ -371,6 +382,14 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		A168C0C3131DDE66007B1225 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8D1107260486CEB800E47090 /* gfxCardStatus */;
+			targetProxy = A168C0C2131DDE66007B1225 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin PBXVariantGroup section */
 		089C165CFE840E0CC02AAC07 /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
@@ -430,6 +449,7 @@
 		A17C31001273B9450020D7ED /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
