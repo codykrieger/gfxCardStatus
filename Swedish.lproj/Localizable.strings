@@ -12,16 +12,16 @@
 "Preferences"			= "Inställningar...";
 "Card"					= "Kort: %%";
 "SwitchGPUs"			= "Växla GPU";
-"IntegratedOnly"		= "Enbart Integrated®";
-"DiscreteOnly"			= "Enbart Discrete®";
+"IntegratedOnly"		= "Enbart integrerad";
+"DiscreteOnly"			= "Enbart dedikerad";
 "DynamicSwitching"		= "Dynamisk grafikväxling";
 "Dependencies"			= "Programberoenden";
 "NoProcess"				= "Ingen";
 "Quit"					= "Avsluta";
 "Close"					= "Cool!";
-"OnBattery"             = "On Battery";
-"PluggedIn"             = "Plugged In";
-"PowerSource"           = "Power Source";
+"OnBattery"             = "Batteri";
+"PluggedIn"             = "AC-adapter";
+"PowerSource"           = "Strömkälla";
 
 /* Preferences window */
 "PrefTitle"				= "gfxCardStatus inställningar";
@@ -39,5 +39,5 @@
 "AboutWebsite"			= "Webbsida";
 
 /* Growl */
-"GrowlGPUChanged"       = "GPU changed";
-"GrowlSwitch"           = "now in use.";
+"GrowlGPUChanged"       = "GPU ändrad";
+"GrowlSwitch"           = "används nu.";
