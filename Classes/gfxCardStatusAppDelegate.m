@@ -189,12 +189,12 @@ switcherMode switcherGetMode() {
 
 - (void)menuWillOpen:(NSMenu *)menu {
     // white image when menu is open
-    [statusItem setImage:[NSImage imageNamed:[[[statusItem image] name] stringByAppendingString:@"-white.png"]]];
+    // [statusItem setImage:[NSImage imageNamed:[[[statusItem image] name] stringByAppendingString:@"-white.png"]]];
 }
 
 - (void)menuDidClose:(NSMenu *)menu {
     // black image when menu is closed
-    [statusItem setImage:[NSImage imageNamed:[[[statusItem image] name] stringByReplacingOccurrencesOfString:@"-white" withString:@".png"]]];
+    // [statusItem setImage:[NSImage imageNamed:[[[statusItem image] name] stringByReplacingOccurrencesOfString:@"-white" withString:@".png"]]];
 }
 
 - (IBAction)openPreferences:(id)sender {
@@ -271,10 +271,30 @@ switcherMode switcherGetMode() {
     
     // update icon and labels according to selected GPU
     NSString* cardString = integrated ? integratedString : discreteString;
+    
 //    if ([prefs usingLegacy])
 //        [statusItem setImage:[NSImage imageNamed:integrated ? @"integrated-3.png" : @"discrete-3.png"]];
 //    else
-    [statusItem setImage:[NSImage imageNamed:integrated ? @"integrated-3.png" : @"discrete-3.png"]];
+//    [statusItem setImage:[NSImage imageNamed:integrated ? @"integrated-3.png" : @"discrete-3.png"]];
+    
+    unichar firstLetter = [cardString characterAtIndex:0];
+    NSString *letter = [[NSString stringWithFormat:@"%C", firstLetter] lowercaseString];
+    int fontSize = ([letter isEqualToString:@"n"] || [letter isEqualToString:@"a"] ? 19 : 18);
+    
+    NSFontManager *fontManager = [NSFontManager sharedFontManager];
+    NSFont *boldItalic = [fontManager fontWithFamily:@"Georgia"
+                                              traits:NSBoldFontMask|NSItalicFontMask
+                                              weight:0
+                                                size:fontSize];
+    
+    NSDictionary *attributes = [[NSDictionary alloc] initWithObjectsAndKeys:
+                                boldItalic, NSFontAttributeName, 
+                                [NSNumber numberWithDouble:2.0], NSBaselineOffsetAttributeName, nil];
+    NSAttributedString *title = [[[NSAttributedString alloc] 
+                                 initWithString:letter
+                                    attributes: attributes] autorelease];
+    [statusItem setAttributedTitle:title];
+    
     
     [currentCard setTitle:[Str(@"Card") stringByReplacingOccurrencesOfString:@"%%" withString:cardString]];
     [currentPowerSource setTitle:[NSString stringWithFormat:@"Power Source: %@", (powerSourceMonitor.currentPowerSource == psBattery) ? @"Battery" : @"AC Adapter"]];
