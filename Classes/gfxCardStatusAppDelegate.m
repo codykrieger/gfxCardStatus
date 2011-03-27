@@ -260,39 +260,51 @@ switcherMode switcherGetMode() {
     BOOL integrated = switcherUseIntegrated();
     Log(@"Updating status...");
     
+    // TODO - fix this, not working
     // prevent GPU from switching back after apps quit
-    if (!integrated && ![prefs usingLegacy] && [integratedOnly state] > 0 && canPreventSwitch) {
-        Log(@"Preventing switch to Discrete GPU. Setting canPreventSwitch to NO so that this doesn't get stuck in a loop, changing in 5 seconds...");
-        canPreventSwitch = NO;
-        [self setMode:integratedOnly];
-        [NSTimer scheduledTimerWithTimeInterval:5 target:self selector:@selector(shouldPreventSwitch) userInfo:nil repeats:NO];
-        return;
-    }
+//    if (!integrated && ![prefs usingLegacy] && [integratedOnly state] > 0 && canPreventSwitch) {
+//        Log(@"Preventing switch to Discrete GPU. Setting canPreventSwitch to NO so that this doesn't get stuck in a loop, changing in 5 seconds...");
+//        canPreventSwitch = NO;
+//        [self setMode:integratedOnly];
+//        [NSTimer scheduledTimerWithTimeInterval:5 target:self selector:@selector(shouldPreventSwitch) userInfo:nil repeats:NO];
+//        return;
+//    }
     
-    // update icon and labels according to selected GPU
+    
+    // get updated GPU string
     NSString* cardString = integrated ? integratedString : discreteString;
     
-//    if ([prefs usingLegacy])
-//        [statusItem setImage:[NSImage imageNamed:integrated ? @"integrated-3.png" : @"discrete-3.png"]];
-//    else
+    // set menu bar icon
 //    [statusItem setImage:[NSImage imageNamed:integrated ? @"integrated-3.png" : @"discrete-3.png"]];
     
-    unichar firstLetter = [cardString characterAtIndex:0];
+    // grab first character of GPU string for the menu bar icon
+    unichar firstLetter;
+    if ([prefs usingLegacy] || YES) {
+        firstLetter = integrated ? 'i' : 'd';
+    } else {
+        firstLetter = [cardString characterAtIndex:0];
+    }
+    
+    // format firstLetter into an NSString *
     NSString *letter = [[NSString stringWithFormat:@"%C", firstLetter] lowercaseString];
     int fontSize = ([letter isEqualToString:@"n"] || [letter isEqualToString:@"a"] ? 19 : 18);
     
+    // set the correct font
     NSFontManager *fontManager = [NSFontManager sharedFontManager];
     NSFont *boldItalic = [fontManager fontWithFamily:@"Georgia"
                                               traits:NSBoldFontMask|NSItalicFontMask
                                               weight:0
                                                 size:fontSize];
     
+    // create NSAttributedString with font
     NSDictionary *attributes = [[NSDictionary alloc] initWithObjectsAndKeys:
                                 boldItalic, NSFontAttributeName, 
                                 [NSNumber numberWithDouble:2.0], NSBaselineOffsetAttributeName, nil];
     NSAttributedString *title = [[[NSAttributedString alloc] 
                                  initWithString:letter
                                     attributes: attributes] autorelease];
+    
+    // set menu bar text "icon"
     [statusItem setAttributedTitle:title];
     
     
