@@ -131,7 +131,7 @@ switcherMode switcherGetMode() {
     // only resture last mode if preference is set, and we're NOT using power source-based switching
     if ([prefs shouldRestoreStateOnStartup] && ![prefs shouldUsePowerSourceBasedSwitching] && ![prefs usingLegacy]) {
         Log(@"Restoring last used mode (%i)...", [prefs shouldRestoreToMode]);
-        id modeItem;
+        id modeItem = nil;
         switch ([prefs shouldRestoreToMode]) {
             case 0:
                 modeItem = integratedOnly;
@@ -297,9 +297,9 @@ switcherMode switcherGetMode() {
                                                 size:fontSize];
     
     // create NSAttributedString with font
-    NSDictionary *attributes = [[NSDictionary alloc] initWithObjectsAndKeys:
+    NSDictionary *attributes = [[[NSDictionary alloc] initWithObjectsAndKeys:
                                 boldItalic, NSFontAttributeName, 
-                                [NSNumber numberWithDouble:2.0], NSBaselineOffsetAttributeName, nil];
+                                [NSNumber numberWithDouble:2.0], NSBaselineOffsetAttributeName, nil] autorelease];
     NSAttributedString *title = [[[NSAttributedString alloc] 
                                  initWithString:letter
                                     attributes: attributes] autorelease];
@@ -448,10 +448,10 @@ switcherMode switcherGetMode() {
     [self updateMenu];
 }
 
-- (void)shouldPreventSwitch {
-    Log(@"Can prevent switching again.");
-    canPreventSwitch = YES;
-}
+//- (void)shouldPreventSwitch {
+//    Log(@"Can prevent switching again.");
+//    canPreventSwitch = YES;
+//}
 
 - (void)dealloc {
     procFree(); // Free processes listing buffers

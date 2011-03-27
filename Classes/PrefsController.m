@@ -318,8 +318,4 @@ static PrefsController *sharedInstance = nil;
     return self;
 }
 
-- (void)dealloc {
-    [prefs release];
-}
-
 @end

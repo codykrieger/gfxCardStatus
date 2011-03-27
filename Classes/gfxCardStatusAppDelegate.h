@@ -73,6 +73,6 @@ extern BOOL canLog;
 - (IBAction)openApplicationURL:(id)sender;
 - (IBAction)quit:(id)sender;
 
-- (void)shouldPreventSwitch;
+//- (void)shouldPreventSwitch;
 
 @end
