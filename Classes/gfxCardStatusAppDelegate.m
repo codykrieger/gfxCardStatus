@@ -279,7 +279,7 @@ switcherMode switcherGetMode() {
     
     // grab first character of GPU string for the menu bar icon
     unichar firstLetter;
-    if ([prefs usingLegacy] || YES) {
+    if ([prefs usingLegacy]) {
         firstLetter = integrated ? 'i' : 'd';
     } else {
         firstLetter = [cardString characterAtIndex:0];
