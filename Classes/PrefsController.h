@@ -25,6 +25,10 @@
     IBOutlet NSSegmentedControl *prefSegOnBattery; // pref for gpu on battery
     IBOutlet NSSegmentedControl *prefSegOnAc; // pref for gpu on ac
     
+    // labels
+    IBOutlet NSTextField *onBatteryTextField;
+    IBOutlet NSTextField *pluggedInTextField;
+    
     NSNumber *yesNumber;
     NSNumber *noNumber;
     

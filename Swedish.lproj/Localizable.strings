@@ -34,8 +34,8 @@
 "Integrated"            = "Integrated";
 "Discrete"              = "Discrete";
 "Dynamic"               = "Dynamic";
-"OnBattery"             = "Batteri";
-"PluggedIn"             = "AC-adapter";
+"OnBattery"             = "Batteri:";
+"PluggedIn"             = "AC-adapter:";
 
 /* About box */
 "AboutTitle"			= "Om gfxCardStatus";

@@ -56,28 +56,31 @@ static PrefsController *sharedInstance = nil;
 
 - (void)awakeFromNib {
     // localization
-    NSArray* localized = [[NSArray alloc] initWithObjects:prefChkGrowl, prefChkLog, prefChkPowerSourceBasedSwitching, 
+    NSArray* localizedButtons = [[NSArray alloc] initWithObjects:prefChkGrowl, prefChkLog, prefChkPowerSourceBasedSwitching, 
                           prefChkRestoreState, prefChkStartup, prefChkUpdate, nil];
-    for (NSButton *loc in localized) {
+    for (NSButton *loc in localizedButtons) {
         [loc setTitle:Str([loc title])];
     }
-    [localized release];
+    [localizedButtons release];
+    
+    NSArray *localizedLabels = [[NSArray alloc] initWithObjects:onBatteryTextField, pluggedInTextField, nil];
+    for (NSTextField *field in localizedLabels) {
+        [field setStringValue:Str([field stringValue])];
+    }
+    [localizedLabels release];
     
     if (usingLegacy) {
         [prefSegOnBattery setSegmentCount:2];
-        for (int i = 0; i < [prefSegOnBattery segmentCount]; i++) {
-            [prefSegOnBattery setLabel:Str([prefSegOnBattery labelForSegment:i]) forSegment:i];
-        }
         [prefSegOnAc setSegmentCount:2];
-        for (int i = 0; i < [prefSegOnAc segmentCount]; i++) {
-            [prefSegOnAc setLabel:Str([prefSegOnAc labelForSegment:i]) forSegment:i];
-        }
     } else {
-        [prefSegOnBattery setLabel:@"Integrated" forSegment:0];
-        [prefSegOnBattery setLabel:@"Discrete" forSegment:1];
-        [prefSegOnAc setLabel:@"Integrated" forSegment:0];
-        [prefSegOnAc setLabel:@"Discrete" forSegment:1];
+        [prefSegOnBattery setLabel:Str(@"Dynamic") forSegment:2];
+        [prefSegOnAc setLabel:Str(@"Dynamic") forSegment:2];
     }
+    
+    [prefSegOnBattery setLabel:Str(@"Integrated") forSegment:0];
+    [prefSegOnBattery setLabel:Str(@"Discrete") forSegment:1];
+    [prefSegOnAc setLabel:Str(@"Integrated") forSegment:0];
+    [prefSegOnAc setLabel:Str(@"Discrete") forSegment:1];
     
     // set controls according to values set in preferences
     [self setControlsToPreferences];

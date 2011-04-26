@@ -34,8 +34,8 @@
 "Integrated"            = "Integrated";
 "Discrete"              = "Discrete";
 "Dynamic"               = "自动切换";
-"OnBattery"        = "使用电池时";
-"PluggedIn"        = "电源适配器";
+"OnBattery"        = "使用电池时:";
+"PluggedIn"        = "电源适配器:";
 
 /* About box */
 "AboutTitle"       = "关于 gfxCardStatus";
