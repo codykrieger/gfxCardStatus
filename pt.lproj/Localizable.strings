@@ -19,9 +19,9 @@
 "NoProcess"				= "Nenhum";
 "Quit"					= "Fechar";
 "Close"					= "Legal!";
-"OnBattery"             = "Utilizando a Bateria";
-"PluggedIn"             = "Conectado á Fonte de Energia";
-"PowerSource"           = "Power Source";
+"PowerSource"           = "Power Source: %%";
+"Battery"               = "Battery";
+"ACAdapter"             = "AC Adapter";
 
 /* Preferences window */
 "PrefTitle"				= "Preferências gfxCardStatus";
@@ -31,8 +31,11 @@
 "PrefLog"				= "Logar mensagens de diagnósticos no Console";
 "PrefRestoreState"		= "Restaurar último estado na inicialização";
 "PrefPowerSwitching"	= "Usar alternação de dispositivos baseado na fonte de energia";
-"Integrated"            = "9400M";
-"Discrete"              = "9600M GT";
+"Integrated"            = "Integrated";
+"Discrete"              = "Discrete";
+"Dynamic"               = "Dynamic";
+"OnBattery"             = "Utilizando a Bateria";
+"PluggedIn"             = "Conectado á Fonte de Energia";
 
 /* About box */
 "AboutTitle"			= "Sobre gfxCardStatus";

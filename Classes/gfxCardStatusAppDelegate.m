@@ -111,16 +111,16 @@ switcherMode switcherGetMode() {
     [discreteOnly setHidden:[prefs usingLegacy]];
     [dynamicSwitching setHidden:[prefs usingLegacy]];
     if ([prefs usingLegacy]) {
-//        integratedString = @"NVIDIA® GeForce 9400M";
-//        discreteString = @"NVIDIA® GeForce 9600M GT";
+        // integratedString = @"NVIDIA® GeForce 9400M";
+        // discreteString = @"NVIDIA® GeForce 9600M GT";
     } else {
         BOOL dynamic = switcherUseDynamicSwitching();
         [integratedOnly setState:(!dynamic && usingIntegrated) ? NSOnState : NSOffState];
         [discreteOnly setState:(!dynamic && !usingIntegrated) ? NSOnState : NSOffState];
         [dynamicSwitching setState:dynamic ? NSOnState : NSOffState];
         
-//        integratedString = @"Intel® HD Graphics";
-//        discreteString = @"NVIDIA® GeForce GT 330M";
+        // integratedString = @"Intel® HD Graphics";
+        // discreteString = @"NVIDIA® GeForce GT 330M";
     }
     
     canPreventSwitch = YES;
@@ -262,20 +262,20 @@ switcherMode switcherGetMode() {
     
     // TODO - fix this, not working
     // prevent GPU from switching back after apps quit
-//    if (!integrated && ![prefs usingLegacy] && [integratedOnly state] > 0 && canPreventSwitch) {
-//        Log(@"Preventing switch to Discrete GPU. Setting canPreventSwitch to NO so that this doesn't get stuck in a loop, changing in 5 seconds...");
-//        canPreventSwitch = NO;
-//        [self setMode:integratedOnly];
-//        [NSTimer scheduledTimerWithTimeInterval:5 target:self selector:@selector(shouldPreventSwitch) userInfo:nil repeats:NO];
-//        return;
-//    }
+    //    if (!integrated && ![prefs usingLegacy] && [integratedOnly state] > 0 && canPreventSwitch) {
+    //        Log(@"Preventing switch to Discrete GPU. Setting canPreventSwitch to NO so that this doesn't get stuck in a loop, changing in 5 seconds...");
+    //        canPreventSwitch = NO;
+    //        [self setMode:integratedOnly];
+    //        [NSTimer scheduledTimerWithTimeInterval:5 target:self selector:@selector(shouldPreventSwitch) userInfo:nil repeats:NO];
+    //        return;
+    //    }
     
     
     // get updated GPU string
     NSString* cardString = integrated ? integratedString : discreteString;
     
     // set menu bar icon
-//    [statusItem setImage:[NSImage imageNamed:integrated ? @"integrated-3.png" : @"discrete-3.png"]];
+    // [statusItem setImage:[NSImage imageNamed:integrated ? @"integrated-3.png" : @"discrete-3.png"]];
     
     // grab first character of GPU string for the menu bar icon
     unichar firstLetter;
@@ -309,7 +309,7 @@ switcherMode switcherGetMode() {
     
     
     [currentCard setTitle:[Str(@"Card") stringByReplacingOccurrencesOfString:@"%%" withString:cardString]];
-    [currentPowerSource setTitle:[NSString stringWithFormat:@"Power Source: %@", (powerSourceMonitor.currentPowerSource == psBattery) ? @"Battery" : @"AC Adapter"]];
+    [currentPowerSource setTitle:[Str(@"PowerSource") stringByReplacingOccurrencesOfString:@"%%" withString:(powerSourceMonitor.currentPowerSource == psBattery) ? Str(@"Battery") : Str(@"ACAdapter")]];
     
     if (integrated) Log(@"%@ in use. Sweet deal! More battery life.", integratedString);
     else Log(@"%@ in use. Bummer! Less battery life for you.", discreteString);

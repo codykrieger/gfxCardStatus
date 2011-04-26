@@ -19,9 +19,9 @@
 "NoProcess"        = "沒有";
 "Quit"             = "結束";
 "Close"            = "關閉！";
-"OnBattery"        = "On Battery";
-"PluggedIn"        = "Plugged In";
-"PowerSource"      = "Power Source";
+"PowerSource"      = "電源供應: %%";
+"Battery"               = "電池";
+"ACAdapter"             = "電源荭換器";
 
 /* Preferences window */
 "PrefTitle"        = "gfxCardStatus 偏好設定";
@@ -31,8 +31,11 @@
 "PrefLog"          = "記錄診斷訊息至系統監視程式";
 "PrefRestoreState" = "起始時回復到上次使用的模式";
 "PrefPowerSwitching"	= "以電源供應模式切換圖形晶片";
-"Integrated"            = "9400M";
-"Discrete"              = "9600M GT";
+"Integrated"            = "Integrated";
+"Discrete"              = "Discrete";
+"Dynamic"               = "自動切換";
+"OnBattery"        = "使用電池時";
+"PluggedIn"        = "電源荭換器";
 
 /* About box */
 "AboutTitle"       = "關於 gfxCardStatus";
@@ -44,18 +47,10 @@
 
 /***** NOT YET LOCALIZED ******/
 
-/* Not yet localized - Menu item */
-"Power Source:"     = "電源供應:";
-"AC Adaptor"        = "電源荭換器";
-"Battery"           = "電池";
-
 /* Not yet localized - Preferences window */
 "General"									 = "一般";
 "Switching"									 = "轉換";
 "(overrides restoration on load preference)" = "（將取代回復到上次使用的模式）";
-"On Battery"								 = "使用電池時";
-"Plugged In"								 = "電源荭換器";
-"Dynamic"									 = "自動切換";
 
 /* Not yet localized - Update window */
 "Updating gfxCardStatus"					 = "更新 gfxCardStatus";

@@ -20,9 +20,9 @@
 "NoProcess"				= "Ingen";
 "Quit"					= "Afslut";
 "Close"					= "Cool!";
-"OnBattery"             = "On Battery";
-"PluggedIn"             = "Plugged In";
-"PowerSource"           = "Power Source";
+"PowerSource"           = "Power Source: %%";
+"Battery"               = "Battery";
+"ACAdapter"             = "AC Adapter";
 
 /* Preferences window */
 "PrefTitle"				= "gfxCardStatus Indstillinger";
@@ -32,8 +32,11 @@
 "PrefLog"				= "Log diagnostiske beskeder til konsol";
 "PrefRestoreState"		= "Gendan sidst anvendte tilstand ved start";
 "PrefPowerSwitching"	= "Brug strømkilde baseret skiftning";
-"Integrated"            = "9400M";
-"Discrete"              = "9600M GT";
+"Integrated"            = "Integrated";
+"Discrete"              = "Discrete";
+"Dynamic"               = "Dynamic";
+"OnBattery"             = "On Battery";
+"PluggedIn"             = "Plugged In";
 
 /* About box */
 "AboutTitle"			= "Om gfxCardStatus";

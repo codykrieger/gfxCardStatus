@@ -19,9 +19,9 @@
 "NoProcess"				= "Ninguna";
 "Quit"					= "Cerrar";
 "Close"                 = "¡Listo!";
-"OnBattery"             = "On Battery";
-"PluggedIn"             = "Plugged In";
-"PowerSource"           = "Power Source";
+"PowerSource"           = "Power Source: %%";
+"Battery"               = "Battery";
+"ACAdapter"             = "AC Adapter";
 
 /* Preferences window */
 "PrefTitle"				= "Ajustes de gfxCardStatus";
@@ -31,8 +31,11 @@
 "PrefLog"				= "Transcribir los mensajes de diagnóstico a la consola";
 "PrefRestoreState"		= "Restaurar el último modo usado al iniciar";
 "PrefPowerSwitching"	= "Cambiar de GPU según la fuente de energía";
-"Integrated"            = "9400M";
-"Discrete"              = "9600M GT";
+"Integrated"            = "Integrated";
+"Discrete"              = "Discrete";
+"Dynamic"               = "Dynamic";
+"OnBattery"             = "On Battery";
+"PluggedIn"             = "Plugged In";
 
 /* About box */
 "AboutTitle"			= "Acerca de gfxCardStatus";

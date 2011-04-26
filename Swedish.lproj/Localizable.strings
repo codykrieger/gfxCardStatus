@@ -19,9 +19,9 @@
 "NoProcess"				= "Ingen";
 "Quit"					= "Avsluta";
 "Close"					= "Cool!";
-"OnBattery"             = "Batteri";
-"PluggedIn"             = "AC-adapter";
-"PowerSource"           = "Strömkälla";
+"PowerSource"           = "Strömkälla: %%";
+"Battery"               = "Battery";
+"ACAdapter"             = "AC Adapter";
 
 /* Preferences window */
 "PrefTitle"				= "gfxCardStatus inställningar";
@@ -31,8 +31,11 @@
 "PrefLog"				= "Logga diagnosmeddelanden till konsoll";
 "PrefRestoreState"		= "Återställ senast använda läge vid start";
 "PrefPowerSwitching"	= "Basera växling på strömkälla";
-"Integrated"            = "9400M";
-"Discrete"              = "9600M GT";
+"Integrated"            = "Integrated";
+"Discrete"              = "Discrete";
+"Dynamic"               = "Dynamic";
+"OnBattery"             = "Batteri";
+"PluggedIn"             = "AC-adapter";
 
 /* About box */
 "AboutTitle"			= "Om gfxCardStatus";
