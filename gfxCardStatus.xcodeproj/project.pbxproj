@@ -38,7 +38,7 @@
 		A14C181C124F201400816A4A /* PrefsWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = A14C181A124F201400816A4A /* PrefsWindow.xib */; };
 		A159E4EA1184E84300E68428 /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A159E4E91184E84300E68428 /* Sparkle.framework */; };
 		A159E4FC1184EC5100E68428 /* Sparkle.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = A159E4E91184E84300E68428 /* Sparkle.framework */; };
-		A16B28F41196B0E7006EB263 /* README in Resources */ = {isa = PBXBuildFile; fileRef = A16B28F31196B0E7006EB263 /* README */; };
+		A16B28F41196B0E7006EB263 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = A16B28F31196B0E7006EB263 /* README.md */; };
 		A17220631236D90800636797 /* Growl.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A17220621236D90800636797 /* Growl.framework */; };
 		A17220661236D91200636797 /* Growl.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = A17220621236D90800636797 /* Growl.framework */; };
 		A17220A91236DA8A00636797 /* Growl Registration Ticket.growlRegDict in Resources */ = {isa = PBXBuildFile; fileRef = A17220981236DA0B00636797 /* Growl Registration Ticket.growlRegDict */; };
@@ -114,7 +114,7 @@
 		A14EC49112AE7609006B394D /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/Localizable.strings; sourceTree = "<group>"; };
 		A1510B3A128D0A760076D88E /* Swedish */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Swedish; path = Swedish.lproj/Localizable.strings; sourceTree = "<group>"; };
 		A159E4E91184E84300E68428 /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Sparkle.framework; sourceTree = "<group>"; };
-		A16B28F31196B0E7006EB263 /* README */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README; sourceTree = "<group>"; };
+		A16B28F31196B0E7006EB263 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
 		A17220621236D90800636797 /* Growl.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Growl.framework; sourceTree = "<group>"; };
 		A17220981236DA0B00636797 /* Growl Registration Ticket.growlRegDict */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Growl Registration Ticket.growlRegDict"; sourceTree = "<group>"; };
 		A17221831236DE4200636797 /* Growl License.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Growl License.txt"; sourceTree = "<group>"; };
@@ -223,7 +223,7 @@
 			isa = PBXGroup;
 			children = (
 				A18123D812B96F3F00266D46 /* Images */,
-				A16B28F31196B0E7006EB263 /* README */,
+				A16B28F31196B0E7006EB263 /* README.md */,
 				A17221831236DE4200636797 /* Growl License.txt */,
 				A1D9C41F11850DEF009A4DE1 /* dsa_pub.pem */,
 				A17220981236DA0B00636797 /* Growl Registration Ticket.growlRegDict */,
@@ -334,7 +334,7 @@
 				A1D6AC5D11826BF00038AD1A /* nvidia-3.png in Resources */,
 				A1D9C42011850DEF009A4DE1 /* dsa_pub.pem in Resources */,
 				A1D9C43A11851B77009A4DE1 /* gfxCardStatus.icns in Resources */,
-				A16B28F41196B0E7006EB263 /* README in Resources */,
+				A16B28F41196B0E7006EB263 /* README.md in Resources */,
 				A13C5FC0119FCFCF00E678FA /* Localizable.strings in Resources */,
 				A17220A91236DA8A00636797 /* Growl Registration Ticket.growlRegDict in Resources */,
 				A17221841236DE4200636797 /* Growl License.txt in Resources */,

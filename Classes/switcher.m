@@ -7,8 +7,9 @@
 //
 
 #import "switcher.h"
-#include <IOKit/IOKitLib.h>
 #import "gfxCardStatusAppDelegate.h"
+
+#include <IOKit/IOKitLib.h>
 
 #define kDriverClassName "AppleGraphicsControl"
 
