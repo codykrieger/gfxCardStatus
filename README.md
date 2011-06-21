@@ -2,13 +2,16 @@
 by Cody Krieger
 
 gfxCardStatus is an open-source menu bar application for OS X that allows users of unibody MacBook Pros
-with dual GPUs to monitor the status of, and switch between said GPUs. Supported MacBook Pros/graphics chipsets:
+with dual GPUs to monitor the status of, and switch between said GPUs.
+
+## Supported MacBook Pro Models
 
 - Late 2008-2009 MacBook Pros with NVIDIA GeForce 9400M integrated and 9600M GT discrete GPUs
 - 2010 MacBook Pros with Intel HD integrated and NVIDIA GeForce 330M GT discrete GPUs
 - 2011 MacBook Pros with Intel HD 3000 integrated and AMD Radeon HD 6xxxM discrete GPUs
 
-Features:
+## Features
+
 - allows locking the system on one GPU or the other, or allowing automatic switching
 - does not require you to log out or restart to switch GPUs - it's all done on the fly!
 - allows you to see which GPU is in use at a glance in the menu bar - "i" for integrated, "d" for discrete
@@ -16,6 +19,8 @@ Features:
 - light, fast, and minimalist. doesn't get in your way, and uses little to no system resources
 
 Feature requests/bug reports are always welcome by email: cody [at] codykrieger [dot] com
+
+## License
 
 Licensed under the New BSD License.
 
