@@ -47,7 +47,6 @@
 - (BOOL)shouldCheckForUpdatesOnStartup;
 - (BOOL)shouldGrowl;
 - (BOOL)shouldStartAtLogin;
-- (BOOL)shouldLogToConsole;
 - (BOOL)shouldRestoreStateOnStartup;
 - (BOOL)shouldUsePowerSourceBasedSwitching;
 - (int)shouldRestoreToMode;

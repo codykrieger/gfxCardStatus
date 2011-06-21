@@ -7,25 +7,10 @@
 //
 
 #import "gfxCardStatusAppDelegate.h"
-#import "systemProfiler.h"
+#import "SystemInfo.h"
 #import "switcher.h"
 #import "proc.h"
 #import "NSAttributedString+Hyperlink.h"
-
-#pragma mark Power Source & Switcher Helpers
-#pragma mark -
-
-// helper to get preference key from PowerSource enum
-static inline NSString *keyForPowerSource(PowerSource powerSource) {
-    return ((powerSource == psBattery) ? kGPUSettingBattery : kGPUSettingACAdaptor);
-}
-
-// helper to return current mode
-switcherMode switcherGetMode() {
-    if (switcherUseDynamicSwitching()) return modeDynamicSwitching;
-    NSDictionary *profile = getGraphicsProfile();
-    return ([(NSNumber *)[profile objectForKey:@"usingIntegrated"] boolValue] ? modeForceIntegrated : modeForceDiscrete);
-}
 
 @implementation gfxCardStatusAppDelegate
 
@@ -89,7 +74,7 @@ switcherMode switcherGetMode() {
                                  name:NSWorkspaceDidWakeNotification object:nil];
     
     // identify current gpu and set up menus accordingly
-    NSDictionary *profile = getGraphicsProfile();
+    NSDictionary *profile = [SystemInfo getGraphicsProfile];
     if ([(NSNumber *)[profile objectForKey:@"unsupported"] boolValue]) {
         [state setUsingIntegrated:NO];
         NSAlert *alert = [NSAlert alertWithMessageText:@"You are using a system that gfxCardStatus does not support. Please ensure that you are using a MacBook Pro with dual GPUs." 
@@ -387,7 +372,7 @@ switcherMode switcherGetMode() {
     // it seems right after waking from sleep, locking to single GPU will fail (even if the return value is correct)
     // this is a temporary workaround to double-check the status
     
-    switcherMode currentMode = switcherGetMode(); // actual current mode
+    switcherMode currentMode = [SystemInfo switcherGetMode]; // actual current mode
     NSMenuItem *activeCard = [self senderForMode:currentMode]; // corresponding menu item
     
     // check if its consistent with menu state
@@ -424,7 +409,7 @@ switcherMode switcherGetMode() {
     lastPowerSource = powerSource;
     
     if ([prefs shouldUsePowerSourceBasedSwitching]) {
-        switcherMode newMode = [prefs modeForPowerSource:keyForPowerSource(powerSource)];
+        switcherMode newMode = [prefs modeForPowerSource:[SystemInfo keyForPowerSource:powerSource]];
         
         if (![prefs usingLegacy]) {
             DLog(@"Using a newer machine, setting appropriate mode based on power source...");

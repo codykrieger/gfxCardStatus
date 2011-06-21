@@ -7,7 +7,7 @@
 //
 
 #import "PrefsController.h"
-#import "systemProfiler.h"
+#import "SystemInfo.h"
 
 static PrefsController *sharedInstance = nil;
 
@@ -33,7 +33,7 @@ static PrefsController *sharedInstance = nil;
     yesNumber = [NSNumber numberWithBool:YES];
     noNumber = [NSNumber numberWithBool:NO];
     
-    NSDictionary *profile = getGraphicsProfile();
+    NSDictionary *profile = [SystemInfo getGraphicsProfile];
     usingLegacy = [(NSNumber *)[profile objectForKey:@"legacy"] boolValue];
     
     // load preferences in from file

@@ -1,14 +1,31 @@
 //
-//  systemProfiler.m
+//  SystemInfo.m
 //  gfxCardStatus
 //
-//  Created by Cody Krieger on 4/22/10.
-//  Copyright 2010 Cody Krieger. All rights reserved.
+//  Created by Cody Krieger on 6/21/11.
+//  Copyright 2011 Cody Krieger. All rights reserved.
 //
 
-#import "systemProfiler.h"
+#import "SystemInfo.h"
 
-NSDictionary* getGraphicsProfile() {
+@implementation SystemInfo
+
+#pragma mark Power Source & Switcher Helpers
+#pragma mark -
+
+// helper to get preference key from PowerSource enum
++ (NSString *)keyForPowerSource:(PowerSource)powerSource {
+    return ((powerSource == psBattery) ? kGPUSettingBattery : kGPUSettingACAdaptor);
+}
+
+// helper to return current mode
++ (switcherMode)switcherGetMode {
+    if (switcherUseDynamicSwitching()) return modeDynamicSwitching;
+    NSDictionary *profile = [SystemInfo getGraphicsProfile];
+    return ([(NSNumber *)[profile objectForKey:@"usingIntegrated"] boolValue] ? modeForceIntegrated : modeForceDiscrete);
+}
+
++ (NSDictionary *)getGraphicsProfile {
     NSMutableDictionary *profile = [NSMutableDictionary dictionary];
     
     // call system_profiler SPDisplaysDataType in order to get GPU profile
@@ -144,3 +161,5 @@ NSDictionary* getGraphicsProfile() {
     
     return profile;
 }
+
+@end
