@@ -89,12 +89,12 @@
     
     DLog(@"Fetched machine profile: %@", profile);
     
-    [switchGPUs setHidden:![prefs usingLegacy]];
-    [integratedOnly setHidden:[prefs usingLegacy]];
-    [discreteOnly setHidden:[prefs usingLegacy]];
-    [dynamicSwitching setHidden:[prefs usingLegacy]];
+    [switchGPUs setHidden:![state usingLegacy]];
+    [integratedOnly setHidden:[state usingLegacy]];
+    [discreteOnly setHidden:[state usingLegacy]];
+    [dynamicSwitching setHidden:[state usingLegacy]];
     
-    if ([prefs usingLegacy]) {
+    if ([state usingLegacy]) {
     } else {
         BOOL dynamic = switcherUseDynamicSwitching();
         [integratedOnly setState:(!dynamic && [state usingIntegrated]) ? NSOnState : NSOffState];
@@ -106,7 +106,7 @@
     [self updateMenu];
     
     // only resture last mode if preference is set, and we're NOT using power source-based switching
-    if ([prefs shouldRestoreStateOnStartup] && ![prefs shouldUsePowerSourceBasedSwitching] && ![prefs usingLegacy]) {
+    if ([prefs shouldRestoreStateOnStartup] && ![prefs shouldUsePowerSourceBasedSwitching] && ![state usingLegacy]) {
         DLog(@"Restoring last used mode (%i)...", [prefs shouldRestoreToMode]);
         id modeItem = nil;
         switch ([prefs shouldRestoreToMode]) {
@@ -240,7 +240,7 @@
     
     // TODO - fix this, not working
     // prevent GPU from switching back after apps quit
-    //    if (!integrated && ![prefs usingLegacy] && [integratedOnly state] > 0 && canPreventSwitch) {
+    //    if (!integrated && ![state usingLegacy] && [integratedOnly state] > 0 && canPreventSwitch) {
     //        DLog(@"Preventing switch to Discrete GPU. Setting canPreventSwitch to NO so that this doesn't get stuck in a loop, changing in 5 seconds...");
     //        canPreventSwitch = NO;
     //        [self setMode:integratedOnly];
@@ -257,7 +257,7 @@
     
     // grab first character of GPU string for the menu bar icon
     unichar firstLetter;
-    if ([prefs usingLegacy]) {
+    if ([state usingLegacy]) {
         firstLetter = integrated ? 'i' : 'd';
     } else {
         firstLetter = [cardString characterAtIndex:0];
@@ -308,7 +308,7 @@
     }
     
     // if we're on Integrated (or using a 9400M/9600M GT model), no need to display/update the list
-    BOOL procList = ![state usingIntegrated] && ![prefs usingLegacy];
+    BOOL procList = ![state usingIntegrated] && ![state usingLegacy];
     [processList setHidden:!procList];
     [processesSeparator setHidden:!procList];
     [dependentProcesses setHidden:!procList];
@@ -376,7 +376,7 @@
     NSMenuItem *activeCard = [self senderForMode:currentMode]; // corresponding menu item
     
     // check if its consistent with menu state
-    if ([activeCard state] != NSOnState && ![prefs usingLegacy]) {
+    if ([activeCard state] != NSOnState && ![state usingLegacy]) {
         DLog(@"Inconsistent menu state and active card, forcing retry");
         
         // set menu item to reflect actual status
@@ -411,7 +411,7 @@
     if ([prefs shouldUsePowerSourceBasedSwitching]) {
         switcherMode newMode = [prefs modeForPowerSource:[SystemInfo keyForPowerSource:powerSource]];
         
-        if (![prefs usingLegacy]) {
+        if (![state usingLegacy]) {
             DLog(@"Using a newer machine, setting appropriate mode based on power source...");
             [self setMode:[self senderForMode:newMode]];
         } else {

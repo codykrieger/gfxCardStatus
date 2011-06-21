@@ -7,13 +7,11 @@
 //
 
 #import "PrefsController.h"
-#import "SystemInfo.h"
+#import "SessionMagic.h"
 
 static PrefsController *sharedInstance = nil;
 
 @implementation PrefsController
-
-@synthesize usingLegacy;
 
 #pragma mark -
 #pragma mark class instance methods
@@ -32,9 +30,6 @@ static PrefsController *sharedInstance = nil;
     // set yes/no numbers
     yesNumber = [NSNumber numberWithBool:YES];
     noNumber = [NSNumber numberWithBool:NO];
-    
-    NSDictionary *profile = [SystemInfo getGraphicsProfile];
-    usingLegacy = [(NSNumber *)[profile objectForKey:@"legacy"] boolValue];
     
     // load preferences in from file
     prefs = [[NSMutableDictionary alloc] initWithContentsOfFile:[self getPrefsPath]];
@@ -69,7 +64,7 @@ static PrefsController *sharedInstance = nil;
     }
     [localizedLabels release];
     
-    if (usingLegacy) {
+    if ([[SessionMagic sharedInstance] usingLegacy]) {
         [prefSegOnBattery setSegmentCount:2];
         [prefSegOnAc setSegmentCount:2];
     } else {
@@ -104,7 +99,7 @@ static PrefsController *sharedInstance = nil;
     [prefs setObject:noNumber forKey:@"shouldUsePowerSourceBasedSwitching"];
     
     [prefs setObject:[NSNumber numberWithInt:0] forKey:kGPUSettingBattery]; // defaults to integrated
-    if (usingLegacy)
+    if ([[SessionMagic sharedInstance] usingLegacy])
         [prefs setObject:[NSNumber numberWithInt:1] forKey:kGPUSettingACAdaptor]; // defaults to discrete for legacy machines
     else
         [prefs setObject:[NSNumber numberWithInt:2] forKey:kGPUSettingACAdaptor]; // defaults to dynamic for new machines

@@ -14,12 +14,14 @@
     
     // current machine state
     BOOL _usingIntegrated;
+    BOOL _usingLegacy;
     
     NSString *_integratedString;
     NSString *_discreteString;
 }
 
 @property (nonatomic) BOOL usingIntegrated;
+@property (nonatomic) BOOL usingLegacy;
 @property (nonatomic, retain) NSString *integratedString;
 @property (nonatomic, retain) NSString *discreteString;
 

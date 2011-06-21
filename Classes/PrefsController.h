@@ -31,11 +31,7 @@
     
     NSNumber *yesNumber;
     NSNumber *noNumber;
-    
-    BOOL usingLegacy;
 }
-
-@property (nonatomic) BOOL usingLegacy;
 
 - (void)setUpPreferences;
 - (void)setDefaults;

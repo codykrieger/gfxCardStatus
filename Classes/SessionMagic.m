@@ -8,17 +8,21 @@
 
 #import "SessionMagic.h"
 #import "PrefsController.h"
+#import "SystemInfo.h"
 
 static SessionMagic *sharedInstance = nil;
 
 @implementation SessionMagic
 
-@synthesize usingIntegrated, integratedString, discreteString;
+@synthesize usingIntegrated, usingLegacy, integratedString, discreteString;
 
 - (id)init {
     self = [super init];
     if (self) {
         _canGrowl = YES;
+        
+        NSDictionary *profile = [SystemInfo getGraphicsProfile];
+        _usingLegacy = [(NSNumber *)[profile objectForKey:@"legacy"] boolValue];
     }
     
     return self;
