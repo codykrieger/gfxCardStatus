@@ -44,6 +44,7 @@
 		A17220A91236DA8A00636797 /* Growl Registration Ticket.growlRegDict in Resources */ = {isa = PBXBuildFile; fileRef = A17220981236DA0B00636797 /* Growl Registration Ticket.growlRegDict */; };
 		A17221841236DE4200636797 /* Growl License.txt in Resources */ = {isa = PBXBuildFile; fileRef = A17221831236DE4200636797 /* Growl License.txt */; };
 		A17CE49A13B07C3700E5D50F /* SystemInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = A17CE49913B07C3700E5D50F /* SystemInfo.m */; };
+		A17CE49E13B081DE00E5D50F /* MuxMagic.m in Sources */ = {isa = PBXBuildFile; fileRef = A17CE49D13B081DE00E5D50F /* MuxMagic.m */; };
 		A1A3A6F9118214E2008B8145 /* integrated-3.png in Resources */ = {isa = PBXBuildFile; fileRef = A1A3A6F8118214E2008B8145 /* integrated-3.png */; };
 		A1C01F2113B06C08003BD4B2 /* SessionMagic.m in Sources */ = {isa = PBXBuildFile; fileRef = A1C01F2013B06C08003BD4B2 /* SessionMagic.m */; };
 		A1CCE20012B13CE4006D07A4 /* NSAttributedString+Hyperlink.m in Sources */ = {isa = PBXBuildFile; fileRef = A1CCE1FF12B13CE4006D07A4 /* NSAttributedString+Hyperlink.m */; };
@@ -52,7 +53,6 @@
 		A1D9C43A11851B77009A4DE1 /* gfxCardStatus.icns in Resources */ = {isa = PBXBuildFile; fileRef = A1D9C43911851B77009A4DE1 /* gfxCardStatus.icns */; };
 		A1E07D581194B42100683B07 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A1E07D571194B42100683B07 /* IOKit.framework */; };
 		A1E07E111194B42B00683B07 /* ApplicationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A1E07E101194B42B00683B07 /* ApplicationServices.framework */; };
-		A1E07E421194B7C900683B07 /* switcher.m in Sources */ = {isa = PBXBuildFile; fileRef = A1E07E411194B7C900683B07 /* switcher.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -121,6 +121,8 @@
 		A17221831236DE4200636797 /* Growl License.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Growl License.txt"; sourceTree = "<group>"; };
 		A17CE49813B07C3700E5D50F /* SystemInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SystemInfo.h; sourceTree = "<group>"; };
 		A17CE49913B07C3700E5D50F /* SystemInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SystemInfo.m; sourceTree = "<group>"; };
+		A17CE49C13B081DE00E5D50F /* MuxMagic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MuxMagic.h; sourceTree = "<group>"; };
+		A17CE49D13B081DE00E5D50F /* MuxMagic.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MuxMagic.m; sourceTree = "<group>"; };
 		A1A3A6F8118214E2008B8145 /* integrated-3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "integrated-3.png"; sourceTree = "<group>"; };
 		A1C01F1F13B06C08003BD4B2 /* SessionMagic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SessionMagic.h; sourceTree = "<group>"; };
 		A1C01F2013B06C08003BD4B2 /* SessionMagic.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SessionMagic.m; sourceTree = "<group>"; };
@@ -131,8 +133,6 @@
 		A1D9C43911851B77009A4DE1 /* gfxCardStatus.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = gfxCardStatus.icns; sourceTree = "<group>"; };
 		A1E07D571194B42100683B07 /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = System/Library/Frameworks/IOKit.framework; sourceTree = SDKROOT; };
 		A1E07E101194B42B00683B07 /* ApplicationServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ApplicationServices.framework; path = System/Library/Frameworks/ApplicationServices.framework; sourceTree = SDKROOT; };
-		A1E07E401194B7C900683B07 /* switcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = switcher.h; sourceTree = "<group>"; };
-		A1E07E411194B7C900683B07 /* switcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = switcher.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -163,10 +163,10 @@
 				A14C180A124EFE6300816A4A /* PrefsController.m */,
 				A17CE49813B07C3700E5D50F /* SystemInfo.h */,
 				A17CE49913B07C3700E5D50F /* SystemInfo.m */,
+				A17CE49C13B081DE00E5D50F /* MuxMagic.h */,
+				A17CE49D13B081DE00E5D50F /* MuxMagic.m */,
 				8013EE1211A026EA000ECA36 /* PowerSourceMonitor.h */,
 				8013EE1311A026EA000ECA36 /* PowerSourceMonitor.m */,
-				A1E07E401194B7C900683B07 /* switcher.h */,
-				A1E07E411194B7C900683B07 /* switcher.m */,
 				A13C5DFF119FA4C300E678FA /* proc.h */,
 				A13C5E00119FA4C300E678FA /* proc.m */,
 			);
@@ -380,13 +380,13 @@
 			files = (
 				8D11072D0486CEB800E47090 /* main.m in Sources */,
 				256AC3DA0F4B6AC300CF3369 /* gfxCardStatusAppDelegate.m in Sources */,
-				A1E07E421194B7C900683B07 /* switcher.m in Sources */,
 				A13C5E01119FA4C300E678FA /* proc.m in Sources */,
 				8013EE1411A026EA000ECA36 /* PowerSourceMonitor.m in Sources */,
 				A14C180B124EFE6300816A4A /* PrefsController.m in Sources */,
 				A1CCE20012B13CE4006D07A4 /* NSAttributedString+Hyperlink.m in Sources */,
 				A1C01F2113B06C08003BD4B2 /* SessionMagic.m in Sources */,
 				A17CE49A13B07C3700E5D50F /* SystemInfo.m in Sources */,
+				A17CE49E13B081DE00E5D50F /* MuxMagic.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

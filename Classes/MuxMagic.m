@@ -1,17 +1,14 @@
 //
-//  switcher.m
+//  MuxMagic.m
 //  gfxCardStatus
 //
-//  Created by Cody Krieger on 5/7/10.
-//  The following code has been adapted from ah's original version (from the MacRumors forums).
+//  Created by Cody Krieger on 6/21/11.
+//  Copyright 2011 Cody Krieger. All rights reserved.
 //
 
-#import "switcher.h"
-#import "gfxCardStatusAppDelegate.h"
+#import "MuxMagic.h"
 
-#include <IOKit/IOKitLib.h>
-
-#define kDriverClassName "AppleGraphicsControl"
+static io_connect_t switcherConnect = IO_OBJECT_NULL;
 
 // Stuff to look at:
 // nvram -p -> gpu_policy
@@ -43,17 +40,17 @@ typedef enum {
     muxFeatureInfo2        = 1, // get: same as MuxFeatureInfo
     
     muxForceSwitch        = 2, // set: force Graphics Switch regardless of switching mode
-                             // get: always returns 0xdeadbeef
+    // get: always returns 0xdeadbeef
     
     muxPowerGPU            = 3, // set: power down a gpu, pretty useless since you can't power down the igp and the dedicated gpu is powered down automatically
-                             // get: maybe returns powered on graphics cards, 0x8 = integrated, 0x88 = discrete (or probably both, since integrated never gets powered down?)
+    // get: maybe returns powered on graphics cards, 0x8 = integrated, 0x88 = discrete (or probably both, since integrated never gets powered down?)
     
     muxGpuSelect        = 4, // set/get: Dynamic Switching on/off with [2] = 0/1 (the same as if you click the checkbox in systemsettings.app)
     
     // TODO: Test what happens on older mbps when switchpolicy = 0
     // Changes if you're able to switch in systemsettings.app without logout
     muxSwitchPolicy        = 5, // set: 0 = dynamic switching, 2 = no dynamic switching, exactly like older mbp switching, 3 = no dynamic stuck, others unsupported
-                             // get: possibly inverted?
+    // get: possibly inverted?
     
     muxUnknown            = 6, // get: always 0xdeadbeef
     
@@ -77,6 +74,11 @@ typedef enum {
     No_GL_HDA_busy_idle_registration,
     muxFeaturesCount
 } muxFeature;
+
+@implementation MuxMagic
+
+#pragma mark -
+#pragma mark Private methods
 
 static BOOL getMuxState(io_connect_t connect, uint64_t input, uint64_t *output) {
     kern_return_t kernResult;
@@ -220,9 +222,10 @@ static void dumpState(io_connect_t connect) {
 
 // --------------------------------------------------------------
 
-static io_connect_t switcherConnect = IO_OBJECT_NULL;
+#pragma mark -
+#pragma mark Initialization/destruction
 
-BOOL switcherOpen() {
++ (BOOL)switcherOpen {
     kern_return_t kernResult = 0; 
     io_service_t service = IO_OBJECT_NULL;
     io_iterator_t iterator = IO_OBJECT_NULL;
@@ -259,7 +262,7 @@ BOOL switcherOpen() {
     return kernResult == KERN_SUCCESS;
 }
 
-void switcherClose() {
++ (void)switcherClose {
     kern_return_t kernResult;
     if (switcherConnect == IO_OBJECT_NULL) return;
     
@@ -273,21 +276,10 @@ void switcherClose() {
     DLog(@"Driver connection closed.");
 }
 
-BOOL switcherUseIntegrated() {
-    uint64_t output;
-    if (switcherConnect == IO_OBJECT_NULL) return NO;
-    getMuxState(switcherConnect, muxGraphicsCard, &output);
-    return output != 0;
-}
+#pragma mark -
+#pragma mark Switching magic
 
-BOOL switcherUseDynamicSwitching() {
-    uint64_t output;
-    if (switcherConnect == IO_OBJECT_NULL) return NO;
-    getMuxState(switcherConnect, muxGpuSelect, &output);
-    return output != 0;
-}
-
-BOOL switcherSetMode(switcherMode mode) {
++ (BOOL)switcherSetMode:(switcherMode)mode {
     if (switcherConnect == IO_OBJECT_NULL) return NO;
     switch (mode) {
         case modeForceIntegrated:
@@ -297,7 +289,7 @@ BOOL switcherSetMode(switcherMode mode) {
             setFeatureInfo(switcherConnect, Policy, NO);
             sleep(1);
             
-            BOOL integrated = switcherUseIntegrated();
+            BOOL integrated = [MuxMagic switcherUseIntegrated];
             if ((mode==modeForceIntegrated && !integrated) || (mode==modeForceDiscrete && integrated))
                 forceSwitch(switcherConnect);
             break;
@@ -311,3 +303,19 @@ BOOL switcherSetMode(switcherMode mode) {
     }
     return YES;
 }
+
++ (BOOL)switcherUseIntegrated {
+    uint64_t output;
+    if (switcherConnect == IO_OBJECT_NULL) return NO;
+    getMuxState(switcherConnect, muxGraphicsCard, &output);
+    return output != 0;
+}
+
++ (BOOL)switcherUseDynamicSwitching {
+    uint64_t output;
+    if (switcherConnect == IO_OBJECT_NULL) return NO;
+    getMuxState(switcherConnect, muxGpuSelect, &output);
+    return output != 0;
+}
+
+@end

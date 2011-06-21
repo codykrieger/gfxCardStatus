@@ -8,7 +8,7 @@
 
 #import "gfxCardStatusAppDelegate.h"
 #import "SystemInfo.h"
-#import "switcher.h"
+#import "MuxMagic.h"
 #import "proc.h"
 #import "NSAttributedString+Hyperlink.h"
 
@@ -22,7 +22,7 @@
     state = [SessionMagic sharedInstance];
     
     // initialize driver and process listing
-    if (!switcherOpen()) DLog(@"Can't open driver");
+    if (![MuxMagic switcherOpen]) DLog(@"Can't open driver");
     if (!procInit()) DLog(@"Can't obtain I/O Kit's master port");
     
     // localization
@@ -96,7 +96,7 @@
     
     if ([state usingLegacy]) {
     } else {
-        BOOL dynamic = switcherUseDynamicSwitching();
+        BOOL dynamic = [MuxMagic switcherUseDynamicSwitching];
         [integratedOnly setState:(!dynamic && [state usingIntegrated]) ? NSOnState : NSOffState];
         [discreteOnly setState:(!dynamic && ![state usingIntegrated]) ? NSOnState : NSOffState];
         [dynamicSwitching setState:dynamic ? NSOnState : NSOffState];
@@ -194,7 +194,7 @@
     // legacy cards
     if (sender == switchGPUs) {
         DLog(@"Switching GPUs...");
-        switcherSetMode(modeToggleGPU);
+        [MuxMagic switcherSetMode:modeToggleGPU];
         return;
     }
     
@@ -204,15 +204,15 @@
     BOOL retval = NO;
     if (sender == integratedOnly) {
         DLog(@"Setting Integrated only...");
-        retval = switcherSetMode(modeForceIntegrated);
+        retval = [MuxMagic switcherSetMode:modeForceIntegrated];
     }
     if (sender == discreteOnly) { 
         DLog(@"Setting NVIDIA only...");
-        retval = switcherSetMode(modeForceDiscrete);
+        retval = [MuxMagic switcherSetMode:modeForceDiscrete];
     }
     if (sender == dynamicSwitching) {
         DLog(@"Setting dynamic switching...");
-        retval = switcherSetMode(modeDynamicSwitching);
+        retval = [MuxMagic switcherSetMode:modeDynamicSwitching];
     }
     
     // only change status in case of success
@@ -235,7 +235,7 @@
 }
 
 - (void)updateMenu {
-    BOOL integrated = switcherUseIntegrated();
+    BOOL integrated = [MuxMagic switcherUseIntegrated];
     DLog(@"Updating status...");
     
     // TODO - fix this, not working
@@ -428,7 +428,7 @@
 
 - (void)dealloc {
     procFree(); // Free processes listing buffers
-    switcherClose(); // Close driver
+    [MuxMagic switcherClose]; // Close driver
     
     [statusItem release];
     [super dealloc];

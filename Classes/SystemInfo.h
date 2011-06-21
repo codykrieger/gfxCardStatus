@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-#import "switcher.h"
+#import "MuxMagic.h"
 
 @interface SystemInfo : NSObject
 

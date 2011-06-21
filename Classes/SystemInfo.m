@@ -20,7 +20,7 @@
 
 // helper to return current mode
 + (switcherMode)switcherGetMode {
-    if (switcherUseDynamicSwitching()) return modeDynamicSwitching;
+    if ([MuxMagic switcherUseDynamicSwitching]) return modeDynamicSwitching;
     NSDictionary *profile = [SystemInfo getGraphicsProfile];
     return ([(NSNumber *)[profile objectForKey:@"usingIntegrated"] boolValue] ? modeForceIntegrated : modeForceDiscrete);
 }
