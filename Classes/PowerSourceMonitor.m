@@ -74,7 +74,7 @@ void registerPowerSourceNotification(PowerSourceMonitor *powerSourceMonitor) {
     if (loopSource) {
         CFRunLoopAddSource(CFRunLoopGetCurrent(), loopSource, kCFRunLoopDefaultMode);
     } else {
-        NSLog(@"Creating RunLoop failed!\n");
+        DLog(@"Creating RunLoop failed!\n");
     }
     
     CFRelease(loopSource);

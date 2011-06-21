@@ -90,9 +90,9 @@ static BOOL getMuxState(io_connect_t connect, uint64_t input, uint64_t *output) 
                                            output,        // array of scalar (64-bit) output values.
                                            &outputCount); // pointer to the number of scalar output values.
     if (kernResult == KERN_SUCCESS) {
-        Log(@"getMuxState was successful (count=%d, value=0x%08llx).", outputCount, *output);
+        DLog(@"getMuxState was successful (count=%d, value=0x%08llx).", outputCount, *output);
     } else {
-        Log(@"getMuxState returned 0x%08x.", kernResult);
+        DLog(@"getMuxState returned 0x%08x.", kernResult);
     }
     return kernResult == KERN_SUCCESS;
 }
@@ -108,9 +108,9 @@ static BOOL setMuxState(io_connect_t connect, muxState state, uint64_t arg) {
                                            NULL,         // array of scalar (64-bit) output values.
                                            0);           // pointer to the number of scalar output values.
     if (kernResult == KERN_SUCCESS) {
-        Log(@"setMuxState was successful.");
+        DLog(@"setMuxState was successful.");
     } else {
-        Log(@"setMuxState returned 0x%08x.", kernResult);
+        DLog(@"setMuxState returned 0x%08x.", kernResult);
     }
     return kernResult == KERN_SUCCESS;
 }
@@ -165,7 +165,7 @@ static void printFeatures(io_connect_t connect) {
     getMuxState(connect, muxFeatureInfo, &featureInfo);
     muxFeature f;
     for (f = Policy; f < muxFeaturesCount; f++) {
-        Log(@"%s: %s", getFeatureName(f), (featureInfo & (1<<f) ? "ON" : "OFF"));
+        DLog(@"%s: %s", getFeatureName(f), (featureInfo & (1<<f) ? "ON" : "OFF"));
     }
 }
 
@@ -183,9 +183,9 @@ static void setExclusive(io_connect_t connect) {
                                            0);            // pointer to the number of scalar output values.
     
     if (kernResult == KERN_SUCCESS) {
-        Log(@"setExclusive was successful.");
+        DLog(@"setExclusive was successful.");
     } else {
-        Log(@"setExclusive returned 0x%08x.", kernResult);
+        DLog(@"setExclusive returned 0x%08x.", kernResult);
     }
 }
 
@@ -212,9 +212,9 @@ static void dumpState(io_connect_t connect) {
     // TODO: figure the meaning of the values in StateStruct out
     
     if (kernResult == KERN_SUCCESS) {
-        Log(@"setExclusive was successful.");
+        DLog(@"setExclusive was successful.");
     } else {
-        Log(@"setExclusive returned 0x%08x.", kernResult);
+        DLog(@"setExclusive returned 0x%08x.", kernResult);
     }
 }
 
@@ -231,14 +231,14 @@ BOOL switcherOpen() {
     // This creates an io_iterator_t of all instances of our driver that exist in the I/O Registry.
     kernResult = IOServiceGetMatchingServices(kIOMasterPortDefault, IOServiceMatching(kDriverClassName), &iterator);    
     if (kernResult != KERN_SUCCESS) {
-        Log(@"IOServiceGetMatchingServices returned 0x%08x.", kernResult);
+        DLog(@"IOServiceGetMatchingServices returned 0x%08x.", kernResult);
         return NO;
     }
     
     service = IOIteratorNext(iterator); // actually there is only 1 such service
     IOObjectRelease(iterator);
     if (service == IO_OBJECT_NULL) {
-        Log(@"No matching drivers found.");
+        DLog(@"No matching drivers found.");
         return NO;
     }
     
@@ -248,13 +248,13 @@ BOOL switcherOpen() {
     // as uint32_t type, 0 = no dedicated gpu, 1 = dedicated
     kernResult = IOServiceOpen(service, mach_task_self(), 0, &switcherConnect);
     if (kernResult != KERN_SUCCESS) {
-        Log(@"IOServiceOpen returned 0x%08x.", kernResult);
+        DLog(@"IOServiceOpen returned 0x%08x.", kernResult);
         return NO;
     }
     
     kernResult = IOConnectCallScalarMethod(switcherConnect, kOpen, NULL, 0, NULL, NULL);
-    if (kernResult != KERN_SUCCESS) Log(@"IOConnectCallScalarMethod returned 0x%08x.", kernResult);
-    else Log(@"Driver connection opened.");
+    if (kernResult != KERN_SUCCESS) DLog(@"IOConnectCallScalarMethod returned 0x%08x.", kernResult);
+    else DLog(@"Driver connection opened.");
     
     return kernResult == KERN_SUCCESS;
 }
@@ -264,13 +264,13 @@ void switcherClose() {
     if (switcherConnect == IO_OBJECT_NULL) return;
     
     kernResult = IOConnectCallScalarMethod(switcherConnect, kClose, NULL, 0, NULL, NULL);
-    if (kernResult != KERN_SUCCESS) Log(@"IOConnectCallScalarMethod returned 0x%08x.", kernResult);
+    if (kernResult != KERN_SUCCESS) DLog(@"IOConnectCallScalarMethod returned 0x%08x.", kernResult);
     
     kernResult = IOServiceClose(switcherConnect);
-    if (kernResult != KERN_SUCCESS) Log(@"IOServiceClose returned 0x%08x.", kernResult);
+    if (kernResult != KERN_SUCCESS) DLog(@"IOServiceClose returned 0x%08x.", kernResult);
     
     switcherConnect = IO_OBJECT_NULL;
-    Log(@"Driver connection closed.");
+    DLog(@"Driver connection closed.");
 }
 
 BOOL switcherUseIntegrated() {
@@ -298,7 +298,7 @@ BOOL switcherSetMode(switcherMode mode) {
             sleep(1);
             
             BOOL integrated = switcherUseIntegrated();
-            if (mode==modeForceIntegrated && !integrated || mode==modeForceDiscrete && integrated)
+            if ((mode==modeForceIntegrated && !integrated) || (mode==modeForceDiscrete && integrated))
                 forceSwitch(switcherConnect);
             break;
         case modeDynamicSwitching:

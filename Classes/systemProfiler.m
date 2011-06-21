@@ -90,7 +90,7 @@ NSDictionary* getGraphicsProfile() {
         
         if (!integrated) {
             // display a message - must be using an unsupported model
-            Log(@"*** UNSUPPORTED SYSTEM BEING USED ***");
+            NSLog(@"*** UNSUPPORTED SYSTEM BEING USED ***");
             [profile setObject:[NSNumber numberWithBool:YES] forKey:@"unsupported"];
         } else {
             [profile setObject:[NSNumber numberWithBool:NO] forKey:@"unsupported"];

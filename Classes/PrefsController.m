@@ -20,14 +20,14 @@ static PrefsController *sharedInstance = nil;
 
 - (id)init {
     if ((self = [super initWithWindowNibName:@"PrefsWindow"])) {
-        Log(@"Initializing PrefsController");
+        DLog(@"Initializing PrefsController");
         [self setUpPreferences];
     }
     return self;
 }
 
 - (void)setUpPreferences {
-    Log(@"Loading preferences and defaults");
+    DLog(@"Loading preferences and defaults");
     
     // set yes/no numbers
     yesNumber = [NSNumber numberWithBool:YES];
@@ -95,12 +95,11 @@ static PrefsController *sharedInstance = nil;
 }
 
 - (void)setDefaults {
-    Log(@"Setting initial defaults...");
+    DLog(@"Setting initial defaults...");
     
     [prefs setObject:yesNumber forKey:@"shouldCheckForUpdatesOnStartup"];
     [prefs setObject:yesNumber forKey:@"shouldGrowl"];
     [prefs setObject:yesNumber forKey:@"shouldStartAtLogin"];
-    [prefs setObject:yesNumber forKey:@"shouldLogToConsole"];
     [prefs setObject:yesNumber forKey:@"shouldRestoreStateOnStartup"];
     [prefs setObject:noNumber forKey:@"shouldUsePowerSourceBasedSwitching"];
     
@@ -117,12 +116,11 @@ static PrefsController *sharedInstance = nil;
 }
 
 - (void)setControlsToPreferences {
-    Log(@"Setting controls to mirror saved preferences");
+    DLog(@"Setting controls to mirror saved preferences");
     
     [prefChkUpdate setState:[self shouldCheckForUpdatesOnStartup]];
     [prefChkGrowl setState:[self shouldGrowl]];
     [prefChkStartup setState:[self shouldStartAtLogin]];
-    [prefChkLog setState:[self shouldLogToConsole]];
     
     [prefChkRestoreState setState:[self shouldRestoreStateOnStartup]];
     [prefChkPowerSourceBasedSwitching setState:[self shouldUsePowerSourceBasedSwitching]];
@@ -133,12 +131,12 @@ static PrefsController *sharedInstance = nil;
 }
 
 - (void)savePreferences {
-    Log(@"Writing preferences to disk");
+    DLog(@"Writing preferences to disk");
     
     if ([prefs writeToFile:[self getPrefsPath] atomically:YES])
-        Log(@"Successfully wrote preferences to disk.");
+        DLog(@"Successfully wrote preferences to disk.");
     else
-        Log(@"Failed to write preferences to disk. Permissions problem in ~/Library/Preferences?");
+        DLog(@"Failed to write preferences to disk. Permissions problem in ~/Library/Preferences?");
 }
 
 - (void)openPreferences {
@@ -159,9 +157,6 @@ static PrefsController *sharedInstance = nil;
     } else if (sender == prefChkStartup) {
         [prefs setObject:([prefChkStartup state] ? yesNumber : noNumber) forKey:@"shouldStartAtLogin"];
         [self loadAtStartup:([prefChkStartup state] ? YES : NO)];
-    } else if (sender == prefChkLog) {
-        [prefs setObject:([prefChkLog state] ? yesNumber : noNumber) forKey:@"shouldLogToConsole"];
-        canLog = ([prefChkLog state] ? YES : NO);
     } else if (sender == prefChkRestoreState) {
         [prefs setObject:([prefChkRestoreState state] ? yesNumber : noNumber) forKey:@"shouldRestoreStateOnStartup"];
     } else if (sender == prefChkPowerSourceBasedSwitching) {
@@ -193,10 +188,6 @@ static PrefsController *sharedInstance = nil;
 
 - (BOOL)shouldStartAtLogin {
     return [(NSNumber *)[prefs objectForKey:@"shouldStartAtLogin"] boolValue];
-}
-
-- (BOOL)shouldLogToConsole {
-    return [(NSNumber *)[prefs objectForKey:@"shouldLogToConsole"] boolValue];
 }
 
 - (BOOL)shouldRestoreStateOnStartup {
@@ -259,7 +250,7 @@ static PrefsController *sharedInstance = nil;
             if (LSSharedFileListItemResolve(itemRef, 0, &URL, NULL) == noErr) {
                 if ([[(NSURL *)URL path] hasSuffix:@"gfxCardStatus.app"]) {
                     exists = YES;
-                    Log(@"Already exists in startup items");
+                    DLog(@"Already exists in startup items");
                     CFRelease(URL);
                     removeItem = (LSSharedFileListItemRef)item;
                     break;
@@ -268,11 +259,11 @@ static PrefsController *sharedInstance = nil;
         }
         
         if (value && !exists) {
-            Log(@"Adding to startup items.");
+            DLog(@"Adding to startup items.");
             LSSharedFileListItemRef item = LSSharedFileListInsertItemURL(loginItems, kLSSharedFileListItemBeforeFirst, NULL, NULL, (CFURLRef)thePath, NULL, NULL);
             if (item) CFRelease(item);
         } else if (!value && exists) {
-            Log(@"Removing from startup items.");        
+            DLog(@"Removing from startup items.");        
             LSSharedFileListItemRemove(loginItems, removeItem);
         }
         
@@ -314,7 +305,8 @@ static PrefsController *sharedInstance = nil;
     return NSUIntegerMax; // denotes an object that cannot be released
 }
 
-- (void)release {
+- (oneway void)release {
+    // do nothing
 }
 
 - (id)autorelease {

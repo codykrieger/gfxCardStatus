@@ -15,8 +15,6 @@
 #pragma mark Power Source & Switcher Helpers
 #pragma mark -
 
-BOOL canLog = NO;
-
 // helper to get preference key from PowerSource enum
 static inline NSString *keyForPowerSource(PowerSource powerSource) {
     return ((powerSource == psBattery) ? kGPUSettingBattery : kGPUSettingACAdaptor);
@@ -36,11 +34,11 @@ switcherMode switcherGetMode() {
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
     prefs = [PrefsController sharedInstance];
+    state = [SessionMagic sharedInstance];
     
     // initialize driver and process listing
-    canLog = [prefs shouldLogToConsole];
-    if (!switcherOpen()) Log(@"Can't open driver");
-    if (!procInit()) Log(@"Can't obtain I/O Kit's master port");
+    if (!switcherOpen()) DLog(@"Can't open driver");
+    if (!procInit()) DLog(@"Can't obtain I/O Kit's master port");
     
     // localization
     NSString *version = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"];
@@ -52,8 +50,8 @@ switcherMode switcherGetMode() {
     }
     [localized release];
     
-    // set up growl notifications
-    if ([prefs shouldGrowl]) [GrowlApplicationBridge setGrowlDelegate:self];
+    // set up growl notifications regardless of whether or not we're supposed to growl
+    [GrowlApplicationBridge setGrowlDelegate:self];
     
     // check for updates if user has them enabled
     if ([prefs shouldCheckForUpdatesOnStartup]) [updater checkForUpdatesInBackground];
@@ -93,44 +91,38 @@ switcherMode switcherGetMode() {
     // identify current gpu and set up menus accordingly
     NSDictionary *profile = getGraphicsProfile();
     if ([(NSNumber *)[profile objectForKey:@"unsupported"] boolValue]) {
-        usingIntegrated = NO;
+        [state setUsingIntegrated:NO];
         NSAlert *alert = [NSAlert alertWithMessageText:@"You are using a system that gfxCardStatus does not support. Please ensure that you are using a MacBook Pro with dual GPUs." 
                                          defaultButton:@"Oh, I see." alternateButton:nil otherButton:nil informativeTextWithFormat:@""];
         [alert runModal];
     } else {
-        usingIntegrated = [(NSNumber *)[profile objectForKey:@"usingIntegrated"] boolValue];
+        [state setUsingIntegrated:[(NSNumber *)[profile objectForKey:@"usingIntegrated"] boolValue]];
     }
     
-    integratedString = [(NSString *)[profile objectForKey:@"integratedString"] copy];
-    discreteString = [(NSString *)[profile objectForKey:@"discreteString"] copy];
+    [state setIntegratedString:(NSString *)[profile objectForKey:@"integratedString"]];
+    [state setDiscreteString:(NSString *)[profile objectForKey:@"discreteString"]];
     
-    Log(@"Fetched machine profile: %@", profile);
+    DLog(@"Fetched machine profile: %@", profile);
     
     [switchGPUs setHidden:![prefs usingLegacy]];
     [integratedOnly setHidden:[prefs usingLegacy]];
     [discreteOnly setHidden:[prefs usingLegacy]];
     [dynamicSwitching setHidden:[prefs usingLegacy]];
+    
     if ([prefs usingLegacy]) {
-        // integratedString = @"NVIDIA® GeForce 9400M";
-        // discreteString = @"NVIDIA® GeForce 9600M GT";
     } else {
         BOOL dynamic = switcherUseDynamicSwitching();
-        [integratedOnly setState:(!dynamic && usingIntegrated) ? NSOnState : NSOffState];
-        [discreteOnly setState:(!dynamic && !usingIntegrated) ? NSOnState : NSOffState];
+        [integratedOnly setState:(!dynamic && [state usingIntegrated]) ? NSOnState : NSOffState];
+        [discreteOnly setState:(!dynamic && ![state usingIntegrated]) ? NSOnState : NSOffState];
         [dynamicSwitching setState:dynamic ? NSOnState : NSOffState];
-        
-        // integratedString = @"Intel® HD Graphics";
-        // discreteString = @"NVIDIA® GeForce GT 330M";
     }
     
-    canPreventSwitch = YES;
-    
-    canGrowl = NO;
+    [state setCanGrowl:NO];
     [self updateMenu];
     
     // only resture last mode if preference is set, and we're NOT using power source-based switching
     if ([prefs shouldRestoreStateOnStartup] && ![prefs shouldUsePowerSourceBasedSwitching] && ![prefs usingLegacy]) {
-        Log(@"Restoring last used mode (%i)...", [prefs shouldRestoreToMode]);
+        DLog(@"Restoring last used mode (%i)...", [prefs shouldRestoreToMode]);
         id modeItem = nil;
         switch ([prefs shouldRestoreToMode]) {
             case 0:
@@ -146,7 +138,8 @@ switcherMode switcherGetMode() {
         
         [self setMode:modeItem];
     }
-    canGrowl = YES;
+    
+    [state setCanGrowl:YES];
     
     powerSourceMonitor = [PowerSourceMonitor monitorWithDelegate:self];
     lastPowerSource = -1; // uninitialized
@@ -164,7 +157,7 @@ switcherMode switcherGetMode() {
     // NOTE: If we open the menu while a slow app like Interface Builder is loading, we have the icon not changing
     // TODO: Look into way AirPort menu item handles updating while open
     
-    Log(@"The following notification has been triggered:\n%@", notification);
+    DLog(@"The following notification has been triggered:\n%@", notification);
     [self updateMenu];
     
     // verify state
@@ -215,7 +208,7 @@ switcherMode switcherGetMode() {
 - (IBAction)setMode:(id)sender {
     // legacy cards
     if (sender == switchGPUs) {
-        Log(@"Switching GPUs...");
+        DLog(@"Switching GPUs...");
         switcherSetMode(modeToggleGPU);
         return;
     }
@@ -225,15 +218,15 @@ switcherMode switcherGetMode() {
     
     BOOL retval = NO;
     if (sender == integratedOnly) {
-        Log(@"Setting Integrated only...");
+        DLog(@"Setting Integrated only...");
         retval = switcherSetMode(modeForceIntegrated);
     }
     if (sender == discreteOnly) { 
-        Log(@"Setting NVIDIA only...");
+        DLog(@"Setting NVIDIA only...");
         retval = switcherSetMode(modeForceDiscrete);
     }
     if (sender == dynamicSwitching) {
-        Log(@"Setting dynamic switching...");
+        DLog(@"Setting dynamic switching...");
         retval = switcherSetMode(modeDynamicSwitching);
     }
     
@@ -258,12 +251,12 @@ switcherMode switcherGetMode() {
 
 - (void)updateMenu {
     BOOL integrated = switcherUseIntegrated();
-    Log(@"Updating status...");
+    DLog(@"Updating status...");
     
     // TODO - fix this, not working
     // prevent GPU from switching back after apps quit
     //    if (!integrated && ![prefs usingLegacy] && [integratedOnly state] > 0 && canPreventSwitch) {
-    //        Log(@"Preventing switch to Discrete GPU. Setting canPreventSwitch to NO so that this doesn't get stuck in a loop, changing in 5 seconds...");
+    //        DLog(@"Preventing switch to Discrete GPU. Setting canPreventSwitch to NO so that this doesn't get stuck in a loop, changing in 5 seconds...");
     //        canPreventSwitch = NO;
     //        [self setMode:integratedOnly];
     //        [NSTimer scheduledTimerWithTimeInterval:5 target:self selector:@selector(shouldPreventSwitch) userInfo:nil repeats:NO];
@@ -272,7 +265,7 @@ switcherMode switcherGetMode() {
     
     
     // get updated GPU string
-    NSString* cardString = integrated ? integratedString : discreteString;
+    NSString* cardString = integrated ? [state integratedString] : [state discreteString];
     
     // set menu bar icon
     // [statusItem setImage:[NSImage imageNamed:integrated ? @"integrated-3.png" : @"discrete-3.png"]];
@@ -311,16 +304,16 @@ switcherMode switcherGetMode() {
     [currentCard setTitle:[Str(@"Card") stringByReplacingOccurrencesOfString:@"%%" withString:cardString]];
     [currentPowerSource setTitle:[Str(@"PowerSource") stringByReplacingOccurrencesOfString:@"%%" withString:(powerSourceMonitor.currentPowerSource == psBattery) ? Str(@"Battery") : Str(@"ACAdapter")]];
     
-    if (integrated) Log(@"%@ in use. Sweet deal! More battery life.", integratedString);
-    else Log(@"%@ in use. Bummer! Less battery life for you.", discreteString);
+    if (integrated) DLog(@"%@ in use. Sweet deal! More battery life.", integratedString);
+    else DLog(@"%@ in use. Bummer! Less battery life for you.", discreteString);
     
-    if ([prefs shouldGrowl] && canGrowl && usingIntegrated != integrated) {
+    if ([state canGrowl] && [state usingIntegrated] != integrated) {
         NSString *msg  = [NSString stringWithFormat:@"%@ %@", cardString, Str(@"GrowlSwitch")];
         NSString *name = integrated ? @"switchedToIntegrated" : @"switchedToDiscrete";
         [GrowlApplicationBridge notifyWithTitle:Str(@"GrowlGPUChanged") description:msg notificationName:name iconData:nil priority:0 isSticky:NO clickContext:nil];
     }
     
-    usingIntegrated = integrated;
+    [state setUsingIntegrated:integrated];
     if (!integrated) [self updateProcessList];
 }
 
@@ -330,13 +323,13 @@ switcherMode switcherGetMode() {
     }
     
     // if we're on Integrated (or using a 9400M/9600M GT model), no need to display/update the list
-    BOOL procList = !usingIntegrated && ![prefs usingLegacy];
+    BOOL procList = ![state usingIntegrated] && ![prefs usingLegacy];
     [processList setHidden:!procList];
     [processesSeparator setHidden:!procList];
     [dependentProcesses setHidden:!procList];
     if (!procList) return;
     
-    Log(@"Updating process list...");
+    DLog(@"Updating process list...");
     
     // find out if an external monitor is forcing the 330M on
     BOOL usingExternalDisplay = NO;
@@ -354,10 +347,10 @@ switcherMode switcherGetMode() {
     }
     
     NSMutableDictionary* procs = [[NSMutableDictionary alloc] init];
-    if (!procGet(procs)) Log(@"Can't obtain I/O Kit's root service");
+    if (!procGet(procs)) DLog(@"Can't obtain I/O Kit's root service");
     
     [processList setHidden:([procs count] > 0 || usingExternalDisplay)];
-    if ([procs count]==0) Log(@"We're using the Discrete card, but no process requires it. An external monitor may be connected, or we may be in Discrete Only mode.");
+    if ([procs count]==0) DLog(@"We're using the Discrete card, but no process requires it. An external monitor may be connected, or we may be in Discrete Only mode.");
     
     for (NSString* appName in [procs allValues]) {
         NSMenuItem *appItem = [[NSMenuItem alloc] initWithTitle:appName action:nil keyEquivalent:@""];
@@ -399,7 +392,7 @@ switcherMode switcherGetMode() {
     
     // check if its consistent with menu state
     if ([activeCard state] != NSOnState && ![prefs usingLegacy]) {
-        Log(@"Inconsistent menu state and active card, forcing retry");
+        DLog(@"Inconsistent menu state and active card, forcing retry");
         
         // set menu item to reflect actual status
         [integratedOnly setState:NSOffState];
@@ -423,23 +416,23 @@ switcherMode switcherGetMode() {
 
 - (void)powerSourceChanged:(PowerSource)powerSource {
     if (powerSource == lastPowerSource) {
-        //Log(@"Power source unchanged, false alarm (maybe a wake from sleep?)");
+        //DLog(@"Power source unchanged, false alarm (maybe a wake from sleep?)");
         return;
     }
     
-    Log(@"Power source changed: %d => %d (%@)", lastPowerSource, powerSource, (powerSource == psBattery ? @"Battery" : @"AC Adapter"));
+    DLog(@"Power source changed: %d => %d (%@)", lastPowerSource, powerSource, (powerSource == psBattery ? @"Battery" : @"AC Adapter"));
     lastPowerSource = powerSource;
     
     if ([prefs shouldUsePowerSourceBasedSwitching]) {
         switcherMode newMode = [prefs modeForPowerSource:keyForPowerSource(powerSource)];
         
         if (![prefs usingLegacy]) {
-            Log(@"Using a newer machine, setting appropriate mode based on power source...");
+            DLog(@"Using a newer machine, setting appropriate mode based on power source...");
             [self setMode:[self senderForMode:newMode]];
         } else {
-            Log(@"Using a legacy machine, setting appropriate mode based on power source...");
-            Log(@"usingIntegrated=%i, newMode=%i", usingIntegrated, newMode);
-            if ((usingIntegrated && newMode == 1) || (!usingIntegrated && newMode == 0)) {
+            DLog(@"Using a legacy machine, setting appropriate mode based on power source...");
+            DLog(@"usingIntegrated=%i, newMode=%i", usingIntegrated, newMode);
+            if (([state usingIntegrated] && newMode == 1) || (![state usingIntegrated] && newMode == 0)) {
                 [self setMode:switchGPUs];
             }
         }
@@ -447,11 +440,6 @@ switcherMode switcherGetMode() {
     
     [self updateMenu];
 }
-
-//- (void)shouldPreventSwitch {
-//    Log(@"Can prevent switching again.");
-//    canPreventSwitch = YES;
-//}
 
 - (void)dealloc {
     procFree(); // Free processes listing buffers

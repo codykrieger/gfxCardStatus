@@ -44,6 +44,7 @@
 		A17220A91236DA8A00636797 /* Growl Registration Ticket.growlRegDict in Resources */ = {isa = PBXBuildFile; fileRef = A17220981236DA0B00636797 /* Growl Registration Ticket.growlRegDict */; };
 		A17221841236DE4200636797 /* Growl License.txt in Resources */ = {isa = PBXBuildFile; fileRef = A17221831236DE4200636797 /* Growl License.txt */; };
 		A1A3A6F9118214E2008B8145 /* integrated-3.png in Resources */ = {isa = PBXBuildFile; fileRef = A1A3A6F8118214E2008B8145 /* integrated-3.png */; };
+		A1C01F2113B06C08003BD4B2 /* SessionMagic.m in Sources */ = {isa = PBXBuildFile; fileRef = A1C01F2013B06C08003BD4B2 /* SessionMagic.m */; };
 		A1CCE20012B13CE4006D07A4 /* NSAttributedString+Hyperlink.m in Sources */ = {isa = PBXBuildFile; fileRef = A1CCE1FF12B13CE4006D07A4 /* NSAttributedString+Hyperlink.m */; };
 		A1D6AC5D11826BF00038AD1A /* nvidia-3.png in Resources */ = {isa = PBXBuildFile; fileRef = A1D6AC5C11826BF00038AD1A /* nvidia-3.png */; };
 		A1D9C42011850DEF009A4DE1 /* dsa_pub.pem in Resources */ = {isa = PBXBuildFile; fileRef = A1D9C41F11850DEF009A4DE1 /* dsa_pub.pem */; };
@@ -84,7 +85,7 @@
 		13E42FB307B3F0F600E4EEF1 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
 		1DDD58150DA1D0A300B32029 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		256AC3D80F4B6AC300CF3369 /* gfxCardStatusAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gfxCardStatusAppDelegate.h; sourceTree = "<group>"; };
-		256AC3D90F4B6AC300CF3369 /* gfxCardStatusAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = gfxCardStatusAppDelegate.m; sourceTree = "<group>"; };
+		256AC3D90F4B6AC300CF3369 /* gfxCardStatusAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = gfxCardStatusAppDelegate.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		256AC3F00F4B6AF500CF3369 /* gfxCardStatus_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gfxCardStatus_Prefix.pch; sourceTree = "<group>"; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		29B97324FDCFA39411CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
@@ -119,6 +120,8 @@
 		A17220981236DA0B00636797 /* Growl Registration Ticket.growlRegDict */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Growl Registration Ticket.growlRegDict"; sourceTree = "<group>"; };
 		A17221831236DE4200636797 /* Growl License.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Growl License.txt"; sourceTree = "<group>"; };
 		A1A3A6F8118214E2008B8145 /* integrated-3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "integrated-3.png"; sourceTree = "<group>"; };
+		A1C01F1F13B06C08003BD4B2 /* SessionMagic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SessionMagic.h; sourceTree = "<group>"; };
+		A1C01F2013B06C08003BD4B2 /* SessionMagic.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SessionMagic.m; sourceTree = "<group>"; };
 		A1CCE1FE12B13CE4006D07A4 /* NSAttributedString+Hyperlink.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSAttributedString+Hyperlink.h"; sourceTree = "<group>"; };
 		A1CCE1FF12B13CE4006D07A4 /* NSAttributedString+Hyperlink.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSAttributedString+Hyperlink.m"; sourceTree = "<group>"; };
 		A1D6AC5C11826BF00038AD1A /* nvidia-3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "nvidia-3.png"; sourceTree = "<group>"; };
@@ -154,6 +157,8 @@
 				A1CCE1FC12B13CC1006D07A4 /* Custom */,
 				256AC3D80F4B6AC300CF3369 /* gfxCardStatusAppDelegate.h */,
 				256AC3D90F4B6AC300CF3369 /* gfxCardStatusAppDelegate.m */,
+				A1C01F1F13B06C08003BD4B2 /* SessionMagic.h */,
+				A1C01F2013B06C08003BD4B2 /* SessionMagic.m */,
 				A14C1809124EFE6300816A4A /* PrefsController.h */,
 				A14C180A124EFE6300816A4A /* PrefsController.m */,
 				8013EE1211A026EA000ECA36 /* PowerSourceMonitor.h */,
@@ -381,6 +386,7 @@
 				8013EE1411A026EA000ECA36 /* PowerSourceMonitor.m in Sources */,
 				A14C180B124EFE6300816A4A /* PrefsController.m in Sources */,
 				A1CCE20012B13CE4006D07A4 /* NSAttributedString+Hyperlink.m in Sources */,
+				A1C01F2113B06C08003BD4B2 /* SessionMagic.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
