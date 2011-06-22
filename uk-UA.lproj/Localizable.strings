@@ -1,0 +1,46 @@
+/* 
+ Localizable.strings
+ gfxCardStatus
+ 
+ Created by Sergey Tatarenkov (sergey (at) tatarenkov.name) on 27.05.11.
+ Copyright 2011 Sergey Tatarenkov. All rights reserved.
+ */
+
+/* Main menu */
+"About"					= "О gfxCardStatus, v%%";
+"Update"				= "Перевіряти оновлення...";
+"Preferences"			= "Налаштування...";
+"Card"					= "Відеокарта: %%";
+"SwitchGPUs"			= "Змінити GPU";
+"IntegratedOnly"		= "Тільки інтегрована";
+"DiscreteOnly"			= "Тільки дискретна";
+"DynamicSwitching"		= "Динамична зміна";
+"Dependencies"			= "Залежності";
+"NoProcess"				= "Немає";
+"Quit"					= "Вийти";
+"Close"					= "Карамба!";
+"PowerSource"           = "Джерело живлення: %%";
+"Battery"               = "Акумулятор";
+"ACAdapter"             = "Адаптер";
+
+/* Preferences window */
+"PrefTitle"				= "gfxCardStatus налаштування";
+"PrefUpdate"			= "Перевіряти оновлення при запуску";
+"PrefGrowl"				= "Викорістовувати Growl для повідомлення про зміну статусу";
+"PrefStartup"			= "Запускати gfxCardStatus при завантаженні системи";
+"PrefLog"				= "Вести журнал у консолі";
+"PrefRestoreState"		= "Відновлювати останній використовуваний режим при завантаженні системи";
+"PrefPowerSwitching"	= "Використовувати режим в залежнорсті від джерела живлення";
+"Integrated"            = "Інтегрирована";
+"Discrete"              = "Дискретна";
+"Dynamic"               = "Динамічно";
+"OnBattery"             = "Від акумулятора:";
+"PluggedIn"             = "Від адаптера:";
+
+/* About box */
+"AboutTitle"			= "О gfxCardStatus";
+"AboutWebsite"			= "Сайт";
+
+/* Growl */
+"GrowlGPUChanged"       = "GPU змінен";
+"GrowlSwitch"           = "використовується.";

@@ -100,6 +100,8 @@
 		A1C01F2013B06C08003BD4B2 /* SessionMagic.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SessionMagic.m; sourceTree = "<group>"; };
 		A1CCE1FE12B13CE4006D07A4 /* NSAttributedString+Hyperlink.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSAttributedString+Hyperlink.h"; sourceTree = "<group>"; };
 		A1CCE1FF12B13CE4006D07A4 /* NSAttributedString+Hyperlink.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSAttributedString+Hyperlink.m"; sourceTree = "<group>"; };
+		A1CFF01E13B1D73A0070650A /* ru-RU */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "ru-RU"; path = "/Users/codykrieger/projects/gfxCardStatus/ru-RU.lproj/Localizable.strings"; sourceTree = "<absolute>"; };
+		A1CFF02213B1D7C70070650A /* uk-UA */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "uk-UA"; path = "/Users/codykrieger/projects/gfxCardStatus/uk-UA.lproj/Localizable.strings"; sourceTree = "<absolute>"; };
 		A1D6AC5C11826BF00038AD1A /* nvidia-3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "nvidia-3.png"; sourceTree = "<group>"; };
 		A1D9C41F11850DEF009A4DE1 /* dsa_pub.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = dsa_pub.pem; sourceTree = "<group>"; };
 		A1D9C43911851B77009A4DE1 /* gfxCardStatus.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = gfxCardStatus.icns; sourceTree = "<group>"; };
@@ -374,6 +376,8 @@
 				A1510B3A128D0A760076D88E /* Swedish */,
 				A14EC42112AE709D006B394D /* pt */,
 				A14EC49112AE7609006B394D /* nl */,
+				A1CFF01E13B1D73A0070650A /* ru-RU */,
+				A1CFF02213B1D7C70070650A /* uk-UA */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
