@@ -69,8 +69,6 @@
     
     // notifications
 //    NSNotificationCenter *defaultNotifications = [NSNotificationCenter defaultCenter];
-//    [defaultNotifications addObserver:self selector:@selector(handleNotification:)
-//                                   name:NSApplicationDidChangeScreenParametersNotification object:nil];
 //    [defaultNotifications addObserver:self selector:@selector(handleWake:)
 //                                 name:NSWorkspaceDidWakeNotification object:nil];
     
@@ -145,18 +143,6 @@
     [self performSelector:@selector(checkCardState) withObject:nil afterDelay:2.0];
 }
 
-//- (void)handleNotification:(NSNotification *)notification {
-//    // Notification observer
-//    // NOTE: If we open the menu while a slow app like Interface Builder is loading, we have the icon not changing
-//    // TODO: Look into way AirPort menu item handles updating while open
-//    
-//    DLog(@"The following notification has been triggered:\n%@", notification);
-//    [self updateMenu];
-//    
-//    // verify state
-//    [self performSelector:@selector(checkCardState) withObject:nil afterDelay:2.0];
-//}
-//
 //- (void)handleWake:(NSNotification *)notification {
 //    [self performSelector:@selector(delayedPowerSourceCheck) withObject:nil afterDelay:7.0];
 //}
