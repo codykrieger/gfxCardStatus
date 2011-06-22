@@ -5,6 +5,10 @@
 //  Created by Cody Krieger on 6/21/11.
 //  Copyright 2011 Cody Krieger. All rights reserved.
 //
+//  The following code has been adapted from ah's original version 
+//  (from the MacRumors forums). See switcher.h/m early on in repo history 
+//  for original logic.
+//
 
 #import "MuxMagic.h"
 
