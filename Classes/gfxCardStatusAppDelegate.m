@@ -20,6 +20,7 @@
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
     prefs = [PrefsController sharedInstance];
     state = [SessionMagic sharedInstance];
+    [state setDelegate:self];
     
     // initialize driver and process listing
     if (![MuxMagic switcherOpen]) DLog(@"Can't open driver");
@@ -67,11 +68,11 @@
     }
     
     // notifications
-    NSNotificationCenter *defaultNotifications = [NSNotificationCenter defaultCenter];
-    [defaultNotifications addObserver:self selector:@selector(handleNotification:)
-                                   name:NSApplicationDidChangeScreenParametersNotification object:nil];
-    [defaultNotifications addObserver:self selector:@selector(handleWake:)
-                                 name:NSWorkspaceDidWakeNotification object:nil];
+//    NSNotificationCenter *defaultNotifications = [NSNotificationCenter defaultCenter];
+//    [defaultNotifications addObserver:self selector:@selector(handleNotification:)
+//                                   name:NSApplicationDidChangeScreenParametersNotification object:nil];
+//    [defaultNotifications addObserver:self selector:@selector(handleWake:)
+//                                 name:NSWorkspaceDidWakeNotification object:nil];
     
     // identify current gpu and set up menus accordingly
     NSDictionary *profile = [SystemInfo getGraphicsProfile];
@@ -137,21 +138,28 @@
     return [NSDictionary dictionaryWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"Growl Registration Ticket" ofType:@"growlRegDict"]];
 }
 
-- (void)handleNotification:(NSNotification *)notification {
-    // Notification observer
-    // NOTE: If we open the menu while a slow app like Interface Builder is loading, we have the icon not changing
-    // TODO: Look into way AirPort menu item handles updating while open
-    
-    DLog(@"The following notification has been triggered:\n%@", notification);
+- (void)gpuChangedTo:(GPUType)gpu {
     [self updateMenu];
     
     // verify state
     [self performSelector:@selector(checkCardState) withObject:nil afterDelay:2.0];
 }
 
-- (void)handleWake:(NSNotification *)notification {
-    [self performSelector:@selector(delayedPowerSourceCheck) withObject:nil afterDelay:7.0];
-}
+//- (void)handleNotification:(NSNotification *)notification {
+//    // Notification observer
+//    // NOTE: If we open the menu while a slow app like Interface Builder is loading, we have the icon not changing
+//    // TODO: Look into way AirPort menu item handles updating while open
+//    
+//    DLog(@"The following notification has been triggered:\n%@", notification);
+//    [self updateMenu];
+//    
+//    // verify state
+//    [self performSelector:@selector(checkCardState) withObject:nil afterDelay:2.0];
+//}
+//
+//- (void)handleWake:(NSNotification *)notification {
+//    [self performSelector:@selector(delayedPowerSourceCheck) withObject:nil afterDelay:7.0];
+//}
 
 - (void)delayedPowerSourceCheck {
     [self powerSourceChanged:powerSourceMonitor.currentPowerSource];
@@ -289,8 +297,8 @@
     [currentCard setTitle:[Str(@"Card") stringByReplacingOccurrencesOfString:@"%%" withString:cardString]];
     [currentPowerSource setTitle:[Str(@"PowerSource") stringByReplacingOccurrencesOfString:@"%%" withString:(powerSourceMonitor.currentPowerSource == psBattery) ? Str(@"Battery") : Str(@"ACAdapter")]];
     
-    if (integrated) DLog(@"%@ in use. Sweet deal! More battery life.", integratedString);
-    else DLog(@"%@ in use. Bummer! Less battery life for you.", discreteString);
+//    if (integrated) DLog(@"%@ in use. Sweet deal! More battery life.", [state integratedString]);
+//    else DLog(@"%@ in use. Bummer! Less battery life for you.", [state discreteString]);
     
     if ([state canGrowl] && [state usingIntegrated] != integrated) {
         NSString *msg  = [NSString stringWithFormat:@"%@ %@", cardString, Str(@"GrowlSwitch")];
@@ -335,7 +343,7 @@
     if (!procGet(procs)) DLog(@"Can't obtain I/O Kit's root service");
     
     [processList setHidden:([procs count] > 0 || usingExternalDisplay)];
-    if ([procs count]==0) DLog(@"We're using the Discrete card, but no process requires it. An external monitor may be connected, or we may be in Discrete Only mode.");
+//    if ([procs count]==0) DLog(@"We're using the Discrete card, but no process requires it. An external monitor may be connected, or we may be in Discrete Only mode.");
     
     for (NSString* appName in [procs allValues]) {
         NSMenuItem *appItem = [[NSMenuItem alloc] initWithTitle:appName action:nil keyEquivalent:@""];
@@ -416,7 +424,7 @@
             [self setMode:[self senderForMode:newMode]];
         } else {
             DLog(@"Using a legacy machine, setting appropriate mode based on power source...");
-            DLog(@"usingIntegrated=%i, newMode=%i", usingIntegrated, newMode);
+            DLog(@"usingIntegrated=%i, newMode=%i", [state usingIntegrated], newMode);
             if (([state usingIntegrated] && newMode == 1) || (![state usingIntegrated] && newMode == 0)) {
                 [self setMode:switchGPUs];
             }

@@ -16,7 +16,7 @@
 #import "PowerSourceMonitor.h"
 
 
-@interface gfxCardStatusAppDelegate : NSObject <NSApplicationDelegate,GrowlApplicationBridgeDelegate,NSMenuDelegate,PowerSourceMonitorDelegate> {
+@interface gfxCardStatusAppDelegate : NSObject <NSApplicationDelegate,GrowlApplicationBridgeDelegate,NSMenuDelegate,PowerSourceMonitorDelegate,SessionMagicDelegate> {
     NSStatusItem *statusItem;
     
     IBOutlet SUUpdater *updater;

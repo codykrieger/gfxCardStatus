@@ -126,12 +126,13 @@ static PrefsController *sharedInstance = nil;
 }
 
 - (void)savePreferences {
-    DLog(@"Writing preferences to disk");
+//    DLog(@"Writing preferences to disk");
     
-    if ([prefs writeToFile:[self getPrefsPath] atomically:YES])
-        DLog(@"Successfully wrote preferences to disk.");
-    else
-        DLog(@"Failed to write preferences to disk. Permissions problem in ~/Library/Preferences?");
+    if ([prefs writeToFile:[self getPrefsPath] atomically:YES]) {
+//        DLog(@"Successfully wrote preferences to disk.");
+    } else {
+//        DLog(@"Failed to write preferences to disk. Permissions problem in ~/Library/Preferences?");
+    }
 }
 
 - (void)openPreferences {
