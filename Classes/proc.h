@@ -8,9 +8,9 @@
 
 #include <Cocoa/Cocoa.h>
 
-BOOL procInit(); // Initialize structures
-void procFree(); // Free structures
-
-// Get list of processes requiring the high-end GPU.
-// dict will filled with {pid=>name,...} of demanding processes
-BOOL procGet(NSMutableDictionary* dict);
+//BOOL procInit(); // Initialize structures
+//void procFree(); // Free structures
+//
+//// Get list of processes requiring the high-end GPU.
+//// dict will filled with {pid=>name,...} of demanding processes
+//BOOL procGet(NSMutableDictionary *dict);

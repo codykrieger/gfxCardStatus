@@ -10,10 +10,17 @@
 
 #import "MuxMagic.h"
 
+#define kTaskItemName  @"name"
+#define kTaskItemPID   @"pid"
+
 @interface SystemInfo : NSObject
 
 + (NSString *)keyForPowerSource:(PowerSource)powerSource;
 + (switcherMode)switcherGetMode;
+
++ (BOOL)procInit;
++ (void)procFree;
++ (NSArray *)getTaskList;
 
 + (NSDictionary *)getGraphicsProfile;
 

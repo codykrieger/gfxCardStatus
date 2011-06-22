@@ -24,7 +24,7 @@
     
     // initialize driver and process listing
     if (![MuxMagic switcherOpen]) DLog(@"Can't open driver");
-    if (!procInit()) DLog(@"Can't obtain I/O Kit's master port");
+    if (![SystemInfo procInit]) DLog(@"Can't obtain I/O Kit's master port");
     
     // localization
     NSString *version = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"];
@@ -324,35 +324,21 @@
     
     DLog(@"Updating process list...");
     
-    // find out if an external monitor is forcing the 330M on
-    BOOL usingExternalDisplay = NO;
-    CGDirectDisplayID displays[8];
-    CGDisplayCount displayCount = 0;
-    if (CGGetOnlineDisplayList(8, displays, &displayCount) == noErr) {
-        for (int i = 0; i < displayCount; i++) {
-            if ( ! CGDisplayIsBuiltin(displays[i])) {
-                NSMenuItem *externalDisplay = [[[NSMenuItem alloc] initWithTitle:@"External Display" action:nil keyEquivalent:@""] autorelease];
-                [externalDisplay setIndentationLevel:1];
-                [statusMenu insertItem:externalDisplay atIndex:([statusMenu indexOfItem:processList] + 1)];
-                usingExternalDisplay = YES;
-            }
-        }
+    NSArray *processes = [SystemInfo getTaskList];
+    
+    [processList setHidden:([processes count] > 0)];
+    
+    for (NSDictionary *dict in processes) {
+        NSString *taskName = [dict objectForKey:kTaskItemName];
+        NSString *pid = [dict objectForKey:kTaskItemPID];
+        NSString *title = [NSString stringWithString:taskName];
+        if (![pid isEqualToString:@""]) title = [title stringByAppendingFormat:@", PID: %@", pid];
+        
+        NSMenuItem *item = [[NSMenuItem alloc] initWithTitle:title action:nil keyEquivalent:@""];
+        [item setIndentationLevel:1];
+        [statusMenu insertItem:item atIndex:([statusMenu indexOfItem:processList] + 1)];
+        [item release];
     }
-    
-    NSMutableDictionary* procs = [[NSMutableDictionary alloc] init];
-    if (!procGet(procs)) DLog(@"Can't obtain I/O Kit's root service");
-    
-    [processList setHidden:([procs count] > 0 || usingExternalDisplay)];
-//    if ([procs count]==0) DLog(@"We're using the Discrete card, but no process requires it. An external monitor may be connected, or we may be in Discrete Only mode.");
-    
-    for (NSString* appName in [procs allValues]) {
-        NSMenuItem *appItem = [[NSMenuItem alloc] initWithTitle:appName action:nil keyEquivalent:@""];
-        [appItem setIndentationLevel:1];
-        [statusMenu insertItem:appItem atIndex:([statusMenu indexOfItem:processList] + 1)];
-        [appItem release];
-    }
-    
-    [procs release];
 }
 
 #pragma mark Helpers
@@ -435,7 +421,7 @@
 }
 
 - (void)dealloc {
-    procFree(); // Free processes listing buffers
+    [SystemInfo procFree]; // Free processes listing buffers
     [MuxMagic switcherClose]; // Close driver
     
     [statusItem release];
