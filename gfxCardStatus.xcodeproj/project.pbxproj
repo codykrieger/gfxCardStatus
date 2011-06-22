@@ -14,7 +14,6 @@
 		8D11072D0486CEB800E47090 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
 		A115A11313B1CF9100330760 /* Growl.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A17220621236D90800636797 /* Growl.framework */; };
-		A13C5E01119FA4C300E678FA /* proc.m in Sources */ = {isa = PBXBuildFile; fileRef = A13C5E00119FA4C300E678FA /* proc.m */; };
 		A13C5FC0119FCFCF00E678FA /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = A13C5FBE119FCFCF00E678FA /* Localizable.strings */; };
 		A14C17F7124EBBFA00816A4A /* discrete-3-white.png in Resources */ = {isa = PBXBuildFile; fileRef = A14C17F5124EBBFA00816A4A /* discrete-3-white.png */; };
 		A14C17F8124EBBFA00816A4A /* discrete-3.png in Resources */ = {isa = PBXBuildFile; fileRef = A14C17F6124EBBFA00816A4A /* discrete-3.png */; };
@@ -72,8 +71,6 @@
 		A10D2E5811C63CC100E8E2C7 /* Italian */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Italian; path = Italian.lproj/Localizable.strings; sourceTree = "<group>"; };
 		A12DE37712064D3F00D8E08C /* zh_CN */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = zh_CN; path = zh_CN.lproj/Localizable.strings; sourceTree = "<group>"; };
 		A12DE37812064D4400D8E08C /* zh_TW */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = zh_TW; path = zh_TW.lproj/Localizable.strings; sourceTree = "<group>"; };
-		A13C5DFF119FA4C300E678FA /* proc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = proc.h; sourceTree = "<group>"; };
-		A13C5E00119FA4C300E678FA /* proc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = proc.m; sourceTree = "<group>"; };
 		A13C5FBF119FCFCF00E678FA /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/Localizable.strings; sourceTree = "<group>"; };
 		A13C5FC1119FCFE700E678FA /* French */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = French; path = French.lproj/Localizable.strings; sourceTree = "<group>"; };
 		A13D891D1268F832007EB119 /* Spanish */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Spanish; path = Spanish.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -142,8 +139,6 @@
 				A14C180A124EFE6300816A4A /* PrefsController.m */,
 				8013EE1211A026EA000ECA36 /* PowerSourceMonitor.h */,
 				8013EE1311A026EA000ECA36 /* PowerSourceMonitor.m */,
-				A13C5DFF119FA4C300E678FA /* proc.h */,
-				A13C5E00119FA4C300E678FA /* proc.m */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -337,7 +332,6 @@
 			files = (
 				8D11072D0486CEB800E47090 /* main.m in Sources */,
 				256AC3DA0F4B6AC300CF3369 /* gfxCardStatusAppDelegate.m in Sources */,
-				A13C5E01119FA4C300E678FA /* proc.m in Sources */,
 				8013EE1411A026EA000ECA36 /* PowerSourceMonitor.m in Sources */,
 				A14C180B124EFE6300816A4A /* PrefsController.m in Sources */,
 				A1CCE20012B13CE4006D07A4 /* NSAttributedString+Hyperlink.m in Sources */,

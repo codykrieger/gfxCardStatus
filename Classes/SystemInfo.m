@@ -5,6 +5,9 @@
 //  Created by Cody Krieger on 6/21/11.
 //  Copyright 2011 Cody Krieger. All rights reserved.
 //
+//  Original task list functionality Copyright 2010 Thierry Coppey.
+//  (look back in repo history at proc.h/m)
+//
 
 #import "SystemInfo.h"
 
@@ -111,7 +114,6 @@ err:
                     @"", kTaskItemPID, nil]];
 done:
     [key release];
-//    [procName release];
 }
 
 // update the current list of kernel tasks

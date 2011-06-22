@@ -9,7 +9,6 @@
 #import "gfxCardStatusAppDelegate.h"
 #import "SystemInfo.h"
 #import "MuxMagic.h"
-#import "proc.h"
 #import "NSAttributedString+Hyperlink.h"
 
 @implementation gfxCardStatusAppDelegate
