@@ -51,7 +51,7 @@ static PrefsController *sharedInstance = nil;
 
 - (void)awakeFromNib {
     // localization
-    NSArray* localizedButtons = [[NSArray alloc] initWithObjects:prefChkGrowl, prefChkLog, prefChkPowerSourceBasedSwitching, 
+    NSArray* localizedButtons = [[NSArray alloc] initWithObjects:prefChkGrowl, prefChkPowerSourceBasedSwitching, 
                           prefChkRestoreState, prefChkStartup, prefChkUpdate, nil];
     for (NSButton *loc in localizedButtons) {
         [loc setTitle:Str([loc title])];

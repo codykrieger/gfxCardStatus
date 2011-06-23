@@ -17,7 +17,6 @@
     IBOutlet NSButton *prefChkUpdate; // check for updates on startup
     IBOutlet NSButton *prefChkGrowl; // use growl to send notifications
     IBOutlet NSButton *prefChkStartup; // start at login
-    IBOutlet NSButton *prefChkLog; // log diagnostic messages to console
     
     // switching preferences
     IBOutlet NSButton *prefChkRestoreState; // restore last used mode on startup
