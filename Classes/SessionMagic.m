@@ -17,7 +17,11 @@ void DisplayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSu
 
 @implementation SessionMagic
 
-@synthesize delegate, usingIntegrated, usingLegacy, integratedString, discreteString;
+@synthesize delegate, 
+            usingIntegrated = _usingIntegrated, 
+            usingLegacy = _usingLegacy, 
+            integratedString, 
+            discreteString;
 
 - (id)init {
     self = [super init];
