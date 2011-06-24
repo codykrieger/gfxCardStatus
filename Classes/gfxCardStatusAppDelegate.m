@@ -138,6 +138,13 @@
 - (void)gpuChangedTo:(GPUType)gpu {
     [self updateMenu];
     
+    if ([state canGrowl]) {
+        NSString *cardString = [state usingIntegrated] ? [state integratedString] : [state discreteString];
+        NSString *msg  = [NSString stringWithFormat:@"%@ %@", cardString, Str(@"GrowlSwitch")];
+        NSString *name = [state usingIntegrated] ? @"switchedToIntegrated" : @"switchedToDiscrete";
+        [GrowlApplicationBridge notifyWithTitle:Str(@"GrowlGPUChanged") description:msg notificationName:name iconData:nil priority:0 isSticky:NO clickContext:nil];
+    }
+    
     // verify state
     [self performSelector:@selector(checkCardState) withObject:nil afterDelay:2.0];
 }
@@ -228,7 +235,6 @@
 }
 
 - (void)updateMenu {
-    BOOL integrated = [MuxMagic switcherUseIntegrated];
     DLog(@"Updating status...");
     
     // TODO - fix this, not working
@@ -243,7 +249,7 @@
     
     
     // get updated GPU string
-    NSString* cardString = integrated ? [state integratedString] : [state discreteString];
+    NSString* cardString = [state usingIntegrated] ? [state integratedString] : [state discreteString];
     
     // set menu bar icon
     // [statusItem setImage:[NSImage imageNamed:integrated ? @"integrated-3.png" : @"discrete-3.png"]];
@@ -251,7 +257,7 @@
     // grab first character of GPU string for the menu bar icon
     unichar firstLetter;
     if ([state usingLegacy]) {
-        firstLetter = integrated ? 'i' : 'd';
+        firstLetter = [state usingIntegrated] ? 'i' : 'd';
     } else {
         firstLetter = [cardString characterAtIndex:0];
     }
@@ -285,14 +291,7 @@
 //    if (integrated) DLog(@"%@ in use. Sweet deal! More battery life.", [state integratedString]);
 //    else DLog(@"%@ in use. Bummer! Less battery life for you.", [state discreteString]);
     
-    if ([state canGrowl] && [state usingIntegrated] != integrated) {
-        NSString *msg  = [NSString stringWithFormat:@"%@ %@", cardString, Str(@"GrowlSwitch")];
-        NSString *name = integrated ? @"switchedToIntegrated" : @"switchedToDiscrete";
-        [GrowlApplicationBridge notifyWithTitle:Str(@"GrowlGPUChanged") description:msg notificationName:name iconData:nil priority:0 isSticky:NO clickContext:nil];
-    }
-    
-    [state setUsingIntegrated:integrated];
-    if (!integrated) [self updateProcessList];
+    if (![state usingIntegrated]) [self updateProcessList];
 }
 
 - (void)updateProcessList {
