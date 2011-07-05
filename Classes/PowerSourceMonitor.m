@@ -12,6 +12,9 @@
 #include <IOKit/ps/IOPSKeys.h>
 #include <IOKit/ps/IOPowerSources.h>
 
+void powerSourceChanged(void * context);
+void registerPowerSourceNotification(PowerSourceMonitor *powerSourceMonitor);
+
 static BOOL stringsAreEqual(CFStringRef a, CFStringRef b) {
     if (a == nil || b == nil) {
         return NO;
@@ -73,11 +76,10 @@ void registerPowerSourceNotification(PowerSourceMonitor *powerSourceMonitor) {
     
     if (loopSource) {
         CFRunLoopAddSource(CFRunLoopGetCurrent(), loopSource, kCFRunLoopDefaultMode);
+        CFRelease(loopSource);
     } else {
         DLog(@"Creating RunLoop failed!\n");
     }
-    
-    CFRelease(loopSource);
 }
 
 @implementation PowerSourceMonitor
