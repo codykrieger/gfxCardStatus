@@ -17,6 +17,7 @@
 		A13C5FC0119FCFCF00E678FA /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = A13C5FBE119FCFCF00E678FA /* Localizable.strings */; };
 		A14B9EA013C55A33009A761C /* discrete-a-white.png in Resources */ = {isa = PBXBuildFile; fileRef = A14B9E9E13C55A33009A761C /* discrete-a-white.png */; };
 		A14B9EA113C55A33009A761C /* discrete-a.png in Resources */ = {isa = PBXBuildFile; fileRef = A14B9E9F13C55A33009A761C /* discrete-a.png */; };
+		A14B9EAB13C5613F009A761C /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = A14B9EAA13C5613F009A761C /* Credits.rtf */; };
 		A14C17F7124EBBFA00816A4A /* discrete-white.png in Resources */ = {isa = PBXBuildFile; fileRef = A14C17F5124EBBFA00816A4A /* discrete-white.png */; };
 		A14C17F8124EBBFA00816A4A /* discrete.png in Resources */ = {isa = PBXBuildFile; fileRef = A14C17F6124EBBFA00816A4A /* discrete.png */; };
 		A14C17FB124EBC1100816A4A /* integrated-white.png in Resources */ = {isa = PBXBuildFile; fileRef = A14C17F9124EBC1100816A4A /* integrated-white.png */; };
@@ -80,10 +81,8 @@
 		A14390AE11C53FCD00E4D2A5 /* German */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = German; path = German.lproj/Localizable.strings; sourceTree = "<group>"; };
 		A14B9E9E13C55A33009A761C /* discrete-a-white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "discrete-a-white.png"; sourceTree = "<group>"; };
 		A14B9E9F13C55A33009A761C /* discrete-a.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "discrete-a.png"; sourceTree = "<group>"; };
-		A14B9EA213C55A91009A761C /* sk */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = sk; path = /Users/codykrieger/projects/gfxCardStatus/sk.lproj/MainMenu.xib; sourceTree = "<absolute>"; };
 		A14B9EA313C55A91009A761C /* sk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sk; path = /Users/codykrieger/projects/gfxCardStatus/sk.lproj/Localizable.strings; sourceTree = "<absolute>"; };
-		A14B9EA413C55A91009A761C /* sk */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = sk; path = /Users/codykrieger/projects/gfxCardStatus/sk.lproj/PrefsWindow.xib; sourceTree = "<absolute>"; };
-		A14B9EA513C55A91009A761C /* sk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sk; path = /Users/codykrieger/projects/gfxCardStatus/sk.lproj/InfoPlist.strings; sourceTree = "<absolute>"; };
+		A14B9EAA13C5613F009A761C /* Credits.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = Credits.rtf; sourceTree = "<group>"; };
 		A14C17F5124EBBFA00816A4A /* discrete-white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "discrete-white.png"; sourceTree = "<group>"; };
 		A14C17F6124EBBFA00816A4A /* discrete.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = discrete.png; sourceTree = "<group>"; };
 		A14C17F9124EBC1100816A4A /* integrated-white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "integrated-white.png"; sourceTree = "<group>"; };
@@ -209,6 +208,7 @@
 			children = (
 				A18123D812B96F3F00266D46 /* Images */,
 				A16B28F31196B0E7006EB263 /* README.md */,
+				A14B9EAA13C5613F009A761C /* Credits.rtf */,
 				A17221831236DE4200636797 /* Growl License.txt */,
 				A1D9C41F11850DEF009A4DE1 /* dsa_pub.pem */,
 				A17220981236DA0B00636797 /* Growl Registration Ticket.growlRegDict */,
@@ -334,6 +334,7 @@
 				A14C181C124F201400816A4A /* PrefsWindow.xib in Resources */,
 				A14B9EA013C55A33009A761C /* discrete-a-white.png in Resources */,
 				A14B9EA113C55A33009A761C /* discrete-a.png in Resources */,
+				A14B9EAB13C5613F009A761C /* Credits.rtf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -362,7 +363,6 @@
 			isa = PBXVariantGroup;
 			children = (
 				089C165DFE840E0CC02AAC07 /* English */,
-				A14B9EA513C55A91009A761C /* sk */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -371,7 +371,6 @@
 			isa = PBXVariantGroup;
 			children = (
 				1DDD58150DA1D0A300B32029 /* English */,
-				A14B9EA213C55A91009A761C /* sk */,
 			);
 			name = MainMenu.xib;
 			sourceTree = "<group>";
@@ -401,7 +400,6 @@
 			isa = PBXVariantGroup;
 			children = (
 				A14C181B124F201400816A4A /* English */,
-				A14B9EA413C55A91009A761C /* sk */,
 			);
 			name = PrefsWindow.xib;
 			sourceTree = "<group>";

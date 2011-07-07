@@ -183,10 +183,7 @@
 }
 
 - (IBAction)openAbout:(id)sender {
-    // open window and force to the front
-    [aboutWindow makeKeyAndOrderFront:nil];
-    [aboutWindow orderFrontRegardless];
-    [aboutWindow center];
+    [[NSApplication sharedApplication] orderFrontStandardAboutPanel:nil];
 }
 
 - (IBAction)closeAbout:(id)sender {
