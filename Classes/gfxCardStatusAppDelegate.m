@@ -284,7 +284,7 @@
     
     
     [currentCard setTitle:[Str(@"Card") stringByReplacingOccurrencesOfString:@"%%" withString:cardString]];
-    [currentPowerSource setTitle:[Str(@"PowerSource") stringByReplacingOccurrencesOfString:@"%%" withString:(powerSourceMonitor.currentPowerSource == psBattery) ? Str(@"Battery") : Str(@"ACAdapter")]];
+//    [currentPowerSource setTitle:[Str(@"PowerSource") stringByReplacingOccurrencesOfString:@"%%" withString:(powerSourceMonitor.currentPowerSource == psBattery) ? Str(@"Battery") : Str(@"ACAdapter")]];
     
 //    if (integrated) DLog(@"%@ in use. Sweet deal! More battery life.", [state integratedString]);
 //    else DLog(@"%@ in use. Bummer! Less battery life for you.", [state discreteString]);
