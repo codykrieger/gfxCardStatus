@@ -81,7 +81,7 @@
 		A14390AE11C53FCD00E4D2A5 /* German */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = German; path = German.lproj/Localizable.strings; sourceTree = "<group>"; };
 		A14B9E9E13C55A33009A761C /* discrete-a-white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "discrete-a-white.png"; sourceTree = "<group>"; };
 		A14B9E9F13C55A33009A761C /* discrete-a.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "discrete-a.png"; sourceTree = "<group>"; };
-		A14B9EA313C55A91009A761C /* sk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sk; path = /Users/codykrieger/projects/gfxCardStatus/sk.lproj/Localizable.strings; sourceTree = "<absolute>"; };
+		A14B9EA313C55A91009A761C /* sk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sk; path = sk.lproj/Localizable.strings; sourceTree = "<group>"; };
 		A14B9EAA13C5613F009A761C /* Credits.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = Credits.rtf; sourceTree = "<group>"; };
 		A14C17F5124EBBFA00816A4A /* discrete-white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "discrete-white.png"; sourceTree = "<group>"; };
 		A14C17F6124EBBFA00816A4A /* discrete.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = discrete.png; sourceTree = "<group>"; };
