@@ -34,7 +34,7 @@ static size_t procNum = 0;
 }
 
 // helper to return current mode
-+ (switcherMode)switcherGetMode {
++ (SwitcherMode)switcherGetMode {
     if ([MuxMagic isUsingDynamicSwitching]) return modeDynamicSwitching;
     NSDictionary *profile = [SystemInfo getGraphicsProfile];
     return ([(NSNumber *)[profile objectForKey:@"usingIntegrated"] boolValue] ? modeForceIntegrated : modeForceDiscrete);

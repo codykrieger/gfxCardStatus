@@ -16,7 +16,7 @@
 @interface SystemInfo : NSObject
 
 + (NSString *)keyForPowerSource:(PowerSource)powerSource;
-+ (switcherMode)switcherGetMode;
++ (SwitcherMode)switcherGetMode;
 
 + (BOOL)procInit;
 + (void)procFree;

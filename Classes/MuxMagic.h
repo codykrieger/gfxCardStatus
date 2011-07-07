@@ -13,7 +13,7 @@ typedef enum {
     modeForceDiscrete,
     modeDynamicSwitching,
     modeToggleGPU
-} switcherMode;
+} SwitcherMode;
 
 #define kDriverClassName "AppleGraphicsControl"
 
@@ -22,7 +22,7 @@ typedef enum {
 + (BOOL)switcherOpen;                       // Initialize driver
 + (void)switcherClose;                      // Close driver
 
-+ (BOOL)switcherSetMode:(switcherMode)mode; // Sets working mode
++ (BOOL)switcherSetMode:(SwitcherMode)mode; // Sets working mode
 + (BOOL)isUsingIntegrated;                  // Is integrated card in use?
 + (BOOL)isUsingDynamicSwitching;            // Is dynamic switching enabled?
 

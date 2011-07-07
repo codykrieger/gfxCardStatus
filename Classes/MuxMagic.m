@@ -283,7 +283,7 @@ static void dumpState(io_connect_t connect) {
 #pragma mark -
 #pragma mark Switching magic
 
-+ (BOOL)switcherSetMode:(switcherMode)mode {
++ (BOOL)switcherSetMode:(SwitcherMode)mode {
     if (switcherConnect == IO_OBJECT_NULL) return NO;
     switch (mode) {
         case modeForceIntegrated:

@@ -67,9 +67,9 @@
     }
     
     // notifications
-//    NSNotificationCenter *defaultNotifications = [NSNotificationCenter defaultCenter];
-//    [defaultNotifications addObserver:self selector:@selector(handleWake:)
-//                                 name:NSWorkspaceDidWakeNotification object:nil];
+    NSNotificationCenter *defaultNotifications = [NSNotificationCenter defaultCenter];
+    [defaultNotifications addObserver:self selector:@selector(handleWake:)
+                                 name:NSWorkspaceDidWakeNotification object:nil];
     
     // identify current gpu and set up menus accordingly
     NSDictionary *profile = [SystemInfo getGraphicsProfile];
@@ -148,9 +148,9 @@
     [self performSelector:@selector(checkCardState) withObject:nil afterDelay:2.0];
 }
 
-//- (void)handleWake:(NSNotification *)notification {
-//    [self performSelector:@selector(delayedPowerSourceCheck) withObject:nil afterDelay:7.0];
-//}
+- (void)handleWake:(NSNotification *)notification {
+    [self performSelector:@selector(delayedPowerSourceCheck) withObject:nil afterDelay:7.0];
+}
 
 - (void)delayedPowerSourceCheck {
     [self powerSourceChanged:powerSourceMonitor.currentPowerSource];
@@ -246,7 +246,6 @@
     //        return;
     //    }
     
-    
     // get updated GPU string
     NSString *cardString = [state usingIntegrated] ? [state integratedString] : [state discreteString];
     
@@ -327,7 +326,7 @@
 #pragma mark Helpers
 #pragma mark -
 
-- (NSMenuItem *)senderForMode:(switcherMode)mode {
+- (NSMenuItem *)senderForMode:(SwitcherMode)mode {
     // convert switcher mode to a menu item (consumed by setMode:)
     
     switch (mode) {
@@ -349,7 +348,7 @@
     // it seems right after waking from sleep, locking to single GPU will fail (even if the return value is correct)
     // this is a temporary workaround to double-check the status
     
-    switcherMode currentMode = [SystemInfo switcherGetMode]; // actual current mode
+    SwitcherMode currentMode = [SystemInfo switcherGetMode]; // actual current mode
     NSMenuItem *activeCard = [self senderForMode:currentMode]; // corresponding menu item
     
     // check if its consistent with menu state
@@ -386,7 +385,7 @@
     lastPowerSource = powerSource;
     
     if ([prefs shouldUsePowerSourceBasedSwitching]) {
-        switcherMode newMode = [prefs modeForPowerSource:[SystemInfo keyForPowerSource:powerSource]];
+        SwitcherMode newMode = [prefs modeForPowerSource:[SystemInfo keyForPowerSource:powerSource]];
         
         if (![state usingLegacy]) {
             DLog(@"Using a newer machine, setting appropriate mode based on power source...");
