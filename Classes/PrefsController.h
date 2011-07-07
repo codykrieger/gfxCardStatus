@@ -44,6 +44,7 @@
 - (BOOL)shouldStartAtLogin;
 - (BOOL)shouldRestoreStateOnStartup;
 - (BOOL)shouldUsePowerSourceBasedSwitching;
+- (BOOL)shouldUseImageIcons;
 - (int)shouldRestoreToMode;
 - (int)modeForPowerSource:(NSString *)powerSource;
 

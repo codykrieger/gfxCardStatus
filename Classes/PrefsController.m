@@ -194,6 +194,10 @@ static PrefsController *sharedInstance = nil;
     return [(NSNumber *)[prefs objectForKey:@"shouldUsePowerSourceBasedSwitching"] boolValue];
 }
 
+- (BOOL)shouldUseImageIcons {
+    return [(NSNumber *)[prefs objectForKey:@"shouldUseImageIcons"] boolValue];
+}
+
 - (int)shouldRestoreToMode {
     return [(NSNumber *)[prefs objectForKey:@"shouldRestoreToMode"] intValue];
 }

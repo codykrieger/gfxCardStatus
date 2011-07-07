@@ -1,0 +1,46 @@
+/* 
+   Localizable.strings
+   gfxCardStatus
+
+   Created by Michal Vančo on 4.07.11.
+   Copyright 2011 Michal Vančo. All rights reserved.
+ */
+
+/* Main menu */
+"About"					= "O aplikácii gfxCardStatus, v%%";
+"Update"				= "Skontrolovať aktualizácie...";
+"Preferences"			= "Nastavenia...";
+"Card"					= "Karta: %%";
+"SwitchGPUs"			= "Prepnúť GPU";
+"IntegratedOnly"		= "Iba integrovaná";
+"DiscreteOnly"			= "Iba diskrétna";
+"DynamicSwitching"		= "Dynamické prepínanie";
+"Dependencies"			= "Závislosti";
+"NoProcess"				= "Žiadne";
+"Quit"					= "Ukončiť";
+"Close"					= "Super!";
+"PowerSource"           = "Zdroj napájania: %%";
+"Battery"               = "Batéria";
+"ACAdapter"             = "Napájací adaptér";
+
+/* Preferences window */
+"PrefTitle"				= "Nastavenia gfxCardStatus";
+"PrefUpdate"			= "Skontrolovať aktualizácie pri spúšťaní";
+"PrefGrowl"				= "Oznamovať zmeny stavu pomocou Growl";
+"PrefStartup"			= "Spustiť gfxCardStatus pri štarte";
+"PrefLog"				= "Zapisovať diagnostické hlásenia do konzoly";
+"PrefRestoreState"		= "Pri spúšťaní obnoviť posledný použitý režim";
+"PrefPowerSwitching"	= "Prepínanie na základe zdroja napájania";
+"Integrated"            = "Integrovaná";
+"Discrete"              = "Diskrétna";
+"Dynamic"               = "Dynamicky";
+"OnBattery"             = "Na batériu:";
+"PluggedIn"             = "Na adaptér:";
+
+/* About box */
+"AboutTitle"			= "O aplikácii gfxCardStatus";
+"AboutWebsite"			= "Web";
+
+/* Growl */
+"GrowlGPUChanged"       = "GPU prepnuté";
+"GrowlSwitch"           = "sa teraz používa.";

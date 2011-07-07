@@ -166,12 +166,16 @@
 
 - (void)menuWillOpen:(NSMenu *)menu {
     // white image when menu is open
-    // [statusItem setImage:[NSImage imageNamed:[[[statusItem image] name] stringByAppendingString:@"-white.png"]]];
+    if ([prefs shouldUseImageIcons]) {
+        [statusItem setImage:[NSImage imageNamed:[[[statusItem image] name] stringByAppendingString:@"-white.png"]]];
+    }
 }
 
 - (void)menuDidClose:(NSMenu *)menu {
     // black image when menu is closed
-    // [statusItem setImage:[NSImage imageNamed:[[[statusItem image] name] stringByReplacingOccurrencesOfString:@"-white" withString:@".png"]]];
+    if ([prefs shouldUseImageIcons]) {
+        [statusItem setImage:[NSImage imageNamed:[[[statusItem image] name] stringByReplacingOccurrencesOfString:@"-white" withString:@".png"]]];
+    }
 }
 
 - (IBAction)openPreferences:(id)sender {
@@ -250,44 +254,45 @@
     NSString *cardString = [state usingIntegrated] ? [state integratedString] : [state discreteString];
     
     // set menu bar icon
-    // [statusItem setImage:[NSImage imageNamed:integrated ? @"integrated-3.png" : @"discrete-3.png"]];
-    
-    // grab first character of GPU string for the menu bar icon
-    unichar firstLetter;
-    if ([state usingLegacy]) {
-        firstLetter = [state usingIntegrated] ? 'i' : 'd';
+    if ([prefs shouldUseImageIcons]) {
+        [statusItem setImage:[NSImage imageNamed:[state usingIntegrated] ? @"integrated.png" : @"discrete.png"]];
     } else {
-        firstLetter = [cardString characterAtIndex:0];
-    }
-    
-    // format firstLetter into an NSString *
-    NSString *letter = [[NSString stringWithFormat:@"%C", firstLetter] lowercaseString];
-    int fontSize = ([letter isEqualToString:@"n"] || [letter isEqualToString:@"a"] ? 19 : 18);
-    
-    // set the correct font
-    NSFontManager *fontManager = [NSFontManager sharedFontManager];
-    NSFont *boldItalic = [fontManager fontWithFamily:@"Georgia"
-                                              traits:NSBoldFontMask|NSItalicFontMask
-                                              weight:0
-                                                size:fontSize];
-    
-    // create NSAttributedString with font
-    NSDictionary *attributes = [[[NSDictionary alloc] initWithObjectsAndKeys:
-                                boldItalic, NSFontAttributeName, 
-                                [NSNumber numberWithDouble:2.0], NSBaselineOffsetAttributeName, nil] autorelease];
-    NSAttributedString *title = [[[NSAttributedString alloc] 
-                                 initWithString:letter
-                                    attributes: attributes] autorelease];
-    
-    // set menu bar text "icon"
-    [statusItem setAttributedTitle:title];
-    
+        // grab first character of GPU string for the menu bar icon
+        unichar firstLetter;
+        
+        if ([state usingLegacy]) {
+            firstLetter = [state usingIntegrated] ? 'i' : 'd';
+        } else {
+            firstLetter = [cardString characterAtIndex:0];
+        }
+        
+        // format firstLetter into an NSString *
+        NSString *letter = [[NSString stringWithFormat:@"%C", firstLetter] lowercaseString];
+        int fontSize = ([letter isEqualToString:@"n"] || [letter isEqualToString:@"a"] ? 19 : 18);
+        
+        // set the correct font
+        NSFontManager *fontManager = [NSFontManager sharedFontManager];
+        NSFont *boldItalic = [fontManager fontWithFamily:@"Georgia"
+                                                  traits:NSBoldFontMask|NSItalicFontMask
+                                                  weight:0
+                                                    size:fontSize];
+        
+        // create NSAttributedString with font
+        NSDictionary *attributes = [[[NSDictionary alloc] initWithObjectsAndKeys:
+                                     boldItalic, NSFontAttributeName, 
+                                     [NSNumber numberWithDouble:2.0], NSBaselineOffsetAttributeName, nil] autorelease];
+        NSAttributedString *title = [[[NSAttributedString alloc] 
+                                      initWithString:letter
+                                      attributes: attributes] autorelease];
+        
+        // set menu bar text "icon"
+        [statusItem setAttributedTitle:title];
+    }    
     
     [currentCard setTitle:[Str(@"Card") stringByReplacingOccurrencesOfString:@"%%" withString:cardString]];
-//    [currentPowerSource setTitle:[Str(@"PowerSource") stringByReplacingOccurrencesOfString:@"%%" withString:(powerSourceMonitor.currentPowerSource == psBattery) ? Str(@"Battery") : Str(@"ACAdapter")]];
     
-//    if (integrated) DLog(@"%@ in use. Sweet deal! More battery life.", [state integratedString]);
-//    else DLog(@"%@ in use. Bummer! Less battery life for you.", [state discreteString]);
+    if ([state usingIntegrated]) DLog(@"%@ in use. Sweet deal! More battery life.", [state integratedString]);
+    else DLog(@"%@ in use. Bummer! Less battery life for you.", [state discreteString]);
     
     if (![state usingIntegrated]) [self updateProcessList];
 }
