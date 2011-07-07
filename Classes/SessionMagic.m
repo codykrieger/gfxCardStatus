@@ -18,8 +18,8 @@ void DisplayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSu
 @implementation SessionMagic
 
 @synthesize delegate, 
-            usingIntegrated = _usingIntegrated, 
-            usingLegacy = _usingLegacy, 
+            usingIntegrated, 
+            usingLegacy,
             integratedString, 
             discreteString;
 
@@ -29,7 +29,7 @@ void DisplayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSu
         _canGrowl = YES;
         
         NSDictionary *profile = [SystemInfo getGraphicsProfile];
-        _usingLegacy = [(NSNumber *)[profile objectForKey:@"legacy"] boolValue];
+        usingLegacy = [(NSNumber *)[profile objectForKey:@"legacy"] boolValue];
         
         queue = dispatch_queue_create("com.codykrieger.gfxCardStatus.notificationQueue", NULL);
         

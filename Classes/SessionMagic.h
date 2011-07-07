@@ -24,13 +24,6 @@ typedef enum {
     
     // preferences-related
     BOOL _canGrowl;
-    
-    // current machine state
-    BOOL _usingIntegrated;
-    BOOL _usingLegacy;
-    
-    NSString *_integratedString;
-    NSString *_discreteString;
 }
 
 @property (nonatomic, assign) id <SessionMagicDelegate> delegate;
