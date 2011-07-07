@@ -14,10 +14,11 @@ typedef enum {
     psUnknown
 } PowerSource;
 
-@protocol PowerSourceMonitorDelegate<NSObject>
-- (void)powerSourceChanged:(PowerSource)powerSource;
-@end
+@protocol PowerSourceMonitorDelegate <NSObject>
 
+- (void)powerSourceChanged:(PowerSource)powerSource;
+
+@end
 
 @interface PowerSourceMonitor : NSObject {
     id<PowerSourceMonitorDelegate> delegate;

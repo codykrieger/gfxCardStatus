@@ -12,7 +12,7 @@
 @implementation NSAttributedString (Hyperlink)
 
 +(id)hyperlinkFromString:(NSString*)inString withURL:(NSURL*)aURL {
-    NSMutableAttributedString* attrString = [[NSMutableAttributedString alloc] initWithString: inString];
+    NSMutableAttributedString *attrString = [[NSMutableAttributedString alloc] initWithString: inString];
     NSRange range = NSMakeRange(0, [attrString length]);
     
     [attrString beginEditing];

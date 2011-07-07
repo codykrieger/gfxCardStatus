@@ -23,7 +23,7 @@ typedef enum {
 + (void)switcherClose;                      // Close driver
 
 + (BOOL)switcherSetMode:(switcherMode)mode; // Sets working mode
-+ (BOOL)switcherUseIntegrated;              // Integrated card is in use
-+ (BOOL)switcherUseDynamicSwitching;        // Dynamic switching policy enabled
++ (BOOL)isUsingIntegrated;                  // Is integrated card in use?
++ (BOOL)isUsingDynamicSwitching;            // Is dynamic switching enabled?
 
 @end

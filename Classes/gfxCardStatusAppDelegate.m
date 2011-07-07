@@ -28,7 +28,7 @@
     // localization
     NSString *version = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"];
     [versionItem setTitle:[Str(@"About") stringByReplacingOccurrencesOfString:@"%%" withString:version]];
-    NSArray* localized = [[NSArray alloc] initWithObjects:updateItem, preferencesItem, quitItem, switchGPUs, integratedOnly, 
+    NSArray *localized = [[NSArray alloc] initWithObjects:updateItem, preferencesItem, quitItem, switchGPUs, integratedOnly, 
                           discreteOnly, dynamicSwitching, dependentProcesses, processList, aboutWindow, aboutClose, nil];
     for (NSButton *loc in localized) {
         [loc setTitle:Str([loc title])];
@@ -92,9 +92,8 @@
     [discreteOnly setHidden:[state usingLegacy]];
     [dynamicSwitching setHidden:[state usingLegacy]];
     
-    if ([state usingLegacy]) {
-    } else {
-        BOOL dynamic = [MuxMagic switcherUseDynamicSwitching];
+    if (![state usingLegacy]) {
+        BOOL dynamic = [MuxMagic isUsingDynamicSwitching];
         [integratedOnly setState:(!dynamic && [state usingIntegrated]) ? NSOnState : NSOffState];
         [discreteOnly setState:(!dynamic && ![state usingIntegrated]) ? NSOnState : NSOffState];
         [dynamicSwitching setState:dynamic ? NSOnState : NSOffState];
@@ -249,7 +248,7 @@
     
     
     // get updated GPU string
-    NSString* cardString = [state usingIntegrated] ? [state integratedString] : [state discreteString];
+    NSString *cardString = [state usingIntegrated] ? [state integratedString] : [state discreteString];
     
     // set menu bar icon
     // [statusItem setImage:[NSImage imageNamed:integrated ? @"integrated-3.png" : @"discrete-3.png"]];

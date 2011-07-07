@@ -35,7 +35,7 @@ static size_t procNum = 0;
 
 // helper to return current mode
 + (switcherMode)switcherGetMode {
-    if ([MuxMagic switcherUseDynamicSwitching]) return modeDynamicSwitching;
+    if ([MuxMagic isUsingDynamicSwitching]) return modeDynamicSwitching;
     NSDictionary *profile = [SystemInfo getGraphicsProfile];
     return ([(NSNumber *)[profile objectForKey:@"usingIntegrated"] boolValue] ? modeForceIntegrated : modeForceDiscrete);
 }
@@ -52,13 +52,13 @@ static size_t procNum = 0;
     procInfo = NULL;
 }
 
-static void procTask(const void * value, void * param) {
+static void procTask(const void *value, void *param) {
     NSMutableArray *arr = (NSMutableArray *)param;
     NSNumber *key = NULL;
     NSString *procName = NULL;
     
     int mib[3] = { CTL_KERN, KERN_ARGMAX, 0 };
-    struct kinfo_proc* k = NULL;
+    struct kinfo_proc *k = NULL;
     size_t i, sz;
     long long pid;
     char *buf, *sp, *cp;

@@ -60,7 +60,7 @@ void DisplayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSu
             // display has been reconfigured
             DLog(@"Has the gpu changed? Let's find out!\n\n");
             
-            BOOL nowIsUsingIntegrated = [MuxMagic switcherUseIntegrated];
+            BOOL nowIsUsingIntegrated = [MuxMagic isUsingIntegrated];
             DLog(@"nowIsUsingIntegrated (current): %i, _usingIntegrated (previous): %i", nowIsUsingIntegrated, [state usingIntegrated]);
             
             if ((nowIsUsingIntegrated != [state usingIntegrated])) {

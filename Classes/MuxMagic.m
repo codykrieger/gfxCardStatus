@@ -148,7 +148,7 @@ static void forceSwitch(io_connect_t connect) {
 
 // --------------------------------------------------------------
 
-static char* getFeatureName(muxFeature feature) {
+static char *getFeatureName(muxFeature feature) {
     switch (feature) {
         case Policy: return "Policy";
         case Auto_PowerDown_GPU: return "Auto_PowerDown_GPU";
@@ -293,7 +293,7 @@ static void dumpState(io_connect_t connect) {
             setFeatureInfo(switcherConnect, Policy, NO);
             sleep(1);
             
-            BOOL integrated = [MuxMagic switcherUseIntegrated];
+            BOOL integrated = [MuxMagic isUsingIntegrated];
             if ((mode==modeForceIntegrated && !integrated) || (mode==modeForceDiscrete && integrated))
                 forceSwitch(switcherConnect);
             break;
@@ -308,14 +308,14 @@ static void dumpState(io_connect_t connect) {
     return YES;
 }
 
-+ (BOOL)switcherUseIntegrated {
++ (BOOL)isUsingIntegrated {
     uint64_t output;
     if (switcherConnect == IO_OBJECT_NULL) return NO;
     getMuxState(switcherConnect, muxGraphicsCard, &output);
     return output != 0;
 }
 
-+ (BOOL)switcherUseDynamicSwitching {
++ (BOOL)isUsingDynamicSwitching {
     uint64_t output;
     if (switcherConnect == IO_OBJECT_NULL) return NO;
     getMuxState(switcherConnect, muxGpuSelect, &output);
