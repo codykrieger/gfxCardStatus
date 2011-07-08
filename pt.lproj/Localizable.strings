@@ -12,8 +12,8 @@
 "Preferences"			= "Preferências...";
 "Card"					= "Dispositivo: %%";
 "SwitchGPUs"			= "Alternar GPUs";
-"IntegratedOnly"		= "Apenas Integrated®";
-"DiscreteOnly"			= "Apenas Discrete®";
+"IntegratedOnly"		= "Apenas Integrated";
+"DiscreteOnly"			= "Apenas Discrete";
 "DynamicSwitching"		= "Alternar dinâmicamente";
 "Dependencies"			= "Dependências";
 "NoProcess"				= "Nenhum";
