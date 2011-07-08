@@ -2,9 +2,9 @@
 <archive type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="7.10">
 	<data>
 		<int key="IBDocument.SystemTarget">1060</int>
-		<string key="IBDocument.SystemVersion">10J869</string>
+		<string key="IBDocument.SystemVersion">10K540</string>
 		<string key="IBDocument.InterfaceBuilderVersion">1306</string>
-		<string key="IBDocument.AppKitVersion">1038.35</string>
+		<string key="IBDocument.AppKitVersion">1038.36</string>
 		<string key="IBDocument.HIToolboxVersion">461.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -48,7 +48,7 @@
 			<object class="NSWindowTemplate" id="526247657">
 				<int key="NSWindowStyleMask">3</int>
 				<int key="NSWindowBacking">2</int>
-				<string key="NSWindowRect">{{720, 443}, {491, 316}}</string>
+				<string key="NSWindowRect">{{720, 443}, {491, 320}}</string>
 				<int key="NSWTFlags">1685586944</int>
 				<string key="NSWindowTitle">gfxCardStatus Preferences</string>
 				<string key="NSWindowClass">NSWindow</string>
@@ -131,7 +131,7 @@
 											<string key="NSFrame">{{16, 12}, {423, 18}}</string>
 											<reference key="NSSuperview" ref="977672865"/>
 											<reference key="NSWindow"/>
-											<reference key="NSNextKeyView"/>
+											<reference key="NSNextKeyView" ref="62725687"/>
 											<bool key="NSEnabled">YES</bool>
 											<object class="NSButtonCell" key="NSCell" id="230032135">
 												<int key="NSCellFlags">-2080244224</int>
@@ -156,7 +156,7 @@
 									<reference key="NSNextKeyView" ref="178985381"/>
 								</object>
 							</object>
-							<string key="NSFrame">{{17, 202}, {457, 94}}</string>
+							<string key="NSFrame">{{17, 206}, {457, 94}}</string>
 							<reference key="NSSuperview" ref="241093255"/>
 							<reference key="NSWindow"/>
 							<reference key="NSNextKeyView" ref="977672865"/>
@@ -203,7 +203,7 @@
 										<object class="NSButton" id="242955949">
 											<reference key="NSNextResponder" ref="131943915"/>
 											<int key="NSvFlags">292</int>
-											<string key="NSFrame">{{16, 140}, {423, 18}}</string>
+											<string key="NSFrame">{{16, 144}, {423, 18}}</string>
 											<reference key="NSSuperview" ref="131943915"/>
 											<reference key="NSWindow"/>
 											<reference key="NSNextKeyView" ref="748741933"/>
@@ -227,7 +227,7 @@
 										<object class="NSButton" id="748741933">
 											<reference key="NSNextResponder" ref="131943915"/>
 											<int key="NSvFlags">292</int>
-											<string key="NSFrame">{{16, 118}, {423, 18}}</string>
+											<string key="NSFrame">{{16, 122}, {423, 18}}</string>
 											<reference key="NSSuperview" ref="131943915"/>
 											<reference key="NSWindow"/>
 											<reference key="NSNextKeyView" ref="603445104"/>
@@ -251,7 +251,7 @@
 										<object class="NSSegmentedControl" id="35930251">
 											<reference key="NSNextResponder" ref="131943915"/>
 											<int key="NSvFlags">268</int>
-											<string key="NSFrame">{{16, 64}, {240, 24}}</string>
+											<string key="NSFrame">{{16, 67}, {240, 25}}</string>
 											<reference key="NSSuperview" ref="131943915"/>
 											<reference key="NSWindow"/>
 											<reference key="NSNextKeyView" ref="381341082"/>
@@ -282,13 +282,13 @@
 														<int key="NSSegmentItemImageScaling">0</int>
 													</object>
 												</object>
-												<int key="NSSegmentStyle">1</int>
+												<int key="NSSegmentStyle">2</int>
 											</object>
 										</object>
 										<object class="NSTextField" id="603445104">
 											<reference key="NSNextResponder" ref="131943915"/>
 											<int key="NSvFlags">268</int>
-											<string key="NSFrame">{{15, 95}, {242, 17}}</string>
+											<string key="NSFrame">{{15, 99}, {242, 17}}</string>
 											<reference key="NSSuperview" ref="131943915"/>
 											<reference key="NSWindow"/>
 											<reference key="NSNextKeyView" ref="35930251"/>
@@ -322,7 +322,7 @@
 										<object class="NSTextField" id="381341082">
 											<reference key="NSNextResponder" ref="131943915"/>
 											<int key="NSvFlags">268</int>
-											<string key="NSFrame">{{15, 42}, {242, 17}}</string>
+											<string key="NSFrame">{{15, 44}, {242, 17}}</string>
 											<reference key="NSSuperview" ref="131943915"/>
 											<reference key="NSWindow"/>
 											<reference key="NSNextKeyView" ref="355137235"/>
@@ -340,9 +340,10 @@
 										<object class="NSSegmentedControl" id="355137235">
 											<reference key="NSNextResponder" ref="131943915"/>
 											<int key="NSvFlags">268</int>
-											<string key="NSFrame">{{16, 11}, {240, 24}}</string>
+											<string key="NSFrame">{{16, 12}, {240, 25}}</string>
 											<reference key="NSSuperview" ref="131943915"/>
 											<reference key="NSWindow"/>
+											<reference key="NSNextKeyView"/>
 											<bool key="NSEnabled">YES</bool>
 											<object class="NSSegmentedCell" key="NSCell" id="302474182">
 												<int key="NSCellFlags">-2080244224</int>
@@ -367,17 +368,17 @@
 													</object>
 												</object>
 												<int key="NSSelectedSegment">2</int>
-												<int key="NSSegmentStyle">1</int>
+												<int key="NSSegmentStyle">2</int>
 											</object>
 										</object>
 									</object>
-									<string key="NSFrame">{{1, 1}, {455, 166}}</string>
+									<string key="NSFrame">{{1, 1}, {455, 170}}</string>
 									<reference key="NSSuperview" ref="62725687"/>
 									<reference key="NSWindow"/>
 									<reference key="NSNextKeyView" ref="242955949"/>
 								</object>
 							</object>
-							<string key="NSFrame">{{17, 16}, {457, 182}}</string>
+							<string key="NSFrame">{{17, 16}, {457, 186}}</string>
 							<reference key="NSSuperview" ref="241093255"/>
 							<reference key="NSWindow"/>
 							<reference key="NSNextKeyView" ref="131943915"/>
@@ -400,7 +401,7 @@
 							<bool key="NSTransparent">NO</bool>
 						</object>
 					</object>
-					<string key="NSFrame">{{7, 11}, {491, 316}}</string>
+					<string key="NSFrame">{{7, 11}, {491, 320}}</string>
 					<reference key="NSSuperview"/>
 					<reference key="NSWindow"/>
 					<reference key="NSNextKeyView" ref="1010243738"/>
@@ -602,8 +603,8 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<reference ref="748741933"/>
 							<reference ref="242955949"/>
-							<reference ref="35930251"/>
 							<reference ref="603445104"/>
+							<reference ref="35930251"/>
 							<reference ref="381341082"/>
 							<reference ref="355137235"/>
 						</object>
@@ -907,7 +908,6 @@
 							<string>onBatteryTextField</string>
 							<string>pluggedInTextField</string>
 							<string>prefChkGrowl</string>
-							<string>prefChkLog</string>
 							<string>prefChkPowerSourceBasedSwitching</string>
 							<string>prefChkRestoreState</string>
 							<string>prefChkStartup</string>
@@ -924,7 +924,6 @@
 							<string>NSButton</string>
 							<string>NSButton</string>
 							<string>NSButton</string>
-							<string>NSButton</string>
 							<string>NSSegmentedControl</string>
 							<string>NSSegmentedControl</string>
 						</object>
@@ -936,7 +935,6 @@
 							<string>onBatteryTextField</string>
 							<string>pluggedInTextField</string>
 							<string>prefChkGrowl</string>
-							<string>prefChkLog</string>
 							<string>prefChkPowerSourceBasedSwitching</string>
 							<string>prefChkRestoreState</string>
 							<string>prefChkStartup</string>
@@ -956,10 +954,6 @@
 							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">prefChkGrowl</string>
-								<string key="candidateClassName">NSButton</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">prefChkLog</string>
 								<string key="candidateClassName">NSButton</string>
 							</object>
 							<object class="IBToOneOutletInfo">

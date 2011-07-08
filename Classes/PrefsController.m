@@ -50,7 +50,7 @@ static PrefsController *sharedInstance = nil;
 }
 
 - (void)awakeFromNib {
-    // localization
+    // for preferences window controls
     NSArray *localizedButtons = [[NSArray alloc] initWithObjects:prefChkGrowl, prefChkPowerSourceBasedSwitching, 
                           prefChkRestoreState, prefChkStartup, prefChkUpdate, nil];
     for (NSButton *loc in localizedButtons) {
@@ -76,6 +76,10 @@ static PrefsController *sharedInstance = nil;
     [prefSegOnBattery setLabel:Str(@"Discrete") forSegment:1];
     [prefSegOnAc setLabel:Str(@"Integrated") forSegment:0];
     [prefSegOnAc setLabel:Str(@"Discrete") forSegment:1];
+    
+    // fit labels after localization
+    [prefSegOnAc sizeToFit];
+    [prefSegOnBattery sizeToFit];
     
     // set controls according to values set in preferences
     [self setControlsToPreferences];
