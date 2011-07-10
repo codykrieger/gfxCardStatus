@@ -47,6 +47,11 @@ static PrefsController *sharedInstance = nil;
     // ensure that application will be loaded at startup
     if ([self shouldStartAtLogin])
         [self loadAtStartup:YES];
+    
+    if ([[NSBundle mainBundle] pathForResource:@"integrated" ofType:@"png"])
+        [prefs setObject:yesNumber forKey:@"shouldUseImageIcons"];
+    else
+        [prefs setObject:noNumber forKey:@"shouldUseImageIcons"];
 }
 
 - (void)awakeFromNib {
@@ -140,6 +145,13 @@ static PrefsController *sharedInstance = nil;
 }
 
 - (void)openPreferences {
+    if ([self existsInStartupItems])
+        [prefs setObject:yesNumber forKey:@"shouldStartAtLogin"];
+    else
+        [prefs setObject:noNumber forKey:@"shouldStartAtLogin"];
+    
+    [self setControlsToPreferences];
+    
     [[self window] makeKeyAndOrderFront:nil];
     [[self window] orderFrontRegardless];
     [[self window] center];

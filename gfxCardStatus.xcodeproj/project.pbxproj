@@ -18,10 +18,10 @@
 		A14B9EA013C55A33009A761C /* discrete-a-white.png in Resources */ = {isa = PBXBuildFile; fileRef = A14B9E9E13C55A33009A761C /* discrete-a-white.png */; };
 		A14B9EA113C55A33009A761C /* discrete-a.png in Resources */ = {isa = PBXBuildFile; fileRef = A14B9E9F13C55A33009A761C /* discrete-a.png */; };
 		A14B9EAB13C5613F009A761C /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = A14B9EAA13C5613F009A761C /* Credits.rtf */; };
-		A14C17F7124EBBFA00816A4A /* discrete-white.png in Resources */ = {isa = PBXBuildFile; fileRef = A14C17F5124EBBFA00816A4A /* discrete-white.png */; };
-		A14C17F8124EBBFA00816A4A /* discrete.png in Resources */ = {isa = PBXBuildFile; fileRef = A14C17F6124EBBFA00816A4A /* discrete.png */; };
-		A14C17FB124EBC1100816A4A /* integrated-white.png in Resources */ = {isa = PBXBuildFile; fileRef = A14C17F9124EBC1100816A4A /* integrated-white.png */; };
-		A14C17FC124EBC1100816A4A /* nvidia-white.png in Resources */ = {isa = PBXBuildFile; fileRef = A14C17FA124EBC1100816A4A /* nvidia-white.png */; };
+		A14C17F7124EBBFA00816A4A /* discrete-d-white.png in Resources */ = {isa = PBXBuildFile; fileRef = A14C17F5124EBBFA00816A4A /* discrete-d-white.png */; };
+		A14C17F8124EBBFA00816A4A /* discrete-d.png in Resources */ = {isa = PBXBuildFile; fileRef = A14C17F6124EBBFA00816A4A /* discrete-d.png */; };
+		A14C17FB124EBC1100816A4A /* integrated-i-white.png in Resources */ = {isa = PBXBuildFile; fileRef = A14C17F9124EBC1100816A4A /* integrated-i-white.png */; };
+		A14C17FC124EBC1100816A4A /* discrete-n-white.png in Resources */ = {isa = PBXBuildFile; fileRef = A14C17FA124EBC1100816A4A /* discrete-n-white.png */; };
 		A14C180B124EFE6300816A4A /* PrefsController.m in Sources */ = {isa = PBXBuildFile; fileRef = A14C180A124EFE6300816A4A /* PrefsController.m */; };
 		A14C181C124F201400816A4A /* PrefsWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = A14C181A124F201400816A4A /* PrefsWindow.xib */; };
 		A159E4EA1184E84300E68428 /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A159E4E91184E84300E68428 /* Sparkle.framework */; };
@@ -32,10 +32,10 @@
 		A17221841236DE4200636797 /* Growl License.txt in Resources */ = {isa = PBXBuildFile; fileRef = A17221831236DE4200636797 /* Growl License.txt */; };
 		A17CE49A13B07C3700E5D50F /* SystemInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = A17CE49913B07C3700E5D50F /* SystemInfo.m */; };
 		A17CE49E13B081DE00E5D50F /* MuxMagic.m in Sources */ = {isa = PBXBuildFile; fileRef = A17CE49D13B081DE00E5D50F /* MuxMagic.m */; };
-		A1A3A6F9118214E2008B8145 /* integrated.png in Resources */ = {isa = PBXBuildFile; fileRef = A1A3A6F8118214E2008B8145 /* integrated.png */; };
+		A1A3A6F9118214E2008B8145 /* integrated-i.png in Resources */ = {isa = PBXBuildFile; fileRef = A1A3A6F8118214E2008B8145 /* integrated-i.png */; };
 		A1C01F2113B06C08003BD4B2 /* SessionMagic.m in Sources */ = {isa = PBXBuildFile; fileRef = A1C01F2013B06C08003BD4B2 /* SessionMagic.m */; };
 		A1CCE20012B13CE4006D07A4 /* NSAttributedString+Hyperlink.m in Sources */ = {isa = PBXBuildFile; fileRef = A1CCE1FF12B13CE4006D07A4 /* NSAttributedString+Hyperlink.m */; };
-		A1D6AC5D11826BF00038AD1A /* nvidia.png in Resources */ = {isa = PBXBuildFile; fileRef = A1D6AC5C11826BF00038AD1A /* nvidia.png */; };
+		A1D6AC5D11826BF00038AD1A /* discrete-n.png in Resources */ = {isa = PBXBuildFile; fileRef = A1D6AC5C11826BF00038AD1A /* discrete-n.png */; };
 		A1D9C42011850DEF009A4DE1 /* dsa_pub.pem in Resources */ = {isa = PBXBuildFile; fileRef = A1D9C41F11850DEF009A4DE1 /* dsa_pub.pem */; };
 		A1D9C43A11851B77009A4DE1 /* gfxCardStatus.icns in Resources */ = {isa = PBXBuildFile; fileRef = A1D9C43911851B77009A4DE1 /* gfxCardStatus.icns */; };
 		A1E07D581194B42100683B07 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A1E07D571194B42100683B07 /* IOKit.framework */; };
@@ -83,10 +83,10 @@
 		A14B9E9F13C55A33009A761C /* discrete-a.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "discrete-a.png"; sourceTree = "<group>"; };
 		A14B9EA313C55A91009A761C /* sk */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = sk; path = sk.lproj/Localizable.strings; sourceTree = "<group>"; };
 		A14B9EAA13C5613F009A761C /* Credits.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = Credits.rtf; sourceTree = "<group>"; };
-		A14C17F5124EBBFA00816A4A /* discrete-white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "discrete-white.png"; sourceTree = "<group>"; };
-		A14C17F6124EBBFA00816A4A /* discrete.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = discrete.png; sourceTree = "<group>"; };
-		A14C17F9124EBC1100816A4A /* integrated-white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "integrated-white.png"; sourceTree = "<group>"; };
-		A14C17FA124EBC1100816A4A /* nvidia-white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "nvidia-white.png"; sourceTree = "<group>"; };
+		A14C17F5124EBBFA00816A4A /* discrete-d-white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "discrete-d-white.png"; sourceTree = "<group>"; };
+		A14C17F6124EBBFA00816A4A /* discrete-d.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "discrete-d.png"; sourceTree = "<group>"; };
+		A14C17F9124EBC1100816A4A /* integrated-i-white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "integrated-i-white.png"; sourceTree = "<group>"; };
+		A14C17FA124EBC1100816A4A /* discrete-n-white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "discrete-n-white.png"; sourceTree = "<group>"; };
 		A14C1809124EFE6300816A4A /* PrefsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrefsController.h; sourceTree = "<group>"; };
 		A14C180A124EFE6300816A4A /* PrefsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrefsController.m; sourceTree = "<group>"; };
 		A14C181B124F201400816A4A /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/PrefsWindow.xib; sourceTree = "<group>"; };
@@ -102,14 +102,14 @@
 		A17CE49913B07C3700E5D50F /* SystemInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SystemInfo.m; sourceTree = "<group>"; };
 		A17CE49C13B081DE00E5D50F /* MuxMagic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MuxMagic.h; sourceTree = "<group>"; };
 		A17CE49D13B081DE00E5D50F /* MuxMagic.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MuxMagic.m; sourceTree = "<group>"; };
-		A1A3A6F8118214E2008B8145 /* integrated.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = integrated.png; sourceTree = "<group>"; };
+		A1A3A6F8118214E2008B8145 /* integrated-i.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "integrated-i.png"; sourceTree = "<group>"; };
 		A1C01F1F13B06C08003BD4B2 /* SessionMagic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SessionMagic.h; sourceTree = "<group>"; };
 		A1C01F2013B06C08003BD4B2 /* SessionMagic.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SessionMagic.m; sourceTree = "<group>"; };
 		A1CCE1FE12B13CE4006D07A4 /* NSAttributedString+Hyperlink.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSAttributedString+Hyperlink.h"; sourceTree = "<group>"; };
 		A1CCE1FF12B13CE4006D07A4 /* NSAttributedString+Hyperlink.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSAttributedString+Hyperlink.m"; sourceTree = "<group>"; };
 		A1CFF01E13B1D73A0070650A /* ru-RU */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = "ru-RU"; path = "ru-RU.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		A1CFF02213B1D7C70070650A /* uk-UA */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = "uk-UA"; path = "uk-UA.lproj/Localizable.strings"; sourceTree = "<group>"; };
-		A1D6AC5C11826BF00038AD1A /* nvidia.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = nvidia.png; sourceTree = "<group>"; };
+		A1D6AC5C11826BF00038AD1A /* discrete-n.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "discrete-n.png"; sourceTree = "<group>"; };
 		A1D9C41F11850DEF009A4DE1 /* dsa_pub.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = dsa_pub.pem; sourceTree = "<group>"; };
 		A1D9C43911851B77009A4DE1 /* gfxCardStatus.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = gfxCardStatus.icns; sourceTree = "<group>"; };
 		A1E07D571194B42100683B07 /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = System/Library/Frameworks/IOKit.framework; sourceTree = SDKROOT; };
@@ -235,14 +235,14 @@
 			isa = PBXGroup;
 			children = (
 				A1D9C43911851B77009A4DE1 /* gfxCardStatus.icns */,
-				A1D6AC5C11826BF00038AD1A /* nvidia.png */,
-				A14C17FA124EBC1100816A4A /* nvidia-white.png */,
-				A1A3A6F8118214E2008B8145 /* integrated.png */,
-				A14C17F9124EBC1100816A4A /* integrated-white.png */,
-				A14C17F6124EBBFA00816A4A /* discrete.png */,
-				A14C17F5124EBBFA00816A4A /* discrete-white.png */,
 				A14B9E9F13C55A33009A761C /* discrete-a.png */,
 				A14B9E9E13C55A33009A761C /* discrete-a-white.png */,
+				A14C17F6124EBBFA00816A4A /* discrete-d.png */,
+				A14C17F5124EBBFA00816A4A /* discrete-d-white.png */,
+				A1D6AC5C11826BF00038AD1A /* discrete-n.png */,
+				A14C17FA124EBC1100816A4A /* discrete-n-white.png */,
+				A1A3A6F8118214E2008B8145 /* integrated-i.png */,
+				A14C17F9124EBC1100816A4A /* integrated-i-white.png */,
 			);
 			path = Images;
 			sourceTree = "<group>";
@@ -320,18 +320,18 @@
 			files = (
 				8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */,
 				1DDD58160DA1D0A300B32029 /* MainMenu.xib in Resources */,
-				A1A3A6F9118214E2008B8145 /* integrated.png in Resources */,
-				A1D6AC5D11826BF00038AD1A /* nvidia.png in Resources */,
+				A1A3A6F9118214E2008B8145 /* integrated-i.png in Resources */,
+				A1D6AC5D11826BF00038AD1A /* discrete-n.png in Resources */,
 				A1D9C42011850DEF009A4DE1 /* dsa_pub.pem in Resources */,
 				A1D9C43A11851B77009A4DE1 /* gfxCardStatus.icns in Resources */,
 				A16B28F41196B0E7006EB263 /* README.md in Resources */,
 				A13C5FC0119FCFCF00E678FA /* Localizable.strings in Resources */,
 				A17220A91236DA8A00636797 /* Growl Registration Ticket.growlRegDict in Resources */,
 				A17221841236DE4200636797 /* Growl License.txt in Resources */,
-				A14C17F7124EBBFA00816A4A /* discrete-white.png in Resources */,
-				A14C17F8124EBBFA00816A4A /* discrete.png in Resources */,
-				A14C17FB124EBC1100816A4A /* integrated-white.png in Resources */,
-				A14C17FC124EBC1100816A4A /* nvidia-white.png in Resources */,
+				A14C17F7124EBBFA00816A4A /* discrete-d-white.png in Resources */,
+				A14C17F8124EBBFA00816A4A /* discrete-d.png in Resources */,
+				A14C17FB124EBC1100816A4A /* integrated-i-white.png in Resources */,
+				A14C17FC124EBC1100816A4A /* discrete-n-white.png in Resources */,
 				A14C181C124F201400816A4A /* PrefsWindow.xib in Resources */,
 				A14B9EA013C55A33009A761C /* discrete-a-white.png in Resources */,
 				A14B9EA113C55A33009A761C /* discrete-a.png in Resources */,
@@ -453,9 +453,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
-				DEPLOYMENT_LOCATION = YES;
-				DEPLOYMENT_POSTPROCESSING = YES;
-				DSTROOT = /;
+				DEPLOYMENT_LOCATION = NO;
+				DEPLOYMENT_POSTPROCESSING = NO;
+				DSTROOT = /tmp/gfxCardStatus.dst;
 				FRAMEWORK_SEARCH_PATHS = "";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -463,7 +463,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = "";
-				INSTALL_PATH = /Applications;
+				INSTALL_PATH = "";
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				ONLY_ACTIVE_ARCH = YES;
 				RUN_CLANG_STATIC_ANALYZER = YES;
@@ -475,9 +475,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
-				DEPLOYMENT_LOCATION = YES;
-				DEPLOYMENT_POSTPROCESSING = YES;
-				DSTROOT = /;
+				DEPLOYMENT_LOCATION = NO;
+				DEPLOYMENT_POSTPROCESSING = NO;
+				DSTROOT = /tmp/gfxCardStatus.dst;
 				EXCLUDED_RECURSIVE_SEARCH_PATH_SUBDIRECTORIES = ".git *.nib *.lproj *.framework *.gch *.xcode* (*) CVS .svn";
 				FRAMEWORK_SEARCH_PATHS = "";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -486,7 +486,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = "";
-				INSTALL_PATH = /Applications;
+				INSTALL_PATH = "";
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				RUN_CLANG_STATIC_ANALYZER = YES;
 				SDKROOT = macosx;
