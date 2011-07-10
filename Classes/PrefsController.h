@@ -13,6 +13,10 @@
     NSString *prefsPath;
     NSMutableDictionary *prefs;
     
+    // boxes
+    IBOutlet NSBox *generalBox;
+    IBOutlet NSBox *switchingBox;
+    
     // general preferences
     IBOutlet NSButton *prefChkUpdate; // check for updates on startup
     IBOutlet NSButton *prefChkGrowl; // use growl to send notifications

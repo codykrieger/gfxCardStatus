@@ -57,7 +57,7 @@ static PrefsController *sharedInstance = nil;
 - (void)awakeFromNib {
     // for preferences window controls
     NSArray *localizedButtons = [[NSArray alloc] initWithObjects:prefChkGrowl, prefChkPowerSourceBasedSwitching, 
-                          prefChkRestoreState, prefChkStartup, prefChkUpdate, nil];
+                          prefChkRestoreState, prefChkStartup, prefChkUpdate, generalBox, switchingBox, nil];
     for (NSButton *loc in localizedButtons) {
         [loc setTitle:Str([loc title])];
     }
@@ -90,6 +90,7 @@ static PrefsController *sharedInstance = nil;
     [self setControlsToPreferences];
     
     // preferences window
+    [[self window] setTitle:Str(@"PrefTitle")];
     [[self window] setLevel:NSModalPanelWindowLevel];
     [[self window] setDelegate:self];
 }

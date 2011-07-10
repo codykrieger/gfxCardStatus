@@ -37,6 +37,8 @@
 "Dynamic"               = "Автоматически";
 "OnBattery"             = "От аккумулятора:";
 "PluggedIn"             = "От блока питания:";
+"General"               = "General";
+"Switching"             = "Switching";
 
 /* About box */
 "AboutTitle"			= "О программе gfxCardStatus";

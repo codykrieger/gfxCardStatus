@@ -36,6 +36,8 @@
 "Dynamic"               = "Dynamic";
 "OnBattery"             = "Utilizando a Bateria:";
 "PluggedIn"             = "Conectado á Fonte de Energia:";
+"General"               = "General";
+"Switching"             = "Switching";
 
 /* About box */
 "AboutTitle"			= "Sobre gfxCardStatus";

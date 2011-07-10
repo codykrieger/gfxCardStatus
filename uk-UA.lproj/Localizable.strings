@@ -36,6 +36,8 @@
 "Dynamic"               = "Динамічно";
 "OnBattery"             = "Від акумулятора:";
 "PluggedIn"             = "Від адаптера:";
+"General"               = "General";
+"Switching"             = "Switching";
 
 /* About box */
 "AboutTitle"			= "О gfxCardStatus";

@@ -545,6 +545,22 @@
 					</object>
 					<int key="connectionID">63</int>
 				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">generalBox</string>
+						<reference key="source" ref="1001"/>
+						<reference key="destination" ref="1010243738"/>
+					</object>
+					<int key="connectionID">64</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">switchingBox</string>
+						<reference key="source" ref="1001"/>
+						<reference key="destination" ref="62725687"/>
+					</object>
+					<int key="connectionID">65</int>
+				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
 				<object class="NSArray" key="orderedObjects">
@@ -589,8 +605,8 @@
 						<reference key="object" ref="241093255"/>
 						<object class="NSMutableArray" key="children">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<reference ref="1010243738"/>
 							<reference ref="62725687"/>
+							<reference ref="1010243738"/>
 						</object>
 						<reference key="parent" ref="526247657"/>
 					</object>
@@ -826,7 +842,7 @@
 				<reference key="dict.values" ref="0"/>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">63</int>
+			<int key="maxID">65</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -849,6 +865,7 @@
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>generalBox</string>
 							<string>onBatteryTextField</string>
 							<string>pluggedInTextField</string>
 							<string>prefChkGrowl</string>
@@ -858,9 +875,11 @@
 							<string>prefChkUpdate</string>
 							<string>prefSegOnAc</string>
 							<string>prefSegOnBattery</string>
+							<string>switchingBox</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>NSBox</string>
 							<string>NSTextField</string>
 							<string>NSTextField</string>
 							<string>NSButton</string>
@@ -870,12 +889,14 @@
 							<string>NSButton</string>
 							<string>NSSegmentedControl</string>
 							<string>NSSegmentedControl</string>
+							<string>NSBox</string>
 						</object>
 					</object>
 					<object class="NSMutableDictionary" key="toOneOutletInfosByName">
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>generalBox</string>
 							<string>onBatteryTextField</string>
 							<string>pluggedInTextField</string>
 							<string>prefChkGrowl</string>
@@ -885,9 +906,14 @@
 							<string>prefChkUpdate</string>
 							<string>prefSegOnAc</string>
 							<string>prefSegOnBattery</string>
+							<string>switchingBox</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<object class="IBToOneOutletInfo">
+								<string key="name">generalBox</string>
+								<string key="candidateClassName">NSBox</string>
+							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">onBatteryTextField</string>
 								<string key="candidateClassName">NSTextField</string>
@@ -923,6 +949,10 @@
 							<object class="IBToOneOutletInfo">
 								<string key="name">prefSegOnBattery</string>
 								<string key="candidateClassName">NSSegmentedControl</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">switchingBox</string>
+								<string key="candidateClassName">NSBox</string>
 							</object>
 						</object>
 					</object>

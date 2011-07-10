@@ -36,6 +36,8 @@
 "Dynamic"               = "Dynamicky";
 "OnBattery"             = "Na baterii:";
 "PluggedIn"             = "Na adaptér:";
+"General"               = "Obecné";
+"Switching"             = "Přepínání";
 
 /* About box */
 "AboutTitle"			= "O aplikaci gfxCardStatus";

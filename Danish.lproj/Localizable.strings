@@ -37,6 +37,8 @@
 "Dynamic"               = "Dynamic";
 "OnBattery"             = "On Battery:";
 "PluggedIn"             = "Plugged In:";
+"General"               = "General";
+"Switching"             = "Switching";
 
 /* About box */
 "AboutTitle"			= "Om gfxCardStatus";

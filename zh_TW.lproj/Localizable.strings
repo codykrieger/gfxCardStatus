@@ -36,6 +36,8 @@
 "Dynamic"               = "自動切換";
 "OnBattery"        = "使用電池時:";
 "PluggedIn"        = "電源荭換器:";
+"General"               = "General";
+"Switching"             = "Switching";
 
 /* About box */
 "AboutTitle"       = "關於 gfxCardStatus";
