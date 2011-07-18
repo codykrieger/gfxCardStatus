@@ -193,8 +193,11 @@
     }
     
     pwc.window.delegate = prefs;
+    
     [pwc.window center];
     [pwc.window makeKeyAndOrderFront:self];
+    [pwc.window setOrderedIndex:0];
+    [NSApp activateIgnoringOtherApps:YES];
 }
 
 - (IBAction)openAbout:(id)sender {
