@@ -49,7 +49,7 @@
     }
 }
 
-- (NSString *)title; {
+- (NSString *)title {
     return Str(@"General");
 }
 

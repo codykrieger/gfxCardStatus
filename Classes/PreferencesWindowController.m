@@ -162,7 +162,6 @@
     return nil;
 }
 
-
 - (NSArray *)toolbarSelectableItemIdentifiers:(NSToolbar *)toolbar {
     return [self toolbarAllowedItemIdentifiers:toolbar];
 }

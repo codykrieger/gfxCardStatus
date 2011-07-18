@@ -17,8 +17,7 @@
 
 @synthesize prefs;
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     self = [super initWithNibName:@"AdvancedPreferencesView" bundle:nil];
     if (self) {
         prefs = [PrefsController sharedInstance];
@@ -27,13 +26,11 @@
     return self;
 }
 
-- (void)dealloc
-{
+- (void)dealloc {
     [super dealloc];
 }
 
-- (void)loadView
-{
+- (void)loadView {
     [super loadView];
     
     NSArray *localizedButtons = [[NSArray alloc] initWithObjects:prefChkRestoreState, prefChkPowerSourceBasedSwitching, nil];
@@ -66,18 +63,15 @@
     [prefSegOnBattery sizeToFit];
 }
 
-- (NSString *)title;
-{
+- (NSString *)title {
     return Str(@"Advanced");
 }
 
-- (NSString *)identifier
-{
+- (NSString *)identifier {
     return @"advanced";
 }
 
-- (NSImage *)image
-{
+- (NSImage *)image {
     return [NSImage imageNamed:NSImageNameAdvanced];
 }
 
