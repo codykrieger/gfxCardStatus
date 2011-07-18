@@ -13,6 +13,11 @@
 		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
 		8D11072D0486CEB800E47090 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
+		A11599BE13D429750097E4BC /* AdvancedPreferencesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A11599B813D429750097E4BC /* AdvancedPreferencesViewController.m */; };
+		A11599BF13D429750097E4BC /* GeneralPreferencesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A11599BA13D429750097E4BC /* GeneralPreferencesViewController.m */; };
+		A11599C013D429750097E4BC /* PreferencesWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = A11599BD13D429750097E4BC /* PreferencesWindowController.m */; };
+		A11599C613D429860097E4BC /* AdvancedPreferencesView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A11599C213D429860097E4BC /* AdvancedPreferencesView.xib */; };
+		A11599C713D429860097E4BC /* GeneralPreferencesView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A11599C413D429860097E4BC /* GeneralPreferencesView.xib */; };
 		A115A11313B1CF9100330760 /* Growl.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A17220621236D90800636797 /* Growl.framework */; };
 		A13C5FC0119FCFCF00E678FA /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = A13C5FBE119FCFCF00E678FA /* Localizable.strings */; };
 		A14B9EA013C55A33009A761C /* discrete-a-white.png in Resources */ = {isa = PBXBuildFile; fileRef = A14B9E9E13C55A33009A761C /* discrete-a-white.png */; };
@@ -72,6 +77,15 @@
 		8D1107310486CEB800E47090 /* gfxCardStatus-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "gfxCardStatus-Info.plist"; sourceTree = "<group>"; };
 		8D1107320486CEB800E47090 /* gfxCardStatus.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = gfxCardStatus.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A10D2E5811C63CC100E8E2C7 /* Italian */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = Italian; path = Italian.lproj/Localizable.strings; sourceTree = "<group>"; };
+		A11599B713D429750097E4BC /* AdvancedPreferencesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AdvancedPreferencesViewController.h; sourceTree = "<group>"; };
+		A11599B813D429750097E4BC /* AdvancedPreferencesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AdvancedPreferencesViewController.m; sourceTree = "<group>"; };
+		A11599B913D429750097E4BC /* GeneralPreferencesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GeneralPreferencesViewController.h; sourceTree = "<group>"; };
+		A11599BA13D429750097E4BC /* GeneralPreferencesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GeneralPreferencesViewController.m; sourceTree = "<group>"; };
+		A11599BB13D429750097E4BC /* PreferencesModule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PreferencesModule.h; sourceTree = "<group>"; };
+		A11599BC13D429750097E4BC /* PreferencesWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PreferencesWindowController.h; sourceTree = "<group>"; };
+		A11599BD13D429750097E4BC /* PreferencesWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PreferencesWindowController.m; sourceTree = "<group>"; };
+		A11599C313D429860097E4BC /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/AdvancedPreferencesView.xib; sourceTree = "<group>"; };
+		A11599C513D429860097E4BC /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/GeneralPreferencesView.xib; sourceTree = "<group>"; };
 		A12DE37712064D3F00D8E08C /* zh_CN */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = zh_CN; path = zh_CN.lproj/Localizable.strings; sourceTree = "<group>"; };
 		A12DE37812064D4400D8E08C /* zh_TW */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = zh_TW; path = zh_TW.lproj/Localizable.strings; sourceTree = "<group>"; };
 		A13C5FBF119FCFCF00E678FA /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -136,19 +150,13 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				A1CCE1FC12B13CC1006D07A4 /* Custom */,
+				A1CCE1FC12B13CC1006D07A4 /* Categories */,
+				A11599C813D42A3D0097E4BC /* Preferences */,
+				A11599CA13D42A720097E4BC /* System Utils */,
 				256AC3D80F4B6AC300CF3369 /* gfxCardStatusAppDelegate.h */,
 				256AC3D90F4B6AC300CF3369 /* gfxCardStatusAppDelegate.m */,
 				A1C01F1F13B06C08003BD4B2 /* SessionMagic.h */,
 				A1C01F2013B06C08003BD4B2 /* SessionMagic.m */,
-				A17CE49813B07C3700E5D50F /* SystemInfo.h */,
-				A17CE49913B07C3700E5D50F /* SystemInfo.m */,
-				A17CE49C13B081DE00E5D50F /* MuxMagic.h */,
-				A17CE49D13B081DE00E5D50F /* MuxMagic.m */,
-				A14C1809124EFE6300816A4A /* PrefsController.h */,
-				A14C180A124EFE6300816A4A /* PrefsController.m */,
-				8013EE1211A026EA000ECA36 /* PowerSourceMonitor.h */,
-				8013EE1311A026EA000ECA36 /* PowerSourceMonitor.m */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -217,6 +225,8 @@
 				089C165CFE840E0CC02AAC07 /* InfoPlist.strings */,
 				1DDD58140DA1D0A300B32029 /* MainMenu.xib */,
 				A14C181A124F201400816A4A /* PrefsWindow.xib */,
+				A11599C413D429860097E4BC /* GeneralPreferencesView.xib */,
+				A11599C213D429860097E4BC /* AdvancedPreferencesView.xib */,
 				A13C5FBE119FCFCF00E678FA /* Localizable.strings */,
 			);
 			name = Resources;
@@ -229,6 +239,35 @@
 				1058C7A2FEA54F0111CA2CBB /* Other Frameworks */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		A11599C813D42A3D0097E4BC /* Preferences */ = {
+			isa = PBXGroup;
+			children = (
+				A14C1809124EFE6300816A4A /* PrefsController.h */,
+				A14C180A124EFE6300816A4A /* PrefsController.m */,
+				A11599BB13D429750097E4BC /* PreferencesModule.h */,
+				A11599BC13D429750097E4BC /* PreferencesWindowController.h */,
+				A11599BD13D429750097E4BC /* PreferencesWindowController.m */,
+				A11599B913D429750097E4BC /* GeneralPreferencesViewController.h */,
+				A11599BA13D429750097E4BC /* GeneralPreferencesViewController.m */,
+				A11599B713D429750097E4BC /* AdvancedPreferencesViewController.h */,
+				A11599B813D429750097E4BC /* AdvancedPreferencesViewController.m */,
+			);
+			name = Preferences;
+			sourceTree = "<group>";
+		};
+		A11599CA13D42A720097E4BC /* System Utils */ = {
+			isa = PBXGroup;
+			children = (
+				A17CE49813B07C3700E5D50F /* SystemInfo.h */,
+				A17CE49913B07C3700E5D50F /* SystemInfo.m */,
+				A17CE49C13B081DE00E5D50F /* MuxMagic.h */,
+				A17CE49D13B081DE00E5D50F /* MuxMagic.m */,
+				8013EE1211A026EA000ECA36 /* PowerSourceMonitor.h */,
+				8013EE1311A026EA000ECA36 /* PowerSourceMonitor.m */,
+			);
+			name = "System Utils";
 			sourceTree = "<group>";
 		};
 		A18123D812B96F3F00266D46 /* Images */ = {
@@ -247,13 +286,13 @@
 			path = Images;
 			sourceTree = "<group>";
 		};
-		A1CCE1FC12B13CC1006D07A4 /* Custom */ = {
+		A1CCE1FC12B13CC1006D07A4 /* Categories */ = {
 			isa = PBXGroup;
 			children = (
 				A1CCE1FE12B13CE4006D07A4 /* NSAttributedString+Hyperlink.h */,
 				A1CCE1FF12B13CE4006D07A4 /* NSAttributedString+Hyperlink.m */,
 			);
-			name = Custom;
+			name = Categories;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -336,6 +375,8 @@
 				A14B9EA013C55A33009A761C /* discrete-a-white.png in Resources */,
 				A14B9EA113C55A33009A761C /* discrete-a.png in Resources */,
 				A14B9EAB13C5613F009A761C /* Credits.rtf in Resources */,
+				A11599C613D429860097E4BC /* AdvancedPreferencesView.xib in Resources */,
+				A11599C713D429860097E4BC /* GeneralPreferencesView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -354,6 +395,9 @@
 				A1C01F2113B06C08003BD4B2 /* SessionMagic.m in Sources */,
 				A17CE49A13B07C3700E5D50F /* SystemInfo.m in Sources */,
 				A17CE49E13B081DE00E5D50F /* MuxMagic.m in Sources */,
+				A11599BE13D429750097E4BC /* AdvancedPreferencesViewController.m in Sources */,
+				A11599BF13D429750097E4BC /* GeneralPreferencesViewController.m in Sources */,
+				A11599C013D429750097E4BC /* PreferencesWindowController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -374,6 +418,22 @@
 				1DDD58150DA1D0A300B32029 /* English */,
 			);
 			name = MainMenu.xib;
+			sourceTree = "<group>";
+		};
+		A11599C213D429860097E4BC /* AdvancedPreferencesView.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				A11599C313D429860097E4BC /* English */,
+			);
+			name = AdvancedPreferencesView.xib;
+			sourceTree = "<group>";
+		};
+		A11599C413D429860097E4BC /* GeneralPreferencesView.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				A11599C513D429860097E4BC /* English */,
+			);
+			name = GeneralPreferencesView.xib;
 			sourceTree = "<group>";
 		};
 		A13C5FBE119FCFCF00E678FA /* Localizable.strings */ = {

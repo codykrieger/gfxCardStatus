@@ -38,6 +38,7 @@
 "PluggedIn"             = "Plugged In:";
 "General"               = "General";
 "Switching"             = "Switching";
+"Advanced"              = "Advanced";
 
 /* About box */
 "AboutTitle"			= "About gfxCardStatus";

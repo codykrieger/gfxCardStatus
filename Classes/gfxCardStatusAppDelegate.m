@@ -10,6 +10,8 @@
 #import "SystemInfo.h"
 #import "MuxMagic.h"
 #import "NSAttributedString+Hyperlink.h"
+#import "GeneralPreferencesViewController.h"
+#import "AdvancedPreferencesViewController.h"
 
 @implementation gfxCardStatusAppDelegate
 
@@ -179,7 +181,22 @@
 }
 
 - (IBAction)openPreferences:(id)sender {
-    [prefs openPreferences];
+//    [prefs openPreferences];
+    
+    if (!pwc) {
+        pwc = [[PreferencesWindowController alloc] init];
+        
+        NSArray *modules = [NSArray arrayWithObjects:
+                            [[[GeneralPreferencesViewController alloc] init] autorelease], 
+                            [[[AdvancedPreferencesViewController alloc] init] autorelease],
+                            nil];
+        
+        [pwc setModules:modules];
+    }
+    
+    pwc.window.delegate = prefs;
+    [pwc.window center];
+    [pwc.window makeKeyAndOrderFront:self];
 }
 
 - (IBAction)openAbout:(id)sender {

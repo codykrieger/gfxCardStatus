@@ -12,6 +12,7 @@
 #import <Growl/Growl.h>
 
 #import "PrefsController.h"
+#import "PreferencesWindowController.h"
 #import "SessionMagic.h"
 #import "PowerSourceMonitor.h"
 
@@ -46,6 +47,7 @@
     
     // preferences for all!
     PrefsController *prefs;
+    PreferencesWindowController *pwc;
     
     // state for all!!!
     SessionMagic *state;

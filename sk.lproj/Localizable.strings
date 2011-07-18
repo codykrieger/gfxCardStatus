@@ -38,6 +38,7 @@
 "PluggedIn"             = "Na adaptér:";
 "General"               = "Všeobecné";
 "Switching"             = "Prepínanie";
+"Advanced"              = "Rozšírené";
 
 /* About box */
 "AboutTitle"			= "O aplikácii gfxCardStatus";
