@@ -181,8 +181,6 @@
 }
 
 - (IBAction)openPreferences:(id)sender {
-//    [prefs openPreferences];
-    
     if (!pwc) {
         pwc = [[PreferencesWindowController alloc] init];
         

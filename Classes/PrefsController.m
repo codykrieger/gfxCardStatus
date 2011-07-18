@@ -17,7 +17,7 @@ static PrefsController *sharedInstance = nil;
 #pragma mark class instance methods
 
 - (id)init {
-    if ((self = [super initWithWindowNibName:@"PrefsWindow"])) {
+    if ((self = [super init])) {
         DLog(@"Initializing PrefsController");
         [self setUpPreferences];
     }
@@ -54,47 +54,6 @@ static PrefsController *sharedInstance = nil;
         [prefs setObject:noNumber forKey:@"shouldUseImageIcons"];
 }
 
-- (void)awakeFromNib {
-    // for preferences window controls
-    NSArray *localizedButtons = [[NSArray alloc] initWithObjects:prefChkGrowl, prefChkPowerSourceBasedSwitching, 
-                          prefChkRestoreState, prefChkStartup, prefChkUpdate, generalBox, switchingBox, nil];
-    for (NSButton *loc in localizedButtons) {
-        [loc setTitle:Str([loc title])];
-    }
-    [localizedButtons release];
-    
-    NSArray *localizedLabels = [[NSArray alloc] initWithObjects:onBatteryTextField, pluggedInTextField, nil];
-    for (NSTextField *field in localizedLabels) {
-        [field setStringValue:Str([field stringValue])];
-    }
-    [localizedLabels release];
-    
-    if ([[SessionMagic sharedInstance] usingLegacy]) {
-        [prefSegOnBattery setSegmentCount:2];
-        [prefSegOnAc setSegmentCount:2];
-    } else {
-        [prefSegOnBattery setLabel:Str(@"Dynamic") forSegment:2];
-        [prefSegOnAc setLabel:Str(@"Dynamic") forSegment:2];
-    }
-    
-    [prefSegOnBattery setLabel:Str(@"Integrated") forSegment:0];
-    [prefSegOnBattery setLabel:Str(@"Discrete") forSegment:1];
-    [prefSegOnAc setLabel:Str(@"Integrated") forSegment:0];
-    [prefSegOnAc setLabel:Str(@"Discrete") forSegment:1];
-    
-    // fit labels after localization
-    [prefSegOnAc sizeToFit];
-    [prefSegOnBattery sizeToFit];
-    
-    // set controls according to values set in preferences
-    [self setControlsToPreferences];
-    
-    // preferences window
-    [[self window] setTitle:Str(@"PrefTitle")];
-    [[self window] setLevel:NSModalPanelWindowLevel];
-    [[self window] setDelegate:self];
-}
-
 - (NSString *)getPrefsPath {
     return [@"~/Library/Preferences/com.codykrieger.gfxCardStatus-Preferences.plist" stringByExpandingTildeInPath];
 }
@@ -120,66 +79,18 @@ static PrefsController *sharedInstance = nil;
     [self savePreferences];
 }
 
-- (void)setControlsToPreferences {
-    DLog(@"Setting controls to mirror saved preferences");
-    
-    [prefChkUpdate setState:[self shouldCheckForUpdatesOnStartup]];
-    [prefChkGrowl setState:[self shouldGrowl]];
-    [prefChkStartup setState:[self shouldStartAtLogin]];
-    
-    [prefChkRestoreState setState:[self shouldRestoreStateOnStartup]];
-    [prefChkPowerSourceBasedSwitching setState:[self shouldUsePowerSourceBasedSwitching]];
-    [prefChkRestoreState setEnabled:![self shouldUsePowerSourceBasedSwitching]];
-    
-    [prefSegOnBattery setSelectedSegment:[self modeForPowerSource:kGPUSettingBattery]];
-    [prefSegOnAc setSelectedSegment:[self modeForPowerSource:kGPUSettingACAdaptor]];
-}
-
 - (void)savePreferences {
-//    DLog(@"Writing preferences to disk");
+    DLog(@"Writing preferences to disk");
     
     if ([prefs writeToFile:[self getPrefsPath] atomically:YES]) {
-//        DLog(@"Successfully wrote preferences to disk.");
+        DLog(@"Successfully wrote preferences to disk.");
     } else {
-//        DLog(@"Failed to write preferences to disk. Permissions problem in ~/Library/Preferences?");
+        DLog(@"Failed to write preferences to disk. Permissions problem in ~/Library/Preferences?");
     }
-}
-
-- (void)openPreferences {
-    if ([self existsInStartupItems])
-        [prefs setObject:yesNumber forKey:@"shouldStartAtLogin"];
-    else
-        [prefs setObject:noNumber forKey:@"shouldStartAtLogin"];
-    
-    [self setControlsToPreferences];
-    
-    [[self window] makeKeyAndOrderFront:nil];
-    [[self window] orderFrontRegardless];
-    [[self window] center];
 }
 
 - (void)windowWillClose:(NSNotification *)notification {
     [self savePreferences];
-}
-
-- (IBAction)preferenceChanged:(id)sender {
-    if (sender == prefChkUpdate) {
-        [prefs setObject:([prefChkUpdate state] ? yesNumber : noNumber) forKey:@"shouldCheckForUpdatesOnStartup"];
-    } else if (sender == prefChkGrowl) {
-        [prefs setObject:([prefChkGrowl state] ? yesNumber : noNumber) forKey:@"shouldGrowl"];
-    } else if (sender == prefChkStartup) {
-        [prefs setObject:([prefChkStartup state] ? yesNumber : noNumber) forKey:@"shouldStartAtLogin"];
-        [self loadAtStartup:([prefChkStartup state] ? YES : NO)];
-    } else if (sender == prefChkRestoreState) {
-        [prefs setObject:([prefChkRestoreState state] ? yesNumber : noNumber) forKey:@"shouldRestoreStateOnStartup"];
-    } else if (sender == prefChkPowerSourceBasedSwitching) {
-        [prefs setObject:([prefChkPowerSourceBasedSwitching state] ? yesNumber : noNumber) forKey:@"shouldUsePowerSourceBasedSwitching"];
-        [prefChkRestoreState setEnabled:![self shouldUsePowerSourceBasedSwitching]];
-    } else if (sender == prefSegOnBattery) {
-        [prefs setObject:[NSNumber numberWithInt:[prefSegOnBattery selectedSegment]] forKey:kGPUSettingBattery];
-    } else if (sender == prefSegOnAc) {
-        [prefs setObject:[NSNumber numberWithInt:[prefSegOnAc selectedSegment]] forKey:kGPUSettingACAdaptor];
-    }
 }
 
 - (void)setBool:(BOOL)value forKey:(NSString *)key {
