@@ -8,6 +8,7 @@
 
 #import "GeneralPreferencesViewController.h"
 #import "PrefsController.h"
+#import "SessionMagic.h"
 
 @interface GeneralPreferencesViewController ()
 @property (assign) PrefsController *prefs;
@@ -36,11 +37,15 @@
     
     [prefs addObserver:self forKeyPath:@"prefs.shouldStartAtLogin" options:NSKeyValueObservingOptionNew context:nil];
     
-    NSArray *localizedButtons = [[NSArray alloc] initWithObjects:prefChkGrowl, prefChkStartup, prefChkUpdate, nil];
+    NSArray *localizedButtons = [[NSArray alloc] initWithObjects:prefChkGrowl, prefChkStartup, prefChkUpdate, prefChkSmartIcons, nil];
     for (NSButton *loc in localizedButtons) {
         [loc setTitle:Str([loc title])];
     }
     [localizedButtons release];
+    
+    SessionMagic *state = [SessionMagic sharedInstance];
+    if ([state usingLegacy])
+        [prefChkSmartIcons setEnabled:NO];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {

@@ -38,6 +38,7 @@
 "PluggedIn"             = "Conectado á Fonte de Energia:";
 "General"               = "General";
 "Switching"             = "Switching";
+"SmartMenuBarIcons"     = "Use smart menu bar icons";
 
 /* About box */
 "AboutTitle"			= "Sobre gfxCardStatus";

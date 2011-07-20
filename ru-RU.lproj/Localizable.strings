@@ -39,6 +39,7 @@
 "PluggedIn"             = "От блока питания:";
 "General"               = "General";
 "Switching"             = "Switching";
+"SmartMenuBarIcons"     = "Use smart menu bar icons";
 
 /* About box */
 "AboutTitle"			= "О программе gfxCardStatus";

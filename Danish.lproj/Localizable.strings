@@ -39,6 +39,7 @@
 "PluggedIn"             = "Plugged In:";
 "General"               = "General";
 "Switching"             = "Switching";
+"SmartMenuBarIcons"     = "Use smart menu bar icons";
 
 /* About box */
 "AboutTitle"			= "Om gfxCardStatus";

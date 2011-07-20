@@ -68,10 +68,12 @@
         [prefs setBool:YES forKey:@"hasSeenVersionTwoMessage"];
     }
     
-    // notifications
+    // notifications and kvo
     NSNotificationCenter *defaultNotifications = [NSNotificationCenter defaultCenter];
     [defaultNotifications addObserver:self selector:@selector(handleWake:)
                                  name:NSWorkspaceDidWakeNotification object:nil];
+    
+    [prefs addObserver:self forKeyPath:@"prefs.shouldUseSmartMenuBarIcons" options:NSKeyValueObservingOptionNew context:nil];
     
     // identify current gpu and set up menus accordingly
     NSDictionary *profile = [SystemInfo getGraphicsProfile];
@@ -156,6 +158,12 @@
 
 - (void)delayedPowerSourceCheck {
     [self powerSourceChanged:powerSourceMonitor.currentPowerSource];
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+    if ([keyPath isEqualToString:@"prefs.shouldUseSmartMenuBarIcons"]) {
+        [self updateMenu];
+    }
 }
 
 #pragma mark Menu Actions
@@ -275,7 +283,7 @@
         // grab first character of GPU string for the menu bar icon
         unichar firstLetter;
         
-        if ([state usingLegacy]) {
+        if ([state usingLegacy] || ![prefs shouldUseSmartMenuBarIcons]) {
             firstLetter = [state usingIntegrated] ? 'i' : 'd';
         } else {
             firstLetter = [cardString characterAtIndex:0];
@@ -423,6 +431,8 @@
 }
 
 - (void)dealloc {
+    [prefs removeObserver:self forKeyPath:@"prefs.shouldUseSmartMenuBarIcons"];
+    
     [SystemInfo procFree]; // Free processes listing buffers
     [MuxMagic switcherClose]; // Close driver
     

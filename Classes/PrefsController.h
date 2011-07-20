@@ -30,6 +30,7 @@
 - (BOOL)shouldRestoreStateOnStartup;
 - (BOOL)shouldUsePowerSourceBasedSwitching;
 - (BOOL)shouldUseImageIcons;
+- (BOOL)shouldUseSmartMenuBarIcons;
 - (int)shouldRestoreToMode;
 - (int)modeForPowerSource:(NSString *)powerSource;
 

@@ -38,6 +38,7 @@
 "PluggedIn"             = "AC-adapter:";
 "General"               = "General";
 "Switching"             = "Switching";
+"SmartMenuBarIcons"     = "Use smart menu bar icons";
 
 /* About box */
 "AboutTitle"			= "Om gfxCardStatus";

@@ -72,6 +72,7 @@ static PrefsController *sharedInstance = nil;
     [prefs setObject:yesNumber forKey:@"shouldStartAtLogin"];
     [prefs setObject:yesNumber forKey:@"shouldRestoreStateOnStartup"];
     [prefs setObject:noNumber forKey:@"shouldUsePowerSourceBasedSwitching"];
+    [prefs setObject:noNumber forKey:@"shouldUseSmartMenuBarIcons"];
     
     [prefs setObject:[NSNumber numberWithInt:0] forKey:kGPUSettingBattery]; // defaults to integrated
     if ([[SessionMagic sharedInstance] usingLegacy])
@@ -130,6 +131,10 @@ static PrefsController *sharedInstance = nil;
 
 - (BOOL)shouldUseImageIcons {
     return [(NSNumber *)[prefs objectForKey:@"shouldUseImageIcons"] boolValue];
+}
+
+- (BOOL)shouldUseSmartMenuBarIcons {
+    return [(NSNumber *)[prefs objectForKey:@"shouldUseSmartMenuBarIcons"] boolValue];
 }
 
 - (int)shouldRestoreToMode {

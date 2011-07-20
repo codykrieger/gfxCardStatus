@@ -38,6 +38,7 @@
 "PluggedIn"        = "電源荭換器:";
 "General"               = "General";
 "Switching"             = "Switching";
+"SmartMenuBarIcons"     = "Use smart menu bar icons";
 
 /* About box */
 "AboutTitle"       = "關於 gfxCardStatus";

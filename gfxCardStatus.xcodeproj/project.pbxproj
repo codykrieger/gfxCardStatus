@@ -28,7 +28,6 @@
 		A14C17FB124EBC1100816A4A /* integrated-i-white.png in Resources */ = {isa = PBXBuildFile; fileRef = A14C17F9124EBC1100816A4A /* integrated-i-white.png */; };
 		A14C17FC124EBC1100816A4A /* discrete-n-white.png in Resources */ = {isa = PBXBuildFile; fileRef = A14C17FA124EBC1100816A4A /* discrete-n-white.png */; };
 		A14C180B124EFE6300816A4A /* PrefsController.m in Sources */ = {isa = PBXBuildFile; fileRef = A14C180A124EFE6300816A4A /* PrefsController.m */; };
-		A14C181C124F201400816A4A /* PrefsWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = A14C181A124F201400816A4A /* PrefsWindow.xib */; };
 		A159E4EA1184E84300E68428 /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A159E4E91184E84300E68428 /* Sparkle.framework */; };
 		A159E4FC1184EC5100E68428 /* Sparkle.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = A159E4E91184E84300E68428 /* Sparkle.framework */; };
 		A16B28F41196B0E7006EB263 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = A16B28F31196B0E7006EB263 /* README.md */; };
@@ -103,7 +102,6 @@
 		A14C17FA124EBC1100816A4A /* discrete-n-white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "discrete-n-white.png"; sourceTree = "<group>"; };
 		A14C1809124EFE6300816A4A /* PrefsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrefsController.h; sourceTree = "<group>"; };
 		A14C180A124EFE6300816A4A /* PrefsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrefsController.m; sourceTree = "<group>"; };
-		A14C181B124F201400816A4A /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/PrefsWindow.xib; sourceTree = "<group>"; };
 		A14EC42112AE709D006B394D /* pt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = pt; path = pt.lproj/Localizable.strings; sourceTree = "<group>"; };
 		A14EC49112AE7609006B394D /* nl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/Localizable.strings; sourceTree = "<group>"; };
 		A1510B3A128D0A760076D88E /* Swedish */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = Swedish; path = Swedish.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -224,7 +222,6 @@
 				8D1107310486CEB800E47090 /* gfxCardStatus-Info.plist */,
 				089C165CFE840E0CC02AAC07 /* InfoPlist.strings */,
 				1DDD58140DA1D0A300B32029 /* MainMenu.xib */,
-				A14C181A124F201400816A4A /* PrefsWindow.xib */,
 				A11599C413D429860097E4BC /* GeneralPreferencesView.xib */,
 				A11599C213D429860097E4BC /* AdvancedPreferencesView.xib */,
 				A13C5FBE119FCFCF00E678FA /* Localizable.strings */,
@@ -371,7 +368,6 @@
 				A14C17F8124EBBFA00816A4A /* discrete-d.png in Resources */,
 				A14C17FB124EBC1100816A4A /* integrated-i-white.png in Resources */,
 				A14C17FC124EBC1100816A4A /* discrete-n-white.png in Resources */,
-				A14C181C124F201400816A4A /* PrefsWindow.xib in Resources */,
 				A14B9EA013C55A33009A761C /* discrete-a-white.png in Resources */,
 				A14B9EA113C55A33009A761C /* discrete-a.png in Resources */,
 				A14B9EAB13C5613F009A761C /* Credits.rtf in Resources */,
@@ -456,14 +452,6 @@
 				A1F4FB0F13C6D58B002D38D5 /* cs */,
 			);
 			name = Localizable.strings;
-			sourceTree = "<group>";
-		};
-		A14C181A124F201400816A4A /* PrefsWindow.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				A14C181B124F201400816A4A /* English */,
-			);
-			name = PrefsWindow.xib;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

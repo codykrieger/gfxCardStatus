@@ -39,6 +39,7 @@
 "General"               = "General";
 "Switching"             = "Switching";
 "Advanced"              = "Advanced";
+"SmartMenuBarIcons"     = "Use smart menu bar icons";
 
 /* About box */
 "AboutTitle"			= "About gfxCardStatus";

@@ -38,6 +38,7 @@
 "PluggedIn"             = "Від адаптера:";
 "General"               = "General";
 "Switching"             = "Switching";
+"SmartMenuBarIcons"     = "Use smart menu bar icons";
 
 /* About box */
 "AboutTitle"			= "О gfxCardStatus";
