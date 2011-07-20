@@ -39,7 +39,7 @@
 "General"               = "Všeobecné";
 "Switching"             = "Prepínanie";
 "Advanced"              = "Rozšírené";
-"SmartMenuBarIcons"     = "Use smart menu bar icons";
+"SmartMenuBarIcons"     = "Používať chytré menu ikony";
 
 /* About box */
 "AboutTitle"			= "O aplikácii gfxCardStatus";
