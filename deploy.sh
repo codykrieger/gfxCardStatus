@@ -1,8 +1,6 @@
 #!/bin/bash
 
-# build release
-rm -rf build/Release
-xcodebuild
+./build_release.sh
 
 # move into place
 rm -rf /Applications/gfxCardStatus.app
