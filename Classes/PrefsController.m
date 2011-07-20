@@ -11,6 +11,12 @@
 
 static PrefsController *sharedInstance = nil;
 
+@interface PrefsController (Private)
+
+- (void)copyLoginItems:(LSSharedFileListRef *)loginItems andCurrentLoginItem:(LSSharedFileListItemRef *)currentItem;
+
+@end
+
 @implementation PrefsController
 
 #pragma mark -
@@ -139,64 +145,74 @@ static PrefsController *sharedInstance = nil;
     [self savePreferences];
 }
 
-- (BOOL)existsInStartupItems {
-    BOOL exists = NO;
-    LSSharedFileListRef loginItems = LSSharedFileListCreate(NULL, kLSSharedFileListSessionLoginItems, NULL);
-    if (loginItems) {
+- (void)copyLoginItems:(LSSharedFileListRef *)loginItems andCurrentLoginItem:(LSSharedFileListItemRef *)currentItem {
+    *loginItems = LSSharedFileListCreate(NULL, kLSSharedFileListSessionLoginItems, NULL);
+    
+    if (*loginItems) {
         UInt32 seedValue;
-        NSArray *loginItemsArray = (NSArray *)LSSharedFileListCopySnapshot(loginItems, &seedValue);
+        NSArray *loginItemsArray = (NSArray *)LSSharedFileListCopySnapshot(*loginItems, &seedValue);
+        
         for (id item in loginItemsArray) {
             LSSharedFileListItemRef itemRef = (LSSharedFileListItemRef)item;
             CFURLRef URL = NULL;
+            
             if (LSSharedFileListItemResolve(itemRef, 0, &URL, NULL) == noErr) {
                 if ([[(NSURL *)URL path] hasSuffix:@"gfxCardStatus.app"]) {
-                    exists = YES;
+                    DLog(@"Exists in startup items.");
+                    
+                    *currentItem = (LSSharedFileListItemRef)item;
+                    CFRetain(*currentItem);
+                    
                     CFRelease(URL);
+                    
                     break;
                 }
+                
+                CFRelease(URL);
             }
         }
         
         [loginItemsArray release];
-        CFRelease(loginItems);
     }
+}
+
+- (BOOL)existsInStartupItems {
+    BOOL exists;
+    LSSharedFileListRef loginItems = NULL;
+    LSSharedFileListItemRef currentItem = NULL;
+    
+    [self copyLoginItems:&loginItems andCurrentLoginItem:&currentItem];
+    
+    exists = (currentItem != NULL);
+    
+    if (loginItems != NULL)
+        CFRelease(loginItems);
+    if (currentItem != NULL)
+        CFRelease(currentItem);
+    
     return exists;
 }
 
 - (void)loadAtStartup:(BOOL)value {
     NSURL *thePath = [[NSBundle mainBundle] bundleURL];
-    LSSharedFileListRef loginItems = LSSharedFileListCreate(NULL, kLSSharedFileListSessionLoginItems, NULL);
+    LSSharedFileListRef loginItems = NULL;
+    LSSharedFileListItemRef currentItem = NULL;
+    
+    [self copyLoginItems:&loginItems andCurrentLoginItem:&currentItem];
+    
     if (loginItems) {
-        BOOL exists = NO;
-        
-        UInt32 seedValue;
-        NSArray *loginItemsArray = (NSArray *)LSSharedFileListCopySnapshot(loginItems, &seedValue);
-        LSSharedFileListItemRef removeItem;
-        for (id item in loginItemsArray) {
-            LSSharedFileListItemRef itemRef = (LSSharedFileListItemRef)item;
-            CFURLRef URL = NULL;
-            if (LSSharedFileListItemResolve(itemRef, 0, &URL, NULL) == noErr) {
-                if ([[(NSURL *)URL path] hasSuffix:@"gfxCardStatus.app"]) {
-                    exists = YES;
-                    DLog(@"Already exists in startup items");
-                    CFRelease(URL);
-                    removeItem = (LSSharedFileListItemRef)item;
-                    break;
-                }
-            }
-        }
-        
-        if (value && !exists) {
+        if (value && currentItem == NULL) {
             DLog(@"Adding to startup items.");
             LSSharedFileListItemRef item = LSSharedFileListInsertItemURL(loginItems, kLSSharedFileListItemBeforeFirst, NULL, NULL, (CFURLRef)thePath, NULL, NULL);
             if (item) CFRelease(item);
-        } else if (!value && exists) {
+        } else if (!value && currentItem != NULL) {
             DLog(@"Removing from startup items.");        
-            LSSharedFileListItemRemove(loginItems, removeItem);
+            LSSharedFileListItemRemove(loginItems, currentItem);
         }
         
-        [loginItemsArray release];
         CFRelease(loginItems);
+        if (currentItem)
+            CFRelease(currentItem);
     }
 }
 
