@@ -1,5 +1,7 @@
 #!/bin/bash
 
+./build_release.sh
+
 BUILT_PRODUCTS_DIR="$(pwd)/build/Release"
 PROJECT_NAME="gfxCardStatus"
 VERSION=$(defaults read "$BUILT_PRODUCTS_DIR/$PROJECT_NAME.app/Contents/Info.plist" CFBundleVersion)
@@ -22,16 +24,12 @@ SIGNATURE=$("$WD"/sign_update.rb "$ARCHIVE_FILENAME" "$WD"/dsa_priv.pem)
 [ $SIGNATURE ] || { echo Unable to load private key; false; }
 
 cat <<EOF
-		<item>
-			<title>Version $VERSION</title>
-			<sparkle:releaseNotesLink>$RELEASENOTES_URL</sparkle:releaseNotesLink>
-			<pubDate>$PUBDATE</pubDate>
-			<enclosure
-				url="$DOWNLOAD_URL"
-				sparkle:version="$VERSION"
-				type="application/octet-stream"
-				length="$SIZE"
-				sparkle:dsaSignature="$SIGNATURE"
-			/>
-		</item>
+<item>
+  <title>Version $VERSION</title>
+  <sparkle:releaseNotesLink>
+    $RELEASENOTES_URL
+  </sparkle:releaseNotesLink>
+  <pubDate>$PUBDATE</pubDate>
+  <enclosure url="$DOWNLOAD_URL" sparkle:version="$VERSION" type="application/octet-stream" length="$SIZE" sparkle:dsaSignature="$SIGNATURE" />
+</item>
 EOF
