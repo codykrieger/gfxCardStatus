@@ -209,6 +209,7 @@
 }
 
 - (IBAction)openAbout:(id)sender {
+    [NSApp activateIgnoringOtherApps:YES];
     [[NSApplication sharedApplication] orderFrontStandardAboutPanel:nil];
 }
 
