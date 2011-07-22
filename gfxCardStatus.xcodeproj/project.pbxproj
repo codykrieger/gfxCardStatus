@@ -119,7 +119,6 @@
 		A1C01F2013B06C08003BD4B2 /* SessionMagic.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SessionMagic.m; sourceTree = "<group>"; };
 		A1CCE1FE12B13CE4006D07A4 /* NSAttributedString+Hyperlink.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSAttributedString+Hyperlink.h"; sourceTree = "<group>"; };
 		A1CCE1FF12B13CE4006D07A4 /* NSAttributedString+Hyperlink.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSAttributedString+Hyperlink.m"; sourceTree = "<group>"; };
-		A1CFF01E13B1D73A0070650A /* ru-RU */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = "ru-RU"; path = "ru-RU.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		A1CFF02213B1D7C70070650A /* uk-UA */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = "uk-UA"; path = "uk-UA.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		A1D6AC5C11826BF00038AD1A /* discrete-n.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "discrete-n.png"; sourceTree = "<group>"; };
 		A1D9C41F11850DEF009A4DE1 /* dsa_pub.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = dsa_pub.pem; sourceTree = "<group>"; };
@@ -127,6 +126,7 @@
 		A1E07D571194B42100683B07 /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = System/Library/Frameworks/IOKit.framework; sourceTree = SDKROOT; };
 		A1E07E101194B42B00683B07 /* ApplicationServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ApplicationServices.framework; path = System/Library/Frameworks/ApplicationServices.framework; sourceTree = SDKROOT; };
 		A1F4FB0F13C6D58B002D38D5 /* cs */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = cs; path = cs.lproj/Localizable.strings; sourceTree = "<group>"; };
+		AC42EBFB13D8B193005403BC /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = /Users/artem/workspace/gfxCardStatus/ru.lproj/Localizable.strings; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -446,10 +446,10 @@
 				A1510B3A128D0A760076D88E /* Swedish */,
 				A14EC42112AE709D006B394D /* pt */,
 				A14EC49112AE7609006B394D /* nl */,
-				A1CFF01E13B1D73A0070650A /* ru-RU */,
 				A1CFF02213B1D7C70070650A /* uk-UA */,
 				A14B9EA313C55A91009A761C /* sk */,
 				A1F4FB0F13C6D58B002D38D5 /* cs */,
+				AC42EBFB13D8B193005403BC /* ru */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
