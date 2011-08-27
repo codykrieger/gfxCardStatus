@@ -2,48 +2,48 @@
    Localizable.strings
    gfxCardStatus
 
-   Created by Kim Engels on 13.06.10.
-   Copyright 2010 Kim Engels. All rights reserved.
- */
+   Created by Sascha Teske 2011/08/25.
+   Copyright 2011 Sascha Teske. 
+*/
 
 /* Main menu */
 "About"					= "Über gfxCardStatus, v%%";
-"Update"				= "Prüfe auf Updates...";
+"Update"				= "Updates suchen...";
 "Preferences"			= "Einstellungen...";
 "Card"					= "Karte: %%";
-"SwitchGPUs"			= "Wechsle GPUs";
-"IntegratedOnly"		= "Nur Integrated";
-"DiscreteOnly"			= "Nur Discrete";
+"SwitchGPUs"			= "GPU umschalten";
+"IntegratedOnly"		= "Nur Integriert";
+"DiscreteOnly"			= "Nur Diskret";
 "DynamicSwitching"		= "Automatischer Wechsel";
 "Dependencies"			= "Abhängigkeiten";
 "NoProcess"				= "Keine";
 "Quit"					= "Beenden";
-"Close"					= "Cool!";
-"PowerSource"           = "Power Source: %%";
-"Battery"               = "Battery";
-"ACAdapter"             = "AC Adapter";
+"Close"					= "Schliessen";
+"PowerSource"           = "Stromquelle: %%";
+"Battery"               = "Batterie";
+"ACAdapter"             = "Extern";
 
 /* Preferences window */
 "PrefTitle"				= "gfxCardStatus Einstellungen";
-"PrefUpdate"			= "Prüfe auf Updates beim Starten";
-"PrefGrowl"				= "Benutze Growl für Statuswechsel Benachrichtigungen";
-"PrefStartup"			= "Starte gfxCardStatus beim Booten";
+"PrefUpdate"			= "Beim Starten nach updates suchen";
+"PrefGrowl"				= "Growl für Statuswechsel Benachrichtigungen verwenden";
+"PrefStartup"			= "gfxCardStatus beim Booten starten";
 "PrefLog"				= "Diagnosenachrichten in der Konsole speichern";
 "PrefRestoreState"		= "Letzten genutzten Modus beim Starten wiederherstellen";
-"PrefPowerSwitching"	= "Nutze Stromquellenabhängigen Wechsel";
-"Integrated"            = "Integrated";
-"Discrete"              = "Discrete";
-"Dynamic"               = "Dynamic";
-"OnBattery"             = "On Battery:";
-"PluggedIn"             = "Plugged In:";
-"General"               = "General";
+"PrefPowerSwitching"	= "Stromquellenabhängigen Wechsel nutzen";
+"Integrated"            = "Integriert";
+"Discrete"              = "Diskret";
+"Dynamic"               = "Dynamisch";
+"OnBattery"             = "Im Batteriebetrieb:";
+"PluggedIn"             = "Mit externer Stromquelle:";
+"General"               = "Allgemein";
 "Switching"             = "Switching";
-"SmartMenuBarIcons"     = "Use smart menu bar icons";
+"SmartMenuBarIcons"     = "Smarte Menü-Icons benutzen";
 
 /* About box */
 "AboutTitle"			= "Über gfxCardStatus";
 "AboutWebsite"			= "Website";
 
 /* Growl */
-"GrowlGPUChanged"       = "GPU changed";
-"GrowlSwitch"           = "now in use.";
+"GrowlGPUChanged"       = "GPU umgeschaltet";
+"GrowlSwitch"           = "wird jetzt verwendet.";
