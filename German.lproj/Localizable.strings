@@ -46,4 +46,4 @@
 
 /* Growl */
 "GrowlGPUChanged"       = "GPU umgeschaltet";
-"GrowlSwitch"           = "wird jetzt verwendet.";
+"GrowlSwitch"           = "'%1$@' wird jetzt verwendet.";

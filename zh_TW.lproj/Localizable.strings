@@ -46,7 +46,7 @@
 
 /* Growl */
 "GrowlGPUChanged"       = "GPU changed";
-"GrowlSwitch"           = "now in use.";
+"GrowlSwitch"           = "'%1$@' now in use.";
 
 /***** NOT YET LOCALIZED ******/
 
@@ -66,3 +66,4 @@
 
 /* Not yet localized - About window */
 "About gfxCardStatus"			= "關於 gfxCardStatus";
+

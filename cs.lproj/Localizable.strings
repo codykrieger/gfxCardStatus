@@ -47,4 +47,5 @@
 
 /* Growl */
 "GrowlGPUChanged"       = "GPU přepnuto";
-"GrowlSwitch"           = "aktivní.";
+"GrowlSwitch"           = "Přepnuto na '%1$@'";
+

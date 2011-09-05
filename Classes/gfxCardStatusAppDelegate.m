@@ -143,7 +143,7 @@
     
     if ([state canGrowl]) {
         NSString *cardString = [state usingIntegrated] ? [state integratedString] : [state discreteString];
-        NSString *msg  = [NSString stringWithFormat:@"%@ %@", cardString, Str(@"GrowlSwitch")];
+        NSString *msg  = [NSString stringWithFormat:Str(@"GrowlSwitch"), cardString];
         NSString *name = [state usingIntegrated] ? @"switchedToIntegrated" : @"switchedToDiscrete";
         [GrowlApplicationBridge notifyWithTitle:Str(@"GrowlGPUChanged") description:msg notificationName:name iconData:nil priority:0 isSticky:NO clickContext:nil];
     }

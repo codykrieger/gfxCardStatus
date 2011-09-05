@@ -46,4 +46,5 @@
 
 /* Growl */
 "GrowlGPUChanged"       = "Videomodus";
-"GrowlSwitch"           = "wordt nu gebruikt.";
+"GrowlSwitch"           = "'%1$@' wordt nu gebruikt.";
+
