@@ -1,0 +1,49 @@
+/* 
+   Localizable.strings
+   gfxCardStatus
+
+   Created by Ygor Lemos on 19.11.10.
+   Copyright 2010 Ygor Lemos <ygbr@me.com>. All rights reserved.
+ */
+
+/* Main menu */
+"About"					= "Sobre gfxCardStatus, v%%";
+"Update"				= "Atualizações...";
+"Preferences"			= "Preferências...";
+"Card"					= "Dispositivo: %%";
+"SwitchGPUs"			= "Alternar GPUs";
+"IntegratedOnly"		= "Apenas Integrado";
+"DiscreteOnly"			= "Apenas Discreto";
+"DynamicSwitching"		= "Alternar automaticamente";
+"Dependencies"			= "Dependências";
+"NoProcess"				= "Nenhum";
+"Quit"					= "Fechar";
+"Close"					= "Fechar";
+"PowerSource"           = "Alimentação: %%";
+"Battery"               = "Bateria";
+"ACAdapter"             = "Adaptador AC";
+
+/* Preferences window */
+"PrefTitle"				= "Preferências gfxCardStatus";
+"PrefUpdate"			= "Verificar atualizações no arranque";
+"PrefGrowl"				= "Usar o Growl para notificações";
+"PrefStartup"			= "Carregar gfxCardStatus no arranque";
+"PrefLog"				= "Guardar logs de mensagens de diagnósticos";
+"PrefRestoreState"		= "Restaurar último estado no arranque";
+"PrefPowerSwitching"	= "Usar dispositivos em função na fonte de energia";
+"Integrated"            = "Integrado";
+"Discrete"              = "Discreto";
+"Dynamic"               = "Mudança dinamica";
+"OnBattery"             = "Utilizando a Bateria:";
+"PluggedIn"             = "Conectado á Fonte de Energia:";
+"General"               = "General";
+"Switching"             = "A mudar";
+"SmartMenuBarIcons"     = "Usar icones personalizados";
+
+/* About box */
+"AboutTitle"			= "Sobre gfxCardStatus";
+"AboutWebsite"			= "Website";
+
+/* Growl */
+"GrowlGPUChanged"       = "Placa de vídeo alternada!";
+"GrowlSwitch"           = "'%1$@' em uso.";
