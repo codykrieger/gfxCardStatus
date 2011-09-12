@@ -288,21 +288,33 @@ static void dumpState(io_connect_t connect) {
     switch (mode) {
         case modeForceIntegrated:
         case modeForceDiscrete:
+            // Disable dynamic switching
             setDynamicSwitchingEnabled(switcherConnect, NO);
+            
             // Disable Policy, otherwise gpu switches to Discrete after a bad app closes
             setFeatureInfo(switcherConnect, Policy, NO);
+            setSwitchPolicy(switcherConnect, NO);
+            
+            // Hold up a sec!
             sleep(1);
             
             BOOL integrated = [MuxMagic isUsingIntegrated];
             if ((mode==modeForceIntegrated && !integrated) || (mode==modeForceDiscrete && integrated))
                 forceSwitch(switcherConnect);
+            
             break;
         case modeDynamicSwitching:
+            // Set switch policy back, make the MBP think it's an auto switching one once again
             setFeatureInfo(switcherConnect, Policy, YES);
+            setSwitchPolicy(switcherConnect, YES);
+            
+            // Enable dynamic switching
             setDynamicSwitchingEnabled(switcherConnect, YES);
+            
             break;
         case modeToggleGPU:
             forceSwitch(switcherConnect);
+            
             break;
     }
     return YES;
