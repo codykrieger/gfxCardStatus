@@ -230,15 +230,15 @@
     
     BOOL retval = NO;
     if (sender == integratedOnly) {
-        DLog(@"Setting Integrated only...");
+        ILog(@"Setting Integrated only...");
         retval = [MuxMagic switcherSetMode:modeForceIntegrated];
     }
     if (sender == discreteOnly) { 
-        DLog(@"Setting NVIDIA only...");
+        ILog(@"Setting NVIDIA only...");
         retval = [MuxMagic switcherSetMode:modeForceDiscrete];
     }
     if (sender == dynamicSwitching) {
-        DLog(@"Setting dynamic switching...");
+        ILog(@"Setting dynamic switching...");
         retval = [MuxMagic switcherSetMode:modeDynamicSwitching];
     }
     

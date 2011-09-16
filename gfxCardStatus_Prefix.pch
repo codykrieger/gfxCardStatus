@@ -19,6 +19,8 @@
         #define ALog(...) NSLog(@"%s %@", __PRETTY_FUNCTION__, [NSString stringWithFormat:__VA_ARGS__])
     #endif
 
+    #define ILog(...) NSLog(@"%s %@", __PRETTY_FUNCTION__, [NSString stringWithFormat:__VA_ARGS__])
+
     #define ZAssert(condition, ...) do { if (!(condition)) { ALog(__VA_ARGS__); }} while(0)
     
     #define kGPUSettingACAdaptor    @"GPUSetting_ACAdaptor"
