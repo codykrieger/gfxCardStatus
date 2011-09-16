@@ -138,10 +138,10 @@
     return [NSDictionary dictionaryWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"Growl Registration Ticket" ofType:@"growlRegDict"]];
 }
 
-- (void)gpuChangedTo:(GPUType)gpu {
+- (void)gpuChangedTo:(GPUType)gpu from:(GPUType)from {
     [self updateMenu];
     
-    if ([state canGrowl]) {
+    if ([state canGrowl] && gpu != from) {
         NSString *cardString = [state usingIntegrated] ? [state integratedString] : [state discreteString];
         NSString *msg  = [NSString stringWithFormat:Str(@"GrowlSwitch"), cardString];
         NSString *name = [state usingIntegrated] ? @"switchedToIntegrated" : @"switchedToDiscrete";
@@ -249,7 +249,7 @@
         [dynamicSwitching setState:(sender == dynamicSwitching ? NSOnState : NSOffState)];
         
         // delayed double-check
-        [self performSelector:@selector(checkCardState) withObject:nil afterDelay:5.0];
+//        [self performSelector:@selector(checkCardState) withObject:nil afterDelay:5.0];
     }
 }
 

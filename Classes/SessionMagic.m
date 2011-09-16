@@ -65,17 +65,20 @@ void DisplayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSu
             
             if ((nowIsUsingIntegrated != [state usingIntegrated])) {
                 // gpu has indeed changed
-                [state gpuChanged];
+                [state gpuChangedFrom:(nowIsUsingIntegrated ? kGPUTypeDiscrete : kGPUTypeIntegrated)];
+            } else {
+                [state gpuChangedFrom:(nowIsUsingIntegrated ? kGPUTypeIntegrated : kGPUTypeDiscrete)];
             }
         }
     });
 }
 
-- (void)gpuChanged {
+- (void)gpuChangedFrom:(GPUType)from {
     self.usingIntegrated = !self.usingIntegrated;
+    GPUType to = (self.usingIntegrated ? kGPUTypeIntegrated : kGPUTypeDiscrete);
     
-    if ([delegate respondsToSelector:@selector(gpuChangedTo:)])
-        [delegate gpuChangedTo:(self.usingIntegrated ? kGPUTypeIntegrated : kGPUTypeDiscrete)];
+    if ([delegate respondsToSelector:@selector(gpuChangedTo:from:)])
+        [delegate gpuChangedTo:to from:from];
 }
 
 #pragma mark -

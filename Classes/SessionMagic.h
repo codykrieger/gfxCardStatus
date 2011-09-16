@@ -15,7 +15,7 @@ typedef enum {
 
 @protocol SessionMagicDelegate <NSObject>
 
-- (void)gpuChangedTo:(GPUType)gpu;
+- (void)gpuChangedTo:(GPUType)gpu from:(GPUType)from;
 
 @end
 
@@ -37,6 +37,6 @@ typedef enum {
 - (void)setCanGrowl:(BOOL)canGrowl;
 - (BOOL)canGrowl;
 
-- (void)gpuChanged;
+- (void)gpuChangedFrom:(GPUType)from;
 
 @end
