@@ -126,8 +126,8 @@
 		A1D9C43911851B77009A4DE1 /* gfxCardStatus.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = gfxCardStatus.icns; sourceTree = "<group>"; };
 		A1E07D571194B42100683B07 /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = System/Library/Frameworks/IOKit.framework; sourceTree = SDKROOT; };
 		A1E07E101194B42B00683B07 /* ApplicationServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ApplicationServices.framework; path = System/Library/Frameworks/ApplicationServices.framework; sourceTree = SDKROOT; };
-		A1EAC04314152495005A852B /* pt-PT */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-PT"; path = "/Users/codykrieger/projects/gfxCardStatus/pt-PT.lproj/Localizable.strings"; sourceTree = "<absolute>"; };
-		A1EAC045141524AD005A852B /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "/Users/codykrieger/projects/gfxCardStatus/pt-BR.lproj/Localizable.strings"; sourceTree = "<absolute>"; };
+		A1EAC04314152495005A852B /* pt-PT */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-PT"; path = pt-PT.lproj/Localizable.strings; sourceTree = "<group>"; };
+		A1EAC045141524AD005A852B /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = pt-BR.lproj/Localizable.strings; sourceTree = "<group>"; };
 		A1F4FB0F13C6D58B002D38D5 /* cs */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = cs; path = cs.lproj/Localizable.strings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
