@@ -7,43 +7,44 @@
  */
 
 /* Main menu */
-"About"					= "Sobre gfxCardStatus, v%%";
-"Update"				= "Atualizações...";
+"About"					= "Acerca do gfxCardStatus, v%%";
+"Update"				= "Procurar actualizações...";
 "Preferences"			= "Preferências...";
-"Card"					= "Dispositivo: %%";
-"SwitchGPUs"			= "Alternar GPUs";
-"IntegratedOnly"		= "Apenas Integrado";
-"DiscreteOnly"			= "Apenas Discreto";
-"DynamicSwitching"		= "Alternar automaticamente";
+"Card"					= "GPU: %%";
+"SwitchGPUs"			= "Alternar GPU";
+"IntegratedOnly"		= "Apenas integrado";
+"DiscreteOnly"			= "Apenas dedicado";
+"DynamicSwitching"		= "Mudança automática";
 "Dependencies"			= "Dependências";
-"NoProcess"				= "Nenhum";
-"Quit"					= "Fechar";
-"Close"					= "Fechar";
+"NoProcess"				= "Nenhuma";
+"Quit"					= "Sair";
+"Close"					= "Sair";
 "PowerSource"           = "Alimentação: %%";
 "Battery"               = "Bateria";
-"ACAdapter"             = "Adaptador AC";
+"ACAdapter"             = "Adaptador de corrente";
 
 /* Preferences window */
-"PrefTitle"				= "Preferências gfxCardStatus";
-"PrefUpdate"			= "Verificar atualizações no arranque";
-"PrefGrowl"				= "Usar o Growl para notificações";
-"PrefStartup"			= "Carregar gfxCardStatus no arranque";
-"PrefLog"				= "Guardar logs de mensagens de diagnósticos";
-"PrefRestoreState"		= "Restaurar último estado no arranque";
-"PrefPowerSwitching"	= "Usar dispositivos em função na fonte de energia";
+"PrefTitle"				= "Preferências do gfxCardStatus";
+"PrefUpdate"			= "Procurar actualizações ao iniciar";
+"PrefGrowl"				= "Usar Growl para notificações de mudanças de estado";
+"PrefStartup"			= "Iniciar o gfxCardStatus no arranque";
+"PrefLog"				= "Registar mensagens de diagnósticos para a Consola";
+"PrefRestoreState"		= "Restaurar último estado ao iniciar";
+"PrefPowerSwitching"	= "Usar mudança automática em função da alimentação";
 "Integrated"            = "Integrado";
-"Discrete"              = "Discreto";
-"Dynamic"               = "Mudança dinamica";
-"OnBattery"             = "Utilizando a Bateria:";
-"PluggedIn"             = "Conectado á Fonte de Energia:";
-"General"               = "General";
+"Discrete"              = "Dedicado";
+"Dynamic"               = "Mudança automática";
+"OnBattery"             = "Bateria:";
+"PluggedIn"             = "Adaptador de corrente:";
+"General"               = "Geral";
 "Switching"             = "A mudar";
-"SmartMenuBarIcons"     = "Usar icones personalizados";
+"Advanced"              = "Avançadas";
+"SmartMenuBarIcons"     = "Usar ícones inteligentes na barra de menus";
 
 /* About box */
-"AboutTitle"			= "Sobre gfxCardStatus";
+"AboutTitle"			= "Acerca do gfxCardStatus";
 "AboutWebsite"			= "Website";
 
 /* Growl */
-"GrowlGPUChanged"       = "Placa de vídeo alternada!";
-"GrowlSwitch"           = "'%1$@' em uso.";
+"GrowlGPUChanged"       = "Placa gráfica mudada!";
+"GrowlSwitch"           = "em utilização.";
