@@ -1,0 +1,50 @@
+/* 
+   Localizable.strings
+   gfxCardStatus
+
+   Created by Ahmet AYGÜN on 23.11.11.
+   Copyright 2010 Ahmet AYGÜN. All rights reserved.
+ */
+
+/* Main menu */
+"About"					= "gfxCardStatus Hakkında, v%%";
+"Update"				= "Güncellemeleri kontrol et...";
+"Preferences"			= "Tercihler...";
+"Card"					= "Kart: %%";
+"SwitchGPUs"			= "GPU'ları değiştir";
+"IntegratedOnly"		= "Entegre";
+"DiscreteOnly"			= "İkincil";
+"DynamicSwitching"		= "Değişken";
+"Dependencies"			= "Bağımlılıklar";
+"NoProcess"				= "Hiçbiri";
+"Quit"					= "Çıkış";
+"Close"					= "Cool!";
+"PowerSource"           = "Güç Kaynağı: %%";
+"Battery"               = "Pil";
+"ACAdapter"             = "Fişe takılı";
+
+/* Preferences window */
+"PrefTitle"				= "gfxCardStatus Tercihleri";
+"PrefUpdate"			= "Başlangıçta güncellemeleri kontrol et";
+"PrefGrowl"				= "Durum değişikliklerinde Growl uyarılarını kullan";
+"PrefStartup"			= "Başlangıçta gfxCardStatus'u çalıştır";
+"PrefLog"				= "Diagnostic mesajlarını konsola kayıt et";
+"PrefRestoreState"		= "Başlangıçta son kullanılan modu seç";
+"PrefPowerSwitching"	= "Güç kaynağına göre değiştir";
+"Integrated"            = "Entegre";
+"Discrete"              = "İkincil";
+"Dynamic"               = "Değişken";
+"OnBattery"             = "Pilde:";
+"PluggedIn"             = "Prize takılı:";
+"General"               = "Genel";
+"Switching"             = "Değiştiriliyor";
+"Advanced"              = "Gelişmiş";
+"SmartMenuBarIcons"     = "Akıllı menü çubuğu simgeleri kullan";
+
+/* About box */
+"AboutTitle"			= "gfxCardStatus hakkında";
+"AboutWebsite"			= "Web sitesi";
+
+/* Growl */
+"GrowlGPUChanged"       = "GPU değişti";
+"GrowlSwitch"           = "'%1$@' şu an kullanımda.";
