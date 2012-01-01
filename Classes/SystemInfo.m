@@ -271,38 +271,40 @@ static void procScan(io_registry_entry_t service, NSMutableArray *arr) {
     // begin figuring out which machine we're using by attempting to get dictionaries
     // based on the integrated chipset names
     NSDictionary *graphics = (NSDictionary *)[profilerInfo objectForKey:@"Graphics/Displays"];
-    NSDictionary *integrated = (NSDictionary *)[graphics objectForKey:@"Intel HD Graphics"];
-    if (!integrated) integrated = (NSDictionary *)[graphics objectForKey:@"Intel HD Graphics 3000"];
     
-    if (!integrated) {
-        [profile setObject:[NSNumber numberWithBool:YES] forKey:@"legacy"];
-        integrated = (NSDictionary *)[graphics objectForKey:@"NVIDIA GeForce 9400M"];
-        
-        if (!integrated) {
-            // display a message - must be using an unsupported model
-            NSLog(@"*** UNSUPPORTED SYSTEM BEING USED ***");
-            [profile setObject:[NSNumber numberWithBool:YES] forKey:@"unsupported"];
-        } else {
-            [profile setObject:[NSNumber numberWithBool:NO] forKey:@"unsupported"];
-        }
-    } else {
-        [profile setObject:[NSNumber numberWithBool:NO] forKey:@"legacy"];
-        [profile setObject:[NSNumber numberWithBool:NO] forKey:@"unsupported"];
-    }
-    
-    // figure out whether or not we're using the integrated GPU
-    NSDictionary *integratedDisplays = (NSDictionary *)[integrated objectForKey:@"Displays"];
     BOOL usingIntegrated = NO;
     
-    for (NSString *key in [integratedDisplays allKeys]) {
-        NSDictionary *tempDict = (NSDictionary *)[integratedDisplays objectForKey:key];
+    if ([[graphics allKeys] count] < 2) {
+        // display a message - must be using an unsupported model
+        NSLog(@"*** UNSUPPORTED SYSTEM BEING USED ***");
+        [profile setObject:[NSNumber numberWithBool:YES] forKey:@"unsupported"];
+    } else {
+        [profile setObject:[NSNumber numberWithBool:NO] forKey:@"unsupported"];
         
-        for (NSString *otherKey in [tempDict allKeys]) {
-            usingIntegrated = !([(NSString *)[tempDict objectForKey:otherKey] isEqualToString:@"No Display Connected"]);
-            break;
+        NSDictionary *integrated = (NSDictionary *)[graphics objectForKey:@"Intel HD Graphics"];
+        if (!integrated) integrated = (NSDictionary *)[graphics objectForKey:@"Intel HD Graphics 3000"];
+        
+        if (!integrated) {
+            [profile setObject:[NSNumber numberWithBool:YES] forKey:@"legacy"];
+            integrated = (NSDictionary *)[graphics objectForKey:@"NVIDIA GeForce 9400M"];
+        } else {
+            [profile setObject:[NSNumber numberWithBool:NO] forKey:@"legacy"];
+            [profile setObject:[NSNumber numberWithBool:NO] forKey:@"unsupported"];
         }
-        if (usingIntegrated) break;
-    }
+        
+        // figure out whether or not we're using the integrated GPU
+        NSDictionary *integratedDisplays = (NSDictionary *)[integrated objectForKey:@"Displays"];
+        
+        for (NSString *key in [integratedDisplays allKeys]) {
+            NSDictionary *tempDict = (NSDictionary *)[integratedDisplays objectForKey:key];
+            
+            for (NSString *otherKey in [tempDict allKeys]) {
+                usingIntegrated = !([(NSString *)[tempDict objectForKey:otherKey] isEqualToString:@"No Display Connected"]);
+                break;
+            }
+            if (usingIntegrated) break;
+        }
+    }    
     
     // if we're using an unsupported machine config, set profile values to empty strings just in case
     // otherwise, set the integrated and discrete GPU names in the profile, as well as whether or not
