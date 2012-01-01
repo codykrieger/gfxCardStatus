@@ -24,14 +24,14 @@ static PrefsController *sharedInstance = nil;
 
 - (id)init {
     if ((self = [super init])) {
-        DLog(@"Initializing PrefsController");
+        GTMLoggerDebug(@"Initializing PrefsController");
         [self setUpPreferences];
     }
     return self;
 }
 
 - (void)setUpPreferences {
-    DLog(@"Loading preferences and defaults");
+    GTMLoggerDebug(@"Loading preferences and defaults");
     
     // set yes/no numbers
     yesNumber = [NSNumber numberWithBool:YES];
@@ -65,7 +65,7 @@ static PrefsController *sharedInstance = nil;
 }
 
 - (void)setDefaults {
-    DLog(@"Setting initial defaults...");
+    GTMLoggerDebug(@"Setting initial defaults...");
     
     [prefs setObject:yesNumber forKey:@"shouldCheckForUpdatesOnStartup"];
     [prefs setObject:yesNumber forKey:@"shouldGrowl"];
@@ -87,12 +87,12 @@ static PrefsController *sharedInstance = nil;
 }
 
 - (void)savePreferences {
-    DLog(@"Writing preferences to disk");
+    GTMLoggerDebug(@"Writing preferences to disk");
     
     if ([prefs writeToFile:[self getPrefsPath] atomically:YES]) {
-        DLog(@"Successfully wrote preferences to disk.");
+        GTMLoggerDebug(@"Successfully wrote preferences to disk.");
     } else {
-        DLog(@"Failed to write preferences to disk. Permissions problem in ~/Library/Preferences?");
+        GTMLoggerDebug(@"Failed to write preferences to disk. Permissions problem in ~/Library/Preferences?");
     }
 }
 
@@ -163,7 +163,7 @@ static PrefsController *sharedInstance = nil;
             
             if (LSSharedFileListItemResolve(itemRef, 0, &URL, NULL) == noErr) {
                 if ([[(NSURL *)URL path] hasSuffix:@"gfxCardStatus.app"]) {
-                    DLog(@"Exists in startup items.");
+                    GTMLoggerDebug(@"Exists in startup items.");
                     
                     *currentItem = (LSSharedFileListItemRef)item;
                     CFRetain(*currentItem);
@@ -207,11 +207,11 @@ static PrefsController *sharedInstance = nil;
     
     if (loginItems) {
         if (value && currentItem == NULL) {
-            DLog(@"Adding to startup items.");
+            GTMLoggerDebug(@"Adding to startup items.");
             LSSharedFileListItemRef item = LSSharedFileListInsertItemURL(loginItems, kLSSharedFileListItemBeforeFirst, NULL, NULL, (CFURLRef)thePath, NULL, NULL);
             if (item) CFRelease(item);
         } else if (!value && currentItem != NULL) {
-            DLog(@"Removing from startup items.");        
+            GTMLoggerDebug(@"Removing from startup items.");        
             LSSharedFileListItemRemove(loginItems, currentItem);
         }
         

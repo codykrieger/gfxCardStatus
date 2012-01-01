@@ -78,7 +78,7 @@ void registerPowerSourceNotification(PowerSourceMonitor *powerSourceMonitor) {
         CFRunLoopAddSource(CFRunLoopGetCurrent(), loopSource, kCFRunLoopDefaultMode);
         CFRelease(loopSource);
     } else {
-        DLog(@"Creating RunLoop failed!\n");
+        GTMLoggerDebug(@"Creating RunLoop failed!\n");
     }
 }
 

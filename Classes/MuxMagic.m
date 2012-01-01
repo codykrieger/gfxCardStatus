@@ -98,7 +98,7 @@ static BOOL getMuxState(io_connect_t connect, uint64_t input, uint64_t *output) 
     if (kernResult == KERN_SUCCESS) {
 //        DLog(@"getMuxState was successful (count=%d, value=0x%08llx).", outputCount, *output);
     } else {
-        DLog(@"getMuxState returned 0x%08x.", kernResult);
+        GTMLoggerDebug(@"getMuxState returned 0x%08x.", kernResult);
     }
     return kernResult == KERN_SUCCESS;
 }
@@ -116,7 +116,7 @@ static BOOL setMuxState(io_connect_t connect, muxState state, uint64_t arg) {
     if (kernResult == KERN_SUCCESS) {
 //        DLog(@"setMuxState was successful.");
     } else {
-        DLog(@"setMuxState returned 0x%08x.", kernResult);
+        GTMLoggerDebug(@"setMuxState returned 0x%08x.", kernResult);
     }
     return kernResult == KERN_SUCCESS;
 }
@@ -171,7 +171,7 @@ static void printFeatures(io_connect_t connect) {
     getMuxState(connect, muxFeatureInfo, &featureInfo);
     muxFeature f;
     for (f = Policy; f < muxFeaturesCount; f++) {
-        DLog(@"%s: %s", getFeatureName(f), (featureInfo & (1<<f) ? "ON" : "OFF"));
+        GTMLoggerDebug(@"%s: %s", getFeatureName(f), (featureInfo & (1<<f) ? "ON" : "OFF"));
     }
 }
 
@@ -191,7 +191,7 @@ static void setExclusive(io_connect_t connect) {
     if (kernResult == KERN_SUCCESS) {
 //        DLog(@"setExclusive was successful.");
     } else {
-        DLog(@"setExclusive returned 0x%08x.", kernResult);
+        GTMLoggerDebug(@"setExclusive returned 0x%08x.", kernResult);
     }
 }
 
@@ -220,7 +220,7 @@ static void dumpState(io_connect_t connect) {
     if (kernResult == KERN_SUCCESS) {
 //        DLog(@"setExclusive was successful.");
     } else {
-        DLog(@"setExclusive returned 0x%08x.", kernResult);
+        GTMLoggerDebug(@"setExclusive returned 0x%08x.", kernResult);
     }
 }
 
@@ -238,14 +238,14 @@ static void dumpState(io_connect_t connect) {
     // This creates an io_iterator_t of all instances of our driver that exist in the I/O Registry.
     kernResult = IOServiceGetMatchingServices(kIOMasterPortDefault, IOServiceMatching(kDriverClassName), &iterator);    
     if (kernResult != KERN_SUCCESS) {
-        DLog(@"IOServiceGetMatchingServices returned 0x%08x.", kernResult);
+        GTMLoggerDebug(@"IOServiceGetMatchingServices returned 0x%08x.", kernResult);
         return NO;
     }
     
     service = IOIteratorNext(iterator); // actually there is only 1 such service
     IOObjectRelease(iterator);
     if (service == IO_OBJECT_NULL) {
-        DLog(@"No matching drivers found.");
+        GTMLoggerDebug(@"No matching drivers found.");
         return NO;
     }
     
@@ -255,13 +255,13 @@ static void dumpState(io_connect_t connect) {
     // as uint32_t type, 0 = no dedicated gpu, 1 = dedicated
     kernResult = IOServiceOpen(service, mach_task_self(), 0, &switcherConnect);
     if (kernResult != KERN_SUCCESS) {
-        DLog(@"IOServiceOpen returned 0x%08x.", kernResult);
+        GTMLoggerDebug(@"IOServiceOpen returned 0x%08x.", kernResult);
         return NO;
     }
     
     kernResult = IOConnectCallScalarMethod(switcherConnect, kOpen, NULL, 0, NULL, NULL);
-    if (kernResult != KERN_SUCCESS) DLog(@"IOConnectCallScalarMethod returned 0x%08x.", kernResult);
-    else DLog(@"Driver connection opened.");
+    if (kernResult != KERN_SUCCESS) GTMLoggerDebug(@"IOConnectCallScalarMethod returned 0x%08x.", kernResult);
+    else GTMLoggerDebug(@"Driver connection opened.");
     
     return kernResult == KERN_SUCCESS;
 }
@@ -271,13 +271,13 @@ static void dumpState(io_connect_t connect) {
     if (switcherConnect == IO_OBJECT_NULL) return;
     
     kernResult = IOConnectCallScalarMethod(switcherConnect, kClose, NULL, 0, NULL, NULL);
-    if (kernResult != KERN_SUCCESS) DLog(@"IOConnectCallScalarMethod returned 0x%08x.", kernResult);
+    if (kernResult != KERN_SUCCESS) GTMLoggerDebug(@"IOConnectCallScalarMethod returned 0x%08x.", kernResult);
     
     kernResult = IOServiceClose(switcherConnect);
-    if (kernResult != KERN_SUCCESS) DLog(@"IOServiceClose returned 0x%08x.", kernResult);
+    if (kernResult != KERN_SUCCESS) GTMLoggerDebug(@"IOServiceClose returned 0x%08x.", kernResult);
     
     switcherConnect = IO_OBJECT_NULL;
-    DLog(@"Driver connection closed.");
+    GTMLoggerDebug(@"Driver connection closed.");
 }
 
 #pragma mark -

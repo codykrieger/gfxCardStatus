@@ -24,8 +24,8 @@
     [state setDelegate:self];
     
     // initialize driver and process listing
-    if (![MuxMagic switcherOpen]) DLog(@"Can't open driver");
-    if (![SystemInfo procInit]) DLog(@"Can't obtain I/O Kit's master port");
+    if (![MuxMagic switcherOpen]) GTMLoggerDebug(@"Can't open driver");
+    if (![SystemInfo procInit]) GTMLoggerDebug(@"Can't obtain I/O Kit's master port");
     
     // localization
     NSString *version = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"];
@@ -89,7 +89,7 @@
     [state setIntegratedString:(NSString *)[profile objectForKey:@"integratedString"]];
     [state setDiscreteString:(NSString *)[profile objectForKey:@"discreteString"]];
     
-    DLog(@"Fetched machine profile: %@", profile);
+    GTMLoggerDebug(@"Fetched machine profile: %@", profile);
     
     [switchGPUs setHidden:![state usingLegacy]];
     [integratedOnly setHidden:[state usingLegacy]];
@@ -108,7 +108,7 @@
     
     // only resture last mode if preference is set, and we're NOT using power source-based switching
     if ([prefs shouldRestoreStateOnStartup] && ![prefs shouldUsePowerSourceBasedSwitching] && ![state usingLegacy]) {
-        DLog(@"Restoring last used mode (%i)...", [prefs shouldRestoreToMode]);
+        GTMLoggerInfo(@"Restoring last used mode (%i)...", [prefs shouldRestoreToMode]);
         id modeItem = nil;
         switch ([prefs shouldRestoreToMode]) {
             case 0:
@@ -220,7 +220,7 @@
 - (IBAction)setMode:(id)sender {
     // legacy cards
     if (sender == switchGPUs) {
-        DLog(@"Switching GPUs...");
+        GTMLoggerInfo(@"Switching GPUs...");
         [MuxMagic switcherSetMode:modeToggleGPU];
         return;
     }
@@ -230,15 +230,15 @@
     
     BOOL retval = NO;
     if (sender == integratedOnly) {
-        ILog(@"Setting Integrated only...");
+        GTMLoggerInfo(@"Setting Integrated only...");
         retval = [MuxMagic switcherSetMode:modeForceIntegrated];
     }
     if (sender == discreteOnly) { 
-        ILog(@"Setting NVIDIA only...");
+        GTMLoggerInfo(@"Setting NVIDIA only...");
         retval = [MuxMagic switcherSetMode:modeForceDiscrete];
     }
     if (sender == dynamicSwitching) {
-        ILog(@"Setting dynamic switching...");
+        GTMLoggerInfo(@"Setting dynamic switching...");
         retval = [MuxMagic switcherSetMode:modeDynamicSwitching];
     }
     
@@ -262,7 +262,7 @@
 }
 
 - (void)updateMenu {
-    DLog(@"Updating status...");
+    GTMLoggerDebug(@"Updating status...");
     
     // TODO - fix this, not working
     // prevent GPU from switching back after apps quit
@@ -315,8 +315,8 @@
     
     [currentCard setTitle:[Str(@"Card") stringByReplacingOccurrencesOfString:@"%%" withString:cardString]];
     
-    if ([state usingIntegrated]) DLog(@"%@ in use. Sweet deal! More battery life.", [state integratedString]);
-    else DLog(@"%@ in use. Bummer! Less battery life for you.", [state discreteString]);
+    if ([state usingIntegrated]) GTMLoggerInfo(@"%@ in use. Sweet deal! More battery life.", [state integratedString]);
+    else GTMLoggerInfo(@"%@ in use. Bummer! Less battery life for you.", [state discreteString]);
     
     if (![state usingIntegrated]) [self updateProcessList];
 }
@@ -333,7 +333,7 @@
     [dependentProcesses setHidden:!procList];
     if (!procList) return;
     
-    DLog(@"Updating process list...");
+    GTMLoggerDebug(@"Updating process list...");
     
     NSArray *processes = [SystemInfo getTaskList];
     
@@ -382,7 +382,7 @@
     
     // check if its consistent with menu state
     if ([activeCard state] != NSOnState && ![state usingLegacy]) {
-        DLog(@"Inconsistent menu state and active card, forcing retry");
+        GTMLoggerDebug(@"Inconsistent menu state and active card, forcing retry");
         
         // set menu item to reflect actual status
         [integratedOnly setState:NSOffState];
@@ -410,18 +410,18 @@
         return;
     }
     
-    DLog(@"Power source changed: %d => %d (%@)", lastPowerSource, powerSource, (powerSource == psBattery ? @"Battery" : @"AC Adapter"));
+    GTMLoggerDebug(@"Power source changed: %d => %d (%@)", lastPowerSource, powerSource, (powerSource == psBattery ? @"Battery" : @"AC Adapter"));
     lastPowerSource = powerSource;
     
     if ([prefs shouldUsePowerSourceBasedSwitching]) {
         SwitcherMode newMode = [prefs modeForPowerSource:[SystemInfo keyForPowerSource:powerSource]];
         
         if (![state usingLegacy]) {
-            DLog(@"Using a newer machine, setting appropriate mode based on power source...");
+            GTMLoggerDebug(@"Using a newer machine, setting appropriate mode based on power source...");
             [self setMode:[self senderForMode:newMode]];
         } else {
-            DLog(@"Using a legacy machine, setting appropriate mode based on power source...");
-            DLog(@"usingIntegrated=%i, newMode=%i", [state usingIntegrated], newMode);
+            GTMLoggerDebug(@"Using a legacy machine, setting appropriate mode based on power source...");
+            GTMLoggerInfo(@"Power source-based switch: usingIntegrated=%i, newMode=%i", [state usingIntegrated], newMode);
             if (([state usingIntegrated] && newMode == 1) || (![state usingIntegrated] && newMode == 0)) {
                 [self setMode:switchGPUs];
             }
