@@ -4,49 +4,51 @@
 
    Created by Maciej Krok on 2011-12-12.
    Copyright 2011 Maciej Krok. All rights reserved.
+   
+   Corrections made by Bartosz Kaszewczuk on 2012-01-18
  */
 
 /* Main menu */
-"About"					= "O gfxCardStatus, v%%";
-"Update"				= "Sprawdź z aktualizacje...";
+"About"   				= "O gfxCardStatus, v%%";
+"Update"				= "Sprawdź aktualizacje...";
 "Preferences"			= "Preferencje...";
 "Card"					= "Karta: %%";
 "SwitchGPUs"			= "Zmień GPU";
 "IntegratedOnly"		= "Tylko zintegrowana";
-"DiscreteOnly"			= "Tylko dyskretna";
+"DiscreteOnly"			= "Tylko dedykowana";
 "DynamicSwitching"		= "Dynamicznie zmieniana";
-"Dependencies"			= "Zależnosci";
-"NoProcess"				= "None";
-"Quit"					= "Zamknij";
-"Close"					= "Cool!";
-"PowerSource"           = "Zródlo zasilania: %%";
+"Dependencies"			= "Zależności";
+"NoProcess"				= "Brak";
+"Quit"					= "Wyjdź";
+"Close"					= "Zamknij";
+"PowerSource"           = "Zródło zasilania: %%";
 "Battery"               = "Bateria";
 "ACAdapter"             = "Zasilacz sieciowy";
 
 /* Preferences window */
-"PrefTitle"				= "gfxCardStatus Preferencje";
-"PrefUpdate"			= "Sprawdz aktualizacje przy uruchomieniu";
+"PrefTitle"				= "Preferencje gfxCardStatus";
+"PrefUpdate"			= "Sprawdź aktualizacje przy uruchomieniu";
 "PrefGrowl"				= "Używaj Growl-a";
-"PrefStartup"			= "Uruchom gfxCardStatus na starcie";
-"PrefLog"				= "Loguj wiadomosci diagnostyczne";
-"PrefRestoreState"		= "Przywróć ostatnio użyty tryb na starcie";
-"PrefPowerSwitching"	= "Znieniaj karty na podstawie zródla zasilania";
-"Integrated"            = "zintegrowana";
-"Discrete"              = "dyskretna";
-"Dynamic"               = "dynamicznie";
+"PrefStartup"			= "Uruchom gfxCardStatus przy starcie systemu";
+"PrefLog"				= "Zapisuj wiadomości diagnostyczne w logu";
+"PrefRestoreState"		= "Przywróć ostatnio użyty tryb przy uruchomieniu";
+"PrefPowerSwitching"	= "Zmieniaj karty na podstawie źródła zasilania";
+"Integrated"            = "Zintegrowana";
+"Discrete"              = "Dedykowana";
+"Dynamic"               = "Dynamicznie";
 "OnBattery"             = "Na baterii:";
 "PluggedIn"             = "Na zasilaczu:";
 "General"               = "Ogólne";
 "Switching"             = "Switching";
-"Advanced"              = "Zawansowane";
-"SmartMenuBarIcons"     = "Użyj inteligentnych ikonek w menu";
+"Advanced"              = "Zaawansowane";
+"SmartMenuBarIcons"     = "Użyj inteligentnych ikonek w pasku menu";
 
 /* About box */
 "AboutTitle"			= "O gfxCardStatus";
 "AboutWebsite"			= "Strona www";
 
 /* Growl */
-"GrowlGPUChanged"       = "GPU zmieniono";
+"GrowlGPUChanged"       = "Zmieniono GPU";
 "GrowlSwitch"           = "'%1$@' teraz w użyciu.";
 
 
