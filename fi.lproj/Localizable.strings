@@ -1,0 +1,51 @@
+/* 
+   Localizable.strings
+   gfxCardStatus
+
+   Created by Kenny Ronkainen on 22.01.12.
+   Copyright 2012 Kenny Ronkainen. All rights reserved.
+ */
+
+/* Main menu */
+"About"					= "Tietoja: gfxCardStatus, v%%";
+"Update"				= "Tarkista päivitykset...";
+"Preferences"			= "Asetukset...";
+"Card"					= "Näytönohjain: %%";
+"SwitchGPUs"			= "Vaihda ohjainta";
+"IntegratedOnly"		= "Vain integroitu näytönohjain";
+"DiscreteOnly"			= "Vain tehokkaampi näytönohjain";
+"DynamicSwitching"		= "Automaattinen ohjaimen vaihtaminen";
+"Dependencies"			= "Varaavat prosessit";
+"NoProcess"				= "Ei ole";
+"Quit"					= "Lopeta";
+"Close"					= "Cool!";
+"PowerSource"           = "Teholähde: %%";
+"Battery"               = "Akku";
+"ACAdapter"             = "Virtalähde";
+
+/* Preferences window */
+"PrefTitle"				= "gfxCardStatus Asetukset";
+"PrefUpdate"			= "Tarkista päivitykset käynnistäessä";
+"PrefGrowl"				= "Käytä Growlia tilapäivityksiin";
+"PrefStartup"			= "Käynnistä gfxCardStatus sisäänkirjauduttaessa";
+"PrefLog"				= "Tallenna diagnoosiviestit konsoliin";
+"PrefRestoreState"		= "Palauta viimeisin käytetty tila käynnistäessä";
+"PrefPowerSwitching"	= "Vaihda ohjainta teholähteen mukaan";
+"Integrated"            = "Integroitu";
+"Discrete"              = "Tehokas";
+"Dynamic"               = "Automaattinen";
+"OnBattery"             = "Akku:";
+"PluggedIn"             = "Virtalähde:";
+"General"               = "Yleiset";
+"Switching"             = "Vaihtaminen";
+"Advanced"              = "Edistyneet";
+"SmartMenuBarIcons"     = "Käytä älykästä tilapalkki-kuvaketta";
+
+/* About box */
+"AboutTitle"			= "Tietoja: gfxCardStatus";
+"AboutWebsite"			= "Internetsivut";
+
+/* Growl */
+"GrowlGPUChanged"       = "Näytönohjain vaihdettu";
+"GrowlSwitch"           = "'%1$@' nyt käytössä.";
+
