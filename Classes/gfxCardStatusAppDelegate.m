@@ -69,8 +69,8 @@
     }
     
     // notifications and kvo
-    NSNotificationCenter *defaultNotifications = [NSNotificationCenter defaultCenter];
-    [defaultNotifications addObserver:self selector:@selector(handleWake:)
+    NSNotificationCenter *notificationCenter = [[NSWorkspace sharedWorkspace] notificationCenter];
+    [notificationCenter addObserver:self selector:@selector(handleWake:)
                                  name:NSWorkspaceDidWakeNotification object:nil];
     
     [prefs addObserver:self forKeyPath:@"prefs.shouldUseSmartMenuBarIcons" options:NSKeyValueObservingOptionNew context:nil];
@@ -153,6 +153,7 @@
 }
 
 - (void)handleWake:(NSNotification *)notification {
+    GTMLoggerDebug(@"Wake notification! %@", notification);
     [self performSelector:@selector(delayedPowerSourceCheck) withObject:nil afterDelay:7.0];
 }
 
