@@ -3,45 +3,47 @@
    gfxCardStatus
 
    Created by Jelle Kuin on 20.11.10.
+   Modified by Daniele Sluijters on 28.02.11
    Copyright 2010 Jelle Kuin. All rights reserved.
  */
 
 /* Main menu */
-"About"					= "Uitgaveopmerkingen";
+"About"					= "Over gfxCardStatus, v%%";
 "Update"				= "Controleren op updates...";
 "Preferences"			= "Voorkeuren...";
 "Card"					= "GPU: %%";
 "SwitchGPUs"			= "Van GPU wisselen";
-"IntegratedOnly"		= "Alleen Integrated gebruiken";
-"DiscreteOnly"			= "Alleen Discrete gebruiken";
+"IntegratedOnly"		= "Alleen geïntegreerde GPU gebruiken";
+"DiscreteOnly"			= "Alleen toegewijde GPU gebruiken";
 "DynamicSwitching"		= "Dynamisch wisselen";
-"Dependencies"			= "GPU-afhankelijkheid";
+"Dependencies"			= "GPU afhankelijkheid";
 "NoProcess"				= "Geen";
 "Quit"					= "Stop";
 "Close"					= "Sluiten";
-"PowerSource"           = "Power Source: %%";
-"Battery"               = "Battery";
-"ACAdapter"             = "AC Adapter";
+"PowerSource"           = "Stroombron: %%";
+"Battery"               = "Batterij";
+"ACAdapter"             = "Lichtnetadapter";
 
 /* Preferences window */
 "PrefTitle"				= "gfxCardStatus Voorkeuren";
 "PrefUpdate"			= "Automatisch controleren op updates";
 "PrefGrowl"				= "Gebruik Growl voor notificaties";
 "PrefStartup"			= "Open gfxCardStatus na inloggen";
-"PrefLog"				= "Log diagnostische berichten naar het console";
-"PrefRestoreState"		= "Wisselen naar laatst gebruikte GPU na inloggen";
+"PrefLog"				= "Log diagnostische berichten naar de console";
+"PrefRestoreState"		= "Wisselen naar laatst gebruikte GPU bij opstarten";
 "PrefPowerSwitching"	= "Op basis van gebruik lichtnetadapter/batterij";
-"Integrated"            = "Integrated";
-"Discrete"              = "Discrete";
-"Dynamic"               = "Dynamic";
-"OnBattery"             = "On Battery:";
-"PluggedIn"             = "Plugged In:";
-"General"               = "General";
-"Switching"             = "Switching";
-"SmartMenuBarIcons"     = "Use smart menu bar icons";
+"Integrated"            = "Geïntegreerd";
+"Discrete"              = "Toegewijd";
+"Dynamic"               = "Dynamisch";
+"OnBattery"             = "Bij batterij:";
+"PluggedIn"             = "Bij lichtnetadapter:";
+"General"               = "Algemeen";
+"Switching"             = "Wisselen";
+"Advanced"              = "Geavanceerd";
+"SmartMenuBarIcons"     = "Gebruik slimme menubalkiconen";
 
 /* About box */
-"AboutTitle"			= "Uitgaveopmerkingen gfxCardStatus";
+"AboutTitle"			= "Over gfxCardStatus";
 "AboutWebsite"			= "Website";
 
 /* Growl */
