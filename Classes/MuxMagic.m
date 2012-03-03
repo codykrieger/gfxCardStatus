@@ -96,7 +96,7 @@ static BOOL getMuxState(io_connect_t connect, uint64_t input, uint64_t *output) 
                                            output,        // array of scalar (64-bit) output values.
                                            &outputCount); // pointer to the number of scalar output values.
     if (kernResult == KERN_SUCCESS) {
-//        DLog(@"getMuxState was successful (count=%d, value=0x%08llx).", outputCount, *output);
+        GTMLoggerDebug(@"getMuxState was successful (count=%d, value=0x%08llx).", outputCount, *output);
     } else {
         GTMLoggerDebug(@"getMuxState returned 0x%08x.", kernResult);
     }
@@ -114,7 +114,7 @@ static BOOL setMuxState(io_connect_t connect, muxState state, uint64_t arg) {
                                            NULL,         // array of scalar (64-bit) output values.
                                            0);           // pointer to the number of scalar output values.
     if (kernResult == KERN_SUCCESS) {
-//        DLog(@"setMuxState was successful.");
+        GTMLoggerDebug(@"setMuxState was successful.");
     } else {
         GTMLoggerDebug(@"setMuxState returned 0x%08x.", kernResult);
     }
@@ -189,7 +189,7 @@ static void setExclusive(io_connect_t connect) {
                                            0);            // pointer to the number of scalar output values.
     
     if (kernResult == KERN_SUCCESS) {
-//        DLog(@"setExclusive was successful.");
+        GTMLoggerDebug(@"setExclusive was successful.");
     } else {
         GTMLoggerDebug(@"setExclusive returned 0x%08x.", kernResult);
     }
@@ -218,7 +218,7 @@ static void dumpState(io_connect_t connect) {
     // TODO: figure the meaning of the values in StateStruct out
     
     if (kernResult == KERN_SUCCESS) {
-//        DLog(@"setExclusive was successful.");
+        GTMLoggerDebug(@"setExclusive was successful.");
     } else {
         GTMLoggerDebug(@"setExclusive returned 0x%08x.", kernResult);
     }
