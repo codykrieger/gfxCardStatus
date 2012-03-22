@@ -119,7 +119,7 @@
 		A17CE49913B07C3700E5D50F /* SystemInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SystemInfo.m; sourceTree = "<group>"; };
 		A17CE49C13B081DE00E5D50F /* MuxMagic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MuxMagic.h; sourceTree = "<group>"; };
 		A17CE49D13B081DE00E5D50F /* MuxMagic.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MuxMagic.m; sourceTree = "<group>"; };
-		A19DAD6214CF1E8800D46D80 /* fi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fi; path = /Users/codykrieger/projects/gfxCardStatus/fi.lproj/Localizable.strings; sourceTree = "<absolute>"; };
+		A19DAD6214CF1E8800D46D80 /* fi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fi; path = fi.lproj/Localizable.strings; sourceTree = "<group>"; };
 		A1A3A6F8118214E2008B8145 /* integrated-i.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "integrated-i.png"; sourceTree = "<group>"; };
 		A1C01F1F13B06C08003BD4B2 /* SessionMagic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SessionMagic.h; sourceTree = "<group>"; };
 		A1C01F2013B06C08003BD4B2 /* SessionMagic.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SessionMagic.m; sourceTree = "<group>"; };
