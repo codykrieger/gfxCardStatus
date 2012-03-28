@@ -10,10 +10,14 @@
 #import "PrefsController.h"
 #import "SystemInfo.h"
 
+#define NOTIFICATION_QUEUE_NAME "com.codykrieger.gfxCardStatus.notificationQueue"
+
 static SessionMagic *sharedInstance = nil;
 static dispatch_queue_t queue = NULL;
 
-void DisplayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSummaryFlags flags, void *userInfo);
+void DisplayReconfigurationCallback(CGDirectDisplayID display, 
+                                    CGDisplayChangeSummaryFlags flags, 
+                                    void *userInfo);
 
 @implementation SessionMagic
 
@@ -31,9 +35,10 @@ void DisplayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSu
         NSDictionary *profile = [SystemInfo getGraphicsProfile];
         usingLegacy = [(NSNumber *)[profile objectForKey:@"legacy"] boolValue];
         
-        queue = dispatch_queue_create("com.codykrieger.gfxCardStatus.notificationQueue", NULL);
+        queue = dispatch_queue_create(NOTIFICATION_QUEUE_NAME, NULL);
         
-        CGDisplayRegisterReconfigurationCallback(DisplayReconfigurationCallback, self);
+        CGDisplayRegisterReconfigurationCallback(DisplayReconfigurationCallback,
+                                                 self);
     }
     
     return self;
@@ -50,7 +55,10 @@ void DisplayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSu
 #pragma mark -
 #pragma mark Notifications
 
-void DisplayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSummaryFlags flags, void *userInfo) {
+void DisplayReconfigurationCallback(CGDirectDisplayID display, 
+                                    CGDisplayChangeSummaryFlags flags, 
+                                    void *userInfo) {
+    
     dispatch_async(queue, ^(void) {
         [NSThread sleepForTimeInterval:0.1];
         
@@ -61,13 +69,17 @@ void DisplayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSu
             GTMLoggerDebug(@"Has the gpu changed? Let's find out!\n\n");
             
             BOOL nowIsUsingIntegrated = [MuxMagic isUsingIntegrated];
-            GTMLoggerInfo(@"Currently using integrated: %i, previously using integrated: %i", nowIsUsingIntegrated, [state usingIntegrated]);
+            GTMLoggerInfo(@"Integrated state: %i, previous state: %i", 
+                          nowIsUsingIntegrated, 
+                          [state usingIntegrated]);
             
             if ((nowIsUsingIntegrated != [state usingIntegrated])) {
                 // gpu has indeed changed
-                [state gpuChangedFrom:(nowIsUsingIntegrated ? kGPUTypeDiscrete : kGPUTypeIntegrated)];
+                [state gpuChangedFrom:(nowIsUsingIntegrated ? 
+                                       kGPUTypeDiscrete : kGPUTypeIntegrated)];
             } else {
-                [state gpuChangedFrom:(nowIsUsingIntegrated ? kGPUTypeIntegrated : kGPUTypeDiscrete)];
+                [state gpuChangedFrom:(nowIsUsingIntegrated ? 
+                                       kGPUTypeIntegrated : kGPUTypeDiscrete)];
             }
         }
     });

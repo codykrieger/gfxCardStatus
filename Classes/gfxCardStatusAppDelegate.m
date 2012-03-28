@@ -15,8 +15,7 @@
 
 @implementation gfxCardStatusAppDelegate
 
-#pragma mark Initialization
-#pragma mark -
+#pragma mark - Initialization
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
     prefs = [PrefsController sharedInstance];
@@ -28,20 +27,14 @@
     if (![SystemInfo procInit]) GTMLoggerDebug(@"Can't obtain I/O Kit's master port");
     
     // localization
-    NSString *version = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"];
-    [versionItem setTitle:[Str(@"About") stringByReplacingOccurrencesOfString:@"%%" withString:version]];
-    NSArray *localized = [[NSArray alloc] initWithObjects:updateItem, preferencesItem, quitItem, switchGPUs, integratedOnly, 
-                          discreteOnly, dynamicSwitching, dependentProcesses, processList, aboutWindow, aboutClose, nil];
-    for (NSButton *loc in localized) {
-        [loc setTitle:Str([loc title])];
-    }
-    [localized release];
+    [self setupLocalization];
     
     // set up growl notifications regardless of whether or not we're supposed to growl
     [GrowlApplicationBridge setGrowlDelegate:self];
     
     // check for updates if user has them enabled
-    if ([prefs shouldCheckForUpdatesOnStartup]) [updater checkForUpdatesInBackground];
+    if ([prefs shouldCheckForUpdatesOnStartup])
+        [updater checkForUpdatesInBackground];
     
     // status item
     [statusMenu setDelegate:self];
@@ -167,8 +160,20 @@
     }
 }
 
-#pragma mark Menu Actions
-#pragma mark -
+#pragma mark - Setup Methods
+
+- (void)setupLocalization {
+    NSString *version = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"];
+    [versionItem setTitle:[Str(@"About") stringByReplacingOccurrencesOfString:@"%%" withString:version]];
+    NSArray *localized = [[NSArray alloc] initWithObjects:updateItem, preferencesItem, quitItem, switchGPUs, integratedOnly, 
+                          discreteOnly, dynamicSwitching, dependentProcesses, processList, aboutWindow, aboutClose, nil];
+    for (NSButton *loc in localized) {
+        [loc setTitle:Str([loc title])];
+    }
+    [localized release];
+}
+
+#pragma mark - Menu Actions
 
 - (void)menuNeedsUpdate:(NSMenu *)menu {
     //[self updateMenu];
@@ -353,8 +358,7 @@
     }
 }
 
-#pragma mark Helpers
-#pragma mark -
+#pragma mark - Helpers
 
 - (NSMenuItem *)senderForMode:(SwitcherMode)mode {
     // convert switcher mode to a menu item (consumed by setMode:)
@@ -381,7 +385,7 @@
     SwitcherMode currentMode = [SystemInfo switcherGetMode]; // actual current mode
     NSMenuItem *activeCard = [self senderForMode:currentMode]; // corresponding menu item
     
-    // check if its consistent with menu state
+    // check if we're consistent with menu state
     if ([activeCard state] != NSOnState && ![state usingLegacy]) {
         GTMLoggerDebug(@"Inconsistent menu state and active card, forcing retry");
         
@@ -411,11 +415,15 @@
         return;
     }
     
-    GTMLoggerDebug(@"Power source changed: %d => %d (%@)", lastPowerSource, powerSource, (powerSource == psBattery ? @"Battery" : @"AC Adapter"));
+    GTMLoggerDebug(@"Power source changed: %d => %d (%@)", 
+                   lastPowerSource, 
+                   powerSource, 
+                   (powerSource == psBattery ? @"Battery" : @"AC Adapter"));
     lastPowerSource = powerSource;
     
     if ([prefs shouldUsePowerSourceBasedSwitching]) {
-        SwitcherMode newMode = [prefs modeForPowerSource:[SystemInfo keyForPowerSource:powerSource]];
+        SwitcherMode newMode = [prefs modeForPowerSource:
+                                [SystemInfo keyForPowerSource:powerSource]];
         
         if (![state usingLegacy]) {
             GTMLoggerDebug(@"Using a newer machine, setting appropriate mode based on power source...");
