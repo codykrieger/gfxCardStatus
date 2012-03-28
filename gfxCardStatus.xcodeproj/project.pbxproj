@@ -115,6 +115,7 @@
 		A17220621236D90800636797 /* Growl.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Growl.framework; sourceTree = "<group>"; };
 		A17220981236DA0B00636797 /* Growl Registration Ticket.growlRegDict */ = {isa = PBXFileReference; explicitFileType = text.plist.xml; fileEncoding = 4; path = "Growl Registration Ticket.growlRegDict"; sourceTree = "<group>"; };
 		A17221831236DE4200636797 /* Growl License.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Growl License.txt"; sourceTree = "<group>"; };
+		A17AEE321523A652006DB84A /* ru-RU */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "ru-RU"; path = "/Users/codykrieger/projects/gfxCardStatus/ru-RU.lproj/Localizable.strings"; sourceTree = "<absolute>"; };
 		A17CE49813B07C3700E5D50F /* SystemInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SystemInfo.h; sourceTree = "<group>"; };
 		A17CE49913B07C3700E5D50F /* SystemInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SystemInfo.m; sourceTree = "<group>"; };
 		A17CE49C13B081DE00E5D50F /* MuxMagic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MuxMagic.h; sourceTree = "<group>"; };
@@ -491,6 +492,7 @@
 				A1EAC045141524AD005A852B /* pt-BR */,
 				7056663514963D80009F10BB /* pl */,
 				A19DAD6214CF1E8800D46D80 /* fi */,
+				A17AEE321523A652006DB84A /* ru-RU */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";

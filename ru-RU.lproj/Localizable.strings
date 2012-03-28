@@ -1,0 +1,51 @@
+/* 
+   Localizable.strings
+   gfxCardStatus 
+   Made by Cody Krieger - all credits for gfxCardStatus goes to him!
+
+   === Localization ===
+   Feel free to contact me for any suggestions/improvements about localization => oleg@kuppo.ru
+ */
+
+/* Main menu */
+"About"					= "О программе gfxCardStatus, v%%";
+"Update"				= "Проверить обновления...";
+"Preferences"			= "Настройки...";
+"Card"					= "Видеокарта: %%";
+"SwitchGPUs"			= "Переключить видеокарту";
+"IntegratedOnly"		= "Только интегрированная";
+"DiscreteOnly"			= "Только дискретная";
+"DynamicSwitching"		= "Автоматическое переключение";
+"Dependencies"			= "Дискретный GPU используется из-за:";
+"NoProcess"				= "Нет";
+"Quit"					= "Выход";
+"Close"					= "Закрыть!";
+"PowerSource"           = "Источник питания: %%";
+"Battery"               = "Аккумулятор";
+"ACAdapter"             = "Блок питания";
+
+/* Preferences window */
+"PrefTitle"				= "Настройки программы";
+"PrefUpdate"			= "Проверять наличие обновлений при открытии программы";
+"PrefGrowl"				= "Использовать оповещения Growl";
+"PrefStartup"			= "Открывать программу при запуске системы";
+"PrefLog"				= "Записывать диагностические сообщения в консоль";
+"PrefRestoreState"		= "Запоминать используемую видеокарту при выходе";
+"PrefPowerSwitching"	= "Переключать видеокарту в зависимости от источника питания";
+"Integrated"            = "Интегрированная";
+"Discrete"              = "Дискретная";
+"Dynamic"               = "Автоматически";
+"OnBattery"             = "От аккумулятора:";
+"PluggedIn"             = "От блока питания:";
+"General"               = "General";
+"Switching"             = "Switching";
+"SmartMenuBarIcons"     = "Use smart menu bar icons";
+
+/* About box */
+"AboutTitle"			= "О программе gfxCardStatus";
+"AboutWebsite"			= "Сайт";
+
+/* Growl */
+"GrowlGPUChanged"       = "GPU переключен";
+"GrowlSwitch"           = "'%1$@' сейчас используется.";
+
