@@ -298,9 +298,34 @@ static void dumpState(io_connect_t connect) {
             // Hold up a sec!
             sleep(1);
             
-            BOOL integrated = [MuxMagic isUsingIntegrated];
-            if ((mode==modeForceIntegrated && !integrated) || (mode==modeForceDiscrete && integrated))
-                forceSwitch(switcherConnect);
+//            BOOL integrated = [MuxMagic isUsingIntegrated];
+//            if ((mode==modeForceIntegrated && !integrated) || (mode==modeForceDiscrete && integrated))
+//                forceSwitch(switcherConnect);
+
+            // potential fix for not switching after coming back from sleep
+            // by Casey Jao
+            BOOL switchSuccessful = NO;
+            int tries = 0;
+            
+            while (!switchSuccessful && tries < 2) {
+                BOOL integrated = [MuxMagic isUsingIntegrated];
+                if ((mode==modeForceIntegrated && !integrated) || (mode==modeForceDiscrete && integrated))
+                    forceSwitch(switcherConnect);
+                
+                sleep(1);
+                integrated = [MuxMagic isUsingIntegrated];
+                
+                if (integrated && mode==modeForceDiscrete)
+                    GTMLoggerDebug(@"Now using integrated but requested discrete. Trying again...");
+                else if (!integrated && mode==modeForceIntegrated)
+                    GTMLoggerDebug(@"Now using discrete but requested integrated. Trying again...");
+                else {
+                    GTMLoggerDebug(@"Switch successful.");
+                    switchSuccessful = YES;
+                }
+                
+                tries++;
+            }
             
             break;
         case modeDynamicSwitching:
