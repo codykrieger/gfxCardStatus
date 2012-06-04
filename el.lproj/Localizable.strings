@@ -1,0 +1,50 @@
+/* 
+   Localizable.strings
+   gfxCardStatus
+
+   Created by Michael Schinis on 04.06.2012.
+   Copyright 2012 Michael Schinis. All rights reserved.
+ */
+
+/* Main menu */
+"About"					= "Πληροφορίες για το gfxCardStatus, v%%";
+"Update"				= "Έλεγχος αναβαθμίσεων...";
+"Preferences"			= "Ρυθμίσεις...";
+"Card"					= "Κάρτα: %%";
+"SwitchGPUs"			= "Αλλαγή κάρτας γραγικών";
+"IntegratedOnly"		= "Ενσωματωμένη μόνο";
+"DiscreteOnly"			= "Διακριτική μόνο";
+"DynamicSwitching"		= "Αυτόματη αλλαγή";
+"Dependencies"			= "Εξαρτήσεις";
+"NoProcess"				= "Καθόλου";
+"Quit"					= "Έξοδος";
+"Close"					= "Τέλεια!";
+"PowerSource"           = "Πηγή ρέυματος: %%";
+"Battery"               = "Μπαταρία";
+"ACAdapter"             = "Τροφοδοτικό AC";
+
+/* Preferences window */
+"PrefTitle"				= "Ρυθμίσεις για το gfxCardStatus";
+"PrefUpdate"			= "Αυτόματος έλεγχος αναβαθμίσεων στην εκκίνηση.";
+"PrefGrowl"				= "Χρήση του Growl για ενημερωτικά μυνήματα.";
+"PrefStartup"			= "Εκκίνηση του gfxCardStatus κατα την εκκίνηση.";
+"PrefLog"				= "Καταγραφή διαγνωστικών μυνημάτων στη κονσόλα";
+"PrefRestoreState"		= "Επαναφορά προηγούμενων επιλογών.";
+"PrefPowerSwitching"	= "Αλλαγή κάρτας, βάση πηγής ρέυματος.";
+"Integrated"            = "Ενσωματωμένη";
+"Discrete"              = "Διακριτική";
+"Dynamic"               = "Αυτόματη";
+"OnBattery"             = "Στη μπαταρία:";
+"PluggedIn"             = "Στο τροφοδοτικό:";
+"General"               = "Γενικά";
+"Switching"             = "Αλλαγή";
+"Advanced"              = "Προχωρημένα";
+"SmartMenuBarIcons"     = "Χρήση έξυπνων εικονιδίων μενού.";
+
+/* About box */
+"AboutTitle"			= "Πληροφορίες για το gfxCardStatus";
+"AboutWebsite"			= "Ιστοσελίδα";
+
+/* Growl */
+"GrowlGPUChanged"       = "Καρτα γραφικών έχει αλλάξει";
+"GrowlSwitch"           = "Τέθηκε σε λειτουργεία: '%1$@'";
