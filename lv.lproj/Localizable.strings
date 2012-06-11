@@ -1,0 +1,50 @@
+/* 
+   Localizable.strings
+   gfxCardStatus
+
+   Created by Ivars Strazdins on 10.06.12.
+   Copyright 2012 Ivars Strazdins. All rights reserved.
+ */
+
+/* Main menu */
+"About"					= "Par gfxCardStatus, v%%";
+"Update"				= "Meklēt atjauninājumus...";
+"Preferences"			= "Iestatījumi...";
+"Card"					= "GPU: %%";
+"SwitchGPUs"			= "Pārslēgt GPU";
+"IntegratedOnly"		= "Tikai integrētais";
+"DiscreteOnly"			= "Tikai diskrētais";
+"DynamicSwitching"		= "Dinamiska pārslēgšanās";
+"Dependencies"			= "Atkarības";
+"NoProcess"				= "Neviena";
+"Quit"					= "Iziet";
+"Close"					= "Aizvērt";
+"PowerSource"           = "Strāvas avots: %%";
+"Battery"               = "Baterija";
+"ACAdapter"             = "Tīkla barošana";
+
+/* Preferences window */
+"PrefTitle"				= "gfxCardStatus iestatījumi";
+"PrefUpdate"			= "Meklēt atjauninājumus, uzsākot darbu";
+"PrefGrowl"				= "Statusa izmaiņu paziņojumiem izmantot Growl";
+"PrefStartup"			= "Uzsākot darbu, startēt gfxCardStatus";
+"PrefLog"				= "Diagnostikas ziņojumus rakstīt konsoles žurnālfailā";
+"PrefRestoreState"		= "Uzsākot darbu, atjaunot pēdējo izmantoto režīmu";
+"PrefPowerSwitching"	= "Pārslēgšanās atkarīga no barošanas avota";
+"Integrated"            = "Integrētais";
+"Discrete"              = "Diskrētais";
+"Dynamic"               = "Dinamiski";
+"OnBattery"             = "Barošana no baterijas:";
+"PluggedIn"             = "Barošana no tīkla:";
+"General"               = "Vispārīgi";
+"Switching"             = "Pārslēgšanās";
+"Advanced"              = "Zem pārsega";
+"SmartMenuBarIcons"     = "Izmantot gudrās paneļa ikonas";
+
+/* About box */
+"AboutTitle"			= "Par gfxCardStatus";
+"AboutWebsite"			= "Tīmekļa vietne";
+
+/* Growl */
+"GrowlGPUChanged"       = "GPU pārslēgts";
+"GrowlSwitch"           = "Tagad izmanto '%1$@'.";

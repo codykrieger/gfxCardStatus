@@ -136,6 +136,7 @@
 		A1E07E101194B42B00683B07 /* ApplicationServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ApplicationServices.framework; path = System/Library/Frameworks/ApplicationServices.framework; sourceTree = SDKROOT; };
 		A1EAC04314152495005A852B /* pt-PT */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-PT"; path = "pt-PT.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		A1EAC045141524AD005A852B /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		A1ED2B2E15857CB600B99CDE /* lv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = lv; path = lv.lproj/Localizable.strings; sourceTree = "<group>"; };
 		A1F4FB0F13C6D58B002D38D5 /* cs */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = cs; path = cs.lproj/Localizable.strings; sourceTree = "<group>"; };
 		A1F7ED4414B0405B00328A83 /* GTMDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMDefines.h; sourceTree = "<group>"; };
 		A1F7ED4614B0407200328A83 /* GTMLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMLogger.h; sourceTree = "<group>"; };
@@ -374,6 +375,7 @@
 				pt,
 				nl,
 				pl,
+				lv,
 			);
 			mainGroup = 29B97314FDCFA39411CA2CEA /* gfxCardStatus */;
 			projectDirPath = "";
@@ -495,6 +497,7 @@
 				A19DAD6214CF1E8800D46D80 /* fi */,
 				A17AEE321523A652006DB84A /* ru-RU */,
 				A13C595D157C3F7200F6C668 /* el */,
+				A1ED2B2E15857CB600B99CDE /* lv */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
