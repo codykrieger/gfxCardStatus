@@ -20,8 +20,7 @@ void DisplayReconfigurationCallback(CGDirectDisplayID display,
 
 @implementation GSState
 
-@synthesize delegate, 
-            usingIntegrated, 
+@synthesize usingIntegrated, 
             usingLegacy,
             integratedString, 
             discreteString;
@@ -33,9 +32,9 @@ void DisplayReconfigurationCallback(CGDirectDisplayID display,
         usingLegacy = [(NSNumber *)[profile objectForKey:@"legacy"] boolValue];
         
         queue = dispatch_queue_create(NOTIFICATION_QUEUE_NAME, NULL);
-        
-        CGDisplayRegisterReconfigurationCallback(DisplayReconfigurationCallback,
-                                                 (__bridge void *)self);
+//        
+//        CGDisplayRegisterReconfigurationCallback(DisplayReconfigurationCallback,
+//                                                 (__bridge void *)self);
     }
     
     return self;
@@ -61,23 +60,23 @@ void DisplayReconfigurationCallback(CGDirectDisplayID display,
             
             if ((nowIsUsingIntegrated != [state usingIntegrated])) {
                 // gpu has indeed changed
-                [state gpuChangedFrom:(nowIsUsingIntegrated ? 
-                                       kGPUTypeDiscrete : kGPUTypeIntegrated)];
+//                [state gpuChangedFrom:(nowIsUsingIntegrated ? 
+//                                       GSGPUTypeDiscrete : GSGPUTypeIntegrated)];
             } else {
-                [state gpuChangedFrom:(nowIsUsingIntegrated ? 
-                                       kGPUTypeIntegrated : kGPUTypeDiscrete)];
+//                [state gpuChangedFrom:(nowIsUsingIntegrated ? 
+//                                       GSGPUTypeIntegrated : GSGPUTypeDiscrete)];
             }
         });
     }
 }
 
-- (void)gpuChangedFrom:(GPUType)from {
-    self.usingIntegrated = !self.usingIntegrated;
-    GPUType to = (self.usingIntegrated ? kGPUTypeIntegrated : kGPUTypeDiscrete);
-    
-    if ([delegate respondsToSelector:@selector(gpuChangedTo:from:)])
-        [delegate gpuChangedTo:to from:from];
-}
+//- (void)gpuChangedFrom:(GPUType)from {
+//    self.usingIntegrated = !self.usingIntegrated;
+//    GPUType to = (self.usingIntegrated ? GSGPUTypeIntegrated : GSGPUTypeDiscrete);
+//    
+//    if ([delegate respondsToSelector:@selector(gpuChangedTo:from:)])
+//        [delegate gpuChangedTo:to from:from];
+//}
 
 #pragma mark -
 #pragma mark Singleton methods

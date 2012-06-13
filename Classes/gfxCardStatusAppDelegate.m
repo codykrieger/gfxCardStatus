@@ -25,6 +25,7 @@
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
     prefs = [PrefsController sharedInstance];
+    state = [GSState sharedInstance];
     
     if (![GSMux switcherOpen]) {
         GTMLoggerError(@"Can't open connection to AppleGraphicsControl.");
@@ -51,6 +52,11 @@
     
     // set up growl notifications regardless of whether or not we're supposed to growl
     [GrowlApplicationBridge setGrowlDelegate:self];
+    
+    // check for updates if user has them enabled
+    // FIXME: hook up pref directly to updater.automaticallyChecksForUpdates
+    if ([prefs shouldCheckForUpdatesOnStartup])
+        [updater checkForUpdatesInBackground];
 }
 
 #pragma mark - GSGPUDelegate protocol
@@ -61,33 +67,6 @@
 }
 
 - (void)applicationKindOfDidFinishLaunching:(NSNotification *)aNotification {
-    prefs = [PrefsController sharedInstance];
-    state = [GSState sharedInstance];
-    [state setDelegate:self];
-    
-    // initialize driver and process listing
-    if (![GSMux switcherOpen]) GTMLoggerDebug(@"Can't open driver");
-    
-    // set up growl notifications regardless of whether or not we're supposed to growl
-    [GrowlApplicationBridge setGrowlDelegate:self];
-    
-    // check for updates if user has them enabled
-    // FIXME: hook up pref directly to updater.automaticallyChecksForUpdates
-    if ([prefs shouldCheckForUpdatesOnStartup])
-        [updater checkForUpdatesInBackground];
-    
-    // status item
-//    [statusMenu setDelegate:self];
-    statusItem = [[NSStatusBar systemStatusBar] statusItemWithLength:NSVariableStatusItemLength];
-    [statusItem setMenu:statusMenu];
-    [statusItem setHighlightMode:YES];
-    
-    // v2.0 alert
-    if (![prefs boolForKey:@"hasSeenVersionTwoMessage"]) {
-        
-        
-        [prefs setBool:YES forKey:@"hasSeenVersionTwoMessage"];
-    }
     
     // notifications and kvo
     NSNotificationCenter *notificationCenter = [[NSWorkspace sharedWorkspace] notificationCenter];
@@ -97,20 +76,20 @@
     [prefs addObserver:self forKeyPath:@"prefs.shouldUseSmartMenuBarIcons" options:NSKeyValueObservingOptionNew context:nil];
     
     // identify current gpu and set up menus accordingly
-    NSDictionary *profile = nil; //[GSProcess getGraphicsProfile];
-    if ([(NSNumber *)[profile objectForKey:@"unsupported"] boolValue]) {
-        [state setUsingIntegrated:NO];
-        NSAlert *alert = [NSAlert alertWithMessageText:@"You are using a system that gfxCardStatus does not support. Please ensure that you are using a MacBook Pro with dual GPUs." 
-                                         defaultButton:@"Oh, I see." alternateButton:nil otherButton:nil informativeTextWithFormat:@""];
-        [alert runModal];
-    } else {
-        [state setUsingIntegrated:[(NSNumber *)[profile objectForKey:@"usingIntegrated"] boolValue]];
-    }
+//    NSDictionary *profile = nil; //[GSProcess getGraphicsProfile];
+//    if ([(NSNumber *)[profile objectForKey:@"unsupported"] boolValue]) {
+//        [state setUsingIntegrated:NO];
+//        NSAlert *alert = [NSAlert alertWithMessageText:@"You are using a system that gfxCardStatus does not support. Please ensure that you are using a MacBook Pro with dual GPUs." 
+//                                         defaultButton:@"Oh, I see." alternateButton:nil otherButton:nil informativeTextWithFormat:@""];
+//        [alert runModal];
+//    } else {
+//        [state setUsingIntegrated:[(NSNumber *)[profile objectForKey:@"usingIntegrated"] boolValue]];
+//    }
     
-    [state setIntegratedString:(NSString *)[profile objectForKey:@"integratedString"]];
-    [state setDiscreteString:(NSString *)[profile objectForKey:@"discreteString"]];
+//    [state setIntegratedString:(NSString *)[profile objectForKey:@"integratedString"]];
+//    [state setDiscreteString:(NSString *)[profile objectForKey:@"discreteString"]];
     
-    GTMLoggerDebug(@"Fetched machine profile: %@", profile);
+//    GTMLoggerDebug(@"Fetched machine profile: %@", profile);
     
     [switchGPUs setHidden:![state usingLegacy]];
     [integratedOnly setHidden:[state usingLegacy]];
@@ -156,19 +135,19 @@
     return [NSDictionary dictionaryWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"Growl Registration Ticket" ofType:@"growlRegDict"]];
 }
 
-- (void)gpuChangedTo:(GPUType)gpu from:(GPUType)from {
-    [self updateMenu];
-    
-    if (gpu != from) {
-        NSString *cardString = [state usingIntegrated] ? [state integratedString] : [state discreteString];
-        NSString *msg  = [NSString stringWithFormat:Str(@"GrowlSwitch"), cardString];
-        NSString *name = [state usingIntegrated] ? @"switchedToIntegrated" : @"switchedToDiscrete";
-        [GrowlApplicationBridge notifyWithTitle:Str(@"GrowlGPUChanged") description:msg notificationName:name iconData:nil priority:0 isSticky:NO clickContext:nil];
-    }
-    
-    // verify state
-    [self performSelector:@selector(checkCardState) withObject:nil afterDelay:2.0];
-}
+//- (void)gpuChangedTo:(GPUType)gpu from:(GPUType)from {
+//    [self updateMenu];
+//    
+//    if (gpu != from) {
+//        NSString *cardString = [state usingIntegrated] ? [state integratedString] : [state discreteString];
+//        NSString *msg  = [NSString stringWithFormat:Str(@"GrowlSwitch"), cardString];
+//        NSString *name = [state usingIntegrated] ? @"switchedToIntegrated" : @"switchedToDiscrete";
+//        [GrowlApplicationBridge notifyWithTitle:Str(@"GrowlGPUChanged") description:msg notificationName:name iconData:nil priority:0 isSticky:NO clickContext:nil];
+//    }
+//    
+//    // verify state
+//    [self performSelector:@selector(checkCardState) withObject:nil afterDelay:2.0];
+//}
 
 - (void)handleWake:(NSNotification *)notification {
     GTMLoggerDebug(@"Wake notification! %@", notification);

@@ -17,7 +17,7 @@
 #import "GSMenuController.h"
 #import "GSGPU.h"
 
-@interface gfxCardStatusAppDelegate : NSObject <NSApplicationDelegate,GrowlApplicationBridgeDelegate,GSStateDelegate,GSGPUDelegate> {
+@interface gfxCardStatusAppDelegate : NSObject <NSApplicationDelegate,GrowlApplicationBridgeDelegate,GSGPUDelegate> {
     NSStatusItem *statusItem;
     
     IBOutlet SUUpdater *updater;
