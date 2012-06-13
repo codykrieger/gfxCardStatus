@@ -15,9 +15,10 @@
 #import "PreferencesWindowController.h"
 #import "SessionMagic.h"
 #import "PowerSourceMonitor.h"
+#import "GSMenuController.h"
+#import "GSGPU.h"
 
-
-@interface gfxCardStatusAppDelegate : NSObject <NSApplicationDelegate,GrowlApplicationBridgeDelegate,NSMenuDelegate,PowerSourceMonitorDelegate,SessionMagicDelegate> {
+@interface gfxCardStatusAppDelegate : NSObject <NSApplicationDelegate,GrowlApplicationBridgeDelegate,PowerSourceMonitorDelegate,SessionMagicDelegate,GSGPUDelegate> {
     NSStatusItem *statusItem;
     
     IBOutlet SUUpdater *updater;
@@ -41,10 +42,6 @@
     IBOutlet NSMenuItem *dependentProcesses;
     IBOutlet NSMenuItem *processList;
     
-    // about window
-    IBOutlet NSWindow *aboutWindow;
-    IBOutlet NSButton *aboutClose;
-    
     // preferences for all!
     PrefsController *prefs;
     PreferencesWindowController *pwc;
@@ -57,15 +54,9 @@
     PowerSource lastPowerSource;
 }
 
+@property (strong) IBOutlet GSMenuController *menuController;
+
 - (void)updateMenu;
 - (void)updateProcessList;
-
-- (IBAction)setMode:(id)sender;
-
-- (IBAction)openPreferences:(id)sender;
-- (IBAction)openAbout:(id)sender;
-- (IBAction)closeAbout:(id)sender;
-- (IBAction)openApplicationURL:(id)sender;
-- (IBAction)quit:(id)sender;
 
 @end

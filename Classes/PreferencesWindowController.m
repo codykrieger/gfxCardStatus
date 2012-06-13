@@ -20,20 +20,15 @@
 - (id)init {
     self = [super init];
     if (self) {
-        NSWindow *prefsWindow = [[[NSWindow alloc] initWithContentRect:NSMakeRect(0, 0, 300, 200) 
+        NSWindow *prefsWindow = [[NSWindow alloc] initWithContentRect:NSMakeRect(0, 0, 300, 200) 
                                                              styleMask:(NSTitledWindowMask | NSClosableWindowMask) 
-                                                               backing:NSBackingStoreBuffered defer:YES] autorelease];
+                                                               backing:NSBackingStoreBuffered defer:YES];
         [prefsWindow setShowsToolbarButton:NO];
         self.window = prefsWindow;
         
         [self createToolbar];
     }
     return self;
-}
-
-- (void)dealloc {
-    [modules release];
-    [super dealloc];
 }
 
 - (void)createToolbar {
@@ -104,13 +99,12 @@
     if (newModules == modules) return;
     
     if (modules) {
-        [modules release];
         modules = nil;
     }
     
     if (!newModules) return;
     
-    modules = [newModules retain];
+    modules = newModules;
     
     // Reset the toolbar items
     NSToolbar *toolbar = [self.window toolbar];
@@ -170,7 +164,7 @@
     id<PreferencesModule> module = [self moduleForIdentifier:itemIdentifier];
     
     NSToolbarItem *item = [[NSToolbarItem alloc] initWithItemIdentifier:itemIdentifier];
-    if (!module) return [item autorelease];
+    if (!module) return item;
     
     // Set the attributes of the item
     [item setLabel:[module title]];
@@ -178,7 +172,7 @@
     [item setTarget:self];
     [item setAction:@selector(selectModule:)];
     
-    return [item autorelease];
+    return item;
 }
 
 @end

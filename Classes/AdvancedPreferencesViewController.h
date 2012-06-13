@@ -17,8 +17,8 @@
     IBOutlet NSSegmentedControl *prefSegOnAc; // pref for gpu on ac
     IBOutlet NSTextField *onBatteryTextField;
     IBOutlet NSTextField *pluggedInTextField;
-    
-    PrefsController *prefs;
 }
+
+@property (strong) PrefsController *prefs;
 
 @end

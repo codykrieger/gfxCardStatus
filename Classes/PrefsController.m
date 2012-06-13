@@ -8,14 +8,7 @@
 
 #import "PrefsController.h"
 #import "SessionMagic.h"
-
-static PrefsController *sharedInstance = nil;
-
-@interface PrefsController (Private)
-
-- (void)copyLoginItems:(LSSharedFileListRef *)loginItems andCurrentLoginItem:(LSSharedFileListItemRef *)currentItem;
-
-@end
+#import "GSStartup.h"
 
 @implementation PrefsController
 
@@ -44,7 +37,7 @@ static PrefsController *sharedInstance = nil;
         prefs = [[NSMutableDictionary alloc] init];
         [self setDefaults];
     } else {
-        if ([self existsInStartupItems])
+        if ([GSStartup existsInStartupItems])
             [prefs setObject:yesNumber forKey:@"shouldStartAtLogin"];
         else
             [prefs setObject:noNumber forKey:@"shouldStartAtLogin"];
@@ -52,7 +45,7 @@ static PrefsController *sharedInstance = nil;
     
     // ensure that application will be loaded at startup
     if ([self shouldStartAtLogin])
-        [self loadAtStartup:YES];
+        [GSStartup loadAtStartup:YES];
     
     if ([[NSBundle mainBundle] pathForResource:@"integrated" ofType:@"png"])
         [prefs setObject:yesNumber forKey:@"shouldUseImageIcons"];
@@ -87,7 +80,7 @@ static PrefsController *sharedInstance = nil;
 }
 
 - (void)savePreferences {
-    GTMLoggerDebug(@"Writing preferences to disk");
+    GTMLoggerDebug(@"Writing preferences to disk...");
     
     if ([prefs writeToFile:[self getPrefsPath] atomically:YES]) {
         GTMLoggerDebug(@"Successfully wrote preferences to disk.");
@@ -150,116 +143,17 @@ static PrefsController *sharedInstance = nil;
     [self savePreferences];
 }
 
-- (void)copyLoginItems:(LSSharedFileListRef *)loginItems andCurrentLoginItem:(LSSharedFileListItemRef *)currentItem {
-    *loginItems = LSSharedFileListCreate(NULL, kLSSharedFileListSessionLoginItems, NULL);
-    
-    if (*loginItems) {
-        UInt32 seedValue;
-        NSArray *loginItemsArray = (NSArray *)LSSharedFileListCopySnapshot(*loginItems, &seedValue);
-        
-        for (id item in loginItemsArray) {
-            LSSharedFileListItemRef itemRef = (LSSharedFileListItemRef)item;
-            CFURLRef URL = NULL;
-            
-            if (LSSharedFileListItemResolve(itemRef, 0, &URL, NULL) == noErr) {
-                if ([[(NSURL *)URL path] hasSuffix:@"gfxCardStatus.app"]) {
-                    GTMLoggerDebug(@"Exists in startup items.");
-                    
-                    *currentItem = (LSSharedFileListItemRef)item;
-                    CFRetain(*currentItem);
-                    
-                    CFRelease(URL);
-                    
-                    break;
-                }
-                
-                CFRelease(URL);
-            }
-        }
-        
-        [loginItemsArray release];
-    }
-}
-
-- (BOOL)existsInStartupItems {
-    BOOL exists;
-    LSSharedFileListRef loginItems = NULL;
-    LSSharedFileListItemRef currentItem = NULL;
-    
-    [self copyLoginItems:&loginItems andCurrentLoginItem:&currentItem];
-    
-    exists = (currentItem != NULL);
-    
-    if (loginItems != NULL)
-        CFRelease(loginItems);
-    if (currentItem != NULL)
-        CFRelease(currentItem);
-    
-    return exists;
-}
-
-- (void)loadAtStartup:(BOOL)value {
-    NSURL *thePath = [[NSBundle mainBundle] bundleURL];
-    LSSharedFileListRef loginItems = NULL;
-    LSSharedFileListItemRef currentItem = NULL;
-    
-    [self copyLoginItems:&loginItems andCurrentLoginItem:&currentItem];
-    
-    if (loginItems) {
-        if (value && currentItem == NULL) {
-            GTMLoggerDebug(@"Adding to startup items.");
-            LSSharedFileListItemRef item = LSSharedFileListInsertItemURL(loginItems, kLSSharedFileListItemBeforeFirst, NULL, NULL, (CFURLRef)thePath, NULL, NULL);
-            if (item) CFRelease(item);
-        } else if (!value && currentItem != NULL) {
-            GTMLoggerDebug(@"Removing from startup items.");        
-            LSSharedFileListItemRemove(loginItems, currentItem);
-        }
-        
-        CFRelease(loginItems);
-        if (currentItem)
-            CFRelease(currentItem);
-    }
-}
-
 #pragma mark -
 #pragma mark Singleton methods
 
-+ (PrefsController *)sharedInstance {
-    @synchronized(self) {
-        if (sharedInstance == nil)
-            sharedInstance = [[PrefsController alloc] init];
-    }
-    return sharedInstance;
-}
-
-+ (id)allocWithZone:(NSZone *)zone {
-    @synchronized(self) {
-        if (sharedInstance == nil) {
-            sharedInstance = [super allocWithZone:zone];
-            return sharedInstance; // assignment and return on first allocation
-        }
-    }
-    return nil; // on subsequent allocation attempts return nil
-}
-
-- (id)copyWithZone:(NSZone *)zone {
-    return self;
-}
-
-- (id)retain {
-    return self;
-}
-
-- (NSUInteger)retainCount {
-    return NSUIntegerMax; // denotes an object that cannot be released
-}
-
-- (oneway void)release {
-    // do nothing
-}
-
-- (id)autorelease {
-    return self;
++ (PrefsController *)sharedInstance
+{
+    static dispatch_once_t pred = 0;
+    __strong static PrefsController *_sharedObject = nil;
+    dispatch_once(&pred, ^{
+        _sharedObject = [[self alloc] init]; // or some other init method
+    });
+    return _sharedObject;
 }
 
 @end

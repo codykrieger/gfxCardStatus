@@ -7,8 +7,8 @@
     #import "gfxCardStatusAppDelegate.h"
     #import "GTMLogger.h"
     
-    #define Str(key) NSLocalizedString(key, key)
-    
     #define kGPUSettingACAdaptor    @"GPUSetting_ACAdaptor"
     #define kGPUSettingBattery      @"GPUSetting_Battery"
+
+    #define Str(key) NSLocalizedString(key, key)
 #endif

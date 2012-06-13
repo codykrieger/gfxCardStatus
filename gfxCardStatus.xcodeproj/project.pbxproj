@@ -34,8 +34,8 @@
 		A17220661236D91200636797 /* Growl.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = A17220621236D90800636797 /* Growl.framework */; };
 		A17220A91236DA8A00636797 /* Growl Registration Ticket.growlRegDict in Resources */ = {isa = PBXBuildFile; fileRef = A17220981236DA0B00636797 /* Growl Registration Ticket.growlRegDict */; };
 		A17221841236DE4200636797 /* Growl License.txt in Resources */ = {isa = PBXBuildFile; fileRef = A17221831236DE4200636797 /* Growl License.txt */; };
-		A17CE49A13B07C3700E5D50F /* SystemInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = A17CE49913B07C3700E5D50F /* SystemInfo.m */; };
-		A17CE49E13B081DE00E5D50F /* MuxMagic.m in Sources */ = {isa = PBXBuildFile; fileRef = A17CE49D13B081DE00E5D50F /* MuxMagic.m */; };
+		A17CE49A13B07C3700E5D50F /* GSProcess.m in Sources */ = {isa = PBXBuildFile; fileRef = A17CE49913B07C3700E5D50F /* GSProcess.m */; };
+		A17CE49E13B081DE00E5D50F /* GSMux.m in Sources */ = {isa = PBXBuildFile; fileRef = A17CE49D13B081DE00E5D50F /* GSMux.m */; };
 		A1A3A6F9118214E2008B8145 /* integrated-i.png in Resources */ = {isa = PBXBuildFile; fileRef = A1A3A6F8118214E2008B8145 /* integrated-i.png */; };
 		A1C01F2113B06C08003BD4B2 /* SessionMagic.m in Sources */ = {isa = PBXBuildFile; fileRef = A1C01F2013B06C08003BD4B2 /* SessionMagic.m */; };
 		A1CCE20012B13CE4006D07A4 /* NSAttributedString+Hyperlink.m in Sources */ = {isa = PBXBuildFile; fileRef = A1CCE1FF12B13CE4006D07A4 /* NSAttributedString+Hyperlink.m */; };
@@ -44,11 +44,48 @@
 		A1D9C43A11851B77009A4DE1 /* gfxCardStatus.icns in Resources */ = {isa = PBXBuildFile; fileRef = A1D9C43911851B77009A4DE1 /* gfxCardStatus.icns */; };
 		A1E07D581194B42100683B07 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A1E07D571194B42100683B07 /* IOKit.framework */; };
 		A1E07E111194B42B00683B07 /* ApplicationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A1E07E101194B42B00683B07 /* ApplicationServices.framework */; };
-		A1F7ED4C14B0409300328A83 /* GTMLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = A1F7ED4914B0409300328A83 /* GTMLogger.m */; };
-		A1F7ED4E14B0409300328A83 /* GTMLoggerRingBufferWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = A1F7ED4B14B0409300328A83 /* GTMLoggerRingBufferWriter.m */; };
+		A1ED2B9F1588457400B99CDE /* GSGPU.m in Sources */ = {isa = PBXBuildFile; fileRef = A1ED2B9E1588457400B99CDE /* GSGPU.m */; };
+		A1ED2D1515884C2C00B99CDE /* ReactiveCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A1ED2CF715884B8A00B99CDE /* ReactiveCocoa.framework */; };
+		A1ED2D18158858C900B99CDE /* GSPower.m in Sources */ = {isa = PBXBuildFile; fileRef = A1ED2D17158858C900B99CDE /* GSPower.m */; };
+		A1ED2D1B158859DE00B99CDE /* GSStartup.m in Sources */ = {isa = PBXBuildFile; fileRef = A1ED2D1A158859DE00B99CDE /* GSStartup.m */; };
+		A1ED2D1F15885D6A00B99CDE /* GSNotifier.m in Sources */ = {isa = PBXBuildFile; fileRef = A1ED2D1E15885D6900B99CDE /* GSNotifier.m */; };
+		A1ED2D22158860FB00B99CDE /* GSMenuController.m in Sources */ = {isa = PBXBuildFile; fileRef = A1ED2D21158860FA00B99CDE /* GSMenuController.m */; };
+		A1F7ED4C14B0409300328A83 /* GTMLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = A1F7ED4914B0409300328A83 /* GTMLogger.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		A1F7ED4E14B0409300328A83 /* GTMLoggerRingBufferWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = A1F7ED4B14B0409300328A83 /* GTMLoggerRingBufferWriter.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		A1F7ED5114B0410E00328A83 /* ReleaseNotes.txt in Resources */ = {isa = PBXBuildFile; fileRef = A1F7ED5014B0410E00328A83 /* ReleaseNotes.txt */; };
 		A1F7ED5314B0413900328A83 /* COPYING in Resources */ = {isa = PBXBuildFile; fileRef = A1F7ED5214B0413900328A83 /* COPYING */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		A1ED2CF615884B8A00B99CDE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A1ED2CEB15884B8900B99CDE /* ReactiveCocoa.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 88037F8315056328001A5B19;
+			remoteInfo = ReactiveCocoa;
+		};
+		A1ED2CF815884B8A00B99CDE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A1ED2CEB15884B8900B99CDE /* ReactiveCocoa.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 88F440AB153DAC820097B4C3;
+			remoteInfo = "ReactiveCocoa-iOS";
+		};
+		A1ED2CFA15884B8A00B99CDE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A1ED2CEB15884B8900B99CDE /* ReactiveCocoa.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 88CDF7DC15000FCF00163A9F;
+			remoteInfo = ReactiveCocoaTests;
+		};
+		A1ED2D1315884C2000B99CDE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A1ED2CEB15884B8900B99CDE /* ReactiveCocoa.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 88037F8215056328001A5B19;
+			remoteInfo = ReactiveCocoa;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		A159E5011184EC5D00E68428 /* CopyFiles */ = {
@@ -117,10 +154,10 @@
 		A17220981236DA0B00636797 /* Growl Registration Ticket.growlRegDict */ = {isa = PBXFileReference; explicitFileType = text.plist.xml; fileEncoding = 4; path = "Growl Registration Ticket.growlRegDict"; sourceTree = "<group>"; };
 		A17221831236DE4200636797 /* Growl License.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Growl License.txt"; sourceTree = "<group>"; };
 		A17AEE321523A652006DB84A /* ru-RU */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "ru-RU"; path = "/Users/codykrieger/projects/gfxCardStatus/ru-RU.lproj/Localizable.strings"; sourceTree = "<absolute>"; };
-		A17CE49813B07C3700E5D50F /* SystemInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SystemInfo.h; sourceTree = "<group>"; };
-		A17CE49913B07C3700E5D50F /* SystemInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SystemInfo.m; sourceTree = "<group>"; };
-		A17CE49C13B081DE00E5D50F /* MuxMagic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MuxMagic.h; sourceTree = "<group>"; };
-		A17CE49D13B081DE00E5D50F /* MuxMagic.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MuxMagic.m; sourceTree = "<group>"; };
+		A17CE49813B07C3700E5D50F /* GSProcess.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GSProcess.h; sourceTree = "<group>"; };
+		A17CE49913B07C3700E5D50F /* GSProcess.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GSProcess.m; sourceTree = "<group>"; };
+		A17CE49C13B081DE00E5D50F /* GSMux.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GSMux.h; sourceTree = "<group>"; };
+		A17CE49D13B081DE00E5D50F /* GSMux.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GSMux.m; sourceTree = "<group>"; };
 		A19DAD6214CF1E8800D46D80 /* fi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fi; path = fi.lproj/Localizable.strings; sourceTree = "<group>"; };
 		A1A3A6F8118214E2008B8145 /* integrated-i.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "integrated-i.png"; sourceTree = "<group>"; };
 		A1C01F1F13B06C08003BD4B2 /* SessionMagic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SessionMagic.h; sourceTree = "<group>"; };
@@ -137,6 +174,17 @@
 		A1EAC04314152495005A852B /* pt-PT */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-PT"; path = "pt-PT.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		A1EAC045141524AD005A852B /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		A1ED2B2E15857CB600B99CDE /* lv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = lv; path = lv.lproj/Localizable.strings; sourceTree = "<group>"; };
+		A1ED2B9D1588457400B99CDE /* GSGPU.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GSGPU.h; sourceTree = "<group>"; };
+		A1ED2B9E1588457400B99CDE /* GSGPU.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GSGPU.m; sourceTree = "<group>"; };
+		A1ED2CEB15884B8900B99CDE /* ReactiveCocoa.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ReactiveCocoa.xcodeproj; path = lib/reactivecocoa/ReactiveCocoaFramework/ReactiveCocoa.xcodeproj; sourceTree = "<group>"; };
+		A1ED2D16158858C800B99CDE /* GSPower.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GSPower.h; sourceTree = "<group>"; };
+		A1ED2D17158858C900B99CDE /* GSPower.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GSPower.m; sourceTree = "<group>"; };
+		A1ED2D19158859DE00B99CDE /* GSStartup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GSStartup.h; sourceTree = "<group>"; };
+		A1ED2D1A158859DE00B99CDE /* GSStartup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GSStartup.m; sourceTree = "<group>"; };
+		A1ED2D1D15885D6900B99CDE /* GSNotifier.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GSNotifier.h; sourceTree = "<group>"; };
+		A1ED2D1E15885D6900B99CDE /* GSNotifier.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GSNotifier.m; sourceTree = "<group>"; };
+		A1ED2D20158860F900B99CDE /* GSMenuController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GSMenuController.h; sourceTree = "<group>"; };
+		A1ED2D21158860FA00B99CDE /* GSMenuController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GSMenuController.m; sourceTree = "<group>"; };
 		A1F4FB0F13C6D58B002D38D5 /* cs */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = cs; path = cs.lproj/Localizable.strings; sourceTree = "<group>"; };
 		A1F7ED4414B0405B00328A83 /* GTMDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMDefines.h; sourceTree = "<group>"; };
 		A1F7ED4614B0407200328A83 /* GTMLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMLogger.h; sourceTree = "<group>"; };
@@ -153,6 +201,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A1ED2D1515884C2C00B99CDE /* ReactiveCocoa.framework in Frameworks */,
 				A115A11313B1CF9100330760 /* Growl.framework in Frameworks */,
 				8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */,
 				A159E4EA1184E84300E68428 /* Sparkle.framework in Frameworks */,
@@ -173,6 +222,10 @@
 				A11599CA13D42A720097E4BC /* System Utils */,
 				256AC3D80F4B6AC300CF3369 /* gfxCardStatusAppDelegate.h */,
 				256AC3D90F4B6AC300CF3369 /* gfxCardStatusAppDelegate.m */,
+				A1ED2D1D15885D6900B99CDE /* GSNotifier.h */,
+				A1ED2D1E15885D6900B99CDE /* GSNotifier.m */,
+				A1ED2D20158860F900B99CDE /* GSMenuController.h */,
+				A1ED2D21158860FA00B99CDE /* GSMenuController.m */,
 				1DDD58140DA1D0A300B32029 /* MainMenu.xib */,
 				A1C01F1F13B06C08003BD4B2 /* SessionMagic.h */,
 				A1C01F2013B06C08003BD4B2 /* SessionMagic.m */,
@@ -234,6 +287,7 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				A1ED2CEB15884B8900B99CDE /* ReactiveCocoa.xcodeproj */,
 				1058C7A0FEA54F0111CA2CBB /* Linked Frameworks */,
 				1058C7A2FEA54F0111CA2CBB /* Other Frameworks */,
 			);
@@ -261,10 +315,16 @@
 		A11599CA13D42A720097E4BC /* System Utils */ = {
 			isa = PBXGroup;
 			children = (
-				A17CE49813B07C3700E5D50F /* SystemInfo.h */,
-				A17CE49913B07C3700E5D50F /* SystemInfo.m */,
-				A17CE49C13B081DE00E5D50F /* MuxMagic.h */,
-				A17CE49D13B081DE00E5D50F /* MuxMagic.m */,
+				A17CE49813B07C3700E5D50F /* GSProcess.h */,
+				A17CE49913B07C3700E5D50F /* GSProcess.m */,
+				A1ED2B9D1588457400B99CDE /* GSGPU.h */,
+				A1ED2B9E1588457400B99CDE /* GSGPU.m */,
+				A1ED2D16158858C800B99CDE /* GSPower.h */,
+				A1ED2D17158858C900B99CDE /* GSPower.m */,
+				A1ED2D19158859DE00B99CDE /* GSStartup.h */,
+				A1ED2D1A158859DE00B99CDE /* GSStartup.m */,
+				A17CE49C13B081DE00E5D50F /* GSMux.h */,
+				A17CE49D13B081DE00E5D50F /* GSMux.m */,
 				8013EE1211A026EA000ECA36 /* PowerSourceMonitor.h */,
 				8013EE1311A026EA000ECA36 /* PowerSourceMonitor.m */,
 			);
@@ -312,6 +372,16 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		A1ED2CEC15884B8900B99CDE /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				A1ED2CF715884B8A00B99CDE /* ReactiveCocoa.framework */,
+				A1ED2CF915884B8A00B99CDE /* libReactiveCocoa-iOS.a */,
+				A1ED2CFB15884B8A00B99CDE /* ReactiveCocoaTests.octest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		A1F7ED4314B0403700328A83 /* Google Toolbox for Mac */ = {
 			isa = PBXGroup;
 			children = (
@@ -342,6 +412,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				A1ED2D1415884C2000B99CDE /* PBXTargetDependency */,
 			);
 			name = gfxCardStatus;
 			productInstallPath = "$(HOME)/Applications";
@@ -356,6 +427,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 0430;
+				ORGANIZATIONNAME = "Cody Krieger";
 			};
 			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "gfxCardStatus" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -376,15 +448,46 @@
 				nl,
 				pl,
 				lv,
+				en,
 			);
 			mainGroup = 29B97314FDCFA39411CA2CEA /* gfxCardStatus */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = A1ED2CEC15884B8900B99CDE /* Products */;
+					ProjectRef = A1ED2CEB15884B8900B99CDE /* ReactiveCocoa.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				8D1107260486CEB800E47090 /* gfxCardStatus */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		A1ED2CF715884B8A00B99CDE /* ReactiveCocoa.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = ReactiveCocoa.framework;
+			remoteRef = A1ED2CF615884B8A00B99CDE /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		A1ED2CF915884B8A00B99CDE /* libReactiveCocoa-iOS.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libReactiveCocoa-iOS.a";
+			remoteRef = A1ED2CF815884B8A00B99CDE /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		A1ED2CFB15884B8A00B99CDE /* ReactiveCocoaTests.octest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = ReactiveCocoaTests.octest;
+			remoteRef = A1ED2CFA15884B8A00B99CDE /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		8D1107290486CEB800E47090 /* Resources */ = {
@@ -428,17 +531,30 @@
 				A14C180B124EFE6300816A4A /* PrefsController.m in Sources */,
 				A1CCE20012B13CE4006D07A4 /* NSAttributedString+Hyperlink.m in Sources */,
 				A1C01F2113B06C08003BD4B2 /* SessionMagic.m in Sources */,
-				A17CE49A13B07C3700E5D50F /* SystemInfo.m in Sources */,
-				A17CE49E13B081DE00E5D50F /* MuxMagic.m in Sources */,
+				A17CE49A13B07C3700E5D50F /* GSProcess.m in Sources */,
+				A17CE49E13B081DE00E5D50F /* GSMux.m in Sources */,
 				A11599BE13D429750097E4BC /* AdvancedPreferencesViewController.m in Sources */,
 				A11599BF13D429750097E4BC /* GeneralPreferencesViewController.m in Sources */,
 				A11599C013D429750097E4BC /* PreferencesWindowController.m in Sources */,
 				A1F7ED4C14B0409300328A83 /* GTMLogger.m in Sources */,
 				A1F7ED4E14B0409300328A83 /* GTMLoggerRingBufferWriter.m in Sources */,
+				A1ED2B9F1588457400B99CDE /* GSGPU.m in Sources */,
+				A1ED2D18158858C900B99CDE /* GSPower.m in Sources */,
+				A1ED2D1B158859DE00B99CDE /* GSStartup.m in Sources */,
+				A1ED2D1F15885D6A00B99CDE /* GSNotifier.m in Sources */,
+				A1ED2D22158860FB00B99CDE /* GSMenuController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		A1ED2D1415884C2000B99CDE /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = ReactiveCocoa;
+			targetProxy = A1ED2D1315884C2000B99CDE /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		089C165CFE840E0CC02AAC07 /* InfoPlist.strings */ = {
@@ -512,10 +628,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_OBJCPP_ARC_ABI = NO;
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
+					"\"$(PROJECT_DIR)/lib/reactivecocoa/ReactiveCocoaFramework\"",
 				);
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_MODEL_TUNING = G5;
@@ -525,6 +644,7 @@
 				GCC_VERSION = "";
 				INFOPLIST_FILE = "gfxCardStatus-Info.plist";
 				INSTALL_PATH = "$(HOME)/Applications";
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = gfxCardStatus;
 			};
 			name = Debug;
@@ -533,10 +653,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_OBJCPP_ARC_ABI = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
+					"\"$(PROJECT_DIR)/lib/reactivecocoa/ReactiveCocoaFramework\"",
 				);
 				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -544,6 +667,7 @@
 				GCC_VERSION = "";
 				INFOPLIST_FILE = "gfxCardStatus-Info.plist";
 				INSTALL_PATH = "$(HOME)/Applications";
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = gfxCardStatus;
 			};
 			name = Release;
@@ -557,7 +681,7 @@
 				DEPLOYMENT_POSTPROCESSING = NO;
 				DSTROOT = /tmp/gfxCardStatus.dst;
 				FRAMEWORK_SEARCH_PATHS = "";
-				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_C_LANGUAGE_STANDARD = "compiler-default";
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
@@ -582,7 +706,7 @@
 				DSTROOT = /tmp/gfxCardStatus.dst;
 				EXCLUDED_RECURSIVE_SEARCH_PATH_SUBDIRECTORIES = ".git *.nib *.lproj *.framework *.gch *.xcode* (*) CVS .svn";
 				FRAMEWORK_SEARCH_PATHS = "";
-				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_C_LANGUAGE_STANDARD = "compiler-default";
 				GCC_VERSION = "";
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;

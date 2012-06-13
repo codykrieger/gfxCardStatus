@@ -9,10 +9,6 @@
 #import "AdvancedPreferencesViewController.h"
 #import "SessionMagic.h"
 
-@interface AdvancedPreferencesViewController ()
-@property (assign) PrefsController *prefs;
-@end
-
 @implementation AdvancedPreferencesViewController
 
 @synthesize prefs;
@@ -26,10 +22,6 @@
     return self;
 }
 
-- (void)dealloc {
-    [super dealloc];
-}
-
 - (void)loadView {
     [super loadView];
     
@@ -37,13 +29,11 @@
     for (NSButton *loc in localizedButtons) {
         [loc setTitle:Str([loc title])];
     }
-    [localizedButtons release];
     
     NSArray *localizedLabels = [[NSArray alloc] initWithObjects:onBatteryTextField, pluggedInTextField, nil];
     for (NSTextField *field in localizedLabels) {
         [field setStringValue:Str([field stringValue])];
     }
-    [localizedLabels release];
     
     if ([[SessionMagic sharedInstance] usingLegacy]) {
         [prefSegOnBattery setSegmentCount:2];

@@ -9,10 +9,7 @@
 #import "GeneralPreferencesViewController.h"
 #import "PrefsController.h"
 #import "SessionMagic.h"
-
-@interface GeneralPreferencesViewController ()
-@property (assign) PrefsController *prefs;
-@end
+#import "GSStartup.h"
 
 @implementation GeneralPreferencesViewController
 
@@ -26,12 +23,6 @@
     return self;
 }
 
-- (void)dealloc {
-    [prefs removeObserver:self forKeyPath:@"prefs.shouldStartAtLogin"];
-    
-    [super dealloc];
-}
-
 - (void)loadView {
     [super loadView];
     
@@ -41,7 +32,6 @@
     for (NSButton *loc in localizedButtons) {
         [loc setTitle:Str([loc title])];
     }
-    [localizedButtons release];
     
     SessionMagic *state = [SessionMagic sharedInstance];
     if ([state usingLegacy])
@@ -50,7 +40,7 @@
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
     if ([keyPath isEqualToString:@"prefs.shouldStartAtLogin"]) {
-        [prefs loadAtStartup:([prefChkStartup state] ? YES : NO)];
+        [GSStartup loadAtStartup:([prefChkStartup state] ? YES : NO)];
     }
 }
 

@@ -1,5 +1,5 @@
 //
-//  MuxMagic.h
+//  GSMux.h
 //  gfxCardStatus
 //
 //  Created by Cody Krieger on 6/21/11.
@@ -17,7 +17,7 @@ typedef enum {
 
 #define kDriverClassName "AppleGraphicsControl"
 
-@interface MuxMagic : NSObject
+@interface GSMux : NSObject
 
 + (BOOL)switcherOpen;                       // Initialize driver
 + (void)switcherClose;                      // Close driver

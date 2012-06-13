@@ -7,24 +7,53 @@
 //
 
 #import "gfxCardStatusAppDelegate.h"
-#import "SystemInfo.h"
-#import "MuxMagic.h"
 #import "NSAttributedString+Hyperlink.h"
 #import "GeneralPreferencesViewController.h"
 #import "AdvancedPreferencesViewController.h"
+#import "GSProcess.h"
+#import "GSMux.h"
+#import "GSNotifier.h"
 
 @implementation gfxCardStatusAppDelegate
 
+@synthesize menuController;
+
 #pragma mark - Initialization
 
-- (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
+- (void)applicationDidFinishLaunching:(NSNotification *)aNotification
+{
+    if (![GSMux switcherOpen]) {
+        GTMLoggerInfo(@"Can't open connection to AppleGraphicsControl.");
+        
+        [GSNotifier showUnsupportedMachineMessage];
+        [menuController quit:self];
+    }
+    
+//    NSArray *gpuNames = [GSGPU getGPUNames];
+    
+    [GSGPU registerForGPUChangeNotifications:self];
+    
+    if ([GSGPU isLegacyMachine]) {
+        // do stuff
+    }
+    
+    [menuController setupMenu];
+}
+
+#pragma mark - GSGPUDelegate protocol
+
+- (void)gpuChangedTo:(GSGPUType)gpu
+{
+    
+}
+
+- (void)applicationKindOfDidFinishLaunching:(NSNotification *)aNotification {
     prefs = [PrefsController sharedInstance];
     state = [SessionMagic sharedInstance];
     [state setDelegate:self];
     
     // initialize driver and process listing
-    if (![MuxMagic switcherOpen]) GTMLoggerDebug(@"Can't open driver");
-    if (![SystemInfo procInit]) GTMLoggerDebug(@"Can't obtain I/O Kit's master port");
+    if (![GSMux switcherOpen]) GTMLoggerDebug(@"Can't open driver");
     
     // localization
     [self setupLocalization];
@@ -37,8 +66,8 @@
         [updater checkForUpdatesInBackground];
     
     // status item
-    [statusMenu setDelegate:self];
-    statusItem = [[[NSStatusBar systemStatusBar] statusItemWithLength:NSVariableStatusItemLength] retain];
+//    [statusMenu setDelegate:self];
+    statusItem = [[NSStatusBar systemStatusBar] statusItemWithLength:NSVariableStatusItemLength];
     [statusItem setMenu:statusMenu];
     [statusItem setHighlightMode:YES];
     
@@ -55,8 +84,6 @@
         [versionInfo setAccessoryView:accessory];
         [versionInfo addButtonWithTitle:@"Don't show this again!"];
         [versionInfo runModal];
-        [versionInfo release];
-        [accessory release];
         
         [prefs setBool:YES forKey:@"hasSeenVersionTwoMessage"];
     }
@@ -69,7 +96,7 @@
     [prefs addObserver:self forKeyPath:@"prefs.shouldUseSmartMenuBarIcons" options:NSKeyValueObservingOptionNew context:nil];
     
     // identify current gpu and set up menus accordingly
-    NSDictionary *profile = [SystemInfo getGraphicsProfile];
+    NSDictionary *profile = nil; //[GSProcess getGraphicsProfile];
     if ([(NSNumber *)[profile objectForKey:@"unsupported"] boolValue]) {
         [state setUsingIntegrated:NO];
         NSAlert *alert = [NSAlert alertWithMessageText:@"You are using a system that gfxCardStatus does not support. Please ensure that you are using a MacBook Pro with dual GPUs." 
@@ -90,7 +117,7 @@
     [dynamicSwitching setHidden:[state usingLegacy]];
     
     if (![state usingLegacy]) {
-        BOOL dynamic = [MuxMagic isUsingDynamicSwitching];
+        BOOL dynamic = [GSMux isUsingDynamicSwitching];
         [integratedOnly setState:(!dynamic && [state usingIntegrated]) ? NSOnState : NSOffState];
         [discreteOnly setState:(!dynamic && ![state usingIntegrated]) ? NSOnState : NSOffState];
         [dynamicSwitching setState:dynamic ? NSOnState : NSOffState];
@@ -166,11 +193,10 @@
     NSString *version = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"];
     [versionItem setTitle:[Str(@"About") stringByReplacingOccurrencesOfString:@"%%" withString:version]];
     NSArray *localized = [[NSArray alloc] initWithObjects:updateItem, preferencesItem, quitItem, switchGPUs, integratedOnly, 
-                          discreteOnly, dynamicSwitching, dependentProcesses, processList, aboutWindow, aboutClose, nil];
+                          discreteOnly, dynamicSwitching, dependentProcesses, processList, nil];
     for (NSButton *loc in localized) {
         [loc setTitle:Str([loc title])];
     }
-    [localized release];
 }
 
 #pragma mark - Menu Actions
@@ -199,8 +225,8 @@
         pwc = [[PreferencesWindowController alloc] init];
         
         NSArray *modules = [NSArray arrayWithObjects:
-                            [[[GeneralPreferencesViewController alloc] init] autorelease], 
-                            [[[AdvancedPreferencesViewController alloc] init] autorelease],
+                            [[GeneralPreferencesViewController alloc] init], 
+                            [[AdvancedPreferencesViewController alloc] init],
                             nil];
         
         [pwc setModules:modules];
@@ -214,20 +240,11 @@
     [NSApp activateIgnoringOtherApps:YES];
 }
 
-- (IBAction)openAbout:(id)sender {
-    [[NSApplication sharedApplication] orderFrontStandardAboutPanel:nil];
-    [NSApp activateIgnoringOtherApps:YES];
-}
-
-- (IBAction)closeAbout:(id)sender {
-    [aboutWindow close];
-}
-
 - (IBAction)setMode:(id)sender {
     // legacy cards
     if (sender == switchGPUs) {
         GTMLoggerInfo(@"Switching GPUs...");
-        [MuxMagic switcherSetMode:modeToggleGPU];
+        [GSMux switcherSetMode:modeToggleGPU];
         return;
     }
     
@@ -237,15 +254,15 @@
     BOOL retval = NO;
     if (sender == integratedOnly) {
         GTMLoggerInfo(@"Setting Integrated only...");
-        retval = [MuxMagic switcherSetMode:modeForceIntegrated];
+        retval = [GSMux switcherSetMode:modeForceIntegrated];
     }
     if (sender == discreteOnly) { 
         GTMLoggerInfo(@"Setting NVIDIA only...");
-        retval = [MuxMagic switcherSetMode:modeForceDiscrete];
+        retval = [GSMux switcherSetMode:modeForceDiscrete];
     }
     if (sender == dynamicSwitching) {
         GTMLoggerInfo(@"Setting dynamic switching...");
-        retval = [MuxMagic switcherSetMode:modeDynamicSwitching];
+        retval = [GSMux switcherSetMode:modeDynamicSwitching];
     }
     
     // only change status in case of success
@@ -257,14 +274,6 @@
         // delayed double-check
 //        [self performSelector:@selector(checkCardState) withObject:nil afterDelay:5.0];
     }
-}
-
-- (IBAction)openApplicationURL:(id)sender {
-    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"http://codykrieger.com/gfxCardStatus"]];
-}
-
-- (IBAction)quit:(id)sender {
-    [[NSApplication sharedApplication] terminate:self];
 }
 
 - (void)updateMenu {
@@ -308,12 +317,12 @@
                                                     size:fontSize];
         
         // create NSAttributedString with font
-        NSDictionary *attributes = [[[NSDictionary alloc] initWithObjectsAndKeys:
+        NSDictionary *attributes = [[NSDictionary alloc] initWithObjectsAndKeys:
                                      boldItalic, NSFontAttributeName, 
-                                     [NSNumber numberWithDouble:2.0], NSBaselineOffsetAttributeName, nil] autorelease];
-        NSAttributedString *title = [[[NSAttributedString alloc] 
+                                     [NSNumber numberWithDouble:2.0], NSBaselineOffsetAttributeName, nil];
+        NSAttributedString *title = [[NSAttributedString alloc] 
                                       initWithString:letter
-                                      attributes: attributes] autorelease];
+                                      attributes: attributes];
         
         // set menu bar text "icon"
         [statusItem setAttributedTitle:title];
@@ -341,7 +350,7 @@
     
     GTMLoggerDebug(@"Updating process list...");
     
-    NSArray *processes = [SystemInfo getTaskList];
+    NSArray *processes = [GSProcess getTaskList];
     
     [processList setHidden:([processes count] > 0)];
     
@@ -354,7 +363,6 @@
         NSMenuItem *item = [[NSMenuItem alloc] initWithTitle:title action:nil keyEquivalent:@""];
         [item setIndentationLevel:1];
         [statusMenu insertItem:item atIndex:([statusMenu indexOfItem:processList] + 1)];
-        [item release];
     }
 }
 
@@ -382,7 +390,7 @@
     // it seems right after waking from sleep, locking to single GPU will fail (even if the return value is correct)
     // this is a temporary workaround to double-check the status
     
-    SwitcherMode currentMode = [SystemInfo switcherGetMode]; // actual current mode
+    SwitcherMode currentMode = modeDynamicSwitching; //[GSProcess switcherGetMode]; // actual current mode
     NSMenuItem *activeCard = [self senderForMode:currentMode]; // corresponding menu item
     
     // check if we're consistent with menu state
@@ -423,7 +431,7 @@
     
     if ([prefs shouldUsePowerSourceBasedSwitching]) {
         SwitcherMode newMode = [prefs modeForPowerSource:
-                                [SystemInfo keyForPowerSource:powerSource]];
+                                [GSProcess keyForPowerSource:powerSource]];
         
         if (![state usingLegacy]) {
             GTMLoggerDebug(@"Using a newer machine, setting appropriate mode based on power source...");
@@ -438,16 +446,6 @@
     }
     
     [self updateMenu];
-}
-
-- (void)dealloc {
-    [prefs removeObserver:self forKeyPath:@"prefs.shouldUseSmartMenuBarIcons"];
-    
-    [SystemInfo procFree]; // Free processes listing buffers
-    [MuxMagic switcherClose]; // Close driver
-    
-    [statusItem release];
-    [super dealloc];
 }
 
 @end

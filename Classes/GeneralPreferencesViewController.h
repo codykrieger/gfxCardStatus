@@ -16,8 +16,8 @@
     IBOutlet NSButton *prefChkUpdate; // check for updates on startup
     IBOutlet NSButton *prefChkGrowl; // use growl to send notifications
     IBOutlet NSButton *prefChkStartup; // start at login
-
-    PrefsController *prefs;
 }
+
+@property (strong) PrefsController *prefs;
 
 @end

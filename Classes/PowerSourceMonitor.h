@@ -21,10 +21,9 @@ typedef enum {
 @end
 
 @interface PowerSourceMonitor : NSObject {
-    id<PowerSourceMonitorDelegate> delegate;
 }
 
-@property (nonatomic, assign) id<PowerSourceMonitorDelegate> delegate;
+@property (nonatomic, unsafe_unretained) id<PowerSourceMonitorDelegate> delegate;
 @property (nonatomic, readonly, getter=currentPowerSource) PowerSource currentPowerSource;
 
 - (PowerSourceMonitor *)initWithDelegate:(id<PowerSourceMonitorDelegate>)delegate;

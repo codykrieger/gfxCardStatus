@@ -1,5 +1,5 @@
 //
-//  MuxMagic.m
+//  GSMux.m
 //  gfxCardStatus
 //
 //  Created by Cody Krieger on 6/21/11.
@@ -10,7 +10,7 @@
 //  for original logic.
 //
 
-#import "MuxMagic.h"
+#import "GSMux.h"
 
 static io_connect_t switcherConnect = IO_OBJECT_NULL;
 
@@ -79,7 +79,7 @@ typedef enum {
     muxFeaturesCount
 } muxFeature;
 
-@implementation MuxMagic
+@implementation GSMux
 
 #pragma mark -
 #pragma mark Private methods
@@ -298,7 +298,7 @@ static void dumpState(io_connect_t connect) {
             // Hold up a sec!
             sleep(1);
             
-//            BOOL integrated = [MuxMagic isUsingIntegrated];
+//            BOOL integrated = [GSMux isUsingIntegrated];
 //            if ((mode==modeForceIntegrated && !integrated) || (mode==modeForceDiscrete && integrated))
 //                forceSwitch(switcherConnect);
 
@@ -308,12 +308,12 @@ static void dumpState(io_connect_t connect) {
             int tries = 0;
             
             while (!switchSuccessful && tries < 2) {
-                BOOL integrated = [MuxMagic isUsingIntegrated];
+                BOOL integrated = [GSMux isUsingIntegrated];
                 if ((mode==modeForceIntegrated && !integrated) || (mode==modeForceDiscrete && integrated))
                     forceSwitch(switcherConnect);
                 
                 sleep(1);
-                integrated = [MuxMagic isUsingIntegrated];
+                integrated = [GSMux isUsingIntegrated];
                 
                 if (integrated && mode==modeForceDiscrete)
                     GTMLoggerDebug(@"Now using integrated but requested discrete. Trying again...");

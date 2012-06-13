@@ -66,13 +66,13 @@ cleanup:
 
 
 void powerSourceChanged(void *context) {
-    PowerSourceMonitor *powerSourceMonitor = (PowerSourceMonitor *)context;
+    PowerSourceMonitor *powerSourceMonitor = (__bridge PowerSourceMonitor *)context;
     
     [powerSourceMonitor powerSourceChanged:getCurrentPowerSource()];
 }
 
 void registerPowerSourceNotification(PowerSourceMonitor *powerSourceMonitor) {
-    CFRunLoopSourceRef loopSource = IOPSNotificationCreateRunLoopSource(powerSourceChanged, powerSourceMonitor);
+    CFRunLoopSourceRef loopSource = IOPSNotificationCreateRunLoopSource(powerSourceChanged, (__bridge void *)powerSourceMonitor);
     
     if (loopSource) {
         CFRunLoopAddSource(CFRunLoopGetCurrent(), loopSource, kCFRunLoopDefaultMode);
@@ -96,14 +96,14 @@ void registerPowerSourceNotification(PowerSourceMonitor *powerSourceMonitor) {
     if ((self = [super init])) {
         self.delegate = __delegate;
         
-        registerPowerSourceNotification([self retain]);
+        registerPowerSourceNotification(self);
     }
     
     return self;
 }
 
 + (PowerSourceMonitor *)monitorWithDelegate:(id<PowerSourceMonitorDelegate>)__delegate {
-    return [[[self alloc] initWithDelegate:__delegate] autorelease];
+    return [[self alloc] initWithDelegate:__delegate];
 }
          
 - (PowerSource)currentPowerSource {

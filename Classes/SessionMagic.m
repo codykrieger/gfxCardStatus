@@ -8,11 +8,10 @@
 
 #import "SessionMagic.h"
 #import "PrefsController.h"
-#import "SystemInfo.h"
+#import "GSProcess.h"
 
 #define NOTIFICATION_QUEUE_NAME "com.codykrieger.gfxCardStatus.notificationQueue"
 
-static SessionMagic *sharedInstance = nil;
 static dispatch_queue_t queue = NULL;
 
 void DisplayReconfigurationCallback(CGDirectDisplayID display, 
@@ -32,13 +31,13 @@ void DisplayReconfigurationCallback(CGDirectDisplayID display,
     if (self) {
         _canGrowl = YES;
         
-        NSDictionary *profile = [SystemInfo getGraphicsProfile];
+        NSDictionary *profile = nil; //[GSProcess getGraphicsProfile];
         usingLegacy = [(NSNumber *)[profile objectForKey:@"legacy"] boolValue];
         
         queue = dispatch_queue_create(NOTIFICATION_QUEUE_NAME, NULL);
         
         CGDisplayRegisterReconfigurationCallback(DisplayReconfigurationCallback,
-                                                 self);
+                                                 (__bridge void *)self);
     }
     
     return self;
@@ -59,16 +58,13 @@ void DisplayReconfigurationCallback(CGDirectDisplayID display,
                                     CGDisplayChangeSummaryFlags flags, 
                                     void *userInfo) {
     
-    dispatch_async(queue, ^(void) {
-        [NSThread sleepForTimeInterval:0.1];
-        
-        if (flags & kCGDisplaySetModeFlag) {
-            SessionMagic *state = (SessionMagic *)userInfo;
+    if (flags & kCGDisplaySetModeFlag) {
+        dispatch_async(queue, ^(void) {
+            [NSThread sleepForTimeInterval:0.1];
             
-            // display has been reconfigured
-            GTMLoggerDebug(@"Has the gpu changed? Let's find out!\n\n");
+            SessionMagic *state = (__bridge SessionMagic *)userInfo;
             
-            BOOL nowIsUsingIntegrated = [MuxMagic isUsingIntegrated];
+            BOOL nowIsUsingIntegrated = [GSMux isUsingIntegrated];
             GTMLoggerInfo(@"Integrated state: %i, previous state: %i", 
                           nowIsUsingIntegrated, 
                           [state usingIntegrated]);
@@ -81,8 +77,8 @@ void DisplayReconfigurationCallback(CGDirectDisplayID display,
                 [state gpuChangedFrom:(nowIsUsingIntegrated ? 
                                        kGPUTypeIntegrated : kGPUTypeDiscrete)];
             }
-        }
-    });
+        });
+    }
 }
 
 - (void)gpuChangedFrom:(GPUType)from {
@@ -96,42 +92,14 @@ void DisplayReconfigurationCallback(CGDirectDisplayID display,
 #pragma mark -
 #pragma mark Singleton methods
 
-+ (SessionMagic *)sharedInstance {
-    @synchronized(self) {
-        if (sharedInstance == nil)
-            sharedInstance = [[super allocWithZone:NULL] init];
-    }
-    return sharedInstance;
-}
-
-+ (id)allocWithZone:(NSZone *)zone {
-    @synchronized(self) {
-        if (sharedInstance == nil) {
-            sharedInstance = [super allocWithZone:zone];
-            return sharedInstance; // assignment and return on first allocation
-        }
-    }
-    return nil; // on subsequent allocation attempts return nil
-}
-
-- (id)copyWithZone:(NSZone *)zone {
-    return self;
-}
-
-- (id)retain {
-    return self;
-}
-
-- (NSUInteger)retainCount {
-    return NSUIntegerMax;  //denotes an object that cannot be released
-}
-
-- (oneway void)release {
-    //do nothing
-}
-
-- (id)autorelease {
-    return self;
++ (SessionMagic *)sharedInstance
+{
+    static dispatch_once_t pred = 0;
+    __strong static SessionMagic *_sharedObject = nil;
+    dispatch_once(&pred, ^{
+        _sharedObject = [[self alloc] init]; // or some other init method
+    });
+    return _sharedObject;
 }
 
 @end

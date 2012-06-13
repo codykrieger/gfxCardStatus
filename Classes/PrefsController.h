@@ -20,8 +20,8 @@
 - (void)setUpPreferences;
 - (void)setDefaults;
 - (void)savePreferences;
-- (BOOL)existsInStartupItems;
-- (void)loadAtStartup:(BOOL)value;
+//- (BOOL)existsInStartupItems;
+//- (void)loadAtStartup:(BOOL)value;
 - (NSString *)getPrefsPath;
 
 - (BOOL)shouldCheckForUpdatesOnStartup;

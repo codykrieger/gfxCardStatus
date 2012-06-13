@@ -1,5 +1,5 @@
 //
-//  SystemInfo.h
+//  GSProcess.h
 //  gfxCardStatus
 //
 //  Created by Cody Krieger on 6/21/11.
@@ -8,20 +8,18 @@
 
 #import <Foundation/Foundation.h>
 
-#import "MuxMagic.h"
+#import "GSMux.h"
 
 #define kTaskItemName  @"name"
 #define kTaskItemPID   @"pid"
 
-@interface SystemInfo : NSObject
+@interface GSProcess : NSObject
 
 + (NSString *)keyForPowerSource:(PowerSource)powerSource;
-+ (SwitcherMode)switcherGetMode;
+//+ (SwitcherMode)switcherGetMode;
 
-+ (BOOL)procInit;
-+ (void)procFree;
+//+ (BOOL)procInit;
+//+ (void)procFree;
 + (NSArray *)getTaskList;
-
-+ (NSDictionary *)getGraphicsProfile;
 
 @end
