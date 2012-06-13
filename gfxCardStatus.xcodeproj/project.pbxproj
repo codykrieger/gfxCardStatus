@@ -173,6 +173,7 @@
 				A11599CA13D42A720097E4BC /* System Utils */,
 				256AC3D80F4B6AC300CF3369 /* gfxCardStatusAppDelegate.h */,
 				256AC3D90F4B6AC300CF3369 /* gfxCardStatusAppDelegate.m */,
+				1DDD58140DA1D0A300B32029 /* MainMenu.xib */,
 				A1C01F1F13B06C08003BD4B2 /* SessionMagic.h */,
 				A1C01F2013B06C08003BD4B2 /* SessionMagic.m */,
 			);
@@ -213,7 +214,7 @@
 			isa = PBXGroup;
 			children = (
 				080E96DDFE201D6D7F000001 /* Classes */,
-				29B97315FDCFA39411CA2CEA /* Other Sources */,
+				A1ED2B331585847600B99CDE /* Supporting Files */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
@@ -221,30 +222,11 @@
 			name = gfxCardStatus;
 			sourceTree = "<group>";
 		};
-		29B97315FDCFA39411CA2CEA /* Other Sources */ = {
-			isa = PBXGroup;
-			children = (
-				256AC3F00F4B6AF500CF3369 /* gfxCardStatus_Prefix.pch */,
-				29B97316FDCFA39411CA2CEA /* main.m */,
-			);
-			name = "Other Sources";
-			sourceTree = "<group>";
-		};
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
 				A18123D812B96F3F00266D46 /* Images */,
-				A16B28F31196B0E7006EB263 /* README.md */,
-				A14B9EAA13C5613F009A761C /* Credits.rtf */,
-				A17221831236DE4200636797 /* Growl License.txt */,
 				A1D9C41F11850DEF009A4DE1 /* dsa_pub.pem */,
-				A17220981236DA0B00636797 /* Growl Registration Ticket.growlRegDict */,
-				8D1107310486CEB800E47090 /* gfxCardStatus-Info.plist */,
-				089C165CFE840E0CC02AAC07 /* InfoPlist.strings */,
-				1DDD58140DA1D0A300B32029 /* MainMenu.xib */,
-				A11599C413D429860097E4BC /* GeneralPreferencesView.xib */,
-				A11599C213D429860097E4BC /* AdvancedPreferencesView.xib */,
-				A13C5FBE119FCFCF00E678FA /* Localizable.strings */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -270,6 +252,8 @@
 				A11599BA13D429750097E4BC /* GeneralPreferencesViewController.m */,
 				A11599B713D429750097E4BC /* AdvancedPreferencesViewController.h */,
 				A11599B813D429750097E4BC /* AdvancedPreferencesViewController.m */,
+				A11599C413D429860097E4BC /* GeneralPreferencesView.xib */,
+				A11599C213D429860097E4BC /* AdvancedPreferencesView.xib */,
 			);
 			name = Preferences;
 			sourceTree = "<group>";
@@ -310,6 +294,22 @@
 				A1CCE1FF12B13CE4006D07A4 /* NSAttributedString+Hyperlink.m */,
 			);
 			name = Categories;
+			sourceTree = "<group>";
+		};
+		A1ED2B331585847600B99CDE /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				8D1107310486CEB800E47090 /* gfxCardStatus-Info.plist */,
+				089C165CFE840E0CC02AAC07 /* InfoPlist.strings */,
+				256AC3F00F4B6AF500CF3369 /* gfxCardStatus_Prefix.pch */,
+				29B97316FDCFA39411CA2CEA /* main.m */,
+				A14B9EAA13C5613F009A761C /* Credits.rtf */,
+				A16B28F31196B0E7006EB263 /* README.md */,
+				A17221831236DE4200636797 /* Growl License.txt */,
+				A17220981236DA0B00636797 /* Growl Registration Ticket.growlRegDict */,
+				A13C5FBE119FCFCF00E678FA /* Localizable.strings */,
+			);
+			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
 		A1F7ED4314B0403700328A83 /* Google Toolbox for Mac */ = {
@@ -455,6 +455,7 @@
 				1DDD58150DA1D0A300B32029 /* English */,
 			);
 			name = MainMenu.xib;
+			path = ..;
 			sourceTree = "<group>";
 		};
 		A11599C213D429860097E4BC /* AdvancedPreferencesView.xib */ = {
@@ -463,6 +464,7 @@
 				A11599C313D429860097E4BC /* English */,
 			);
 			name = AdvancedPreferencesView.xib;
+			path = ..;
 			sourceTree = "<group>";
 		};
 		A11599C413D429860097E4BC /* GeneralPreferencesView.xib */ = {
@@ -471,6 +473,7 @@
 				A11599C513D429860097E4BC /* English */,
 			);
 			name = GeneralPreferencesView.xib;
+			path = ..;
 			sourceTree = "<group>";
 		};
 		A13C5FBE119FCFCF00E678FA /* Localizable.strings */ = {
@@ -549,7 +552,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
-				CODE_SIGN_IDENTITY = "Developer ID Application: Cody Krieger";
+				CODE_SIGN_IDENTITY = "";
 				DEPLOYMENT_LOCATION = NO;
 				DEPLOYMENT_POSTPROCESSING = NO;
 				DSTROOT = /tmp/gfxCardStatus.dst;
@@ -564,7 +567,6 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CFLAGS = "-DDEBUG";
-				PROVISIONING_PROFILE = "";
 				RUN_CLANG_STATIC_ANALYZER = YES;
 				SDKROOT = macosx;
 			};
