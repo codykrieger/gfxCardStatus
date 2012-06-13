@@ -29,7 +29,8 @@
         [menuController quit:self];
     }
     
-//    NSArray *gpuNames = [GSGPU getGPUNames];
+    NSArray *gpuNames = [GSGPU getGPUNames];
+    GTMLoggerInfo(@"GPUs present: %@", gpuNames);
     
     [GSGPU registerForGPUChangeNotifications:self];
     
@@ -144,11 +145,11 @@
         [menuController setMode:modeItem];
     }
     
-    powerSourceMonitor = [PowerSourceMonitor monitorWithDelegate:self];
-    lastPowerSource = -1; // uninitialized
+//    powerSourceMonitor = [[PowerSourceMonitor alloc] initWithDelegate:self];
+//    lastPowerSource = -1; // uninitialized
     
     // check current power source and load preference for it
-    [self powerSourceChanged:powerSourceMonitor.currentPowerSource];
+//    [self powerSourceChanged:powerSourceMonitor.currentPowerSource];
 }
 
 - (NSDictionary *)registrationDictionaryForGrowl {
@@ -175,7 +176,7 @@
 }
 
 - (void)delayedPowerSourceCheck {
-    [self powerSourceChanged:powerSourceMonitor.currentPowerSource];
+//    [self powerSourceChanged:powerSourceMonitor.currentPowerSource];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
@@ -219,16 +220,6 @@
 
 - (void)updateMenu {
     GTMLoggerDebug(@"Updating status...");
-    
-    // TODO - fix this, not working
-    // prevent GPU from switching back after apps quit
-    //    if (!integrated && ![state usingLegacy] && [integratedOnly state] > 0 && canPreventSwitch) {
-    //        DLog(@"Preventing switch to Discrete GPU. Setting canPreventSwitch to NO so that this doesn't get stuck in a loop, changing in 5 seconds...");
-    //        canPreventSwitch = NO;
-    //        [self setMode:integratedOnly];
-    //        [NSTimer scheduledTimerWithTimeInterval:5 target:self selector:@selector(shouldPreventSwitch) userInfo:nil repeats:NO];
-    //        return;
-    //    }
     
     // get updated GPU string
     NSString *cardString = [state usingIntegrated] ? [state integratedString] : [state discreteString];
@@ -355,38 +346,39 @@
     
     // this is being problematic
     // lastPowerSource = -1; // set to uninitialized
-    [self powerSourceChanged:powerSourceMonitor.currentPowerSource];
+    
+//    [self powerSourceChanged:powerSourceMonitor.currentPowerSource];
 }
 
-- (void)powerSourceChanged:(PowerSource)powerSource {
-    if (powerSource == lastPowerSource) {
-        //DLog(@"Power source unchanged, false alarm (maybe a wake from sleep?)");
-        return;
-    }
-    
-    GTMLoggerDebug(@"Power source changed: %d => %d (%@)", 
-                   lastPowerSource, 
-                   powerSource, 
-                   (powerSource == psBattery ? @"Battery" : @"AC Adapter"));
-    lastPowerSource = powerSource;
-    
-    if ([prefs shouldUsePowerSourceBasedSwitching]) {
-        SwitcherMode newMode = [prefs modeForPowerSource:
-                                [GSProcess keyForPowerSource:powerSource]];
-        
-        if (![state usingLegacy]) {
-            GTMLoggerDebug(@"Using a newer machine, setting appropriate mode based on power source...");
-            [menuController setMode:[self senderForMode:newMode]];
-        } else {
-            GTMLoggerDebug(@"Using a legacy machine, setting appropriate mode based on power source...");
-            GTMLoggerInfo(@"Power source-based switch: usingIntegrated=%i, newMode=%i", [state usingIntegrated], newMode);
-            if (([state usingIntegrated] && newMode == 1) || (![state usingIntegrated] && newMode == 0)) {
-                [menuController setMode:switchGPUs];
-            }
-        }
-    }
-    
-    [self updateMenu];
-}
+//- (void)powerSourceChanged:(PowerSource)powerSource {
+//    if (powerSource == lastPowerSource) {
+//        //DLog(@"Power source unchanged, false alarm (maybe a wake from sleep?)");
+//        return;
+//    }
+//    
+//    GTMLoggerDebug(@"Power source changed: %d => %d (%@)", 
+//                   lastPowerSource, 
+//                   powerSource, 
+//                   (powerSource == psBattery ? @"Battery" : @"AC Adapter"));
+//    lastPowerSource = powerSource;
+//    
+//    if ([prefs shouldUsePowerSourceBasedSwitching]) {
+//        SwitcherMode newMode = [prefs modeForPowerSource:
+//                                [GSProcess keyForPowerSource:powerSource]];
+//        
+//        if (![state usingLegacy]) {
+//            GTMLoggerDebug(@"Using a newer machine, setting appropriate mode based on power source...");
+//            [menuController setMode:[self senderForMode:newMode]];
+//        } else {
+//            GTMLoggerDebug(@"Using a legacy machine, setting appropriate mode based on power source...");
+//            GTMLoggerInfo(@"Power source-based switch: usingIntegrated=%i, newMode=%i", [state usingIntegrated], newMode);
+//            if (([state usingIntegrated] && newMode == 1) || (![state usingIntegrated] && newMode == 0)) {
+//                [menuController setMode:switchGPUs];
+//            }
+//        }
+//    }
+//    
+//    [self updateMenu];
+//}
 
 @end

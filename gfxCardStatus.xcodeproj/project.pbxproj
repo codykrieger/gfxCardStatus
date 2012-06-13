@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		1DDD58160DA1D0A300B32029 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DDD58140DA1D0A300B32029 /* MainMenu.xib */; };
 		256AC3DA0F4B6AC300CF3369 /* gfxCardStatusAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 256AC3D90F4B6AC300CF3369 /* gfxCardStatusAppDelegate.m */; };
-		8013EE1411A026EA000ECA36 /* PowerSourceMonitor.m in Sources */ = {isa = PBXBuildFile; fileRef = 8013EE1311A026EA000ECA36 /* PowerSourceMonitor.m */; };
 		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
 		8D11072D0486CEB800E47090 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
@@ -113,8 +112,6 @@
 		29B97324FDCFA39411CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		7056663514963D80009F10BB /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = pl.lproj/Localizable.strings; sourceTree = "<group>"; };
-		8013EE1211A026EA000ECA36 /* PowerSourceMonitor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PowerSourceMonitor.h; sourceTree = "<group>"; };
-		8013EE1311A026EA000ECA36 /* PowerSourceMonitor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PowerSourceMonitor.m; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* gfxCardStatus-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "gfxCardStatus-Info.plist"; sourceTree = "<group>"; };
 		8D1107320486CEB800E47090 /* gfxCardStatus.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = gfxCardStatus.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A10D2E5811C63CC100E8E2C7 /* Italian */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = Italian; path = Italian.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -325,8 +322,6 @@
 				A1ED2D1A158859DE00B99CDE /* GSStartup.m */,
 				A17CE49C13B081DE00E5D50F /* GSMux.h */,
 				A17CE49D13B081DE00E5D50F /* GSMux.m */,
-				8013EE1211A026EA000ECA36 /* PowerSourceMonitor.h */,
-				8013EE1311A026EA000ECA36 /* PowerSourceMonitor.m */,
 			);
 			name = "System Utils";
 			sourceTree = "<group>";
@@ -527,7 +522,6 @@
 			files = (
 				8D11072D0486CEB800E47090 /* main.m in Sources */,
 				256AC3DA0F4B6AC300CF3369 /* gfxCardStatusAppDelegate.m in Sources */,
-				8013EE1411A026EA000ECA36 /* PowerSourceMonitor.m in Sources */,
 				A14C180B124EFE6300816A4A /* PrefsController.m in Sources */,
 				A1CCE20012B13CE4006D07A4 /* NSAttributedString+Hyperlink.m in Sources */,
 				A1C01F2113B06C08003BD4B2 /* SessionMagic.m in Sources */,

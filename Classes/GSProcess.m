@@ -28,9 +28,9 @@ static size_t procNum = 0;
 #pragma mark Power source helpers
 
 // helper to get preference key from PowerSource enum
-+ (NSString *)keyForPowerSource:(PowerSource)powerSource {
-    return ((powerSource == psBattery) ? kGPUSettingBattery : kGPUSettingACAdaptor);
-}
+//+ (NSString *)keyForPowerSource:(PowerSource)powerSource {
+//    return ((powerSource == psBattery) ? kGPUSettingBattery : kGPUSettingACAdaptor);
+//}
 
 // helper to return current mode
 //+ (SwitcherMode)switcherGetMode {

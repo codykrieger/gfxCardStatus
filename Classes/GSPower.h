@@ -6,7 +6,7 @@
 //  Copyright (c) 2012 Cody Krieger. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+#import <Cocoa/Cocoa.h>
 
 typedef enum {
     GSPowerTypeAC,
@@ -21,5 +21,9 @@ typedef enum {
 @interface GSPower : NSObject
 
 @property (unsafe_unretained) id<GSPowerDelegate> delegate;
+@property (readonly, getter=currentPowerSource) GSPowerType currentPowerSource;
+
+- (GSPower *)initWithDelegate:(id<GSPowerDelegate>)object;
+- (void)powerSourceChanged:(GSPowerType)powerSource;
 
 @end
