@@ -36,8 +36,6 @@
 	<string>NSApplication</string>
 	<key>NSServices</key>
 	<array/>
-	<key>SUEnableAutomaticChecks</key>
-	<string>NO</string>
 	<key>SUFeedURL</key>
 	<string>http://codykrieger.com/gfxCardStatus/appcast.xml</string>
 	<key>SUPublicDSAKeyFile</key>

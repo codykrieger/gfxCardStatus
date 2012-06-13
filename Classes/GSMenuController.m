@@ -11,6 +11,10 @@
 #import "AdvancedPreferencesViewController.h"
 #import "GSMux.h"
 
+@interface GSMenuController ()
+- (void)localizeMenu;
+@end
+
 @implementation GSMenuController
 
 @synthesize delegate;
@@ -37,6 +41,8 @@
     statusItem = [[NSStatusBar systemStatusBar] statusItemWithLength:NSVariableStatusItemLength];
     [statusItem setMenu:statusMenu];
     [statusItem setHighlightMode:YES];
+    
+    [self localizeMenu];
 }
 
 - (IBAction)openAbout:(id)sender
@@ -95,7 +101,7 @@
         retval = [GSMux switcherSetMode:modeForceIntegrated];
     }
     if (sender == discreteOnly) { 
-        GTMLoggerInfo(@"Setting NVIDIA only...");
+        GTMLoggerInfo(@"Setting Discrete only...");
         retval = [GSMux switcherSetMode:modeForceDiscrete];
     }
     if (sender == dynamicSwitching) {
@@ -126,6 +132,19 @@
 - (void)menuDidClose:(NSMenu *)menu
 {
     
+}
+
+#pragma mark - Private helpers
+
+- (void)localizeMenu
+{
+    NSString *version = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"];
+    [versionItem setTitle:[Str(@"About") stringByReplacingOccurrencesOfString:@"%%" withString:version]];
+    NSArray *localized = [[NSArray alloc] initWithObjects:updateItem, preferencesItem, quitItem, switchGPUs, integratedOnly, 
+                          discreteOnly, dynamicSwitching, dependentProcesses, processList, nil];
+    for (NSButton *loc in localized) {
+        [loc setTitle:Str([loc title])];
+    }
 }
 
 @end

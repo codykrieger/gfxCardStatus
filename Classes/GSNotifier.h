@@ -10,6 +10,7 @@
 
 @interface GSNotifier : NSObject
 
++ (void)showOneTimeNotification;
 + (void)showUnsupportedMachineMessage;
 
 @end

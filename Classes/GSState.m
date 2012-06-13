@@ -1,12 +1,12 @@
 //
-//  SessionMagic.m
+//  GSState.m
 //  gfxCardStatus
 //
 //  Created by Cody Krieger on 6/20/11.
 //  Copyright 2011 Cody Krieger. All rights reserved.
 //
 
-#import "SessionMagic.h"
+#import "GSState.h"
 #import "PrefsController.h"
 #import "GSProcess.h"
 
@@ -18,7 +18,7 @@ void DisplayReconfigurationCallback(CGDirectDisplayID display,
                                     CGDisplayChangeSummaryFlags flags, 
                                     void *userInfo);
 
-@implementation SessionMagic
+@implementation GSState
 
 @synthesize delegate, 
             usingIntegrated, 
@@ -52,7 +52,7 @@ void DisplayReconfigurationCallback(CGDirectDisplayID display,
         dispatch_async(queue, ^(void) {
             [NSThread sleepForTimeInterval:0.1];
             
-            SessionMagic *state = (__bridge SessionMagic *)userInfo;
+            GSState *state = (__bridge GSState *)userInfo;
             
             BOOL nowIsUsingIntegrated = [GSMux isUsingIntegrated];
             GTMLoggerInfo(@"Integrated state: %i, previous state: %i", 
@@ -82,10 +82,10 @@ void DisplayReconfigurationCallback(CGDirectDisplayID display,
 #pragma mark -
 #pragma mark Singleton methods
 
-+ (SessionMagic *)sharedInstance
++ (GSState *)sharedInstance
 {
     static dispatch_once_t pred = 0;
-    __strong static SessionMagic *_sharedObject = nil;
+    __strong static GSState *_sharedObject = nil;
     dispatch_once(&pred, ^{
         _sharedObject = [[self alloc] init]; // or some other init method
     });

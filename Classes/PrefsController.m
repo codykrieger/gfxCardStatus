@@ -7,7 +7,7 @@
 //
 
 #import "PrefsController.h"
-#import "SessionMagic.h"
+#import "GSState.h"
 #import "GSStartup.h"
 
 @implementation PrefsController
@@ -68,7 +68,7 @@
     [prefs setObject:noNumber forKey:@"shouldUseSmartMenuBarIcons"];
     
     [prefs setObject:[NSNumber numberWithInt:0] forKey:kGPUSettingBattery]; // defaults to integrated
-    if ([[SessionMagic sharedInstance] usingLegacy])
+    if ([[GSState sharedInstance] usingLegacy])
         [prefs setObject:[NSNumber numberWithInt:1] forKey:kGPUSettingACAdaptor]; // defaults to discrete for legacy machines
     else
         [prefs setObject:[NSNumber numberWithInt:2] forKey:kGPUSettingACAdaptor]; // defaults to dynamic for new machines

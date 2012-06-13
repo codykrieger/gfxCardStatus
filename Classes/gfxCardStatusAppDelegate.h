@@ -13,11 +13,11 @@
 
 #import "PrefsController.h"
 #import "PreferencesWindowController.h"
-#import "SessionMagic.h"
+#import "GSState.h"
 #import "GSMenuController.h"
 #import "GSGPU.h"
 
-@interface gfxCardStatusAppDelegate : NSObject <NSApplicationDelegate,GrowlApplicationBridgeDelegate,SessionMagicDelegate,GSGPUDelegate> {
+@interface gfxCardStatusAppDelegate : NSObject <NSApplicationDelegate,GrowlApplicationBridgeDelegate,GSStateDelegate,GSGPUDelegate> {
     NSStatusItem *statusItem;
     
     IBOutlet SUUpdater *updater;
@@ -46,7 +46,7 @@
     PreferencesWindowController *pwc;
     
     // state for all!!!
-    SessionMagic *state;
+    GSState *state;
     
     // power source monitor
 //    PowerSourceMonitor *powerSourceMonitor;

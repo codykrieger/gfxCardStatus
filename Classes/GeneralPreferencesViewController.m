@@ -8,7 +8,7 @@
 
 #import "GeneralPreferencesViewController.h"
 #import "PrefsController.h"
-#import "SessionMagic.h"
+#import "GSState.h"
 #import "GSStartup.h"
 
 @implementation GeneralPreferencesViewController
@@ -33,7 +33,7 @@
         [loc setTitle:Str([loc title])];
     }
     
-    SessionMagic *state = [SessionMagic sharedInstance];
+    GSState *state = [GSState sharedInstance];
     if ([state usingLegacy])
         [prefChkSmartIcons setEnabled:NO];
 }

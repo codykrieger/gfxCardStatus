@@ -36,7 +36,7 @@
 		A17CE49A13B07C3700E5D50F /* GSProcess.m in Sources */ = {isa = PBXBuildFile; fileRef = A17CE49913B07C3700E5D50F /* GSProcess.m */; };
 		A17CE49E13B081DE00E5D50F /* GSMux.m in Sources */ = {isa = PBXBuildFile; fileRef = A17CE49D13B081DE00E5D50F /* GSMux.m */; };
 		A1A3A6F9118214E2008B8145 /* integrated-i.png in Resources */ = {isa = PBXBuildFile; fileRef = A1A3A6F8118214E2008B8145 /* integrated-i.png */; };
-		A1C01F2113B06C08003BD4B2 /* SessionMagic.m in Sources */ = {isa = PBXBuildFile; fileRef = A1C01F2013B06C08003BD4B2 /* SessionMagic.m */; };
+		A1C01F2113B06C08003BD4B2 /* GSState.m in Sources */ = {isa = PBXBuildFile; fileRef = A1C01F2013B06C08003BD4B2 /* GSState.m */; };
 		A1CCE20012B13CE4006D07A4 /* NSAttributedString+Hyperlink.m in Sources */ = {isa = PBXBuildFile; fileRef = A1CCE1FF12B13CE4006D07A4 /* NSAttributedString+Hyperlink.m */; };
 		A1D6AC5D11826BF00038AD1A /* discrete-n.png in Resources */ = {isa = PBXBuildFile; fileRef = A1D6AC5C11826BF00038AD1A /* discrete-n.png */; };
 		A1D9C42011850DEF009A4DE1 /* dsa_pub.pem in Resources */ = {isa = PBXBuildFile; fileRef = A1D9C41F11850DEF009A4DE1 /* dsa_pub.pem */; };
@@ -157,8 +157,8 @@
 		A17CE49D13B081DE00E5D50F /* GSMux.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GSMux.m; sourceTree = "<group>"; };
 		A19DAD6214CF1E8800D46D80 /* fi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fi; path = fi.lproj/Localizable.strings; sourceTree = "<group>"; };
 		A1A3A6F8118214E2008B8145 /* integrated-i.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "integrated-i.png"; sourceTree = "<group>"; };
-		A1C01F1F13B06C08003BD4B2 /* SessionMagic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SessionMagic.h; sourceTree = "<group>"; };
-		A1C01F2013B06C08003BD4B2 /* SessionMagic.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SessionMagic.m; sourceTree = "<group>"; };
+		A1C01F1F13B06C08003BD4B2 /* GSState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GSState.h; sourceTree = "<group>"; };
+		A1C01F2013B06C08003BD4B2 /* GSState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GSState.m; sourceTree = "<group>"; };
 		A1CCE1FE12B13CE4006D07A4 /* NSAttributedString+Hyperlink.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSAttributedString+Hyperlink.h"; sourceTree = "<group>"; };
 		A1CCE1FF12B13CE4006D07A4 /* NSAttributedString+Hyperlink.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSAttributedString+Hyperlink.m"; sourceTree = "<group>"; };
 		A1CFF01E13B1D73A0070650A /* ru */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -219,13 +219,13 @@
 				A11599CA13D42A720097E4BC /* System Utils */,
 				256AC3D80F4B6AC300CF3369 /* gfxCardStatusAppDelegate.h */,
 				256AC3D90F4B6AC300CF3369 /* gfxCardStatusAppDelegate.m */,
-				A1ED2D1D15885D6900B99CDE /* GSNotifier.h */,
-				A1ED2D1E15885D6900B99CDE /* GSNotifier.m */,
 				A1ED2D20158860F900B99CDE /* GSMenuController.h */,
 				A1ED2D21158860FA00B99CDE /* GSMenuController.m */,
+				A1C01F1F13B06C08003BD4B2 /* GSState.h */,
+				A1C01F2013B06C08003BD4B2 /* GSState.m */,
+				A1ED2D1D15885D6900B99CDE /* GSNotifier.h */,
+				A1ED2D1E15885D6900B99CDE /* GSNotifier.m */,
 				1DDD58140DA1D0A300B32029 /* MainMenu.xib */,
-				A1C01F1F13B06C08003BD4B2 /* SessionMagic.h */,
-				A1C01F2013B06C08003BD4B2 /* SessionMagic.m */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -524,7 +524,7 @@
 				256AC3DA0F4B6AC300CF3369 /* gfxCardStatusAppDelegate.m in Sources */,
 				A14C180B124EFE6300816A4A /* PrefsController.m in Sources */,
 				A1CCE20012B13CE4006D07A4 /* NSAttributedString+Hyperlink.m in Sources */,
-				A1C01F2113B06C08003BD4B2 /* SessionMagic.m in Sources */,
+				A1C01F2113B06C08003BD4B2 /* GSState.m in Sources */,
 				A17CE49A13B07C3700E5D50F /* GSProcess.m in Sources */,
 				A17CE49E13B081DE00E5D50F /* GSMux.m in Sources */,
 				A11599BE13D429750097E4BC /* AdvancedPreferencesViewController.m in Sources */,

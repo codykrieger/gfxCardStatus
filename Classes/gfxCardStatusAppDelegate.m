@@ -14,6 +14,8 @@
 #import "GSMux.h"
 #import "GSNotifier.h"
 
+#define kHasSeenOneTimeNotificationKey @"hasSeenVersionTwoMessage"
+
 @implementation gfxCardStatusAppDelegate
 
 @synthesize menuController;
@@ -22,8 +24,10 @@
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
+    prefs = [PrefsController sharedInstance];
+    
     if (![GSMux switcherOpen]) {
-        GTMLoggerInfo(@"Can't open connection to AppleGraphicsControl.");
+        GTMLoggerError(@"Can't open connection to AppleGraphicsControl.");
         
         [GSNotifier showUnsupportedMachineMessage];
         [menuController quit:self];
@@ -39,6 +43,14 @@
     }
     
     [menuController setupMenu];
+    
+    if (![prefs boolForKey:kHasSeenOneTimeNotificationKey]) {
+        [GSNotifier showOneTimeNotification];
+        [prefs setBool:YES forKey:kHasSeenOneTimeNotificationKey];
+    }
+    
+    // set up growl notifications regardless of whether or not we're supposed to growl
+    [GrowlApplicationBridge setGrowlDelegate:self];
 }
 
 #pragma mark - GSGPUDelegate protocol
@@ -50,19 +62,17 @@
 
 - (void)applicationKindOfDidFinishLaunching:(NSNotification *)aNotification {
     prefs = [PrefsController sharedInstance];
-    state = [SessionMagic sharedInstance];
+    state = [GSState sharedInstance];
     [state setDelegate:self];
     
     // initialize driver and process listing
     if (![GSMux switcherOpen]) GTMLoggerDebug(@"Can't open driver");
     
-    // localization
-    [self setupLocalization];
-    
     // set up growl notifications regardless of whether or not we're supposed to growl
     [GrowlApplicationBridge setGrowlDelegate:self];
     
     // check for updates if user has them enabled
+    // FIXME: hook up pref directly to updater.automaticallyChecksForUpdates
     if ([prefs shouldCheckForUpdatesOnStartup])
         [updater checkForUpdatesInBackground];
     
@@ -74,17 +84,7 @@
     
     // v2.0 alert
     if (![prefs boolForKey:@"hasSeenVersionTwoMessage"]) {
-        NSAlert *versionInfo = [[NSAlert alloc] init];
-        [versionInfo setMessageText:@"Thanks for downloading gfxCardStatus!"];
-        [versionInfo setInformativeText:@"If you find it useful, please consider donating to support development and hosting costs. You can find the donate link, and the FAQ page (which you should REALLY read) at the gfxCardStatus website:"];
-        NSTextView *accessory = [[NSTextView alloc] initWithFrame:NSMakeRect(0,0,300,15)];
-        [accessory insertText:[NSAttributedString hyperlinkFromString:@"http://codykrieger.com/gfxCardStatus" 
-                                                              withURL:[NSURL URLWithString:@"http://codykrieger.com/gfxCardStatus"]]];
-        [accessory setEditable:NO];
-        [accessory setDrawsBackground:NO];
-        [versionInfo setAccessoryView:accessory];
-        [versionInfo addButtonWithTitle:@"Don't show this again!"];
-        [versionInfo runModal];
+        
         
         [prefs setBool:YES forKey:@"hasSeenVersionTwoMessage"];
     }
@@ -182,18 +182,6 @@
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
     if ([keyPath isEqualToString:@"prefs.shouldUseSmartMenuBarIcons"]) {
         [self updateMenu];
-    }
-}
-
-#pragma mark - Setup Methods
-
-- (void)setupLocalization {
-    NSString *version = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"];
-    [versionItem setTitle:[Str(@"About") stringByReplacingOccurrencesOfString:@"%%" withString:version]];
-    NSArray *localized = [[NSArray alloc] initWithObjects:updateItem, preferencesItem, quitItem, switchGPUs, integratedOnly, 
-                          discreteOnly, dynamicSwitching, dependentProcesses, processList, nil];
-    for (NSButton *loc in localized) {
-        [loc setTitle:Str([loc title])];
     }
 }
 

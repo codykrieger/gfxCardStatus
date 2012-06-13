@@ -7,7 +7,7 @@
 //
 
 #import "AdvancedPreferencesViewController.h"
-#import "SessionMagic.h"
+#import "GSState.h"
 
 @implementation AdvancedPreferencesViewController
 
@@ -35,7 +35,7 @@
         [field setStringValue:Str([field stringValue])];
     }
     
-    if ([[SessionMagic sharedInstance] usingLegacy]) {
+    if ([[GSState sharedInstance] usingLegacy]) {
         [prefSegOnBattery setSegmentCount:2];
         [prefSegOnAc setSegmentCount:2];
     } else {

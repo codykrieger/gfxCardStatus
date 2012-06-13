@@ -1,5 +1,5 @@
 //
-//  SessionMagic.h
+//  GSState.h
 //  gfxCardStatus
 //
 //  Created by Cody Krieger on 6/20/11.
@@ -13,21 +13,21 @@ typedef enum {
     kGPUTypeDiscrete
 } GPUType;
 
-@protocol SessionMagicDelegate <NSObject>
+@protocol GSStateDelegate <NSObject>
 
 - (void)gpuChangedTo:(GPUType)gpu from:(GPUType)from;
 
 @end
 
-@interface SessionMagic : NSObject
+@interface GSState : NSObject
 
-@property (nonatomic, unsafe_unretained) id<SessionMagicDelegate> delegate;
+@property (nonatomic, unsafe_unretained) id<GSStateDelegate> delegate;
 @property (nonatomic) BOOL usingIntegrated;
 @property (nonatomic) BOOL usingLegacy;
 @property (nonatomic, retain) NSString *integratedString;
 @property (nonatomic, retain) NSString *discreteString;
 
-+ (SessionMagic *)sharedInstance;
++ (GSState *)sharedInstance;
 
 - (void)gpuChangedFrom:(GPUType)from;
 
