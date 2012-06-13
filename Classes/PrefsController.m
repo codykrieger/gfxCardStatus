@@ -106,10 +106,6 @@
     return [(NSNumber *)[prefs objectForKey:@"shouldCheckForUpdatesOnStartup"] boolValue];
 }
 
-- (BOOL)shouldGrowl {
-    return [(NSNumber *)[prefs objectForKey:@"shouldGrowl"] boolValue];
-}
-
 - (BOOL)shouldStartAtLogin {
     return [(NSNumber *)[prefs objectForKey:@"shouldStartAtLogin"] boolValue];
 }
