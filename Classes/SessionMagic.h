@@ -19,10 +19,7 @@ typedef enum {
 
 @end
 
-@interface SessionMagic : NSObject {
-    // preferences-related
-    BOOL _canGrowl;
-}
+@interface SessionMagic : NSObject
 
 @property (nonatomic, unsafe_unretained) id<SessionMagicDelegate> delegate;
 @property (nonatomic) BOOL usingIntegrated;
@@ -31,9 +28,6 @@ typedef enum {
 @property (nonatomic, retain) NSString *discreteString;
 
 + (SessionMagic *)sharedInstance;
-
-- (void)setCanGrowl:(BOOL)canGrowl;
-- (BOOL)canGrowl;
 
 - (void)gpuChangedFrom:(GPUType)from;
 

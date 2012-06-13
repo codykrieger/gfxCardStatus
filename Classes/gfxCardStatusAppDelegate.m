@@ -123,7 +123,6 @@
         [dynamicSwitching setState:dynamic ? NSOnState : NSOffState];
     }
     
-    [state setCanGrowl:NO];
     [self updateMenu];
     
     // only resture last mode if preference is set, and we're NOT using power source-based switching
@@ -142,10 +141,8 @@
                 break;
         }
         
-        [self setMode:modeItem];
+        [menuController setMode:modeItem];
     }
-    
-    [state setCanGrowl:YES];
     
     powerSourceMonitor = [PowerSourceMonitor monitorWithDelegate:self];
     lastPowerSource = -1; // uninitialized
@@ -161,7 +158,7 @@
 - (void)gpuChangedTo:(GPUType)gpu from:(GPUType)from {
     [self updateMenu];
     
-    if ([state canGrowl] && gpu != from) {
+    if (gpu != from) {
         NSString *cardString = [state usingIntegrated] ? [state integratedString] : [state discreteString];
         NSString *msg  = [NSString stringWithFormat:Str(@"GrowlSwitch"), cardString];
         NSString *name = [state usingIntegrated] ? @"switchedToIntegrated" : @"switchedToDiscrete";
@@ -217,62 +214,6 @@
     // black image when menu is closed
     if ([prefs shouldUseImageIcons]) {
         [statusItem setImage:[NSImage imageNamed:[[[statusItem image] name] stringByReplacingOccurrencesOfString:@"-white" withString:@".png"]]];
-    }
-}
-
-- (IBAction)openPreferences:(id)sender {
-    if (!pwc) {
-        pwc = [[PreferencesWindowController alloc] init];
-        
-        NSArray *modules = [NSArray arrayWithObjects:
-                            [[GeneralPreferencesViewController alloc] init], 
-                            [[AdvancedPreferencesViewController alloc] init],
-                            nil];
-        
-        [pwc setModules:modules];
-    }
-    
-    pwc.window.delegate = prefs;
-    
-    [pwc.window center];
-    [pwc.window makeKeyAndOrderFront:self];
-    [pwc.window setOrderedIndex:0];
-    [NSApp activateIgnoringOtherApps:YES];
-}
-
-- (IBAction)setMode:(id)sender {
-    // legacy cards
-    if (sender == switchGPUs) {
-        GTMLoggerInfo(@"Switching GPUs...");
-        [GSMux switcherSetMode:modeToggleGPU];
-        return;
-    }
-    
-    // current cards
-    if ([sender state] == NSOnState) return;
-    
-    BOOL retval = NO;
-    if (sender == integratedOnly) {
-        GTMLoggerInfo(@"Setting Integrated only...");
-        retval = [GSMux switcherSetMode:modeForceIntegrated];
-    }
-    if (sender == discreteOnly) { 
-        GTMLoggerInfo(@"Setting NVIDIA only...");
-        retval = [GSMux switcherSetMode:modeForceDiscrete];
-    }
-    if (sender == dynamicSwitching) {
-        GTMLoggerInfo(@"Setting dynamic switching...");
-        retval = [GSMux switcherSetMode:modeDynamicSwitching];
-    }
-    
-    // only change status in case of success
-    if (retval) {
-        [integratedOnly setState:(sender == integratedOnly ? NSOnState : NSOffState)];
-        [discreteOnly setState:(sender == discreteOnly ? NSOnState : NSOffState)];
-        [dynamicSwitching setState:(sender == dynamicSwitching ? NSOnState : NSOffState)];
-        
-        // delayed double-check
-//        [self performSelector:@selector(checkCardState) withObject:nil afterDelay:5.0];
     }
 }
 
@@ -435,12 +376,12 @@
         
         if (![state usingLegacy]) {
             GTMLoggerDebug(@"Using a newer machine, setting appropriate mode based on power source...");
-            [self setMode:[self senderForMode:newMode]];
+            [menuController setMode:[self senderForMode:newMode]];
         } else {
             GTMLoggerDebug(@"Using a legacy machine, setting appropriate mode based on power source...");
             GTMLoggerInfo(@"Power source-based switch: usingIntegrated=%i, newMode=%i", [state usingIntegrated], newMode);
             if (([state usingIntegrated] && newMode == 1) || (![state usingIntegrated] && newMode == 0)) {
-                [self setMode:switchGPUs];
+                [menuController setMode:switchGPUs];
             }
         }
     }

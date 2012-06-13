@@ -14,7 +14,6 @@
     IBOutlet NSButton *prefChkSmartIcons; // use first letter of GPU to determine icon
     
     IBOutlet NSButton *prefChkUpdate; // check for updates on startup
-    IBOutlet NSButton *prefChkGrowl; // use growl to send notifications
     IBOutlet NSButton *prefChkStartup; // start at login
 }
 

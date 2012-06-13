@@ -29,8 +29,6 @@ void DisplayReconfigurationCallback(CGDirectDisplayID display,
 - (id)init {
     self = [super init];
     if (self) {
-        _canGrowl = YES;
-        
         NSDictionary *profile = nil; //[GSProcess getGraphicsProfile];
         usingLegacy = [(NSNumber *)[profile objectForKey:@"legacy"] boolValue];
         
@@ -41,14 +39,6 @@ void DisplayReconfigurationCallback(CGDirectDisplayID display,
     }
     
     return self;
-}
-
-- (void)setCanGrowl:(BOOL)canGrowl {
-    _canGrowl = canGrowl;
-}
-
-- (BOOL)canGrowl {
-    return (_canGrowl && [[PrefsController sharedInstance] shouldGrowl]);
 }
 
 #pragma mark -

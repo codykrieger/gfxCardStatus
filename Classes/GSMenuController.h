@@ -7,6 +7,7 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import "PreferencesWindowController.h"
 
 @protocol GSMenuControllerDelegate <NSObject>
 - (void)something;
@@ -14,6 +15,9 @@
 
 @interface GSMenuController : NSObject <NSMenuDelegate> {
     NSStatusItem *statusItem;
+    
+    PrefsController *prefs;
+    PreferencesWindowController *preferencesWindowController;
 }
 
 @property (unsafe_unretained) id<GSMenuControllerDelegate> delegate;

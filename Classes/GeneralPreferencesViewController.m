@@ -28,7 +28,7 @@
     
     [prefs addObserver:self forKeyPath:@"prefs.shouldStartAtLogin" options:NSKeyValueObservingOptionNew context:nil];
     
-    NSArray *localizedButtons = [[NSArray alloc] initWithObjects:prefChkGrowl, prefChkStartup, prefChkUpdate, prefChkSmartIcons, nil];
+    NSArray *localizedButtons = [[NSArray alloc] initWithObjects:prefChkStartup, prefChkUpdate, prefChkSmartIcons, nil];
     for (NSButton *loc in localizedButtons) {
         [loc setTitle:Str([loc title])];
     }
