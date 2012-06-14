@@ -20,7 +20,8 @@
 
 #pragma mark - Initializers
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+{
     self = [super initWithNibName:@"GeneralPreferencesView" bundle:nil];
     if (self) {
         prefs = [PrefsController sharedInstance];
@@ -30,7 +31,8 @@
 
 #pragma mark - Overrides
 
-- (void)loadView {
+- (void)loadView
+{
     [super loadView];
     
     [prefs addObserver:self forKeyPath:@"prefs.shouldStartAtLogin" options:NSKeyValueObservingOptionNew context:nil];
@@ -45,7 +47,8 @@
         [prefChkSmartIcons setEnabled:NO];
 }
 
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+{
     if ([keyPath isEqualToString:@"prefs.shouldStartAtLogin"]) {
         [GSStartup loadAtStartup:([prefChkStartup state] ? YES : NO)];
     }
@@ -53,15 +56,18 @@
 
 #pragma mark - GSPreferencesModule protocol
 
-- (NSString *)title {
+- (NSString *)title
+{
     return Str(@"General");
 }
 
-- (NSString *)identifier {
+- (NSString *)identifier
+{
     return @"general";
 }
 
-- (NSImage *)image {
+- (NSImage *)image
+{
     return [NSImage imageNamed:NSImageNamePreferencesGeneral];
 }
 

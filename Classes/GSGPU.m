@@ -7,6 +7,7 @@
 //
 
 #import "GSGPU.h"
+#import "GSMux.h"
 
 #define kIOPCIDevice    "IOPCIDevice"
 #define kIONameKey      "IOName"
@@ -16,6 +17,8 @@
 static void displayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSummaryFlags flags, void *userInfo);
 
 static NSMutableArray *gpus = nil;
+static BOOL didCacheLegacyValue = NO;
+static BOOL cachedLegacyValue = NO;
 static id<GSGPUDelegate> delegate = nil;
 
 @implementation GSGPU
@@ -68,19 +71,36 @@ static id<GSGPUDelegate> delegate = nil;
     return gpus;
 }
 
++ (NSString *)integratedGPUName
+{
+    // FIXME:
+    return @"Integrated GPU";
+}
+
++ (NSString *)discreteGPUName
+{
+    // FIXME:
+    return @"Discrete GPU";
+}
+
 + (BOOL)isLegacyMachine
 {
+    if (didCacheLegacyValue)
+        return cachedLegacyValue;
+    
     NSArray *gpuNames = [self getGPUNames];
     
-    BOOL bothNVIDIA = YES;
+    cachedLegacyValue = YES;
     for (NSString *name in gpuNames) {
         if (![name hasPrefix:@"NVIDIA"]) {
-            bothNVIDIA = NO;
+            cachedLegacyValue = NO;
             break;
         }
     }
     
-    return bothNVIDIA;
+    didCacheLegacyValue = YES;
+    
+    return cachedLegacyValue;
 }
 
 + (void)registerForGPUChangeNotifications:(id<GSGPUDelegate>)object
@@ -92,7 +112,12 @@ static id<GSGPUDelegate> delegate = nil;
 static void displayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSummaryFlags flags, void *userInfo)
 {
     if (flags & kCGDisplaySetModeFlag) {
-//        [delegate gpuChangedTo:...];
+        BOOL isUsingIntegrated = [GSMux isUsingIntegratedGPU];
+        
+        GTMLoggerInfo(@"Notification: GPU changed. Integrated? %d", isUsingIntegrated);
+        
+        GSGPUType activeType = (isUsingIntegrated ? GSGPUTypeIntegrated : GSGPUTypeDiscrete);
+        [delegate gpuChangedTo:activeType];
     }
 }
 

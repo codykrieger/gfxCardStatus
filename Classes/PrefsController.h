@@ -20,18 +20,13 @@
 - (void)setUpPreferences;
 - (void)setDefaults;
 - (void)savePreferences;
-- (NSString *)getPrefsPath;
 
 - (BOOL)shouldCheckForUpdatesOnStartup;
 - (BOOL)shouldStartAtLogin;
-- (BOOL)shouldRestoreStateOnStartup;
 - (BOOL)shouldUsePowerSourceBasedSwitching;
 - (BOOL)shouldUseImageIcons;
 - (BOOL)shouldUseSmartMenuBarIcons;
-- (int)shouldRestoreToMode;
 - (int)modeForPowerSource:(NSString *)powerSource;
-
-- (void)setLastMode:(int)value;
 
 - (void)setBool:(BOOL)value forKey:(NSString *)key;
 - (BOOL)boolForKey:(NSString *)key;

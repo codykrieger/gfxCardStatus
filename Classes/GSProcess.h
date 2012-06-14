@@ -16,7 +16,7 @@
 @interface GSProcess : NSObject
 
 //+ (NSString *)keyForPowerSource:(PowerSource)powerSource;
-//+ (SwitcherMode)switcherGetMode;
+//+ (GSSwitcherMode)switcherGetMode;
 
 //+ (BOOL)procInit;
 //+ (void)procFree;

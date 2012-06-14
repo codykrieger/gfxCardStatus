@@ -8,6 +8,8 @@
 
 #import "GSNotifier.h"
 #import "NSAttributedString+Hyperlink.h"
+#import "GSGPU.h"
+#import "GSMux.h"
 
 #define kGPUChangedNotificationKey @"GrowlGPUChanged"
 
@@ -38,7 +40,9 @@
     
     NSString *key = [self _keyForNotificationType:type];
     NSString *title = Str(key);
-    NSString *message = Str([title stringByAppendingString:@"Message"]);
+    
+    NSString *cardName = type == GSNotificationTypeGPUChangedToIntegrated ? [GSGPU integratedGPUName] : [GSGPU discreteGPUName];
+    NSString *message = [NSString stringWithFormat:Str([title stringByAppendingString:@"Message"]), cardName];
     
     [GrowlApplicationBridge notifyWithTitle:title
                                 description:message 
@@ -88,7 +92,8 @@
 
 + (NSString *)_keyForNotificationType:(GSNotificationType)type
 {
-    if (type == GSNotificationTypeGPUChanged) {
+    if (type == GSNotificationTypeGPUChangedToIntegrated
+        || type == GSNotificationTypeGPUChangedToDiscrete) {
         return kGPUChangedNotificationKey;
     }
     

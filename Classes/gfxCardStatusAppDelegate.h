@@ -54,7 +54,4 @@
 
 @property (strong) IBOutlet GSMenuController *menuController;
 
-- (void)updateMenu;
-- (void)updateProcessList;
-
 @end

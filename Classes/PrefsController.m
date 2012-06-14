@@ -10,11 +10,16 @@
 #import "GSState.h"
 #import "GSStartup.h"
 
+@interface PrefsController ()
+- (NSString *)_getPrefsPath;
+@end
+
 @implementation PrefsController
 
 #pragma mark - Initializers
 
-- (id)init {
+- (id)init
+{
     if ((self = [super init])) {
         GTMLoggerDebug(@"Initializing PrefsController");
         [self setUpPreferences];
@@ -34,7 +39,8 @@
 
 #pragma mark - PrefsController API
 
-- (void)setUpPreferences {
+- (void)setUpPreferences
+{
     GTMLoggerDebug(@"Loading preferences and defaults");
     
     // set yes/no numbers
@@ -42,7 +48,7 @@
     noNumber = [NSNumber numberWithBool:NO];
     
     // load preferences in from file
-    prefs = [[NSMutableDictionary alloc] initWithContentsOfFile:[self getPrefsPath]];
+    prefs = [[NSMutableDictionary alloc] initWithContentsOfFile:[self _getPrefsPath]];
     if (!prefs) {
         // if preferences file doesn't exist, set the defaults
         prefs = [[NSMutableDictionary alloc] init];
@@ -64,17 +70,13 @@
         [prefs setObject:noNumber forKey:@"shouldUseImageIcons"];
 }
 
-- (NSString *)getPrefsPath {
-    return [@"~/Library/Preferences/com.codykrieger.gfxCardStatus-Preferences.plist" stringByExpandingTildeInPath];
-}
-
-- (void)setDefaults {
+- (void)setDefaults
+{
     GTMLoggerDebug(@"Setting initial defaults...");
     
     [prefs setObject:yesNumber forKey:@"shouldCheckForUpdatesOnStartup"];
     [prefs setObject:yesNumber forKey:@"shouldGrowl"];
     [prefs setObject:yesNumber forKey:@"shouldStartAtLogin"];
-    [prefs setObject:yesNumber forKey:@"shouldRestoreStateOnStartup"];
     [prefs setObject:noNumber forKey:@"shouldUsePowerSourceBasedSwitching"];
     [prefs setObject:noNumber forKey:@"shouldUseSmartMenuBarIcons"];
     
@@ -84,70 +86,73 @@
     else
         [prefs setObject:[NSNumber numberWithInt:2] forKey:kGPUSettingACAdaptor]; // defaults to dynamic for new machines
     
-    // last mode used before termination
-    [prefs setObject:[NSNumber numberWithInt:2] forKey:@"shouldRestoreToMode"];
-    
     [self savePreferences];
 }
 
-- (void)savePreferences {
+- (void)savePreferences
+{
     GTMLoggerDebug(@"Writing preferences to disk...");
     
-    if ([prefs writeToFile:[self getPrefsPath] atomically:YES]) {
+    if ([prefs writeToFile:[self _getPrefsPath] atomically:YES]) {
         GTMLoggerDebug(@"Successfully wrote preferences to disk.");
     } else {
         GTMLoggerDebug(@"Failed to write preferences to disk. Permissions problem in ~/Library/Preferences?");
     }
 }
 
-- (void)windowWillClose:(NSNotification *)notification {
-    [self savePreferences];
-}
-
-- (void)setBool:(BOOL)value forKey:(NSString *)key {
+- (void)setBool:(BOOL)value forKey:(NSString *)key
+{
     [prefs setObject:(value ? yesNumber : noNumber) forKey:key];
     [self savePreferences];
 }
 
-- (BOOL)boolForKey:(NSString *)key {
+- (BOOL)boolForKey:(NSString *)key
+{
     return [(NSNumber *)[prefs objectForKey:key] boolValue];
 }
 
-- (BOOL)shouldCheckForUpdatesOnStartup {
+- (BOOL)shouldCheckForUpdatesOnStartup
+{
     return [(NSNumber *)[prefs objectForKey:@"shouldCheckForUpdatesOnStartup"] boolValue];
 }
 
-- (BOOL)shouldStartAtLogin {
+- (BOOL)shouldStartAtLogin
+{
     return [(NSNumber *)[prefs objectForKey:@"shouldStartAtLogin"] boolValue];
 }
 
-- (BOOL)shouldRestoreStateOnStartup {
-    return [(NSNumber *)[prefs objectForKey:@"shouldRestoreStateOnStartup"] boolValue];
-}
-
-- (BOOL)shouldUsePowerSourceBasedSwitching {
+- (BOOL)shouldUsePowerSourceBasedSwitching
+{
     return [(NSNumber *)[prefs objectForKey:@"shouldUsePowerSourceBasedSwitching"] boolValue];
 }
 
-- (BOOL)shouldUseImageIcons {
+- (BOOL)shouldUseImageIcons
+{
     return [(NSNumber *)[prefs objectForKey:@"shouldUseImageIcons"] boolValue];
 }
 
-- (BOOL)shouldUseSmartMenuBarIcons {
+- (BOOL)shouldUseSmartMenuBarIcons
+{
     return [(NSNumber *)[prefs objectForKey:@"shouldUseSmartMenuBarIcons"] boolValue];
 }
 
-- (int)shouldRestoreToMode {
-    return [(NSNumber *)[prefs objectForKey:@"shouldRestoreToMode"] intValue];
-}
-
-- (int)modeForPowerSource:(NSString *)powerSource {
+- (int)modeForPowerSource:(NSString *)powerSource
+{
     return [(NSNumber *)[prefs objectForKey:powerSource] intValue];
 }
 
-- (void)setLastMode:(int)value {
-    [prefs setObject:[NSNumber numberWithInt:value] forKey:@"shouldRestoreToMode"];
+#pragma mark - NSWindowDelegate protocol
+
+- (void)windowWillClose:(NSNotification *)notification
+{
     [self savePreferences];
+}
+
+#pragma mark - Private helpers
+
+- (NSString *)_getPrefsPath
+{
+    return [@"~/Library/Preferences/com.codykrieger.gfxCardStatus-Preferences.plist" stringByExpandingTildeInPath];
 }
 
 @end

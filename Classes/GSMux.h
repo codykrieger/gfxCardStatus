@@ -9,21 +9,23 @@
 #import <Foundation/Foundation.h>
 
 typedef enum {
-    modeForceIntegrated,
-    modeForceDiscrete,
-    modeDynamicSwitching,
-    modeToggleGPU
-} SwitcherMode;
+    GSSwitcherModeForceIntegrated,
+    GSSwitcherModeForceDiscrete,
+    GSSwitcherModeDynamicSwitching,
+    GSSwitcherModeToggleGPU
+} GSSwitcherMode;
 
 #define kDriverClassName "AppleGraphicsControl"
 
 @interface GSMux : NSObject
 
-+ (BOOL)switcherOpen;                       // Initialize driver
-+ (void)switcherClose;                      // Close driver
+// Switching driver initialization and cleanup routines.
++ (BOOL)switcherOpen;
++ (void)switcherClose;
 
-+ (BOOL)switcherSetMode:(SwitcherMode)mode; // Sets working mode
-+ (BOOL)isUsingIntegrated;                  // Is integrated card in use?
-+ (BOOL)isUsingDynamicSwitching;            // Is dynamic switching enabled?
++ (BOOL)switcherSetMode:(GSSwitcherMode)mode;
++ (BOOL)isUsingIntegratedGPU;
++ (BOOL)isUsingIntegratedGPU;
++ (BOOL)isUsingDynamicSwitching;
 
 @end

@@ -11,10 +11,13 @@
 #include <IOKit/ps/IOPowerSources.h>
 #import "GSPower.h"
 
+static BOOL stringsAreEqual(CFStringRef a, CFStringRef b);
+static GSPowerType getCurrentPowerSource();
 static void powerSourceChanged(void *context);
 static void registerPowerSourceNotification(GSPower *powerSourceMonitor);
 
-static BOOL stringsAreEqual(CFStringRef a, CFStringRef b) {
+static BOOL stringsAreEqual(CFStringRef a, CFStringRef b)
+{
     if (a == nil || b == nil) {
         return NO;
     }
@@ -22,7 +25,8 @@ static BOOL stringsAreEqual(CFStringRef a, CFStringRef b) {
     return (CFStringCompare(a, b, 0) == kCFCompareEqualTo);
 }
 
-static GSPowerType getCurrentPowerSource() {
+static GSPowerType getCurrentPowerSource()
+{
     GSPowerType status = GSPowerTypeUnknown;
     
     CFTypeRef blob = IOPSCopyPowerSourcesInfo();
@@ -62,20 +66,22 @@ cleanup:
     return status;
 }
 
-static void powerSourceChanged(void *context) {
+static void powerSourceChanged(void *context)
+{
     GSPower *powerSourceMonitor = (__bridge GSPower *)context;
     
     [powerSourceMonitor powerSourceChanged:getCurrentPowerSource()];
 }
 
-void registerPowerSourceNotification(GSPower *powerSourceMonitor) {
+void registerPowerSourceNotification(GSPower *powerSourceMonitor)
+{
     CFRunLoopSourceRef loopSource = IOPSNotificationCreateRunLoopSource(powerSourceChanged, (__bridge void *)powerSourceMonitor);
     
     if (loopSource) {
         CFRunLoopAddSource(CFRunLoopGetCurrent(), loopSource, kCFRunLoopDefaultMode);
         CFRelease(loopSource);
     } else {
-        GTMLoggerDebug(@"Creating RunLoop failed!\n");
+        GTMLoggerDebug(@"Creating RunLoop failed!");
     }
 }
 
@@ -83,7 +89,8 @@ void registerPowerSourceNotification(GSPower *powerSourceMonitor) {
 
 @synthesize delegate;
 
-- (GSPower *)initWithDelegate:(id<GSPowerDelegate>)object {
+- (GSPower *)initWithDelegate:(id<GSPowerDelegate>)object
+{
     if ((self = [super init])) {
         self.delegate = object;
         
@@ -93,11 +100,13 @@ void registerPowerSourceNotification(GSPower *powerSourceMonitor) {
     return self;
 }
 
-- (GSPowerType)currentPowerSource {
+- (GSPowerType)currentPowerSource
+{
     return getCurrentPowerSource();
 }
 
-- (void)powerSourceChanged:(GSPowerType)powerSource {
+- (void)powerSourceChanged:(GSPowerType)powerSource
+{
     if ([delegate respondsToSelector:@selector(powerSourceChanged:)]) {
         [delegate powerSourceChanged:powerSource];
     }

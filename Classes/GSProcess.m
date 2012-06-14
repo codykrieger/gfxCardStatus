@@ -33,10 +33,10 @@ static size_t procNum = 0;
 //}
 
 // helper to return current mode
-//+ (SwitcherMode)switcherGetMode {
-//    if ([GSMux isUsingDynamicSwitching]) return modeDynamicSwitching;
+//+ (GSSwitcherMode)switcherGetMode {
+//    if ([GSMux isUsingDynamicSwitching]) return GSSwitcherModeDynamicSwitching;
 //    NSDictionary *profile = [GSProcess getGraphicsProfile];
-//    return ([(NSNumber *)[profile objectForKey:@"usingIntegrated"] boolValue] ? modeForceIntegrated : modeForceDiscrete);
+//    return ([(NSNumber *)[profile objectForKey:@"usingIntegrated"] boolValue] ? GSSwitcherModeForceIntegrated : GSSwitcherModeForceDiscrete);
 //}
 
 #pragma mark -

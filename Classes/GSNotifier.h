@@ -10,7 +10,8 @@
 #import <Growl/Growl.h>
 
 typedef enum {
-    GSNotificationTypeGPUChanged
+    GSNotificationTypeGPUChangedToIntegrated,
+    GSNotificationTypeGPUChangedToDiscrete
 } GSNotificationType;
 
 @interface GSNotifier : NSObject<GrowlApplicationBridgeDelegate>

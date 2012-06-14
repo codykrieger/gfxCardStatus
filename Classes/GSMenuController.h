@@ -45,6 +45,7 @@
 @property (strong) IBOutlet NSMenuItem *processList;
 
 - (void)setupMenu;
+- (void)updateMenu;
 
 - (IBAction)openAbout:(id)sender;
 - (IBAction)openPreferences:(id)sender;

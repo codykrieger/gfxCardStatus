@@ -23,7 +23,8 @@
 
 #pragma mark - Initializers
 
-- (id)init {
+- (id)init
+{
     self = [super init];
     if (self) {
         NSWindow *prefsWindow = [[NSWindow alloc] initWithContentRect:NSMakeRect(0, 0, 300, 200) 
@@ -39,7 +40,8 @@
 
 #pragma mark - PreferencesWindowController API
 
-- (void)setModules:(NSArray *)newModules {
+- (void)setModules:(NSArray *)newModules
+{
     if (newModules == modules) return;
     
     if (modules) {
@@ -84,7 +86,8 @@
 
 #pragma mark - NSToolbarDelegate protocol
 
-- (NSArray *)toolbarAllowedItemIdentifiers:(NSToolbar *)toolbar {
+- (NSArray *)toolbarAllowedItemIdentifiers:(NSToolbar *)toolbar
+{
     NSMutableArray *identifiers = [NSMutableArray array];
     
     for (id<GSPreferencesModule> module in self.modules) {
@@ -94,11 +97,13 @@
     return identifiers;
 }
 
-- (NSArray *)toolbarDefaultItemIdentifiers:(NSToolbar *)toolbar {
+- (NSArray *)toolbarDefaultItemIdentifiers:(NSToolbar *)toolbar
+{
     return nil;
 }
 
-- (NSArray *)toolbarSelectableItemIdentifiers:(NSToolbar *)toolbar {
+- (NSArray *)toolbarSelectableItemIdentifiers:(NSToolbar *)toolbar
+{
     return [self toolbarAllowedItemIdentifiers:toolbar];
 }
 
@@ -119,7 +124,8 @@
 
 #pragma mark - Private helpers
 
-- (void)_createToolbar {
+- (void)_createToolbar
+{
     NSToolbar *toolbar = [[NSToolbar alloc] initWithIdentifier:@"PreferencesToolbar"];
     
     [toolbar setDisplayMode:NSToolbarDisplayModeIconAndLabel];
@@ -130,7 +136,8 @@
     [self.window setToolbar:toolbar];
 }
 
-- (id<GSPreferencesModule>)_moduleForIdentifier:(NSString *)identifier {
+- (id<GSPreferencesModule>)_moduleForIdentifier:(NSString *)identifier
+{
     for (id<GSPreferencesModule> module in self.modules) {
         if ([[module identifier] isEqualToString:identifier]) {
             return module;
@@ -149,7 +156,8 @@
     [self _changeToModule:module];
 }
 
-- (void)_changeToModule:(id<GSPreferencesModule>)module {
+- (void)_changeToModule:(id<GSPreferencesModule>)module
+{
     [[currentModule view] removeFromSuperview];
     
     // The view which will be displayed

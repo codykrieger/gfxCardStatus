@@ -52,7 +52,7 @@ void DisplayReconfigurationCallback(CGDirectDisplayID display,
             
             GSState *state = (__bridge GSState *)userInfo;
             
-            BOOL nowIsUsingIntegrated = [GSMux isUsingIntegrated];
+            BOOL nowIsUsingIntegrated = [GSMux isUsingIntegratedGPU];
             GTMLoggerInfo(@"Integrated state: %i, previous state: %i", 
                           nowIsUsingIntegrated, 
                           [state usingIntegrated]);

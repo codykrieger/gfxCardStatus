@@ -20,6 +20,8 @@ typedef enum {
 @interface GSGPU : NSObject
 
 + (NSArray *)getGPUNames;
++ (NSString *)integratedGPUName;
++ (NSString *)discreteGPUName;
 + (BOOL)isLegacyMachine;
 
 + (void)registerForGPUChangeNotifications:(id<GSGPUDelegate>)object;

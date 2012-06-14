@@ -84,7 +84,8 @@ typedef enum {
 #pragma mark -
 #pragma mark Private methods
 
-static BOOL getMuxState(io_connect_t connect, uint64_t input, uint64_t *output) {
+static BOOL getMuxState(io_connect_t connect, uint64_t input, uint64_t *output)
+{
     kern_return_t kernResult;
     uint32_t outputCount = 1;
     uint64_t scalarI_64[2] = { 1 /* Always 1 (kMuxControl?) */, input /* Feature Info */ };
@@ -103,7 +104,8 @@ static BOOL getMuxState(io_connect_t connect, uint64_t input, uint64_t *output) 
     return kernResult == KERN_SUCCESS;
 }
 
-static BOOL setMuxState(io_connect_t connect, muxState state, uint64_t arg) {
+static BOOL setMuxState(io_connect_t connect, muxState state, uint64_t arg)
+{
     kern_return_t kernResult;
     uint64_t scalarI_64[3] = { 1 /* always? */, (uint64_t) state, arg };
     
@@ -121,34 +123,40 @@ static BOOL setMuxState(io_connect_t connect, muxState state, uint64_t arg) {
     return kernResult == KERN_SUCCESS;
 }
 
-static BOOL setFeatureInfo(io_connect_t connect, muxFeature feature, BOOL enabled) {
+static BOOL setFeatureInfo(io_connect_t connect, muxFeature feature, BOOL enabled)
+{
     return setMuxState(connect, enabled ? muxEnableFeature : muxDisableFeature, 1<<feature);
 }
 
-static BOOL getFeatureInfo(io_connect_t connect, muxFeature feature) {
+static BOOL getFeatureInfo(io_connect_t connect, muxFeature feature)
+{
     uint64_t featureInfo = 0;
     if (!getMuxState(connect, muxFeatureInfo, &featureInfo)) return 0;
     return (1<<feature) & featureInfo ? YES: NO;
 }
 
-static void setSwitchPolicy(io_connect_t connect, BOOL dynamic) {
+static void setSwitchPolicy(io_connect_t connect, BOOL dynamic)
+{
     // arg = 2: user needs to logout before switching, arg = 0: instant switching
     setMuxState(connect, muxSwitchPolicy, dynamic ? 0 : 2);
 }
 
-static void setDynamicSwitchingEnabled(io_connect_t connect, BOOL enabled) {
+static void setDynamicSwitchingEnabled(io_connect_t connect, BOOL enabled)
+{
     // The same as clicking the checkbox in systemsettings.app
     setMuxState(connect, muxGpuSelect, enabled ? 1 : 0);
 }
 
-static void forceSwitch(io_connect_t connect) {
+static void forceSwitch(io_connect_t connect)
+{
     // switch graphic cards now regardless of switching mode
     setMuxState(connect, muxForceSwitch, 0);
 }
 
 // --------------------------------------------------------------
 
-static char *getFeatureName(muxFeature feature) {
+static char *getFeatureName(muxFeature feature)
+{
     switch (feature) {
         case Policy: return "Policy";
         case Auto_PowerDown_GPU: return "Auto_PowerDown_GPU";
@@ -166,7 +174,8 @@ static char *getFeatureName(muxFeature feature) {
     }
 }
 
-static void printFeatures(io_connect_t connect) {
+static void printFeatures(io_connect_t connect)
+{
     uint64_t featureInfo = 0;
     getMuxState(connect, muxFeatureInfo, &featureInfo);
     muxFeature f;
@@ -176,7 +185,8 @@ static void printFeatures(io_connect_t connect) {
 }
 
 // ???
-static void setExclusive(io_connect_t connect) {
+static void setExclusive(io_connect_t connect)
+{
     kern_return_t kernResult;
     uint64_t    scalarI_64[1];
     scalarI_64[0] = 0x0;
@@ -199,7 +209,8 @@ typedef struct StateStruct {
     uint32_t field1[25]; // State Struct has to be 100 bytes long
 } StateStruct;
 
-static void dumpState(io_connect_t connect) {
+static void dumpState(io_connect_t connect)
+{
     kern_return_t kernResult;
     StateStruct stateStruct;
     size_t structSize = sizeof(StateStruct);
@@ -226,10 +237,10 @@ static void dumpState(io_connect_t connect) {
 
 // --------------------------------------------------------------
 
-#pragma mark -
-#pragma mark Initialization/destruction
+#pragma mark - Initialization/destruction
 
-+ (BOOL)switcherOpen {
++ (BOOL)switcherOpen
+{
     kern_return_t kernResult = 0; 
     io_service_t service = IO_OBJECT_NULL;
     io_iterator_t iterator = IO_OBJECT_NULL;
@@ -266,7 +277,8 @@ static void dumpState(io_connect_t connect) {
     return kernResult == KERN_SUCCESS;
 }
 
-+ (void)switcherClose {
++ (void)switcherClose
+{
     kern_return_t kernResult;
     if (switcherConnect == IO_OBJECT_NULL) return;
     
@@ -280,14 +292,16 @@ static void dumpState(io_connect_t connect) {
     GTMLoggerDebug(@"Driver connection closed.");
 }
 
-#pragma mark -
-#pragma mark Switching magic
+#pragma mark - Switching magic
 
-+ (BOOL)switcherSetMode:(SwitcherMode)mode {
-    if (switcherConnect == IO_OBJECT_NULL) return NO;
++ (BOOL)switcherSetMode:(GSSwitcherMode)mode
+{
+    if (switcherConnect == IO_OBJECT_NULL)
+        return NO;
+    
     switch (mode) {
-        case modeForceIntegrated:
-        case modeForceDiscrete:
+        case GSSwitcherModeForceIntegrated:
+        case GSSwitcherModeForceDiscrete:
             // Disable dynamic switching
             setDynamicSwitchingEnabled(switcherConnect, NO);
             
@@ -298,37 +312,12 @@ static void dumpState(io_connect_t connect) {
             // Hold up a sec!
             sleep(1);
             
-//            BOOL integrated = [GSMux isUsingIntegrated];
-//            if ((mode==modeForceIntegrated && !integrated) || (mode==modeForceDiscrete && integrated))
-//                forceSwitch(switcherConnect);
-
-            // potential fix for not switching after coming back from sleep
-            // by Casey Jao
-            BOOL switchSuccessful = NO;
-            int tries = 0;
-            
-            while (!switchSuccessful && tries < 2) {
-                BOOL integrated = [GSMux isUsingIntegrated];
-                if ((mode==modeForceIntegrated && !integrated) || (mode==modeForceDiscrete && integrated))
-                    forceSwitch(switcherConnect);
-                
-                sleep(1);
-                integrated = [GSMux isUsingIntegrated];
-                
-                if (integrated && mode==modeForceDiscrete)
-                    GTMLoggerDebug(@"Now using integrated but requested discrete. Trying again...");
-                else if (!integrated && mode==modeForceIntegrated)
-                    GTMLoggerDebug(@"Now using discrete but requested integrated. Trying again...");
-                else {
-                    GTMLoggerDebug(@"Switch successful.");
-                    switchSuccessful = YES;
-                }
-                
-                tries++;
-            }
+            BOOL integrated = [GSMux isUsingIntegratedGPU];
+            if ((mode==GSSwitcherModeForceIntegrated && !integrated) || (mode==GSSwitcherModeForceDiscrete && integrated))
+                forceSwitch(switcherConnect);
             
             break;
-        case modeDynamicSwitching:
+        case GSSwitcherModeDynamicSwitching:
             // Set switch policy back, make the MBP think it's an auto switching one once again
             setFeatureInfo(switcherConnect, Policy, YES);
             setSwitchPolicy(switcherConnect, YES);
@@ -337,22 +326,29 @@ static void dumpState(io_connect_t connect) {
             setDynamicSwitchingEnabled(switcherConnect, YES);
             
             break;
-        case modeToggleGPU:
+        case GSSwitcherModeToggleGPU:
             forceSwitch(switcherConnect);
-            
             break;
     }
+    
     return YES;
 }
 
-+ (BOOL)isUsingIntegrated {
++ (BOOL)isUsingIntegratedGPU
+{
     uint64_t output;
     if (switcherConnect == IO_OBJECT_NULL) return NO;
     getMuxState(switcherConnect, muxGraphicsCard, &output);
     return output != 0;
 }
 
-+ (BOOL)isUsingDynamicSwitching {
++ (BOOL)isUsingDiscreteGPU
+{
+    return ![self isUsingIntegratedGPU];
+}
+
++ (BOOL)isUsingDynamicSwitching
+{
     uint64_t output;
     if (switcherConnect == IO_OBJECT_NULL) return NO;
     getMuxState(switcherConnect, muxGpuSelect, &output);
