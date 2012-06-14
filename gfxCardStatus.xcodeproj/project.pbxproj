@@ -155,6 +155,7 @@
 		A19DAD6214CF1E8800D46D80 /* fi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fi; path = fi.lproj/Localizable.strings; sourceTree = "<group>"; };
 		A1A3A6F8118214E2008B8145 /* integrated-i.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "integrated-i.png"; sourceTree = "<group>"; };
 		A1B9412B15899CFD000EE7A7 /* Growl.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Growl.framework; sourceTree = "<group>"; };
+		A1B941671589D85A000EE7A7 /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		A1C01F1F13B06C08003BD4B2 /* GSState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GSState.h; sourceTree = "<group>"; };
 		A1C01F2013B06C08003BD4B2 /* GSState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GSState.m; sourceTree = "<group>"; };
 		A1CCE1FE12B13CE4006D07A4 /* NSAttributedString+Hyperlink.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSAttributedString+Hyperlink.h"; sourceTree = "<group>"; };
@@ -442,6 +443,7 @@
 				pl,
 				lv,
 				en,
+				tr,
 			);
 			mainGroup = 29B97314FDCFA39411CA2CEA /* gfxCardStatus */;
 			projectDirPath = "";
@@ -609,6 +611,7 @@
 				A17AEE321523A652006DB84A /* ru-RU */,
 				A13C595D157C3F7200F6C668 /* el */,
 				A1ED2B2E15857CB600B99CDE /* lv */,
+				A1B941671589D85A000EE7A7 /* tr */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";

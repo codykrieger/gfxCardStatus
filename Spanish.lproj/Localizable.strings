@@ -45,3 +45,6 @@
 "AboutWebsite"			= "Sitio Web";
 "Close"					= "¡Bien!";
 
+/* Growl */
+"GrowlGPUChanged"       = "GPU changed";
+"GrowlGPUChangedMessage"           = "'%1$@' now in use.";
