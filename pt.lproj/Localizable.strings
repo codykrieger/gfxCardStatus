@@ -46,5 +46,5 @@
 
 /* Growl */
 "GrowlGPUChanged"       = "Placa de vídeo alternada!";
-"GrowlSwitch"           = "'%1$@' em uso.";
+"GrowlGPUChangedMessage"           = "'%1$@' em uso.";
 

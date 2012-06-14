@@ -47,5 +47,5 @@
 
 /* Growl */
 "GrowlGPUChanged"       = "Näytönohjain vaihdettu";
-"GrowlSwitch"           = "'%1$@' nyt käytössä.";
+"GrowlGPUChangedMessage"           = "'%1$@' nyt käytössä.";
 

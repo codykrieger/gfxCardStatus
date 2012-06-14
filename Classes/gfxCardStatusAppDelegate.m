@@ -43,17 +43,21 @@
         // do stuff
     }
     
+    // Initialize the menu bar icon and hook the menu up to it.
     [menuController setupMenu];
     
+    // Show the one-time startup notification asking users to be kind and donate
+    // if they like gfxCardStatus. Then make it go away forever.
     if (![prefs boolForKey:kHasSeenOneTimeNotificationKey]) {
         [GSNotifier showOneTimeNotification];
         [prefs setBool:YES forKey:kHasSeenOneTimeNotificationKey];
     }
     
-    // set up growl notifications regardless of whether or not we're supposed to growl
-    [GrowlApplicationBridge setGrowlDelegate:self];
+    // Set up Growl notifications regardless of whether or not we're supposed
+    // to Growl.
+    [GrowlApplicationBridge setGrowlDelegate:[GSNotifier sharedInstance]];
     
-    // check for updates if user has them enabled
+    // Check for updates if the user has them enabled.
     // FIXME: hook up pref directly to updater.automaticallyChecksForUpdates
     if ([prefs shouldCheckForUpdatesOnStartup])
         [updater checkForUpdatesInBackground];
@@ -131,16 +135,12 @@
 //    [self powerSourceChanged:powerSourceMonitor.currentPowerSource];
 }
 
-- (NSDictionary *)registrationDictionaryForGrowl {
-    return [NSDictionary dictionaryWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"Growl Registration Ticket" ofType:@"growlRegDict"]];
-}
-
 //- (void)gpuChangedTo:(GPUType)gpu from:(GPUType)from {
 //    [self updateMenu];
 //    
 //    if (gpu != from) {
 //        NSString *cardString = [state usingIntegrated] ? [state integratedString] : [state discreteString];
-//        NSString *msg  = [NSString stringWithFormat:Str(@"GrowlSwitch"), cardString];
+//        NSString *msg  = [NSString stringWithFormat:Str(@"GrowlGPUChangedMessage"), cardString];
 //        NSString *name = [state usingIntegrated] ? @"switchedToIntegrated" : @"switchedToDiscrete";
 //        [GrowlApplicationBridge notifyWithTitle:Str(@"GrowlGPUChanged") description:msg notificationName:name iconData:nil priority:0 isSticky:NO clickContext:nil];
 //    }

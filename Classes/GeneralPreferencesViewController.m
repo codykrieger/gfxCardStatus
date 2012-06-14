@@ -13,7 +13,12 @@
 
 @implementation GeneralPreferencesViewController
 
+@synthesize prefChkSmartIcons;
+@synthesize prefChkUpdate;
+@synthesize prefChkStartup;
 @synthesize prefs;
+
+#pragma mark - Initializers
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     self = [super initWithNibName:@"GeneralPreferencesView" bundle:nil];
@@ -22,6 +27,8 @@
     }
     return self;
 }
+
+#pragma mark - Overrides
 
 - (void)loadView {
     [super loadView];
@@ -43,6 +50,8 @@
         [GSStartup loadAtStartup:([prefChkStartup state] ? YES : NO)];
     }
 }
+
+#pragma mark - GSPreferencesModule protocol
 
 - (NSString *)title {
     return Str(@"General");

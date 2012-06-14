@@ -47,4 +47,4 @@
 
 /* Growl */
 "GrowlGPUChanged"       = "GPU pārslēgts";
-"GrowlSwitch"           = "Tagad izmanto '%1$@'.";
+"GrowlGPUChangedMessage"           = "Tagad izmanto '%1$@'.";

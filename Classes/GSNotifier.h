@@ -7,9 +7,17 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import <Growl/Growl.h>
 
-@interface GSNotifier : NSObject
+typedef enum {
+    GSNotificationTypeGPUChanged
+} GSNotificationType;
 
+@interface GSNotifier : NSObject<GrowlApplicationBridgeDelegate>
+
++ (GSNotifier *)sharedInstance;
+
++ (void)queueNotification:(GSNotificationType)type;
 + (void)showOneTimeNotification;
 + (void)showUnsupportedMachineMessage;
 

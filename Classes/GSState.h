@@ -8,27 +8,13 @@
 
 #import <Foundation/Foundation.h>
 
-//typedef enum {
-//    GSGPUTypeIntegrated,
-//    GSGPUTypeDiscrete
-//} GPUType;
-
-//@protocol GSStateDelegate <NSObject>
-//
-//- (void)gpuChangedTo:(GPUType)gpu from:(GPUType)from;
-//
-//@end
-
 @interface GSState : NSObject
 
-//@property (nonatomic, unsafe_unretained) id<GSStateDelegate> delegate;
 @property (nonatomic) BOOL usingIntegrated;
 @property (nonatomic) BOOL usingLegacy;
 @property (nonatomic, retain) NSString *integratedString;
 @property (nonatomic, retain) NSString *discreteString;
 
 + (GSState *)sharedInstance;
-
-//- (void)gpuChangedFrom:(GPUType)from;
 
 @end

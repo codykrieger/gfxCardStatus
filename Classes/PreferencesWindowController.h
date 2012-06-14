@@ -7,12 +7,12 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import "PreferencesModule.h"
+#import "GSPreferencesModule.h"
 
 @interface PreferencesWindowController : NSWindowController <NSToolbarDelegate> {
 @private
     NSArray *modules;
-    id<PreferencesModule> currentModule;
+    id<GSPreferencesModule> currentModule;
 }
 
 - (void)setModules:(NSArray *)newModules;

@@ -8,6 +8,7 @@
 
 #import <Cocoa/Cocoa.h>
 #import "PreferencesWindowController.h"
+#import "PrefsController.h"
 
 @protocol GSMenuControllerDelegate <NSObject>
 - (void)something;

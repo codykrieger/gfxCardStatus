@@ -28,7 +28,6 @@
                     GTMLoggerDebug(@"Exists in startup items.");
                     
                     *currentItem = (__bridge_retained LSSharedFileListItemRef)item;
-                    
                     CFRelease(URL);
                     
                     break;

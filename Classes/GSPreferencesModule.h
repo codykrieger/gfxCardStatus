@@ -1,5 +1,5 @@
 //
-//  PreferencesModule.h
+//  GSPreferencesModule.h
 //  gfxCardStatus
 //
 //  Created by Michal Vančo on 7/11/11.
@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@protocol PreferencesModule
+@protocol GSPreferencesModule
 
 @required
 - (NSString *)title;

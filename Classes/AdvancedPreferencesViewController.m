@@ -11,7 +11,15 @@
 
 @implementation AdvancedPreferencesViewController
 
+@synthesize prefChkRestoreState;
+@synthesize prefChkPowerSourceBasedSwitching;
+@synthesize prefSegOnBattery;
+@synthesize prefSegOnAc;
+@synthesize onBatteryTextField;
+@synthesize pluggedInTextField;
 @synthesize prefs;
+
+#pragma mark - Initializers
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     self = [super initWithNibName:@"AdvancedPreferencesView" bundle:nil];
@@ -21,6 +29,8 @@
     
     return self;
 }
+
+#pragma mark - Overrides
 
 - (void)loadView {
     [super loadView];
@@ -52,6 +62,8 @@
     [prefSegOnAc sizeToFit];
     [prefSegOnBattery sizeToFit];
 }
+
+#pragma mark - GSPreferencesModule protocol
 
 - (NSString *)title {
     return Str(@"Advanced");

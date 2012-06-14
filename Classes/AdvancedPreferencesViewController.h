@@ -7,17 +7,17 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import "PreferencesModule.h"
+#import "GSPreferencesModule.h"
+#import "PrefsController.h"
 
-@interface AdvancedPreferencesViewController : NSViewController <PreferencesModule> {
-@private
-    IBOutlet NSButton *prefChkRestoreState; // restore last used mode on startup
-    IBOutlet NSButton *prefChkPowerSourceBasedSwitching; // use power source-based switching
-    IBOutlet NSSegmentedControl *prefSegOnBattery; // pref for gpu on battery
-    IBOutlet NSSegmentedControl *prefSegOnAc; // pref for gpu on ac
-    IBOutlet NSTextField *onBatteryTextField;
-    IBOutlet NSTextField *pluggedInTextField;
-}
+@interface AdvancedPreferencesViewController : NSViewController <GSPreferencesModule>
+
+@property (strong) IBOutlet NSButton *prefChkRestoreState; // restore last used mode on startup
+@property (strong) IBOutlet NSButton *prefChkPowerSourceBasedSwitching; // use power source-based switching
+@property (strong) IBOutlet NSSegmentedControl *prefSegOnBattery; // pref for gpu on battery
+@property (strong) IBOutlet NSSegmentedControl *prefSegOnAc; // pref for gpu on ac
+@property (strong) IBOutlet NSTextField *onBatteryTextField;
+@property (strong) IBOutlet NSTextField *pluggedInTextField;
 
 @property (strong) PrefsController *prefs;
 

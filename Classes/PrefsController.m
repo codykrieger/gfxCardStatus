@@ -12,8 +12,7 @@
 
 @implementation PrefsController
 
-#pragma mark -
-#pragma mark class instance methods
+#pragma mark - Initializers
 
 - (id)init {
     if ((self = [super init])) {
@@ -22,6 +21,18 @@
     }
     return self;
 }
+
++ (PrefsController *)sharedInstance
+{
+    static dispatch_once_t pred = 0;
+    __strong static PrefsController *_sharedObject = nil;
+    dispatch_once(&pred, ^{
+        _sharedObject = [[self alloc] init]; // or some other init method
+    });
+    return _sharedObject;
+}
+
+#pragma mark - PrefsController API
 
 - (void)setUpPreferences {
     GTMLoggerDebug(@"Loading preferences and defaults");
@@ -137,19 +148,6 @@
 - (void)setLastMode:(int)value {
     [prefs setObject:[NSNumber numberWithInt:value] forKey:@"shouldRestoreToMode"];
     [self savePreferences];
-}
-
-#pragma mark -
-#pragma mark Singleton methods
-
-+ (PrefsController *)sharedInstance
-{
-    static dispatch_once_t pred = 0;
-    __strong static PrefsController *_sharedObject = nil;
-    dispatch_once(&pred, ^{
-        _sharedObject = [[self alloc] init]; // or some other init method
-    });
-    return _sharedObject;
 }
 
 @end

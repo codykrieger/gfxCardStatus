@@ -4,7 +4,6 @@
 
 #ifdef __OBJC__
     #import <Cocoa/Cocoa.h>
-    #import "gfxCardStatusAppDelegate.h"
     #import "GTMLogger.h"
     
     #define kGPUSettingACAdaptor    @"GPUSetting_ACAdaptor"

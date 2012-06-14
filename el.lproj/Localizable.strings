@@ -47,4 +47,4 @@
 
 /* Growl */
 "GrowlGPUChanged"       = "Καρτα γραφικών έχει αλλάξει";
-"GrowlSwitch"           = "Τέθηκε σε λειτουργεία: '%1$@'";
+"GrowlGPUChangedMessage"           = "Τέθηκε σε λειτουργεία: '%1$@'";

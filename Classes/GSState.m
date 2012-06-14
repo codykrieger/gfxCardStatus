@@ -25,6 +25,8 @@ void DisplayReconfigurationCallback(CGDirectDisplayID display,
             integratedString, 
             discreteString;
 
+#pragma mark - Initializers
+
 - (id)init {
     self = [super init];
     if (self) {
@@ -32,9 +34,6 @@ void DisplayReconfigurationCallback(CGDirectDisplayID display,
         usingLegacy = [(NSNumber *)[profile objectForKey:@"legacy"] boolValue];
         
         queue = dispatch_queue_create(NOTIFICATION_QUEUE_NAME, NULL);
-//        
-//        CGDisplayRegisterReconfigurationCallback(DisplayReconfigurationCallback,
-//                                                 (__bridge void *)self);
     }
     
     return self;

@@ -1,25 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-<!--
-   Growl Registration Ticket.growlRegDict
-   gfxCardStatus
-
-   Created by Cody Krieger on 4/26/10.
-   Copyright 2010 Cody Krieger. All rights reserved.
--->
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
-    <dict>
-        <key>TicketVersion</key>
-        <integer>1</integer>
-        <key>AllNotifications</key>
-        <array>
-            <string>switchedToDiscrete</string>
-            <string>switchedToIntegrated</string>
-        </array>
-        <key>DefaultNotifications</key>
-        <array>
-            <string>switchedToDiscrete</string>
-            <string>switchedToIntegrated</string>
-        </array>
-    </dict>
+<dict>
+	<key>TicketVersion</key>
+	<integer>1</integer>
+	<key>AllNotifications</key>
+	<array>
+		<string>GrowlGPUChanged</string>
+	</array>
+	<key>DefaultNotifications</key>
+	<array>
+		<string>GrowlGPUChanged</string>
+	</array>
+</dict>
 </plist>

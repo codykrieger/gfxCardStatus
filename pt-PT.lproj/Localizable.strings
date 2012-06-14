@@ -47,4 +47,4 @@
 
 /* Growl */
 "GrowlGPUChanged"       = "Placa gráfica mudada!";
-"GrowlSwitch"           = "em utilização.";
+"GrowlGPUChangedMessage"           = "em utilização.";

@@ -9,12 +9,49 @@
 #import "GSNotifier.h"
 #import "NSAttributedString+Hyperlink.h"
 
+#define kGPUChangedNotificationKey @"GrowlGPUChanged"
+
+@interface GSNotifier ()
++ (NSString *)_keyForNotificationType:(GSNotificationType)type;
+@end
+
 @implementation GSNotifier
 
-// FIXME: localize all of these huge strings
+#pragma mark - Initializers
+
++ (GSNotifier *)sharedInstance
+{
+    static dispatch_once_t pred = 0;
+    __strong static GSNotifier *_sharedObject = nil;
+    dispatch_once(&pred, ^{
+        _sharedObject = [[self alloc] init]; // or some other init method
+    });
+    return _sharedObject;
+}
+
+#pragma mark - GSNotifier API
+
++ (void)queueNotification:(GSNotificationType)type
+{
+    // FIXME: Support Mountain Lion's Notification Center here in addition to
+    // Growl on supported (>= 10.8.x) machines.
+    
+    NSString *key = [self _keyForNotificationType:type];
+    NSString *title = Str(key);
+    NSString *message = Str([title stringByAppendingString:@"Message"]);
+    
+    [GrowlApplicationBridge notifyWithTitle:title
+                                description:message 
+                           notificationName:key
+                                   iconData:nil 
+                                   priority:0 
+                                   isSticky:NO 
+                               clickContext:nil];
+}
 
 + (void)showOneTimeNotification
 {
+    // FIXME: Localize all of these huge strings
     NSAlert *versionInfo = [[NSAlert alloc] init];
     [versionInfo setMessageText:@"Thanks for downloading gfxCardStatus!"];
     [versionInfo setInformativeText:@"If you find it useful, please consider donating to support development and hosting costs. You can find the donate link, and the FAQ page (which you should REALLY read) at the gfxCardStatus website:"];
@@ -31,8 +68,33 @@
 + (void)showUnsupportedMachineMessage
 {
     NSAlert *alert = [NSAlert alertWithMessageText:@"You are using a system that gfxCardStatus does not support. Please ensure that you are using a MacBook Pro with dual GPUs." 
-                                     defaultButton:@"Oh, I see." alternateButton:nil otherButton:nil informativeTextWithFormat:@""];
+                                     defaultButton:@"Oh, I see." 
+                                   alternateButton:nil 
+                                       otherButton:nil 
+                         informativeTextWithFormat:@""];
     [alert runModal];
+}
+
+#pragma mark - GrowlApplicationBridgeDelegate protocol
+
+- (NSDictionary *)registrationDictionaryForGrowl
+{
+    return [NSDictionary dictionaryWithContentsOfFile:
+            [[NSBundle mainBundle] pathForResource:@"Growl Registration Ticket" 
+                                            ofType:@"growlRegDict"]];
+}
+
+#pragma mark - Private helpers
+
++ (NSString *)_keyForNotificationType:(GSNotificationType)type
+{
+    if (type == GSNotificationTypeGPUChanged) {
+        return kGPUChangedNotificationKey;
+    }
+    
+    assert(false); // We shouldn't ever get here.
+    
+    return nil;
 }
 
 @end

@@ -9,7 +9,6 @@
 #import <Cocoa/Cocoa.h>
 #import <Sparkle/Sparkle.h>
 #import <Sparkle/SUUpdater.h>
-#import <Growl/Growl.h>
 
 #import "PrefsController.h"
 #import "PreferencesWindowController.h"
@@ -17,7 +16,7 @@
 #import "GSMenuController.h"
 #import "GSGPU.h"
 
-@interface gfxCardStatusAppDelegate : NSObject <NSApplicationDelegate,GrowlApplicationBridgeDelegate,GSGPUDelegate> {
+@interface gfxCardStatusAppDelegate : NSObject <NSApplicationDelegate,GSGPUDelegate> {
     NSStatusItem *statusItem;
     
     IBOutlet SUUpdater *updater;
