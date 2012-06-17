@@ -39,12 +39,15 @@ static NSString *_lastMessage = nil;
     // FIXME: Support Mountain Lion's Notification Center here in addition to
     // Growl on supported (>= 10.8.x) machines.
     
+    // Get the localized notification name and message, as well as the current
+    // GPU name for display in the message.
     NSString *key = [self _keyForNotificationType:type];
     NSString *title = Str(key);
-    
     NSString *cardName = type == GSGPUTypeIntegrated ? [GSGPU integratedGPUName] : [GSGPU discreteGPUName];
     NSString *message = [NSString stringWithFormat:Str([key stringByAppendingString:@"Message"]), cardName];
     
+    // Make sure that we don't display the notification if it's the same message
+    // as the last one we fired off. Because that's unbelievably annoying.
     if (![message isEqualToString:_lastMessage]) {
         [GrowlApplicationBridge notifyWithTitle:title
                                     description:message 
