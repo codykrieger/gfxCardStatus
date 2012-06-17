@@ -31,6 +31,7 @@
 		A159E4EA1184E84300E68428 /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A159E4E91184E84300E68428 /* Sparkle.framework */; };
 		A159E4FC1184EC5100E68428 /* Sparkle.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = A159E4E91184E84300E68428 /* Sparkle.framework */; };
 		A161687F158E0E380063BE94 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = A161687E158E0E370063BE94 /* LICENSE */; };
+		A1616892158E143A0063BE94 /* ReactiveCocoa.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = A1ED2CF715884B8A00B99CDE /* ReactiveCocoa.framework */; };
 		A16B28F41196B0E7006EB263 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = A16B28F31196B0E7006EB263 /* README.md */; };
 		A17220A91236DA8A00636797 /* Growl Registration Ticket.growlRegDict in Resources */ = {isa = PBXBuildFile; fileRef = A17220981236DA0B00636797 /* Growl Registration Ticket.growlRegDict */; };
 		A17221841236DE4200636797 /* Growl License.txt in Resources */ = {isa = PBXBuildFile; fileRef = A17221831236DE4200636797 /* Growl License.txt */; };
@@ -94,6 +95,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				A1616892158E143A0063BE94 /* ReactiveCocoa.framework in CopyFiles */,
 				A159E4FC1184EC5100E68428 /* Sparkle.framework in CopyFiles */,
 				A12AACD1158B1EEC00CD140F /* Growl.framework in CopyFiles */,
 			);
