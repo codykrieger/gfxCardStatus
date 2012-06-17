@@ -6,8 +6,6 @@
 //  Copyright 2011 Michal Vančo. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-
 @protocol GSPreferencesModule
 
 @required
