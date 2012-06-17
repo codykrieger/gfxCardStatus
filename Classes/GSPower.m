@@ -8,6 +8,7 @@
 
 #import "GSPower.h"
 #import "GSMux.h"
+#import "GSGPU.h"
 
 #include <IOKit/IOKitLib.h>
 #include <IOKit/ps/IOPSKeys.h>
@@ -170,6 +171,12 @@ void _registerPowerSourceNotification(GSPower *powerSourceMonitor)
             
         case GSPowerSourceBasedSwitchingModeDynamic:
             [GSMux setMode:GSSwitcherModeDynamicSwitching];
+            
+            // We have to manually trigger a notification in case we're already
+            // using the GPU that Dynamic Switching would kick us over to,
+            // because in that case, we won't receive a display change
+            // notification from the OS.
+            [GSGPU fireManualChangeNotification];
             break;
     }
 }

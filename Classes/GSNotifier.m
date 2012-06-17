@@ -12,6 +12,8 @@
 
 #define kGPUChangedNotificationKey @"GrowlGPUChanged"
 
+static NSString *_lastMessage = nil;
+
 @interface GSNotifier ()
 + (NSString *)_keyForNotificationType:(GSGPUType)type;
 @end
@@ -43,13 +45,17 @@
     NSString *cardName = type == GSGPUTypeIntegrated ? [GSGPU integratedGPUName] : [GSGPU discreteGPUName];
     NSString *message = [NSString stringWithFormat:Str([key stringByAppendingString:@"Message"]), cardName];
     
-    [GrowlApplicationBridge notifyWithTitle:title
-                                description:message 
-                           notificationName:key
-                                   iconData:nil 
-                                   priority:0 
-                                   isSticky:NO 
-                               clickContext:nil];
+    if (![message isEqualToString:_lastMessage]) {
+        [GrowlApplicationBridge notifyWithTitle:title
+                                    description:message 
+                               notificationName:key
+                                       iconData:nil 
+                                       priority:0 
+                                       isSticky:NO 
+                                   clickContext:nil];
+        
+        _lastMessage = message;
+    }
 }
 
 + (void)showOneTimeNotification
