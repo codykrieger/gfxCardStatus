@@ -126,7 +126,6 @@
 		A11599C313D429860097E4BC /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/AdvancedPreferencesView.xib; sourceTree = "<group>"; };
 		A11599C513D429860097E4BC /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/GeneralPreferencesView.xib; sourceTree = "<group>"; };
 		A12AACD2158C9DE100CD140F /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
-		A12AACD4158C9E0C00CD140F /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
 		A12AACF8158D7E5F00CD140F /* ru-RU */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "ru-RU"; path = "ru-RU.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		A12AACF9158D7E7C00CD140F /* el */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = el; path = el.lproj/Localizable.strings; sourceTree = "<group>"; };
 		A12DE37712064D3F00D8E08C /* zh_CN */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = zh_CN; path = zh_CN.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -235,7 +234,7 @@
 		1058C7A0FEA54F0111CA2CBB /* Linked Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				A12AACD4158C9E0C00CD140F /* OpenGL.framework */,
+				A1ED2CEB15884B8900B99CDE /* ReactiveCocoa.xcodeproj */,
 				A12AACD2158C9DE100CD140F /* QuartzCore.framework */,
 				A1B9412B15899CFD000EE7A7 /* Growl.framework */,
 				A159E4E91184E84300E68428 /* Sparkle.framework */,
@@ -288,7 +287,6 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				A1ED2CEB15884B8900B99CDE /* ReactiveCocoa.xcodeproj */,
 				1058C7A0FEA54F0111CA2CBB /* Linked Frameworks */,
 				1058C7A2FEA54F0111CA2CBB /* Other Frameworks */,
 			);
