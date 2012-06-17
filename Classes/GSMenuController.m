@@ -49,10 +49,10 @@
 {
     self = [super init];
     if (self) {
-        prefs = [PrefsController sharedInstance];
+        _prefs = [PrefsController sharedInstance];
         
         // FIXME: Test out ReactiveCocoa for this use case.
-        [RACAble(prefs, shouldUseSmartMenuBarIcons) subscribeNext:^(id smartIcons) {
+        [RACAble(_prefs, shouldUseSmartMenuBarIcons) subscribeNext:^(id smartIcons) {
             GTMLoggerDebug(@"shouldUseSmartMenuBarIcons: %d", [smartIcons boolValue]);
             [self updateMenu];
         }];
@@ -67,9 +67,9 @@
 {
     [statusMenu setDelegate:self];
     
-    statusItem = [[NSStatusBar systemStatusBar] statusItemWithLength:NSVariableStatusItemLength];
-    [statusItem setMenu:statusMenu];
-    [statusItem setHighlightMode:YES];
+    _statusItem = [[NSStatusBar systemStatusBar] statusItemWithLength:NSVariableStatusItemLength];
+    [_statusItem setMenu:statusMenu];
+    [_statusItem setHighlightMode:YES];
     
     BOOL isLegacyMachine = [GSGPU isLegacyMachine];
     [switchGPUs setHidden:!isLegacyMachine];
@@ -98,13 +98,13 @@
     NSString *cardString = (isUsingIntegrated ? [GSGPU integratedGPUName] : [GSGPU discreteGPUName]);
     
     // set menu bar icon
-    if ([prefs shouldUseImageIcons]) {
-        [statusItem setImage:[NSImage imageNamed:(isUsingIntegrated ? @"integrated.png" : @"discrete.png")]];
+    if ([_prefs shouldUseImageIcons]) {
+        [_statusItem setImage:[NSImage imageNamed:(isUsingIntegrated ? @"integrated.png" : @"discrete.png")]];
     } else {
         // grab first character of GPU string for the menu bar icon
         unichar firstLetter;
         
-        if ([GSGPU isLegacyMachine] || ![prefs shouldUseSmartMenuBarIcons]) {
+        if ([GSGPU isLegacyMachine] || ![_prefs shouldUseSmartMenuBarIcons]) {
             firstLetter = [GSMux isUsingIntegratedGPU] ? 'i' : 'd';
         } else {
             firstLetter = [cardString characterAtIndex:0];
@@ -130,7 +130,7 @@
                                      attributes:attributes];
         
         // set menu bar text "icon"
-        [statusItem setAttributedTitle:title];
+        [_statusItem setAttributedTitle:title];
     }
     
     if (![GSGPU isLegacyMachine]) {
@@ -162,23 +162,23 @@
 
 - (IBAction)openPreferences:(id)sender
 {
-    if (!preferencesWindowController) {
-        preferencesWindowController = [[PreferencesWindowController alloc] init];
+    if (!_preferencesWindowController) {
+        _preferencesWindowController = [[PreferencesWindowController alloc] init];
         
         NSArray *modules = [NSArray arrayWithObjects:
                             [[GeneralPreferencesViewController alloc] init], 
                             [[AdvancedPreferencesViewController alloc] init],
                             nil];
         
-        [preferencesWindowController setModules:modules];
+        [_preferencesWindowController setModules:modules];
     }
     
     // FIXME this sucks, the menu controller shouldn't know anything about prefs
-    preferencesWindowController.window.delegate = prefs;
+    _preferencesWindowController.window.delegate = _prefs;
     
-    [preferencesWindowController.window center];
-    [preferencesWindowController.window makeKeyAndOrderFront:self];
-    [preferencesWindowController.window setOrderedIndex:0];
+    [_preferencesWindowController.window center];
+    [_preferencesWindowController.window makeKeyAndOrderFront:self];
+    [_preferencesWindowController.window setOrderedIndex:0];
     [NSApp activateIgnoringOtherApps:YES];
 }
 
@@ -238,8 +238,8 @@
     // FIXME: Do this in a shorter/more succinct way.
     
     // white image when menu is open
-    if ([prefs shouldUseImageIcons]) {
-        [statusItem setImage:[NSImage imageNamed:[[[statusItem image] name] stringByAppendingString:@"-white.png"]]];
+    if ([_prefs shouldUseImageIcons]) {
+        [_statusItem setImage:[NSImage imageNamed:[[[_statusItem image] name] stringByAppendingString:@"-white.png"]]];
     }
 }
 
@@ -248,8 +248,8 @@
     // FIXME: Do this in a shorter/more succinct way.
     
     // black image when menu is closed
-    if ([prefs shouldUseImageIcons]) {
-        [statusItem setImage:[NSImage imageNamed:[[[statusItem image] name] stringByReplacingOccurrencesOfString:@"-white" withString:@".png"]]];
+    if ([_prefs shouldUseImageIcons]) {
+        [_statusItem setImage:[NSImage imageNamed:[[[_statusItem image] name] stringByReplacingOccurrencesOfString:@"-white" withString:@".png"]]];
     }
 }
 

@@ -15,10 +15,10 @@
 @end
 
 @interface GSMenuController : NSObject <NSMenuDelegate> {
-    NSStatusItem *statusItem;
+    NSStatusItem *_statusItem;
     
-    PrefsController *prefs;
-    PreferencesWindowController *preferencesWindowController;
+    PrefsController *_prefs;
+    PreferencesWindowController *_preferencesWindowController;
 }
 
 @property (unsafe_unretained) id<GSMenuControllerDelegate> delegate;

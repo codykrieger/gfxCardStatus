@@ -55,7 +55,7 @@
 
 + (void)showOneTimeNotification
 {
-    // FIXME: Localize all of these huge strings
+    // FIXME: Localize these strings
     NSAlert *versionInfo = [[NSAlert alloc] init];
     [versionInfo setMessageText:@"Thanks for downloading gfxCardStatus!"];
     [versionInfo setInformativeText:@"If you find it useful, please consider donating to support development and hosting costs. You can find the donate link, and the FAQ page (which you should REALLY read) at the gfxCardStatus website:"];
@@ -71,6 +71,7 @@
 
 + (void)showUnsupportedMachineMessage
 {
+    // FIXME: Localize these strings
     NSAlert *alert = [NSAlert alertWithMessageText:@"You are using a system that gfxCardStatus does not support. Please ensure that you are using a MacBook Pro with dual GPUs." 
                                      defaultButton:@"Oh, I see." 
                                    alternateButton:nil 
