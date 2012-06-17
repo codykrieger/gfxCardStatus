@@ -16,19 +16,10 @@
 #import "GSGPU.h"
 
 @interface gfxCardStatusAppDelegate : NSObject <NSApplicationDelegate,GSGPUDelegate> {
-    NSStatusItem *statusItem;
-    
-    IBOutlet SUUpdater *updater;
-    
-    // preferences for all!
-    PrefsController *prefs;
-    PreferencesWindowController *pwc;
-    
-    // power source monitor
-//    PowerSourceMonitor *powerSourceMonitor;
-//    PowerSource lastPowerSource;
+    PrefsController *_prefs;
 }
 
+@property (strong) IBOutlet SUUpdater *updater;
 @property (strong) IBOutlet GSMenuController *menuController;
 
 @end

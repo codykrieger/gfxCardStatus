@@ -18,13 +18,14 @@
 
 @implementation gfxCardStatusAppDelegate
 
+@synthesize updater;
 @synthesize menuController;
 
 #pragma mark - Initialization
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
-    prefs = [PrefsController sharedInstance];
+    _prefs = [PrefsController sharedInstance];
     
     if (![GSMux switcherOpen]) {
         GTMLoggerError(@"Can't open connection to AppleGraphicsControl. This probably isn't a gfxCardStatus-compatible machine.");
@@ -50,9 +51,9 @@
     
     // Show the one-time startup notification asking users to be kind and donate
     // if they like gfxCardStatus. Then make it go away forever.
-    if (![prefs boolForKey:kHasSeenOneTimeNotificationKey]) {
+    if (![_prefs boolForKey:kHasSeenOneTimeNotificationKey]) {
         [GSNotifier showOneTimeNotification];
-        [prefs setBool:YES forKey:kHasSeenOneTimeNotificationKey];
+        [_prefs setBool:YES forKey:kHasSeenOneTimeNotificationKey];
     }
     
     // Set up Growl notifications regardless of whether or not we're supposed
@@ -61,7 +62,7 @@
     
     // FIXME: hook up pref directly to updater.automaticallyChecksForUpdates
     // Check for updates if the user has them enabled.
-    if ([prefs shouldCheckForUpdatesOnStartup])
+    if ([_prefs shouldCheckForUpdatesOnStartup])
         [updater checkForUpdatesInBackground];
 }
 
