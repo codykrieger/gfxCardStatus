@@ -73,8 +73,8 @@ void DisplayReconfigurationCallback(CGDirectDisplayID display,
 //    self.usingIntegrated = !self.usingIntegrated;
 //    GPUType to = (self.usingIntegrated ? GSGPUTypeIntegrated : GSGPUTypeDiscrete);
 //    
-//    if ([delegate respondsToSelector:@selector(gpuChangedTo:from:)])
-//        [delegate gpuChangedTo:to from:from];
+//    if ([delegate respondsToSelector:@selector(GPUDidChangeTo:from:)])
+//        [delegate GPUDidChangeTo:to from:from];
 //}
 
 #pragma mark -

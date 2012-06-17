@@ -19,13 +19,18 @@
 #define kLegacyIntegratedGPUName    @"NVIDIA GeForce 9400M"
 #define kLegacyDiscreteGPUName      @"NVIDIA GeForce 9600M GT"
 
+#define kNotificationQueueName      "gfxCardStatusGPUChangeNotificationQueue"
+
 static void displayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSummaryFlags flags, void *userInfo);
+static dispatch_queue_t notificationQueue = NULL;
 
 static NSMutableArray *cachedGPUs = nil;
 static NSString *cachedIntegratedGPUName = nil;
 static NSString *cachedDiscreteGPUName = nil;
+
 static BOOL didCacheLegacyValue = NO;
 static BOOL cachedLegacyValue = NO;
+
 static id<GSGPUDelegate> delegate = nil;
 
 @implementation GSGPU
@@ -142,20 +147,24 @@ static id<GSGPUDelegate> delegate = nil;
 + (void)registerForGPUChangeNotifications:(id<GSGPUDelegate>)object
 {
     delegate = object;
+    notificationQueue = dispatch_queue_create(kNotificationQueueName, NULL);
     CGDisplayRegisterReconfigurationCallback(displayReconfigurationCallback, NULL);
 }
 
 static void displayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSummaryFlags flags, void *userInfo)
 {
     if (flags & kCGDisplaySetModeFlag) {
-        
+        dispatch_async(notificationQueue, ^(void) {
+            [NSThread sleepForTimeInterval:0.1];
+            
+        });
         
         BOOL isUsingIntegrated = [GSMux isUsingIntegratedGPU];
         
         GTMLoggerInfo(@"Notification: GPU changed. Integrated? %d", isUsingIntegrated);
         
         GSGPUType activeType = (isUsingIntegrated ? GSGPUTypeIntegrated : GSGPUTypeDiscrete);
-        [delegate gpuChangedTo:activeType];
+        [delegate GPUDidChangeTo:activeType];
     }
 }
 

@@ -14,7 +14,7 @@ typedef enum {
 } GSGPUType;
 
 @protocol GSGPUDelegate <NSObject>
-- (void)gpuChangedTo:(GSGPUType)gpu;
+- (void)GPUDidChangeTo:(GSGPUType)gpu;
 @end
 
 @interface GSGPU : NSObject

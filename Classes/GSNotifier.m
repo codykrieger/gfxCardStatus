@@ -41,7 +41,7 @@
     NSString *key = [self _keyForNotificationType:type];
     NSString *title = Str(key);
     
-    NSString *cardName = type == GSNotificationTypeGPUChangedToIntegrated ? [GSGPU integratedGPUName] : [GSGPU discreteGPUName];
+    NSString *cardName = type == GSNotificationTypeGPUDidChangeToIntegrated ? [GSGPU integratedGPUName] : [GSGPU discreteGPUName];
     NSString *message = [NSString stringWithFormat:Str([title stringByAppendingString:@"Message"]), cardName];
     
     [GrowlApplicationBridge notifyWithTitle:title
@@ -92,8 +92,8 @@
 
 + (NSString *)_keyForNotificationType:(GSNotificationType)type
 {
-    if (type == GSNotificationTypeGPUChangedToIntegrated
-        || type == GSNotificationTypeGPUChangedToDiscrete) {
+    if (type == GSNotificationTypeGPUDidChangeToIntegrated
+        || type == GSNotificationTypeGPUDidChangeToDiscrete) {
         return kGPUChangedNotificationKey;
     }
     

@@ -27,7 +27,7 @@
     prefs = [PrefsController sharedInstance];
     
     if (![GSMux switcherOpen]) {
-        GTMLoggerError(@"Can't open connection to AppleGraphicsControl.");
+        GTMLoggerError(@"Can't open connection to AppleGraphicsControl. This probably isn't a gfxCardStatus-compatible machine.");
         
         [GSNotifier showUnsupportedMachineMessage];
         [menuController quit:self];
@@ -67,7 +67,7 @@
 
 #pragma mark - GSGPUDelegate protocol
 
-- (void)gpuChangedTo:(GSGPUType)gpu
+- (void)GPUDidChangeTo:(GSGPUType)gpu
 {
     [menuController updateMenu];
     
