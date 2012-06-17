@@ -16,42 +16,15 @@
 #include <sys/sysctl.h>
 #include <unistd.h>
 
-static const CFStringRef procTaskKey = (const CFStringRef)__builtin___CFStringMakeConstantString("task-list");
+static const CFStringRef kProcTaskKey = (const CFStringRef)__builtin___CFStringMakeConstantString("task-list");
 
-static struct kinfo_proc *procInfo = NULL;
-static size_t procSize = 0;
-static size_t procNum = 0;
+static struct kinfo_proc *_procInfo = NULL;
+static size_t _procSize = 0;
+static size_t _procNum = 0;
 
-@implementation GSProcess
+#pragma mark - Static C methods
 
-#pragma mark -
-#pragma mark Power source helpers
-
-// helper to get preference key from PowerSource enum
-//+ (NSString *)keyForPowerSource:(PowerSource)powerSource {
-//    return ((powerSource == psBattery) ? kGPUSettingBattery : kGPUSettingACAdaptor);
-//}
-
-// helper to return current mode
-//+ (GSSwitcherMode)switcherGetMode {
-//    if ([GSMux isUsingDynamicSwitching]) return GSSwitcherModeDynamicSwitching;
-//    NSDictionary *profile = [GSProcess getGraphicsProfile];
-//    return ([(NSNumber *)[profile objectForKey:@"usingIntegrated"] boolValue] ? GSSwitcherModeForceIntegrated : GSSwitcherModeForceDiscrete);
-//}
-
-#pragma mark -
-#pragma mark Task list magic
-
-//+ (BOOL)procInit {
-//    return IOMasterPort(bootstrap_port, &procPort) == KERN_SUCCESS;
-//}
-
-//+ (void)procFree {
-//    free(procInfo);
-//    procInfo = NULL;
-//}
-
-static void procTask(const void *value, void *param) {
+static void _procTask(const void *value, void *param) {
     NSMutableArray *arr = (__bridge NSMutableArray *)param;
     NSNumber *key = NULL;
     NSString *procName = NULL;
@@ -63,14 +36,14 @@ static void procTask(const void *value, void *param) {
     char *buf, *sp, *cp;
     
     // return if we don't have any processes, or our current process pid is rubbish
-    if (procInfo == NULL) return;
+    if (_procInfo == NULL) return;
     if (!CFNumberGetValue(value, kCFNumberLongLongType, &pid)) return;
     
     // loop through the kernel process list, find the one that matches our current 
     // pid (must conform to AppleGraphicsControl), then break
-    for (i = 0; i < procNum; i++) {
-        if (procInfo[i].kp_proc.p_pid == pid) {
-            k = &procInfo[i];
+    for (i = 0; i < _procNum; i++) {
+        if (_procInfo[i].kp_proc.p_pid == pid) {
+            k = &_procInfo[i];
             break;
         }
     }
@@ -102,8 +75,8 @@ static void procTask(const void *value, void *param) {
     // we finally have the proc name!
     procName = [[NSString alloc] initWithUTF8String:cp];
     [arr addObject:[NSDictionary dictionaryWithObjectsAndKeys:
-                     procName, kTaskItemName,
-                     [key stringValue], kTaskItemPID, nil]];
+                    procName, kTaskItemName,
+                    [key stringValue], kTaskItemPID, nil]];
     
     free(buf);
     goto done;
@@ -116,7 +89,7 @@ done:
 }
 
 // update the current list of kernel tasks
-static void procUpdate() {
+static void _procUpdate() {
     // we want all process entries from the kernel
     int mib[3] = { CTL_KERN, KERN_PROC, KERN_PROC_ALL };
     
@@ -127,20 +100,20 @@ static void procUpdate() {
     if (sysctl(mib, 3, NULL, &sz, NULL, 0) < 0) return;
     
     // if procInfo has stale data, reallocate it in preparation for new task list
-    if (procInfo == NULL || sz != procSize) {
-        info = realloc(procInfo, sz);
+    if (_procInfo == NULL || sz != _procSize) {
+        info = realloc(_procInfo, sz);
         if (info == NULL) return;
-        procInfo = info; procSize = sz;
+        _procInfo = info; _procSize = sz;
     }
     
     // read tasks into procInfo and return if unsuccessful
-    if (sysctl(mib, 3, procInfo, &sz, NULL, 0) < 0) return;
+    if (sysctl(mib, 3, _procInfo, &sz, NULL, 0) < 0) return;
     
     // update number of processes in the list
-    procNum = sz / sizeof(struct kinfo_proc);
+    _procNum = sz / sizeof(struct kinfo_proc);
 }
 
-static void procScan(io_registry_entry_t service, NSMutableArray *arr) {
+static void _procScan(io_registry_entry_t service, NSMutableArray *arr) {
     io_registry_entry_t    child    = 0;
     io_iterator_t          children = 0;
     CFMutableDictionaryRef props    = NULL;
@@ -149,21 +122,25 @@ static void procScan(io_registry_entry_t service, NSMutableArray *arr) {
     if (IOObjectConformsTo(service, "AppleGraphicsControl")) {
         kern_return_t status = IORegistryEntryCreateCFProperties(service, &props, kCFAllocatorDefault, kNilOptions);
         if (status == KERN_SUCCESS && CFGetTypeID(props) == CFDictionaryGetTypeID()) {
-            CFTypeRef array = CFDictionaryGetValue(props, procTaskKey);
+            CFTypeRef array = CFDictionaryGetValue(props, kProcTaskKey);
             CFRange range = { 0, CFArrayGetCount(array) };
-            CFArrayApplyFunction(array, range, procTask, (__bridge void *)arr);
+            CFArrayApplyFunction(array, range, _procTask, (__bridge void *)arr);
             CFRelease(props);
         }
     }
     
     if (IORegistryEntryGetChildIterator(service, kIOPowerPlane, &children) == KERN_SUCCESS) { // kIOServicePlane
         while ((child = IOIteratorNext(children))) {
-            procScan(child, arr);
+            _procScan(child, arr);
             IOObjectRelease(child);
         }
         IOObjectRelease(children);
     }
 }
+
+@implementation GSProcess
+
+#pragma mark - GSProcess API
 
 + (NSArray *)getTaskList {
     NSMutableArray *list = [NSMutableArray array];
@@ -186,8 +163,8 @@ static void procScan(io_registry_entry_t service, NSMutableArray *arr) {
     service = IORegistryGetRootEntry(kIOMasterPortDefault);
     if (!service) return [NSArray array];
     
-    procUpdate();
-    procScan(service, list);
+    _procUpdate();
+    _procScan(service, list);
     
     IOObjectRelease(service);
     

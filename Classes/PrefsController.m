@@ -10,6 +10,8 @@
 #import "GSStartup.h"
 #import "GSGPU.h"
 
+#define kPreferencesPlistPath [@"~/Library/Preferences/com.codykrieger.gfxCardStatus-Preferences.plist" stringByExpandingTildeInPath]
+
 @interface PrefsController ()
 - (NSString *)_getPrefsPath;
 @end
@@ -152,7 +154,7 @@
 
 - (NSString *)_getPrefsPath
 {
-    return [@"~/Library/Preferences/com.codykrieger.gfxCardStatus-Preferences.plist" stringByExpandingTildeInPath];
+    return kPreferencesPlistPath;
 }
 
 @end

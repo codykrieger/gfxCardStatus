@@ -15,11 +15,6 @@
 
 @interface GSProcess : NSObject
 
-//+ (NSString *)keyForPowerSource:(PowerSource)powerSource;
-//+ (GSSwitcherMode)switcherGetMode;
-
-//+ (BOOL)procInit;
-//+ (void)procFree;
 + (NSArray *)getTaskList;
 
 @end

@@ -221,11 +221,11 @@
 				A11599CA13D42A720097E4BC /* System Utils */,
 				256AC3D80F4B6AC300CF3369 /* gfxCardStatusAppDelegate.h */,
 				256AC3D90F4B6AC300CF3369 /* gfxCardStatusAppDelegate.m */,
+				1DDD58140DA1D0A300B32029 /* MainMenu.xib */,
 				A1ED2D20158860F900B99CDE /* GSMenuController.h */,
 				A1ED2D21158860FA00B99CDE /* GSMenuController.m */,
 				A1ED2D1D15885D6900B99CDE /* GSNotifier.h */,
 				A1ED2D1E15885D6900B99CDE /* GSNotifier.m */,
-				1DDD58140DA1D0A300B32029 /* MainMenu.xib */,
 			);
 			path = Classes;
 			sourceTree = "<group>";

@@ -19,29 +19,50 @@
 #define kLegacyIntegratedGPUName    @"NVIDIA GeForce 9400M"
 #define kLegacyDiscreteGPUName      @"NVIDIA GeForce 9600M GT"
 
-#define kNotificationQueueName      "gfxCardStatusGPUChangeNotificationQueue"
+#define kNotificationQueueName      "com.codykrieger.gfxCardStatus.GPUChangeNotificationQueue"
+#define kNotificationSleepInterval  (0.5)
 
-static void displayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSummaryFlags flags, void *userInfo);
-static dispatch_queue_t notificationQueue = NULL;
+static void _displayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSummaryFlags flags, void *userInfo);
+static dispatch_queue_t _notificationQueue = NULL;
 
-static NSMutableArray *cachedGPUs = nil;
-static NSString *cachedIntegratedGPUName = nil;
-static NSString *cachedDiscreteGPUName = nil;
+static NSMutableArray *_cachedGPUs = nil;
+static NSString *_cachedIntegratedGPUName = nil;
+static NSString *_cachedDiscreteGPUName = nil;
 
-static BOOL didCacheLegacyValue = NO;
-static BOOL cachedLegacyValue = NO;
+static BOOL _didCacheLegacyValue = NO;
+static BOOL _cachedLegacyValue = NO;
 
-static id<GSGPUDelegate> delegate = nil;
+static id<GSGPUDelegate> _delegate = nil;
+
+#pragma mark - Static C methods
+
+static void _displayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSummaryFlags flags, void *userInfo)
+{
+    if (flags & kCGDisplaySetModeFlag) {
+        dispatch_async(_notificationQueue, ^(void) {
+            [NSThread sleepForTimeInterval:kNotificationSleepInterval];
+            
+            BOOL isUsingIntegrated = [GSMux isUsingIntegratedGPU];
+            
+            GTMLoggerInfo(@"Notification: GPU changed. Integrated? %d", isUsingIntegrated);
+            
+            GSGPUType activeType = (isUsingIntegrated ? GSGPUTypeIntegrated : GSGPUTypeDiscrete);
+            [_delegate GPUDidChangeTo:activeType];
+        });
+    }
+}
 
 @implementation GSGPU
 
+#pragma mark - GSGPU API
+
 + (NSArray *)getGPUNames
 {
-    if (cachedGPUs) {
-        return cachedGPUs;
+    if (_cachedGPUs) {
+        return _cachedGPUs;
     }
     
-    cachedGPUs = [NSMutableArray array];
+    _cachedGPUs = [NSMutableArray array];
     
     // The IOPCIDevice class includes display adapters/GPUs.
     CFMutableDictionaryRef devices = IOServiceMatching(kIOPCIDevice);
@@ -72,7 +93,7 @@ static id<GSGPUDelegate> delegate = nil;
                     NSString *gpuName = [[NSString alloc] initWithData:(__bridge NSData *)model 
                                                               encoding:NSASCIIStringEncoding];
                     
-                    [cachedGPUs addObject:gpuName];
+                    [_cachedGPUs addObject:gpuName];
                 }
             }
             
@@ -80,16 +101,16 @@ static id<GSGPUDelegate> delegate = nil;
         }
     }
     
-    return cachedGPUs;
+    return _cachedGPUs;
 }
 
 + (NSString *)integratedGPUName
 {
-    if (cachedIntegratedGPUName)
-        return cachedIntegratedGPUName;
+    if (_cachedIntegratedGPUName)
+        return _cachedIntegratedGPUName;
     
     if ([self isLegacyMachine]) {
-        cachedIntegratedGPUName = kLegacyIntegratedGPUName;
+        _cachedIntegratedGPUName = kLegacyIntegratedGPUName;
     } else {
         NSArray *gpus = [self getGPUNames];
         
@@ -97,22 +118,22 @@ static id<GSGPUDelegate> delegate = nil;
             // Intel GPUs have always been the integrated ones in newer machines
             // so far.
             if ([gpu hasPrefix:kIntelGPUPrefix]) {
-                cachedIntegratedGPUName = gpu;
+                _cachedIntegratedGPUName = gpu;
                 break;
             }
         }
     }
     
-    return cachedIntegratedGPUName;
+    return _cachedIntegratedGPUName;
 }
 
 + (NSString *)discreteGPUName
 {
-    if (cachedDiscreteGPUName)
-        return cachedDiscreteGPUName;
+    if (_cachedDiscreteGPUName)
+        return _cachedDiscreteGPUName;
     
     if ([self isLegacyMachine]) {
-        cachedDiscreteGPUName = kLegacyDiscreteGPUName;
+        _cachedDiscreteGPUName = kLegacyDiscreteGPUName;
     } else {
         NSArray *gpus = [self getGPUNames];
         
@@ -120,52 +141,35 @@ static id<GSGPUDelegate> delegate = nil;
             // Check for the GPU name that *doesn't* start with Intel, so that
             // both AMD and NVIDIA GPUs get detected here.
             if (![gpu hasPrefix:kIntelGPUPrefix]) {
-                cachedDiscreteGPUName = gpu;
+                _cachedDiscreteGPUName = gpu;
                 break;
             }
         }
     }
     
-    return cachedDiscreteGPUName;
+    return _cachedDiscreteGPUName;
 }
 
 + (BOOL)isLegacyMachine
 {
-    if (didCacheLegacyValue)
-        return cachedLegacyValue;
+    if (_didCacheLegacyValue)
+        return _cachedLegacyValue;
     
     NSArray *gpuNames = [self getGPUNames];
     
-    cachedLegacyValue = [gpuNames containsObject:kLegacyIntegratedGPUName]
+    _cachedLegacyValue = [gpuNames containsObject:kLegacyIntegratedGPUName]
                         && [gpuNames containsObject:kLegacyDiscreteGPUName];
     
-    didCacheLegacyValue = YES;
+    _didCacheLegacyValue = YES;
     
-    return cachedLegacyValue;
+    return _cachedLegacyValue;
 }
 
 + (void)registerForGPUChangeNotifications:(id<GSGPUDelegate>)object
 {
-    delegate = object;
-    notificationQueue = dispatch_queue_create(kNotificationQueueName, NULL);
-    CGDisplayRegisterReconfigurationCallback(displayReconfigurationCallback, NULL);
-}
-
-static void displayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSummaryFlags flags, void *userInfo)
-{
-    if (flags & kCGDisplaySetModeFlag) {
-        dispatch_async(notificationQueue, ^(void) {
-            [NSThread sleepForTimeInterval:0.1];
-            
-        });
-        
-        BOOL isUsingIntegrated = [GSMux isUsingIntegratedGPU];
-        
-        GTMLoggerInfo(@"Notification: GPU changed. Integrated? %d", isUsingIntegrated);
-        
-        GSGPUType activeType = (isUsingIntegrated ? GSGPUTypeIntegrated : GSGPUTypeDiscrete);
-        [delegate GPUDidChangeTo:activeType];
-    }
+    _delegate = object;
+    _notificationQueue = dispatch_queue_create(kNotificationQueueName, NULL);
+    CGDisplayRegisterReconfigurationCallback(_displayReconfigurationCallback, NULL);
 }
 
 @end

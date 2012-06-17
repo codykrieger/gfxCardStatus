@@ -11,12 +11,14 @@
 #include <IOKit/ps/IOPowerSources.h>
 #import "GSPower.h"
 
-static BOOL stringsAreEqual(CFStringRef a, CFStringRef b);
-static GSPowerType getCurrentPowerSource();
-static void powerSourceChanged(void *context);
-static void registerPowerSourceNotification(GSPower *powerSourceMonitor);
+static BOOL _stringsAreEqual(CFStringRef a, CFStringRef b);
+static GSPowerType _getCurrentPowerSource();
+static void _powerSourceChanged(void *context);
+static void _registerPowerSourceNotification(GSPower *powerSourceMonitor);
 
-static BOOL stringsAreEqual(CFStringRef a, CFStringRef b)
+#pragma mark - Static C methods
+
+static BOOL _stringsAreEqual(CFStringRef a, CFStringRef b)
 {
     if (a == nil || b == nil) {
         return NO;
@@ -25,7 +27,7 @@ static BOOL stringsAreEqual(CFStringRef a, CFStringRef b)
     return (CFStringCompare(a, b, 0) == kCFCompareEqualTo);
 }
 
-static GSPowerType getCurrentPowerSource()
+static GSPowerType _getCurrentPowerSource()
 {
     GSPowerType status = GSPowerTypeUnknown;
     
@@ -46,12 +48,12 @@ static GSPowerType getCurrentPowerSource()
         source = CFArrayGetValueAtIndex(list, i);
         description = IOPSGetPowerSourceDescription(blob, source);
         
-        if (stringsAreEqual(CFDictionaryGetValue(description, CFSTR(kIOPSTransportTypeKey)), CFSTR(kIOPSInternalType))) {
+        if (_stringsAreEqual(CFDictionaryGetValue(description, CFSTR(kIOPSTransportTypeKey)), CFSTR(kIOPSInternalType))) {
             CFStringRef currentState = CFDictionaryGetValue(description, CFSTR(kIOPSPowerSourceStateKey));
             
-            if (stringsAreEqual(currentState, CFSTR(kIOPSACPowerValue))) {
+            if (_stringsAreEqual(currentState, CFSTR(kIOPSACPowerValue))) {
                 status = GSPowerTypeAC;
-            } else if (stringsAreEqual(currentState, CFSTR(kIOPSBatteryPowerValue))) {
+            } else if (_stringsAreEqual(currentState, CFSTR(kIOPSBatteryPowerValue))) {
                 status = GSPowerTypeBattery;
             } else {
                 status = GSPowerTypeUnknown;
@@ -66,16 +68,16 @@ cleanup:
     return status;
 }
 
-static void powerSourceChanged(void *context)
+static void _powerSourceChanged(void *context)
 {
     GSPower *powerSourceMonitor = (__bridge GSPower *)context;
     
-    [powerSourceMonitor powerSourceChanged:getCurrentPowerSource()];
+    [powerSourceMonitor powerSourceChanged:_getCurrentPowerSource()];
 }
 
-void registerPowerSourceNotification(GSPower *powerSourceMonitor)
+void _registerPowerSourceNotification(GSPower *powerSourceMonitor)
 {
-    CFRunLoopSourceRef loopSource = IOPSNotificationCreateRunLoopSource(powerSourceChanged, (__bridge void *)powerSourceMonitor);
+    CFRunLoopSourceRef loopSource = IOPSNotificationCreateRunLoopSource(_powerSourceChanged, (__bridge void *)powerSourceMonitor);
     
     if (loopSource) {
         CFRunLoopAddSource(CFRunLoopGetCurrent(), loopSource, kCFRunLoopDefaultMode);
@@ -89,20 +91,24 @@ void registerPowerSourceNotification(GSPower *powerSourceMonitor)
 
 @synthesize delegate;
 
+#pragma mark - Initializers
+
 - (GSPower *)initWithDelegate:(id<GSPowerDelegate>)object
 {
     if ((self = [super init])) {
         self.delegate = object;
         
-        registerPowerSourceNotification(self);
+        _registerPowerSourceNotification(self);
     }
     
     return self;
 }
 
+#pragma mark - GSPower API
+
 - (GSPowerType)currentPowerSource
 {
-    return getCurrentPowerSource();
+    return _getCurrentPowerSource();
 }
 
 - (void)powerSourceChanged:(GSPowerType)powerSource

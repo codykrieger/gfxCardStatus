@@ -12,7 +12,7 @@
 
 #import "GSMux.h"
 
-static io_connect_t switcherConnect = IO_OBJECT_NULL;
+static io_connect_t _switcherConnect = IO_OBJECT_NULL;
 
 // Stuff to look at:
 // nvram -p -> gpu_policy
@@ -79,10 +79,7 @@ typedef enum {
     muxFeaturesCount
 } muxFeature;
 
-@implementation GSMux
-
-#pragma mark -
-#pragma mark Private methods
+#pragma mark - Static C methods
 
 static BOOL getMuxState(io_connect_t connect, uint64_t input, uint64_t *output)
 {
@@ -206,7 +203,7 @@ static void setExclusive(io_connect_t connect)
 }
 
 typedef struct StateStruct {
-    uint32_t field1[25]; // State Struct has to be 100 bytes long
+uint32_t field1[25]; // State Struct has to be 100 bytes long
 } StateStruct;
 
 static void dumpState(io_connect_t connect)
@@ -235,9 +232,10 @@ static void dumpState(io_connect_t connect)
     }
 }
 
-// --------------------------------------------------------------
+@implementation GSMux
 
-#pragma mark - Initialization/destruction
+#pragma mark - GSMux API
+#pragma mark Initialization/destruction
 
 + (BOOL)switcherOpen
 {
@@ -264,13 +262,13 @@ static void dumpState(io_connect_t connect)
     // that is used for all subsequent calls to the user client.
     // Applications pass the bad-Bit (indicates they need the dedicated gpu here)
     // as uint32_t type, 0 = no dedicated gpu, 1 = dedicated
-    kernResult = IOServiceOpen(service, mach_task_self(), 0, &switcherConnect);
+    kernResult = IOServiceOpen(service, mach_task_self(), 0, &_switcherConnect);
     if (kernResult != KERN_SUCCESS) {
         GTMLoggerDebug(@"IOServiceOpen returned 0x%08x.", kernResult);
         return NO;
     }
     
-    kernResult = IOConnectCallScalarMethod(switcherConnect, kOpen, NULL, 0, NULL, NULL);
+    kernResult = IOConnectCallScalarMethod(_switcherConnect, kOpen, NULL, 0, NULL, NULL);
     if (kernResult != KERN_SUCCESS) GTMLoggerDebug(@"IOConnectCallScalarMethod returned 0x%08x.", kernResult);
     else GTMLoggerDebug(@"Driver connection opened.");
     
@@ -280,54 +278,54 @@ static void dumpState(io_connect_t connect)
 + (void)switcherClose
 {
     kern_return_t kernResult;
-    if (switcherConnect == IO_OBJECT_NULL) return;
+    if (_switcherConnect == IO_OBJECT_NULL) return;
     
-    kernResult = IOConnectCallScalarMethod(switcherConnect, kClose, NULL, 0, NULL, NULL);
+    kernResult = IOConnectCallScalarMethod(_switcherConnect, kClose, NULL, 0, NULL, NULL);
     if (kernResult != KERN_SUCCESS) GTMLoggerDebug(@"IOConnectCallScalarMethod returned 0x%08x.", kernResult);
     
-    kernResult = IOServiceClose(switcherConnect);
+    kernResult = IOServiceClose(_switcherConnect);
     if (kernResult != KERN_SUCCESS) GTMLoggerDebug(@"IOServiceClose returned 0x%08x.", kernResult);
     
-    switcherConnect = IO_OBJECT_NULL;
+    _switcherConnect = IO_OBJECT_NULL;
     GTMLoggerDebug(@"Driver connection closed.");
 }
 
-#pragma mark - Switching magic
+#pragma mark Switching magic
 
 + (BOOL)switcherSetMode:(GSSwitcherMode)mode
 {
-    if (switcherConnect == IO_OBJECT_NULL)
+    if (_switcherConnect == IO_OBJECT_NULL)
         return NO;
     
     switch (mode) {
         case GSSwitcherModeForceIntegrated:
         case GSSwitcherModeForceDiscrete:
             // Disable dynamic switching
-            setDynamicSwitchingEnabled(switcherConnect, NO);
+            setDynamicSwitchingEnabled(_switcherConnect, NO);
             
             // Disable Policy, otherwise gpu switches to Discrete after a bad app closes
-            setFeatureInfo(switcherConnect, Policy, NO);
-            setSwitchPolicy(switcherConnect, NO);
+            setFeatureInfo(_switcherConnect, Policy, NO);
+            setSwitchPolicy(_switcherConnect, NO);
             
             // Hold up a sec!
             sleep(1);
             
             BOOL integrated = [GSMux isUsingIntegratedGPU];
             if ((mode==GSSwitcherModeForceIntegrated && !integrated) || (mode==GSSwitcherModeForceDiscrete && integrated))
-                forceSwitch(switcherConnect);
+                forceSwitch(_switcherConnect);
             
             break;
         case GSSwitcherModeDynamicSwitching:
             // Set switch policy back, make the MBP think it's an auto switching one once again
-            setFeatureInfo(switcherConnect, Policy, YES);
-            setSwitchPolicy(switcherConnect, YES);
+            setFeatureInfo(_switcherConnect, Policy, YES);
+            setSwitchPolicy(_switcherConnect, YES);
             
             // Enable dynamic switching
-            setDynamicSwitchingEnabled(switcherConnect, YES);
+            setDynamicSwitchingEnabled(_switcherConnect, YES);
             
             break;
         case GSSwitcherModeToggleGPU:
-            forceSwitch(switcherConnect);
+            forceSwitch(_switcherConnect);
             break;
     }
     
@@ -337,8 +335,8 @@ static void dumpState(io_connect_t connect)
 + (BOOL)isUsingIntegratedGPU
 {
     uint64_t output;
-    if (switcherConnect == IO_OBJECT_NULL) return NO;
-    getMuxState(switcherConnect, muxGraphicsCard, &output);
+    if (_switcherConnect == IO_OBJECT_NULL) return NO;
+    getMuxState(_switcherConnect, muxGraphicsCard, &output);
     return output != 0;
 }
 
@@ -350,8 +348,8 @@ static void dumpState(io_connect_t connect)
 + (BOOL)isUsingDynamicSwitching
 {
     uint64_t output;
-    if (switcherConnect == IO_OBJECT_NULL) return NO;
-    getMuxState(switcherConnect, muxGpuSelect, &output);
+    if (_switcherConnect == IO_OBJECT_NULL) return NO;
+    getMuxState(_switcherConnect, muxGpuSelect, &output);
     return output != 0;
 }
 

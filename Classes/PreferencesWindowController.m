@@ -19,7 +19,7 @@
 
 @implementation PreferencesWindowController
 
-@synthesize modules;
+@synthesize modules = _modules;
 
 #pragma mark - Initializers
 
@@ -42,15 +42,15 @@
 
 - (void)setModules:(NSArray *)newModules
 {
-    if (newModules == modules) return;
+    if (newModules == _modules) return;
     
-    if (modules) {
-        modules = nil;
+    if (_modules) {
+        _modules = nil;
     }
     
     if (!newModules) return;
     
-    modules = newModules;
+    _modules = newModules;
     
     // Reset the toolbar items
     NSToolbar *toolbar = [self.window toolbar];

@@ -12,6 +12,8 @@
 
 @implementation GSStartup
 
+#pragma mark - GSStartup API
+
 + (void)copyLoginItems:(LSSharedFileListRef *)loginItems andCurrentLoginItem:(LSSharedFileListItemRef *)currentItem {
     *loginItems = LSSharedFileListCreate(NULL, kLSSharedFileListSessionLoginItems, NULL);
     

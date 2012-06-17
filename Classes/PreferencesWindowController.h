@@ -11,7 +11,7 @@
 
 @interface PreferencesWindowController : NSWindowController <NSToolbarDelegate> {
 @private
-    NSArray *modules;
+    NSArray *_modules;
     id<GSPreferencesModule> currentModule;
 }
 
