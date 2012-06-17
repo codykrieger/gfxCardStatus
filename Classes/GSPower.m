@@ -143,12 +143,17 @@ void _registerPowerSourceNotification(GSPower *powerSourceMonitor)
 
 - (void)powerSourceChanged:(GSPowerType)type
 {
-    if (!_enabled || type == _currentPowerSource)
-        return;
-    
-    GTMLoggerInfo(@"Power source changed to: %d from %d", type, _currentPowerSource);
+    GSPowerType oldPowerSource = _currentPowerSource;
     _currentPowerSource = type;
     
+    // Make sure we don't do anything if we're not enabled.
+    if (!_enabled || type == oldPowerSource)
+        return;
+    
+    GTMLoggerInfo(@"Power source changed to: %d from %d", type, oldPowerSource);
+    
+    // We can't really change modes if we have no clue what power source we just
+    // changed to.
     if (type == GSPowerTypeUnknown)
         return;
     
@@ -175,6 +180,7 @@ void _registerPowerSourceNotification(GSPower *powerSourceMonitor)
 {
     GTMLoggerInfo(@"Wake notification! %@", notification);
 
+    // Only notify ourselves if we're using a different power source now.
     GSPowerType reallyCurrentPowerSource = _getCurrentPowerSource();
     if (_currentPowerSource != reallyCurrentPowerSource)
         [self powerSourceChanged:reallyCurrentPowerSource];

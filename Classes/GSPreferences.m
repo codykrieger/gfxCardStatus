@@ -90,11 +90,11 @@
     _prefsDict[kShouldUsePowerSourceBasedSwitchingKey] = @NO;
     _prefsDict[kShouldUseSmartMenuBarIconsKey] = @NO;
     
-    _prefsDict[kPowerSourceBasedSwitchingBatteryMode] = @0; // defaults to integrated
+    _prefsDict[kPowerSourceBasedSwitchingBatteryMode] = @(GSPowerSourceBasedSwitchingModeIntegrated);
     if ([GSGPU isLegacyMachine])
-        _prefsDict[kPowerSourceBasedSwitchingACMode] = @1; // defaults to discrete for legacy machines
+        _prefsDict[kPowerSourceBasedSwitchingACMode] = @(GSPowerSourceBasedSwitchingModeDiscrete);
     else
-        _prefsDict[kPowerSourceBasedSwitchingACMode] = @2; // defaults to dynamic for new machines
+        _prefsDict[kPowerSourceBasedSwitchingACMode] = @(GSPowerSourceBasedSwitchingModeDynamic);
     
     [self savePreferences];
 }
