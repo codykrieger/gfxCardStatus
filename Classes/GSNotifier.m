@@ -8,13 +8,12 @@
 
 #import "GSNotifier.h"
 #import "NSAttributedString+Hyperlink.h"
-#import "GSGPU.h"
 #import "GSMux.h"
 
 #define kGPUChangedNotificationKey @"GrowlGPUChanged"
 
 @interface GSNotifier ()
-+ (NSString *)_keyForNotificationType:(GSNotificationType)type;
++ (NSString *)_keyForNotificationType:(GSGPUType)type;
 @end
 
 @implementation GSNotifier
@@ -26,14 +25,14 @@
     static dispatch_once_t pred = 0;
     __strong static GSNotifier *_sharedObject = nil;
     dispatch_once(&pred, ^{
-        _sharedObject = [[self alloc] init]; // or some other init method
+        _sharedObject = [[self alloc] init];
     });
     return _sharedObject;
 }
 
 #pragma mark - GSNotifier API
 
-+ (void)queueNotification:(GSNotificationType)type
++ (void)showGPUChangeNotification:(GSGPUType)type
 {
     // FIXME: Support Mountain Lion's Notification Center here in addition to
     // Growl on supported (>= 10.8.x) machines.
@@ -41,8 +40,8 @@
     NSString *key = [self _keyForNotificationType:type];
     NSString *title = Str(key);
     
-    NSString *cardName = type == GSNotificationTypeGPUDidChangeToIntegrated ? [GSGPU integratedGPUName] : [GSGPU discreteGPUName];
-    NSString *message = [NSString stringWithFormat:Str([title stringByAppendingString:@"Message"]), cardName];
+    NSString *cardName = type == GSGPUTypeIntegrated ? [GSGPU integratedGPUName] : [GSGPU discreteGPUName];
+    NSString *message = [NSString stringWithFormat:Str([key stringByAppendingString:@"Message"]), cardName];
     
     [GrowlApplicationBridge notifyWithTitle:title
                                 description:message 
@@ -89,10 +88,9 @@
 
 #pragma mark - Private helpers
 
-+ (NSString *)_keyForNotificationType:(GSNotificationType)type
++ (NSString *)_keyForNotificationType:(GSGPUType)type
 {
-    if (type == GSNotificationTypeGPUDidChangeToIntegrated
-        || type == GSNotificationTypeGPUDidChangeToDiscrete)
+    if (type == GSGPUTypeIntegrated || type == GSGPUTypeDiscrete)
         return kGPUChangedNotificationKey;
     
     assert(false); // We shouldn't ever get here.

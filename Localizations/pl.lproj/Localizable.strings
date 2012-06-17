@@ -50,5 +50,3 @@
 /* Growl */
 "GrowlGPUChanged"       = "Zmieniono GPU";
 "GrowlGPUChangedMessage"           = "'%1$@' teraz w użyciu.";
-
-

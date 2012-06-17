@@ -52,7 +52,7 @@
     static dispatch_once_t pred = 0;
     __strong static GSPreferences *_sharedObject = nil;
     dispatch_once(&pred, ^{
-        _sharedObject = [[self alloc] init]; // or some other init method
+        _sharedObject = [[self alloc] init];
     });
     return _sharedObject;
 }

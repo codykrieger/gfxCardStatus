@@ -28,8 +28,16 @@
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
+    // Initialize the preferences object and set default preferences if this is
+    // a first-time run.
     _prefs = [GSPreferences sharedInstance];
     
+    // Initialize the power object and start listening for power source change
+    // notifications. This object takes care of the actual switching if
+    // necessary.
+    _power = [GSPower sharedInstance];
+    
+    // Attempt to open a connection to AppleGraphicsControl.
     if (![GSMux switcherOpen]) {
         GTMLoggerError(@"Can't open connection to AppleGraphicsControl. This probably isn't a gfxCardStatus-compatible machine.");
         
@@ -41,13 +49,8 @@
         GTMLoggerInfo(@"Discrete GPU name: %@", [GSGPU discreteGPUName]);
     }
     
-    // All the things (notifications)!
+    // Now accepting GPU change notifications! Apply at your nearest GSGPU today.
     [GSGPU registerForGPUChangeNotifications:self];
-    NSNotificationCenter *center = [[NSWorkspace sharedWorkspace] notificationCenter];
-    [center addObserver:self
-               selector:@selector(handleWake:)
-                   name:NSWorkspaceDidWakeNotification
-                 object:nil];
     
     // Initialize the menu bar icon and hook the menu up to it.
     [menuController setupMenu];
@@ -80,17 +83,7 @@
 - (void)GPUDidChangeTo:(GSGPUType)gpu
 {
     [menuController updateMenu];
-    
-    // FIXME: Implement
-}
-
-#pragma mark - NSNotificationCenter notifications
-
-- (void)handleWake:(NSNotification *)notification
-{
-    GTMLoggerInfo(@"Wake notification! %@", notification);
-    // FIXME: Implement
-//    [self performSelector:@selector(delayedPowerSourceCheck) withObject:nil afterDelay:7.0];
+    [GSNotifier showGPUChangeNotification:gpu];
 }
 
 #pragma mark - Helpers

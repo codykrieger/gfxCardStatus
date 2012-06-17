@@ -48,4 +48,3 @@
 /* Growl */
 "GrowlGPUChanged"       = "GPU přepnuto";
 "GrowlGPUChangedMessage"           = "Přepnuto na '%1$@'";
-

@@ -11,11 +11,17 @@
 #include <IOKit/IOKitLib.h>
 #include <IOKit/ps/IOPSKeys.h>
 #include <IOKit/ps/IOPowerSources.h>
+#include <ReactiveCocoa/ReactiveCocoa.h>
+
+#define kShouldUsePowerSourceBasedSwitchingKeyPath @"prefsDict.shouldUsePowerSourceBasedSwitching"
 
 static BOOL _stringsAreEqual(CFStringRef a, CFStringRef b);
 static GSPowerType _getCurrentPowerSource();
 static void _powerSourceChanged(void *context);
 static void _registerPowerSourceNotification(GSPower *powerSourceMonitor);
+
+static BOOL _enabled = NO;
+static GSPowerType _currentPowerSource = GSPowerTypeUnknown;
 
 #pragma mark - Static C methods
 
@@ -88,20 +94,43 @@ void _registerPowerSourceNotification(GSPower *powerSourceMonitor)
 
 @implementation GSPower
 
-@synthesize delegate;
-
 #pragma mark - Initializers
 
-- (GSPower *)initWithDelegate:(id<GSPowerDelegate>)object
+- (id)init
 {
     if (!(self = [super init]))
         return nil;
-        
-    self.delegate = object;
-
+    
+    _prefs = [GSPreferences sharedInstance];
+    
+    // Register for power source change notifications
     _registerPowerSourceNotification(self);
     
+    // Also register for system wake notifications so we can check our power
+    // source and change modes if appropriate.
+    NSNotificationCenter *center = [[NSWorkspace sharedWorkspace] notificationCenter];
+    [center addObserver:self
+               selector:@selector(handleWake:)
+                   name:NSWorkspaceDidWakeNotification
+                 object:nil];
+    
+    _enabled = _prefs.shouldUsePowerSourceBasedSwitching;
+    [[_prefs rac_subscribableForKeyPath:kShouldUsePowerSourceBasedSwitchingKeyPath onObject:self] subscribeNext:^(id x) {
+        GTMLoggerDebug(@"Should use power source-based switching value changed: %@", x);
+        _enabled = [x boolValue];
+    }];
+    
     return self;
+}
+
++ (GSPower *)sharedInstance
+{
+    static dispatch_once_t pred = 0;
+    __strong static GSPower *_sharedObject = nil;
+    dispatch_once(&pred, ^{
+        _sharedObject = [[self alloc] init];
+    });
+    return _sharedObject;
 }
 
 #pragma mark - GSPower API
@@ -111,11 +140,26 @@ void _registerPowerSourceNotification(GSPower *powerSourceMonitor)
     return _getCurrentPowerSource();
 }
 
-- (void)powerSourceChanged:(GSPowerType)powerSource
+- (void)powerSourceChanged:(GSPowerType)type
 {
-    if ([delegate respondsToSelector:@selector(powerSourceChanged:)]) {
-        [delegate powerSourceChanged:powerSource];
-    }
+    if (!_enabled || type == _currentPowerSource)
+        return;
+    
+    GTMLoggerInfo(@"Power source changed to: %d from %d", type, _currentPowerSource);
+    _currentPowerSource = type;
+    
+    
+}
+
+#pragma mark - NSNotificationCenter notifications
+
+- (void)handleWake:(NSNotification *)notification
+{
+    GTMLoggerInfo(@"Wake notification! %@", notification);
+
+    GSPowerType reallyCurrentPowerSource = _getCurrentPowerSource();
+    if (_currentPowerSource != reallyCurrentPowerSource)
+        [self powerSourceChanged:reallyCurrentPowerSource];
 }
 
 @end

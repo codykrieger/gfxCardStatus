@@ -6,18 +6,14 @@
 //  Copyright (c) 2012 Cody Krieger. All rights reserved.
 //
 
+#import "GSGPU.h"
 #import <Growl/Growl.h>
-
-typedef enum {
-    GSNotificationTypeGPUDidChangeToIntegrated,
-    GSNotificationTypeGPUDidChangeToDiscrete
-} GSNotificationType;
 
 @interface GSNotifier : NSObject<GrowlApplicationBridgeDelegate>
 
 + (GSNotifier *)sharedInstance;
 
-+ (void)queueNotification:(GSNotificationType)type;
++ (void)showGPUChangeNotification:(GSGPUType)type;
 + (void)showOneTimeNotification;
 + (void)showUnsupportedMachineMessage;
 

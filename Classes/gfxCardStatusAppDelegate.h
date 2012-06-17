@@ -10,12 +10,14 @@
 #import "PreferencesWindowController.h"
 #import "GSMenuController.h"
 #import "GSGPU.h"
+#import "GSPower.h"
 
 #import <Sparkle/Sparkle.h>
 #import <Sparkle/SUUpdater.h>
 
 @interface gfxCardStatusAppDelegate : NSObject <NSApplicationDelegate,GSGPUDelegate> {
     GSPreferences *_prefs;
+    GSPower *_power;
 }
 
 @property (strong) IBOutlet SUUpdater *updater;
