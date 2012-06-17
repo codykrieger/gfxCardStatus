@@ -8,6 +8,12 @@
 
 #import <Cocoa/Cocoa.h>
 
+typedef enum {
+    GSPowerSourceBasedSwitchingModeIntegrated = 0,
+    GSPowerSourceBasedSwitchingModeDiscrete = 1,
+    GSPowerSourceBasedSwitchingModeDynamic = 2
+} GSPowerSourceBasedSwitchingMode;
+
 @interface GSPreferences : NSObject <NSWindowDelegate> {
     NSMutableDictionary *_prefsDict;
     
@@ -26,7 +32,8 @@
 - (BOOL)shouldUsePowerSourceBasedSwitching;
 - (BOOL)shouldUseImageIcons;
 - (BOOL)shouldUseSmartMenuBarIcons;
-- (int)modeForPowerSource:(NSString *)powerSource;
+- (GSPowerSourceBasedSwitchingMode)modeForACAdapter;
+- (GSPowerSourceBasedSwitchingMode)modeForBattery;
 
 - (void)setBool:(BOOL)value forKey:(NSString *)key;
 - (BOOL)boolForKey:(NSString *)key;

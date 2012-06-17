@@ -7,6 +7,7 @@
 //
 
 #import "GSPower.h"
+#import "GSMux.h"
 
 #include <IOKit/IOKitLib.h>
 #include <IOKit/ps/IOPSKeys.h>
@@ -148,7 +149,24 @@ void _registerPowerSourceNotification(GSPower *powerSourceMonitor)
     GTMLoggerInfo(@"Power source changed to: %d from %d", type, _currentPowerSource);
     _currentPowerSource = type;
     
+    if (type == GSPowerTypeUnknown)
+        return;
     
+    GSPowerSourceBasedSwitchingMode mode = type == GSPowerTypeAC ? _prefs.modeForACAdapter : _prefs.modeForBattery;
+    
+    switch (mode) {
+        case GSPowerSourceBasedSwitchingModeIntegrated:
+            [GSMux setMode:GSSwitcherModeForceIntegrated];
+            break;
+            
+        case GSPowerSourceBasedSwitchingModeDiscrete:
+            [GSMux setMode:GSSwitcherModeForceDiscrete];
+            break;
+            
+        case GSPowerSourceBasedSwitchingModeDynamic:
+            [GSMux setMode:GSSwitcherModeDynamicSwitching];
+            break;
+    }
 }
 
 #pragma mark - NSNotificationCenter notifications

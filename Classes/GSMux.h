@@ -21,7 +21,7 @@ typedef enum {
 + (BOOL)switcherOpen;
 + (void)switcherClose;
 
-+ (BOOL)switcherSetMode:(GSSwitcherMode)mode;
++ (BOOL)setMode:(GSSwitcherMode)mode;
 + (BOOL)isUsingIntegratedGPU;
 + (BOOL)isUsingIntegratedGPU;
 + (BOOL)isUsingDynamicSwitching;

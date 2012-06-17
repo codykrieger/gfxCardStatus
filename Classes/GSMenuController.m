@@ -185,7 +185,7 @@
     // legacy cards
     if (sender == switchGPUs) {
         GTMLoggerInfo(@"Switching GPUs...");
-        [GSMux switcherSetMode:GSSwitcherModeToggleGPU];
+        [GSMux setMode:GSSwitcherModeToggleGPU];
         return;
     }
     
@@ -195,15 +195,15 @@
     BOOL retval = NO;
     if (sender == integratedOnly) {
         GTMLoggerInfo(@"Setting Integrated only...");
-        retval = [GSMux switcherSetMode:GSSwitcherModeForceIntegrated];
+        retval = [GSMux setMode:GSSwitcherModeForceIntegrated];
     }
     if (sender == discreteOnly) { 
         GTMLoggerInfo(@"Setting Discrete only...");
-        retval = [GSMux switcherSetMode:GSSwitcherModeForceDiscrete];
+        retval = [GSMux setMode:GSSwitcherModeForceDiscrete];
     }
     if (sender == dynamicSwitching) {
         GTMLoggerInfo(@"Setting dynamic switching...");
-        retval = [GSMux switcherSetMode:GSSwitcherModeDynamicSwitching];
+        retval = [GSMux setMode:GSSwitcherModeDynamicSwitching];
     }
     
     // only change status in case of success

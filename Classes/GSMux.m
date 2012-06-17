@@ -298,7 +298,7 @@ static void dumpState(io_connect_t connect)
 
 #pragma mark Switching magic
 
-+ (BOOL)switcherSetMode:(GSSwitcherMode)mode
++ (BOOL)setMode:(GSSwitcherMode)mode
 {
     if (_switcherConnect == IO_OBJECT_NULL)
         return NO;

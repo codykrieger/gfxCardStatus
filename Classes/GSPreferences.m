@@ -13,8 +13,8 @@
 // Unfortunately this value needs to stay misspelled unless there is a desire to
 // migrate it to a correctly spelled version instead, since getting and setting
 // the existing preferences depend on it.
-#define kGPUSettingACAdapter                    @"GPUSetting_ACAdaptor"
-#define kGPUSettingBattery                      @"GPUSetting_Battery"
+#define kPowerSourceBasedSwitchingACMode        @"GPUSetting_ACAdaptor"
+#define kPowerSourceBasedSwitchingBatteryMode   @"GPUSetting_Battery"
 
 #define kShouldStartAtLoginKey                  @"shouldStartAtLogin"
 #define kShouldUseImageIconsKey                 @"shouldUseImageIcons"
@@ -90,11 +90,11 @@
     _prefsDict[kShouldUsePowerSourceBasedSwitchingKey] = @NO;
     _prefsDict[kShouldUseSmartMenuBarIconsKey] = @NO;
     
-    _prefsDict[kGPUSettingBattery] = @0; // defaults to integrated
+    _prefsDict[kPowerSourceBasedSwitchingBatteryMode] = @0; // defaults to integrated
     if ([GSGPU isLegacyMachine])
-        _prefsDict[kGPUSettingACAdapter] = @1; // defaults to discrete for legacy machines
+        _prefsDict[kPowerSourceBasedSwitchingACMode] = @1; // defaults to discrete for legacy machines
     else
-        _prefsDict[kGPUSettingACAdapter] = @2; // defaults to dynamic for new machines
+        _prefsDict[kPowerSourceBasedSwitchingACMode] = @2; // defaults to dynamic for new machines
     
     [self savePreferences];
 }
@@ -145,9 +145,14 @@
     return [_prefsDict[kShouldUseSmartMenuBarIconsKey] boolValue];
 }
 
-- (int)modeForPowerSource:(NSString *)powerSource
+- (GSPowerSourceBasedSwitchingMode)modeForACAdapter
 {
-    return [_prefsDict[powerSource] intValue];
+    return [_prefsDict[kPowerSourceBasedSwitchingACMode] intValue];
+}
+
+- (GSPowerSourceBasedSwitchingMode)modeForBattery
+{
+    return [_prefsDict[kPowerSourceBasedSwitchingBatteryMode] intValue];
 }
 
 #pragma mark - NSWindowDelegate protocol
