@@ -46,6 +46,14 @@
 "AboutWebsite"			= "Website";
 
 /* Growl */
-"GrowlGPUChanged"       = "GPU changed";
-"GrowlGPUChangedMessage"           = "'%1$@' now in use.";
+"GrowlGPUChanged"           = "GPU changed";
+"GrowlGPUChangedMessage"    = "'%1$@' now in use.";
 
+/* Startup box */
+"ThanksForDownloading"      = "Thanks for downloading gfxCardStatus!";
+"PleaseConsiderDonating"    = "If you find it useful, please consider donating to support development and hosting costs. You can find the donate link, and the FAQ page (which you should REALLY read) at the gfxCardStatus website:";
+"DontShowAgain"             = "Don't show this again!";
+
+/* Unsupported machine box */
+"UnsupportedMachine"    = "You are using a system that gfxCardStatus does not support. Please ensure that you are using a MacBook Pro with dual GPUs.";
+"OhISee"                = "Oh, I see.";

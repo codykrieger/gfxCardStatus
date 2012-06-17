@@ -7,9 +7,19 @@
 //
 
 #import "GeneralPreferencesViewController.h"
-#import "PrefsController.h"
+#import "GSPreferences.h"
 #import "GSStartup.h"
 #import "GSGPU.h"
+#import <ReactiveCocoa/ReactiveCocoa.h>
+
+#define kGeneralPreferencesName         @"General"
+#define kGeneralPreferencesIdentifier   @"general"
+
+#define kShouldStartAtLoginKeyPath      @"prefsDict.shouldStartAtLogin"
+
+@interface GeneralPreferencesViewController (Internal)
+- (BOOL)isLegacyMachine;
+@end
 
 @implementation GeneralPreferencesViewController
 
@@ -24,7 +34,7 @@
 {
     self = [super initWithNibName:@"GeneralPreferencesView" bundle:nil];
     if (self) {
-        prefs = [PrefsController sharedInstance];
+        prefs = [GSPreferences sharedInstance];
     }
     return self;
 }
@@ -35,34 +45,34 @@
 {
     [super loadView];
     
-    [prefs addObserver:self forKeyPath:@"prefs.shouldStartAtLogin" options:NSKeyValueObservingOptionNew context:nil];
+    [[prefs rac_subscribableForKeyPath:kShouldStartAtLoginKeyPath onObject:self] subscribeNext:^(id x) {
+        GTMLoggerDebug(@"Start at login value changed: %@", x);
+        [GSStartup loadAtStartup:[x boolValue]];
+    }];
     
     NSArray *localizedButtons = [[NSArray alloc] initWithObjects:prefChkStartup, prefChkUpdate, prefChkSmartIcons, nil];
     for (NSButton *loc in localizedButtons) {
         [loc setTitle:Str([loc title])];
     }
-    
-    if ([GSGPU isLegacyMachine])
-        [prefChkSmartIcons setEnabled:NO];
 }
 
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+#pragma mark - Passthrough properties
+
+- (BOOL)isLegacyMachine
 {
-    if ([keyPath isEqualToString:@"prefs.shouldStartAtLogin"]) {
-        [GSStartup loadAtStartup:([prefChkStartup state] ? YES : NO)];
-    }
+    return [GSGPU isLegacyMachine];
 }
 
 #pragma mark - GSPreferencesModule protocol
 
 - (NSString *)title
 {
-    return Str(@"General");
+    return Str(kGeneralPreferencesName);
 }
 
 - (NSString *)identifier
 {
-    return @"general";
+    return kGeneralPreferencesIdentifier;
 }
 
 - (NSImage *)image

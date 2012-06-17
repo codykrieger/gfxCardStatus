@@ -15,8 +15,13 @@
 #import "GSProcess.h"
 #import "GSGPU.h"
 
-@interface GSMenuController ()
-@property BOOL menuIsOpen;
+#define kImageIconIntegratedName    @"integrated"
+#define kImageIconDiscreteName      @"discrete"
+#define kImageIconOpenSuffix        @"-white"
+
+#define kShouldUseSmartMenuBarIconsKeyPath @"prefsDict.shouldUseSmartMenuBarIcons"
+
+@interface GSMenuController (Internal)
 - (void)_localizeMenu;
 - (void)_updateProcessList;
 @end
@@ -49,11 +54,10 @@
 {
     self = [super init];
     if (self) {
-        _prefs = [PrefsController sharedInstance];
+        _prefs = [GSPreferences sharedInstance];
         
-        // FIXME: Test out ReactiveCocoa for this use case.
-        [RACAble(_prefs, shouldUseSmartMenuBarIcons) subscribeNext:^(id smartIcons) {
-            GTMLoggerDebug(@"shouldUseSmartMenuBarIcons: %d", [smartIcons boolValue]);
+        [[_prefs rac_subscribableForKeyPath:kShouldUseSmartMenuBarIconsKeyPath onObject:self] subscribeNext:^(id x) {
+            GTMLoggerDebug(@"Use smart menu bar icons value changed: %@", x);
             [self updateMenu];
         }];
     }
@@ -77,9 +81,21 @@
     [discreteOnly setHidden:isLegacyMachine];
     [dynamicSwitching setHidden:isLegacyMachine];
     
-    // FIXME: Test out ReactiveCocoa for this use case.
-    [RACAbleSelf(self.menuIsOpen) subscribeNext:^(id open) {
-        GTMLoggerDebug(@"open: %d", [open boolValue]);
+    // Listen for when the menu opens and change the icons appropriately if the
+    // user is using images.
+    [RACAbleSelf(self.menuIsOpen) subscribeNext:^(id x) {
+        GTMLoggerDebug(@"Menu open: %@", x);
+        
+        if (_prefs.shouldUseImageIcons) {
+            NSString *imageName = _statusItem.image.name;
+            
+            if ([x boolValue])
+                imageName = [imageName stringByAppendingString:kImageIconOpenSuffix];
+            else
+                imageName = [imageName stringByReplacingOccurrencesOfString:kImageIconOpenSuffix withString:@""];
+            
+            [_statusItem setImage:[NSImage imageNamed:imageName]];
+        }
     }];
     
     [self _localizeMenu];
@@ -99,7 +115,7 @@
     
     // set menu bar icon
     if ([_prefs shouldUseImageIcons]) {
-        [_statusItem setImage:[NSImage imageNamed:(isUsingIntegrated ? @"integrated.png" : @"discrete.png")]];
+        [_statusItem setImage:[NSImage imageNamed:(isUsingIntegrated ? kImageIconIntegratedName : kImageIconDiscreteName)]];
     } else {
         // grab first character of GPU string for the menu bar icon
         unichar firstLetter;
@@ -173,9 +189,6 @@
         [_preferencesWindowController setModules:modules];
     }
     
-    // FIXME this sucks, the menu controller shouldn't know anything about prefs
-    _preferencesWindowController.window.delegate = _prefs;
-    
     [_preferencesWindowController.window center];
     [_preferencesWindowController.window makeKeyAndOrderFront:self];
     [_preferencesWindowController.window setOrderedIndex:0];
@@ -184,7 +197,7 @@
 
 - (IBAction)openApplicationURL:(id)sender
 {
-    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"http://codykrieger.com/gfxCardStatus"]];
+    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:kApplicationWebsiteURL]];
 }
 
 - (IBAction)quit:(id)sender
@@ -235,25 +248,17 @@
 
 - (void)menuWillOpen:(NSMenu *)menu
 {
-    // FIXME: Do this in a shorter/more succinct way.
-    
-    // white image when menu is open
-    if ([_prefs shouldUseImageIcons]) {
-        [_statusItem setImage:[NSImage imageNamed:[[[_statusItem image] name] stringByAppendingString:@"-white.png"]]];
-    }
+    self.menuIsOpen = YES;
 }
 
 - (void)menuDidClose:(NSMenu *)menu
 {
-    // FIXME: Do this in a shorter/more succinct way.
-    
-    // black image when menu is closed
-    if ([_prefs shouldUseImageIcons]) {
-        [_statusItem setImage:[NSImage imageNamed:[[[_statusItem image] name] stringByReplacingOccurrencesOfString:@"-white" withString:@".png"]]];
-    }
+    self.menuIsOpen = NO;
 }
 
-#pragma mark - Private helpers
+@end
+
+@implementation GSMenuController (Internal)
 
 - (void)_localizeMenu
 {

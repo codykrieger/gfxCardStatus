@@ -8,7 +8,7 @@
 
 #import <Cocoa/Cocoa.h>
 #import "PreferencesWindowController.h"
-#import "PrefsController.h"
+#import "GSPreferences.h"
 
 @protocol GSMenuControllerDelegate <NSObject>
 - (void)something;
@@ -17,7 +17,7 @@
 @interface GSMenuController : NSObject <NSMenuDelegate> {
     NSStatusItem *_statusItem;
     
-    PrefsController *_prefs;
+    GSPreferences *_prefs;
     PreferencesWindowController *_preferencesWindowController;
 }
 
@@ -43,6 +43,8 @@
 @property (strong) IBOutlet NSMenuItem *processesSeparator;
 @property (strong) IBOutlet NSMenuItem *dependentProcesses;
 @property (strong) IBOutlet NSMenuItem *processList;
+
+@property BOOL menuIsOpen;
 
 - (void)setupMenu;
 - (void)updateMenu;

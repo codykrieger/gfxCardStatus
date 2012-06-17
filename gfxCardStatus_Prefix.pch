@@ -5,9 +5,8 @@
 #ifdef __OBJC__
     #import <Cocoa/Cocoa.h>
     #import "GTMLogger.h"
-    
-    #define kGPUSettingACAdaptor    @"GPUSetting_ACAdaptor"
-    #define kGPUSettingBattery      @"GPUSetting_Battery"
 
     #define Str(key) NSLocalizedString(key, key)
+
+    #define kApplicationWebsiteURL @"http://codykrieger.com/gfxCardStatus"
 #endif

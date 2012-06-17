@@ -8,7 +8,7 @@
 
 #import <Cocoa/Cocoa.h>
 #import "GSPreferencesModule.h"
-#import "PrefsController.h"
+#import "GSPreferences.h"
 
 @interface GeneralPreferencesViewController : NSViewController <GSPreferencesModule>
 
@@ -17,6 +17,6 @@
 @property (strong) IBOutlet NSButton *prefChkUpdate; // check for updates on startup
 @property (strong) IBOutlet NSButton *prefChkStartup; // start at login
 
-@property (strong) PrefsController *prefs;
+@property (strong) GSPreferences *prefs;
 
 @end

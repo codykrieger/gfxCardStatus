@@ -55,25 +55,23 @@
 
 + (void)showOneTimeNotification
 {
-    // FIXME: Localize these strings
     NSAlert *versionInfo = [[NSAlert alloc] init];
-    [versionInfo setMessageText:@"Thanks for downloading gfxCardStatus!"];
-    [versionInfo setInformativeText:@"If you find it useful, please consider donating to support development and hosting costs. You can find the donate link, and the FAQ page (which you should REALLY read) at the gfxCardStatus website:"];
+    [versionInfo setMessageText:Str(@"ThanksForDownloading")];
+    [versionInfo setInformativeText:Str(@"PleaseConsiderDonating")];
     NSTextView *accessory = [[NSTextView alloc] initWithFrame:NSMakeRect(0,0,300,15)];
     [accessory insertText:[NSAttributedString hyperlinkFromString:@"http://codykrieger.com/gfxCardStatus" 
                                                           withURL:[NSURL URLWithString:@"http://codykrieger.com/gfxCardStatus"]]];
     [accessory setEditable:NO];
     [accessory setDrawsBackground:NO];
     [versionInfo setAccessoryView:accessory];
-    [versionInfo addButtonWithTitle:@"Don't show this again!"];
+    [versionInfo addButtonWithTitle:Str(@"DontShowAgain")];
     [versionInfo runModal];
 }
 
 + (void)showUnsupportedMachineMessage
 {
-    // FIXME: Localize these strings
-    NSAlert *alert = [NSAlert alertWithMessageText:@"You are using a system that gfxCardStatus does not support. Please ensure that you are using a MacBook Pro with dual GPUs." 
-                                     defaultButton:@"Oh, I see." 
+    NSAlert *alert = [NSAlert alertWithMessageText:Str(@"UnsupportedMachine")
+                                     defaultButton:Str(@"OhISee")
                                    alternateButton:nil 
                                        otherButton:nil 
                          informativeTextWithFormat:@""];

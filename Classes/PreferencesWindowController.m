@@ -7,6 +7,7 @@
 //
 
 #import "PreferencesWindowController.h"
+#import "GSPreferences.h"
 
 @interface PreferencesWindowController ()
 @property(nonatomic, retain) NSArray *modules;
@@ -31,6 +32,7 @@
                                                              styleMask:(NSTitledWindowMask | NSClosableWindowMask) 
                                                                backing:NSBackingStoreBuffered defer:YES];
         [prefsWindow setShowsToolbarButton:NO];
+        [prefsWindow setDelegate:[GSPreferences sharedInstance]];
         self.window = prefsWindow;
         
         [self _createToolbar];

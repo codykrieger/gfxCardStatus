@@ -13,8 +13,11 @@
 #import "GSProcess.h"
 #import "GSMux.h"
 #import "GSNotifier.h"
+#import <ReactiveCocoa/ReactiveCocoa.h>
 
 #define kHasSeenOneTimeNotificationKey @"hasSeenVersionTwoMessage"
+
+#define kShouldCheckForUpdatesOnStartupKeyPath @"prefsDict.shouldCheckForUpdatesOnStartup"
 
 @implementation gfxCardStatusAppDelegate
 
@@ -25,7 +28,7 @@
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
-    _prefs = [PrefsController sharedInstance];
+    _prefs = [GSPreferences sharedInstance];
     
     if (![GSMux switcherOpen]) {
         GTMLoggerError(@"Can't open connection to AppleGraphicsControl. This probably isn't a gfxCardStatus-compatible machine.");
@@ -60,7 +63,13 @@
     // to Growl.
     [GrowlApplicationBridge setGrowlDelegate:[GSNotifier sharedInstance]];
     
-    // FIXME: hook up pref directly to updater.automaticallyChecksForUpdates
+    // Hook up the check for updates on startup preference directly to the
+    // automaticallyChecksForUpdates property on the SUUpdater.
+    [[_prefs rac_subscribableForKeyPath:kShouldCheckForUpdatesOnStartupKeyPath onObject:self] subscribeNext:^(id x) {
+        GTMLoggerDebug(@"Check for updates on startup value changed: %@", x);
+        updater.automaticallyChecksForUpdates = [x boolValue];
+    }];
+    
     // Check for updates if the user has them enabled.
     if ([_prefs shouldCheckForUpdatesOnStartup])
         [updater checkForUpdatesInBackground];

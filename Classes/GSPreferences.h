@@ -1,5 +1,5 @@
 //
-//  PrefsController.h
+//  GSPreferences.h
 //  gfxCardStatus
 //
 //  Created by Cody Krieger on 9/26/10.
@@ -8,13 +8,14 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface PrefsController : NSObject <NSWindowDelegate> {
-    NSString *prefsPath;
-    NSMutableDictionary *prefs;
+@interface GSPreferences : NSObject <NSWindowDelegate> {
+    NSMutableDictionary *_prefsDict;
     
     NSNumber *yesNumber;
     NSNumber *noNumber;
 }
+
+@property (strong) NSMutableDictionary *prefsDict;
 
 - (void)setUpPreferences;
 - (void)setDefaults;
@@ -32,6 +33,6 @@
 
 - (void)savePreferences;
 
-+ (PrefsController *)sharedInstance;
++ (GSPreferences *)sharedInstance;
 
 @end

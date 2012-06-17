@@ -9,6 +9,9 @@
 #import "AdvancedPreferencesViewController.h"
 #import "GSGPU.h"
 
+#define kAdvancedPreferencesName        @"Advanced"
+#define kAdvancedPreferencesIdentifier  @"advanced"
+
 @implementation AdvancedPreferencesViewController
 
 @synthesize prefChkPowerSourceBasedSwitching;
@@ -24,7 +27,7 @@
 {
     self = [super initWithNibName:@"AdvancedPreferencesView" bundle:nil];
     if (self) {
-        prefs = [PrefsController sharedInstance];
+        prefs = [GSPreferences sharedInstance];
     }
     
     return self;
@@ -68,12 +71,12 @@
 
 - (NSString *)title
 {
-    return Str(@"Advanced");
+    return Str(kAdvancedPreferencesName);
 }
 
 - (NSString *)identifier
 {
-    return @"advanced";
+    return kAdvancedPreferencesIdentifier;
 }
 
 - (NSImage *)image

@@ -8,7 +8,7 @@
 
 #import <Cocoa/Cocoa.h>
 #import "GSPreferencesModule.h"
-#import "PrefsController.h"
+#import "GSPreferences.h"
 
 @interface AdvancedPreferencesViewController : NSViewController <GSPreferencesModule>
 
@@ -18,6 +18,6 @@
 @property (strong) IBOutlet NSTextField *onBatteryTextField;
 @property (strong) IBOutlet NSTextField *pluggedInTextField;
 
-@property (strong) PrefsController *prefs;
+@property (strong) GSPreferences *prefs;
 
 @end

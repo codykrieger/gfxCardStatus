@@ -27,7 +27,7 @@
 		A14C17F8124EBBFA00816A4A /* discrete-d.png in Resources */ = {isa = PBXBuildFile; fileRef = A14C17F6124EBBFA00816A4A /* discrete-d.png */; };
 		A14C17FB124EBC1100816A4A /* integrated-i-white.png in Resources */ = {isa = PBXBuildFile; fileRef = A14C17F9124EBC1100816A4A /* integrated-i-white.png */; };
 		A14C17FC124EBC1100816A4A /* discrete-n-white.png in Resources */ = {isa = PBXBuildFile; fileRef = A14C17FA124EBC1100816A4A /* discrete-n-white.png */; };
-		A14C180B124EFE6300816A4A /* PrefsController.m in Sources */ = {isa = PBXBuildFile; fileRef = A14C180A124EFE6300816A4A /* PrefsController.m */; };
+		A14C180B124EFE6300816A4A /* GSPreferences.m in Sources */ = {isa = PBXBuildFile; fileRef = A14C180A124EFE6300816A4A /* GSPreferences.m */; };
 		A159E4EA1184E84300E68428 /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A159E4E91184E84300E68428 /* Sparkle.framework */; };
 		A159E4FC1184EC5100E68428 /* Sparkle.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = A159E4E91184E84300E68428 /* Sparkle.framework */; };
 		A16B28F41196B0E7006EB263 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = A16B28F31196B0E7006EB263 /* README.md */; };
@@ -143,8 +143,8 @@
 		A14C17F6124EBBFA00816A4A /* discrete-d.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "discrete-d.png"; sourceTree = "<group>"; };
 		A14C17F9124EBC1100816A4A /* integrated-i-white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "integrated-i-white.png"; sourceTree = "<group>"; };
 		A14C17FA124EBC1100816A4A /* discrete-n-white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "discrete-n-white.png"; sourceTree = "<group>"; };
-		A14C1809124EFE6300816A4A /* PrefsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrefsController.h; sourceTree = "<group>"; };
-		A14C180A124EFE6300816A4A /* PrefsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrefsController.m; sourceTree = "<group>"; };
+		A14C1809124EFE6300816A4A /* GSPreferences.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GSPreferences.h; sourceTree = "<group>"; };
+		A14C180A124EFE6300816A4A /* GSPreferences.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GSPreferences.m; sourceTree = "<group>"; };
 		A14EC42112AE709D006B394D /* pt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = pt; path = pt.lproj/Localizable.strings; sourceTree = "<group>"; };
 		A14EC49112AE7609006B394D /* nl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/Localizable.strings; sourceTree = "<group>"; };
 		A1510B3A128D0A760076D88E /* Swedish */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = Swedish; path = Swedish.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -296,17 +296,9 @@
 		A11599C813D42A3D0097E4BC /* Preferences */ = {
 			isa = PBXGroup;
 			children = (
-				A14C1809124EFE6300816A4A /* PrefsController.h */,
-				A14C180A124EFE6300816A4A /* PrefsController.m */,
-				A11599BB13D429750097E4BC /* GSPreferencesModule.h */,
-				A11599BC13D429750097E4BC /* PreferencesWindowController.h */,
-				A11599BD13D429750097E4BC /* PreferencesWindowController.m */,
-				A11599B913D429750097E4BC /* GeneralPreferencesViewController.h */,
-				A11599BA13D429750097E4BC /* GeneralPreferencesViewController.m */,
-				A11599B713D429750097E4BC /* AdvancedPreferencesViewController.h */,
-				A11599B813D429750097E4BC /* AdvancedPreferencesViewController.m */,
-				A11599C413D429860097E4BC /* GeneralPreferencesView.xib */,
-				A11599C213D429860097E4BC /* AdvancedPreferencesView.xib */,
+				A14C1809124EFE6300816A4A /* GSPreferences.h */,
+				A14C180A124EFE6300816A4A /* GSPreferences.m */,
+				A18977D6158DA63C001F5F5E /* GUI */,
 			);
 			name = Preferences;
 			sourceTree = "<group>";
@@ -342,6 +334,22 @@
 				A14C17F9124EBC1100816A4A /* integrated-i-white.png */,
 			);
 			path = Images;
+			sourceTree = "<group>";
+		};
+		A18977D6158DA63C001F5F5E /* GUI */ = {
+			isa = PBXGroup;
+			children = (
+				A11599BB13D429750097E4BC /* GSPreferencesModule.h */,
+				A11599BC13D429750097E4BC /* PreferencesWindowController.h */,
+				A11599BD13D429750097E4BC /* PreferencesWindowController.m */,
+				A11599B913D429750097E4BC /* GeneralPreferencesViewController.h */,
+				A11599BA13D429750097E4BC /* GeneralPreferencesViewController.m */,
+				A11599B713D429750097E4BC /* AdvancedPreferencesViewController.h */,
+				A11599B813D429750097E4BC /* AdvancedPreferencesViewController.m */,
+				A11599C413D429860097E4BC /* GeneralPreferencesView.xib */,
+				A11599C213D429860097E4BC /* AdvancedPreferencesView.xib */,
+			);
+			name = GUI;
 			sourceTree = "<group>";
 		};
 		A1CCE1FC12B13CC1006D07A4 /* Categories */ = {
@@ -423,7 +431,7 @@
 		29B97313FDCFA39411CA2CEA /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0430;
+				LastUpgradeCheck = 0450;
 				ORGANIZATIONNAME = "Cody Krieger";
 			};
 			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "gfxCardStatus" */;
@@ -527,7 +535,7 @@
 			files = (
 				8D11072D0486CEB800E47090 /* main.m in Sources */,
 				256AC3DA0F4B6AC300CF3369 /* gfxCardStatusAppDelegate.m in Sources */,
-				A14C180B124EFE6300816A4A /* PrefsController.m in Sources */,
+				A14C180B124EFE6300816A4A /* GSPreferences.m in Sources */,
 				A1CCE20012B13CE4006D07A4 /* NSAttributedString+Hyperlink.m in Sources */,
 				A17CE49A13B07C3700E5D50F /* GSProcess.m in Sources */,
 				A17CE49E13B081DE00E5D50F /* GSMux.m in Sources */,
@@ -682,6 +690,7 @@
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				CODE_SIGN_IDENTITY = "";
+				COMBINE_HIDPI_IMAGES = YES;
 				DEPLOYMENT_LOCATION = NO;
 				DEPLOYMENT_POSTPROCESSING = NO;
 				DSTROOT = /tmp/gfxCardStatus.dst;
@@ -706,6 +715,7 @@
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CODE_SIGN_IDENTITY = "";
+				COMBINE_HIDPI_IMAGES = YES;
 				DEPLOYMENT_LOCATION = NO;
 				DEPLOYMENT_POSTPROCESSING = NO;
 				DSTROOT = /tmp/gfxCardStatus.dst;
