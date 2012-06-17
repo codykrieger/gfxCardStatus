@@ -24,7 +24,7 @@ Feature requests/bug reports are always welcome by email: cody [at] codykrieger 
 
 Licensed under the New BSD License.
 
-Copyright (c) 2010-2011, Cody Krieger
+Copyright (c) 2010-2012, Cody Krieger
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without

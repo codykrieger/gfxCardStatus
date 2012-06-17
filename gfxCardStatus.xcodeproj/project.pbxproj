@@ -30,6 +30,7 @@
 		A14C180B124EFE6300816A4A /* GSPreferences.m in Sources */ = {isa = PBXBuildFile; fileRef = A14C180A124EFE6300816A4A /* GSPreferences.m */; };
 		A159E4EA1184E84300E68428 /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A159E4E91184E84300E68428 /* Sparkle.framework */; };
 		A159E4FC1184EC5100E68428 /* Sparkle.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = A159E4E91184E84300E68428 /* Sparkle.framework */; };
+		A161687F158E0E380063BE94 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = A161687E158E0E370063BE94 /* LICENSE */; };
 		A16B28F41196B0E7006EB263 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = A16B28F31196B0E7006EB263 /* README.md */; };
 		A17220A91236DA8A00636797 /* Growl Registration Ticket.growlRegDict in Resources */ = {isa = PBXBuildFile; fileRef = A17220981236DA0B00636797 /* Growl Registration Ticket.growlRegDict */; };
 		A17221841236DE4200636797 /* Growl License.txt in Resources */ = {isa = PBXBuildFile; fileRef = A17221831236DE4200636797 /* Growl License.txt */; };
@@ -149,6 +150,7 @@
 		A14EC49112AE7609006B394D /* nl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/Localizable.strings; sourceTree = "<group>"; };
 		A1510B3A128D0A760076D88E /* Swedish */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = Swedish; path = Swedish.lproj/Localizable.strings; sourceTree = "<group>"; };
 		A159E4E91184E84300E68428 /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Sparkle.framework; sourceTree = "<group>"; };
+		A161687E158E0E370063BE94 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		A16B28F31196B0E7006EB263 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
 		A17220981236DA0B00636797 /* Growl Registration Ticket.growlRegDict */ = {isa = PBXFileReference; explicitFileType = text.plist.xml; fileEncoding = 4; path = "Growl Registration Ticket.growlRegDict"; sourceTree = "<group>"; };
 		A17221831236DE4200636797 /* Growl License.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Growl License.txt"; sourceTree = "<group>"; };
@@ -364,6 +366,7 @@
 		A1ED2B331585847600B99CDE /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				A161687E158E0E370063BE94 /* LICENSE */,
 				8D1107310486CEB800E47090 /* gfxCardStatus-Info.plist */,
 				089C165CFE840E0CC02AAC07 /* InfoPlist.strings */,
 				256AC3F00F4B6AF500CF3369 /* gfxCardStatus_Prefix.pch */,
@@ -523,6 +526,7 @@
 				A11599C713D429860097E4BC /* GeneralPreferencesView.xib in Resources */,
 				A1F7ED5114B0410E00328A83 /* ReleaseNotes.txt in Resources */,
 				A1F7ED5314B0413900328A83 /* COPYING in Resources */,
+				A161687F158E0E380063BE94 /* LICENSE in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
