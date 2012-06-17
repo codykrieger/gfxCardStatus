@@ -12,6 +12,9 @@
 
 #import "GSMux.h"
 
+#define kNewStyleSwitchPolicyValue (0) // dynamic switching
+#define kOldStyleSwitchPolicyValue (2) // log out before switching
+
 static io_connect_t _switcherConnect = IO_OBJECT_NULL;
 
 // Stuff to look at:
@@ -129,13 +132,13 @@ static BOOL getFeatureInfo(io_connect_t connect, muxFeature feature)
 {
     uint64_t featureInfo = 0;
     if (!getMuxState(connect, muxFeatureInfo, &featureInfo)) return 0;
-    return (1<<feature) & featureInfo ? YES: NO;
+    return ((1 << feature) & featureInfo) ? YES : NO;
 }
 
 static void setSwitchPolicy(io_connect_t connect, BOOL dynamic)
 {
     // arg = 2: user needs to logout before switching, arg = 0: instant switching
-    setMuxState(connect, muxSwitchPolicy, dynamic ? 0 : 2);
+    setMuxState(connect, muxSwitchPolicy, dynamic ? kNewStyleSwitchPolicyValue : kOldStyleSwitchPolicyValue);
 }
 
 static void setDynamicSwitchingEnabled(io_connect_t connect, BOOL enabled)
@@ -351,6 +354,13 @@ static void dumpState(io_connect_t connect)
     if (_switcherConnect == IO_OBJECT_NULL) return NO;
     getMuxState(_switcherConnect, muxGpuSelect, &output);
     return output != 0;
+}
+
++ (BOOL)isUsingOldStyleSwitchPolicy
+{
+    uint64_t policy = 0;
+    getMuxState(_switcherConnect, muxSwitchPolicy, &policy);
+    return policy == kOldStyleSwitchPolicyValue;
 }
 
 @end

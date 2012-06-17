@@ -27,5 +27,6 @@ typedef enum {
 + (BOOL)isUsingIntegratedGPU;
 + (BOOL)isUsingIntegratedGPU;
 + (BOOL)isUsingDynamicSwitching;
++ (BOOL)isUsingOldStyleSwitchPolicy;
 
 @end

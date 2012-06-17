@@ -88,7 +88,7 @@
 
 - (void)handleWake:(NSNotification *)notification
 {
-    GTMLoggerDebug(@"Wake notification! %@", notification);
+    GTMLoggerInfo(@"Wake notification! %@", notification);
     // FIXME: Implement
 //    [self performSelector:@selector(delayedPowerSourceCheck) withObject:nil afterDelay:7.0];
 }
