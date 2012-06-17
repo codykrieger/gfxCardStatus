@@ -25,7 +25,6 @@
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
     prefs = [PrefsController sharedInstance];
-    state = [GSState sharedInstance];
     
     if (![GSMux switcherOpen]) {
         GTMLoggerError(@"Can't open connection to AppleGraphicsControl.");
@@ -34,6 +33,8 @@
         [menuController quit:self];
     } else {
         GTMLoggerInfo(@"GPUs present: %@", [GSGPU getGPUNames]);
+        GTMLoggerInfo(@"Integrated GPU name: %@", [GSGPU integratedGPUName]);
+        GTMLoggerInfo(@"Discrete GPU name: %@", [GSGPU discreteGPUName]);
     }
     
     // All the things (notifications)!

@@ -20,32 +20,10 @@
     NSStatusItem *statusItem;
     
     IBOutlet SUUpdater *updater;
-    IBOutlet NSMenu *statusMenu;
-    
-    // dynamic menu items - these change
-    IBOutlet NSMenuItem *versionItem;
-    IBOutlet NSMenuItem *updateItem;
-    IBOutlet NSMenuItem *preferencesItem;
-    IBOutlet NSMenuItem *quitItem;
-
-    IBOutlet NSMenuItem *currentCard;
-    IBOutlet NSMenuItem *currentPowerSource;
-    IBOutlet NSMenuItem *switchGPUs;
-    IBOutlet NSMenuItem *integratedOnly;
-    IBOutlet NSMenuItem *discreteOnly;
-    IBOutlet NSMenuItem *dynamicSwitching;
-    
-    // process list menu items
-    IBOutlet NSMenuItem *processesSeparator;
-    IBOutlet NSMenuItem *dependentProcesses;
-    IBOutlet NSMenuItem *processList;
     
     // preferences for all!
     PrefsController *prefs;
     PreferencesWindowController *pwc;
-    
-    // state for all!!!
-    GSState *state;
     
     // power source monitor
 //    PowerSourceMonitor *powerSourceMonitor;
