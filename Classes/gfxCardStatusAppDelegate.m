@@ -48,6 +48,11 @@
         GTMLoggerInfo(@"GPUs present: %@", [GSGPU getGPUNames]);
         GTMLoggerInfo(@"Integrated GPU name: %@", [GSGPU integratedGPUName]);
         GTMLoggerInfo(@"Discrete GPU name: %@", [GSGPU discreteGPUName]);
+        
+        // Set the machine to dynamic switching to get it out of any kind of
+        // weird state from the get go.
+        if (![GSGPU isLegacyMachine])
+            [GSMux setMode:GSSwitcherModeDynamicSwitching];
     }
     
     // Now accepting GPU change notifications! Apply at your nearest GSGPU today.
