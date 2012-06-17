@@ -96,11 +96,12 @@ static BOOL getMuxState(io_connect_t connect, uint64_t input, uint64_t *output)
                                            2,             // the number of scalar input values.
                                            output,        // array of scalar (64-bit) output values.
                                            &outputCount); // pointer to the number of scalar output values.
-    if (kernResult == KERN_SUCCESS) {
+    
+    if (kernResult == KERN_SUCCESS)
         GTMLoggerDebug(@"getMuxState was successful (count=%d, value=0x%08llx).", outputCount, *output);
-    } else {
+    else
         GTMLoggerDebug(@"getMuxState returned 0x%08x.", kernResult);
-    }
+    
     return kernResult == KERN_SUCCESS;
 }
 
@@ -115,11 +116,12 @@ static BOOL setMuxState(io_connect_t connect, muxState state, uint64_t arg)
                                            3,            // the number of scalar input values.
                                            NULL,         // array of scalar (64-bit) output values.
                                            0);           // pointer to the number of scalar output values.
-    if (kernResult == KERN_SUCCESS) {
+    
+    if (kernResult == KERN_SUCCESS)
         GTMLoggerDebug(@"setMuxState was successful.");
-    } else {
+    else
         GTMLoggerDebug(@"setMuxState returned 0x%08x.", kernResult);
-    }
+    
     return kernResult == KERN_SUCCESS;
 }
 
@@ -131,7 +133,9 @@ static BOOL setFeatureInfo(io_connect_t connect, muxFeature feature, BOOL enable
 static BOOL getFeatureInfo(io_connect_t connect, muxFeature feature)
 {
     uint64_t featureInfo = 0;
-    if (!getMuxState(connect, muxFeatureInfo, &featureInfo)) return 0;
+    if (!getMuxState(connect, muxFeatureInfo, &featureInfo))
+        return 0;
+    
     return ((1 << feature) & featureInfo) ? YES : NO;
 }
 
@@ -179,9 +183,8 @@ static void printFeatures(io_connect_t connect)
     uint64_t featureInfo = 0;
     getMuxState(connect, muxFeatureInfo, &featureInfo);
     muxFeature f;
-    for (f = Policy; f < muxFeaturesCount; f++) {
+    for (f = Policy; f < muxFeaturesCount; f++)
         GTMLoggerDebug(@"%s: %s", getFeatureName(f), (featureInfo & (1<<f) ? "ON" : "OFF"));
-    }
 }
 
 // ???
@@ -198,11 +201,10 @@ static void setExclusive(io_connect_t connect)
                                            NULL,          // array of scalar (64-bit) output values.
                                            0);            // pointer to the number of scalar output values.
     
-    if (kernResult == KERN_SUCCESS) {
+    if (kernResult == KERN_SUCCESS)
         GTMLoggerDebug(@"setExclusive was successful.");
-    } else {
+    else
         GTMLoggerDebug(@"setExclusive returned 0x%08x.", kernResult);
-    }
 }
 
 typedef struct StateStruct {
@@ -228,11 +230,10 @@ static void dumpState(io_connect_t connect)
     
     // TODO: figure the meaning of the values in StateStruct out
     
-    if (kernResult == KERN_SUCCESS) {
+    if (kernResult == KERN_SUCCESS)
         GTMLoggerDebug(@"setExclusive was successful.");
-    } else {
+    else
         GTMLoggerDebug(@"setExclusive returned 0x%08x.", kernResult);
-    }
 }
 
 @implementation GSMux
@@ -272,8 +273,10 @@ static void dumpState(io_connect_t connect)
     }
     
     kernResult = IOConnectCallScalarMethod(_switcherConnect, kOpen, NULL, 0, NULL, NULL);
-    if (kernResult != KERN_SUCCESS) GTMLoggerDebug(@"IOConnectCallScalarMethod returned 0x%08x.", kernResult);
-    else GTMLoggerDebug(@"Driver connection opened.");
+    if (kernResult != KERN_SUCCESS)
+        GTMLoggerDebug(@"IOConnectCallScalarMethod returned 0x%08x.", kernResult);
+    else
+        GTMLoggerDebug(@"Driver connection opened.");
     
     return kernResult == KERN_SUCCESS;
 }

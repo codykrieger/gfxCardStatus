@@ -6,8 +6,6 @@
 //  Copyright 2011 Cody Krieger. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-
 #import "GSMux.h"
 
 #define kTaskItemName  @"name"

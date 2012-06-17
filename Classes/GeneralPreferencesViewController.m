@@ -51,9 +51,8 @@
     }];
     
     NSArray *localizedButtons = [[NSArray alloc] initWithObjects:prefChkStartup, prefChkUpdate, prefChkSmartIcons, nil];
-    for (NSButton *loc in localizedButtons) {
+    for (NSButton *loc in localizedButtons)
         [loc setTitle:Str([loc title])];
-    }
 }
 
 #pragma mark - Passthrough properties

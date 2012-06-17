@@ -92,9 +92,8 @@
 + (NSString *)_keyForNotificationType:(GSNotificationType)type
 {
     if (type == GSNotificationTypeGPUDidChangeToIntegrated
-        || type == GSNotificationTypeGPUDidChangeToDiscrete) {
+        || type == GSNotificationTypeGPUDidChangeToDiscrete)
         return kGPUChangedNotificationKey;
-    }
     
     assert(false); // We shouldn't ever get here.
     

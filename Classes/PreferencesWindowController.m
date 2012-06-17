@@ -45,13 +45,14 @@
 
 - (void)setModules:(NSArray *)newModules
 {
-    if (newModules == _modules) return;
+    if (newModules == _modules)
+        return;
     
-    if (_modules) {
+    if (_modules)
         _modules = nil;
-    }
     
-    if (!newModules) return;
+    if (!newModules)
+        return;
     
     _modules = newModules;
     
@@ -65,9 +66,8 @@
         }
         
         // Add the new items
-        for (id<GSPreferencesModule> module in self.modules) {
+        for (id<GSPreferencesModule> module in self.modules)
             [toolbar insertItemWithItemIdentifier:[module identifier] atIndex:[[toolbar items] count]];
-        }
     }
     
     // Change to the correct module
@@ -79,9 +79,8 @@
         NSString *savedIdentifier = [[NSUserDefaults standardUserDefaults] stringForKey:@"PreferencesWindowSelection"];
         defaultModule = [self _moduleForIdentifier:savedIdentifier];
         
-        if (!defaultModule) {
+        if (!defaultModule)
             defaultModule = [self.modules objectAtIndex:0];
-        }
         
         [self _changeToModule:defaultModule];
     }
@@ -93,9 +92,8 @@
 {
     NSMutableArray *identifiers = [NSMutableArray array];
     
-    for (id<GSPreferencesModule> module in self.modules) {
+    for (id<GSPreferencesModule> module in self.modules)
         [identifiers addObject:[module identifier]];
-    }
     
     return identifiers;
 }
@@ -114,7 +112,8 @@
     id<GSPreferencesModule> module = [self _moduleForIdentifier:itemIdentifier];
     
     NSToolbarItem *item = [[NSToolbarItem alloc] initWithItemIdentifier:itemIdentifier];
-    if (!module) return item;
+    if (!module)
+        return item;
     
     // Set the attributes of the item
     [item setLabel:[module title]];
@@ -142,19 +141,20 @@
 - (id<GSPreferencesModule>)_moduleForIdentifier:(NSString *)identifier
 {
     for (id<GSPreferencesModule> module in self.modules) {
-        if ([[module identifier] isEqualToString:identifier]) {
+        if ([[module identifier] isEqualToString:identifier])
             return module;
-        }
     }
     
     return nil;
 }
 
 - (void)_selectModule:(NSToolbarItem *)sender {
-    if (![sender isKindOfClass:[NSToolbarItem class]]) return;
+    if (![sender isKindOfClass:[NSToolbarItem class]])
+        return;
     
     id<GSPreferencesModule> module = [self _moduleForIdentifier:[sender itemIdentifier]];
-    if (!module) return;
+    if (!module)
+        return;
     
     [self _changeToModule:module];
 }
@@ -177,9 +177,8 @@
     [self.window setTitle:[module title]];
     
     // Call the optional protocol method if the module implements it
-    if ([(NSObject *)module respondsToSelector:@selector(willBeDisplayed)]) {
+    if ([(NSObject *)module respondsToSelector:@selector(willBeDisplayed)])
         [module willBeDisplayed];
-    }
     
     // Show the view
     currentModule = module;

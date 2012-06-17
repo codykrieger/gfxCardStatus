@@ -6,10 +6,11 @@
 //  Copyright (c) 2012 Cody Krieger. All rights reserved.
 //
 
+#import "GSPower.h"
+
 #include <IOKit/IOKitLib.h>
 #include <IOKit/ps/IOPSKeys.h>
 #include <IOKit/ps/IOPowerSources.h>
-#import "GSPower.h"
 
 static BOOL _stringsAreEqual(CFStringRef a, CFStringRef b);
 static GSPowerType _getCurrentPowerSource();
@@ -20,9 +21,8 @@ static void _registerPowerSourceNotification(GSPower *powerSourceMonitor);
 
 static BOOL _stringsAreEqual(CFStringRef a, CFStringRef b)
 {
-    if (a == nil || b == nil) {
+    if (a == nil || b == nil)
         return NO;
-    }
     
     return (CFStringCompare(a, b, 0) == kCFCompareEqualTo);
 }
@@ -51,13 +51,12 @@ static GSPowerType _getCurrentPowerSource()
         if (_stringsAreEqual(CFDictionaryGetValue(description, CFSTR(kIOPSTransportTypeKey)), CFSTR(kIOPSInternalType))) {
             CFStringRef currentState = CFDictionaryGetValue(description, CFSTR(kIOPSPowerSourceStateKey));
             
-            if (_stringsAreEqual(currentState, CFSTR(kIOPSACPowerValue))) {
+            if (_stringsAreEqual(currentState, CFSTR(kIOPSACPowerValue)))
                 status = GSPowerTypeAC;
-            } else if (_stringsAreEqual(currentState, CFSTR(kIOPSBatteryPowerValue))) {
+            else if (_stringsAreEqual(currentState, CFSTR(kIOPSBatteryPowerValue)))
                 status = GSPowerTypeBattery;
-            } else {
+            else
                 status = GSPowerTypeUnknown;
-            }
         }
     }
     

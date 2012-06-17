@@ -38,10 +38,12 @@
 
 - (id)init
 {
-    if ((self = [super init])) {
-        GTMLoggerDebug(@"Initializing GSPreferences...");
-        [self setUpPreferences];
-    }
+    if (!(self = [super init]))
+        return nil;
+    
+    GTMLoggerDebug(@"Initializing GSPreferences...");
+    [self setUpPreferences];
+    
     return self;
 }
 
@@ -101,11 +103,10 @@
 {
     GTMLoggerDebug(@"Writing preferences to disk...");
     
-    if ([_prefsDict writeToFile:[self _getPrefsPath] atomically:YES]) {
+    if ([_prefsDict writeToFile:[self _getPrefsPath] atomically:YES])
         GTMLoggerDebug(@"Successfully wrote preferences to disk.");
-    } else {
+    else
         GTMLoggerDebug(@"Failed to write preferences to disk. Permissions problem in ~/Library/Preferences?");
-    }
 }
 
 - (void)setBool:(BOOL)value forKey:(NSString *)key

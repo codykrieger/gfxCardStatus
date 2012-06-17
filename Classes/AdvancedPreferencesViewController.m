@@ -39,14 +39,12 @@
     [super loadView];
     
     NSArray *localizedButtons = [NSArray arrayWithObjects:prefChkPowerSourceBasedSwitching, nil];
-    for (NSButton *loc in localizedButtons) {
+    for (NSButton *loc in localizedButtons)
         [loc setTitle:Str([loc title])];
-    }
     
     NSArray *localizedLabels = [NSArray arrayWithObjects:onBatteryTextField, pluggedInTextField, nil];
-    for (NSTextField *field in localizedLabels) {
+    for (NSTextField *field in localizedLabels)
         [field setStringValue:Str([field stringValue])];
-    }
     
     if ([GSGPU isLegacyMachine]) {
         [prefSegOnBattery setSegmentCount:2];

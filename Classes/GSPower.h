@@ -6,8 +6,6 @@
 //  Copyright (c) 2012 Cody Krieger. All rights reserved.
 //
 
-#import <Cocoa/Cocoa.h>
-
 typedef enum {
     GSPowerTypeAC,
     GSPowerTypeBattery,

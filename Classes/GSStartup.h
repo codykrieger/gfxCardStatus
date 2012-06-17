@@ -6,8 +6,6 @@
 //  Copyright (c) 2012 Cody Krieger. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-
 @interface GSStartup : NSObject
 
 + (BOOL)existsInStartupItems;

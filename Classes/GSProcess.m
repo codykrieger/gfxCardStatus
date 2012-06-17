@@ -36,8 +36,10 @@ static void _procTask(const void *value, void *param) {
     char *buf, *sp, *cp;
     
     // return if we don't have any processes, or our current process pid is rubbish
-    if (_procInfo == NULL) return;
-    if (!CFNumberGetValue(value, kCFNumberLongLongType, &pid)) return;
+    if (_procInfo == NULL)
+        return;
+    if (!CFNumberGetValue(value, kCFNumberLongLongType, &pid))
+        return;
     
     // loop through the kernel process list, find the one that matches our current 
     // pid (must conform to AppleGraphicsControl), then break
@@ -53,11 +55,13 @@ static void _procTask(const void *value, void *param) {
     key = [[NSNumber alloc] initWithLongLong:pid];
     
     sz = sizeof(i);
-    if (sysctl(mib, 2, &i, &sz, NULL, 0) == -1) goto err;
+    if (sysctl(mib, 2, &i, &sz, NULL, 0) == -1)
+        goto err;
     
     // create a buffer for reading in the process name
     buf = (char *)malloc(i);
-    if (buf == NULL) goto err;
+    if (buf == NULL)
+        goto err;
     
     mib[1] = KERN_PROCARGS2;
     mib[2] = k->kp_proc.p_pid;
@@ -97,7 +101,8 @@ static void _procUpdate() {
     size_t sz;
     
     // return if unsuccessful
-    if (sysctl(mib, 3, NULL, &sz, NULL, 0) < 0) return;
+    if (sysctl(mib, 3, NULL, &sz, NULL, 0) < 0)
+        return;
     
     // if procInfo has stale data, reallocate it in preparation for new task list
     if (_procInfo == NULL || sz != _procSize) {
@@ -107,7 +112,8 @@ static void _procUpdate() {
     }
     
     // read tasks into procInfo and return if unsuccessful
-    if (sysctl(mib, 3, _procInfo, &sz, NULL, 0) < 0) return;
+    if (sysctl(mib, 3, _procInfo, &sz, NULL, 0) < 0)
+        return;
     
     // update number of processes in the list
     _procNum = sz / sizeof(struct kinfo_proc);
@@ -121,6 +127,7 @@ static void _procScan(io_registry_entry_t service, NSMutableArray *arr) {
     // get all tasks that conform to AppleGraphicsControl service
     if (IOObjectConformsTo(service, "AppleGraphicsControl")) {
         kern_return_t status = IORegistryEntryCreateCFProperties(service, &props, kCFAllocatorDefault, kNilOptions);
+        
         if (status == KERN_SUCCESS && CFGetTypeID(props) == CFDictionaryGetTypeID()) {
             CFTypeRef array = CFDictionaryGetValue(props, kProcTaskKey);
             CFRange range = { 0, CFArrayGetCount(array) };
@@ -134,6 +141,7 @@ static void _procScan(io_registry_entry_t service, NSMutableArray *arr) {
             _procScan(child, arr);
             IOObjectRelease(child);
         }
+        
         IOObjectRelease(children);
     }
 }
@@ -150,18 +158,18 @@ static void _procScan(io_registry_entry_t service, NSMutableArray *arr) {
     CGDisplayCount displayCount = 0;
     if (CGGetOnlineDisplayList(8, displays, &displayCount) == noErr) {
         for (int i = 0; i < displayCount; i++) {
-            if ( ! CGDisplayIsBuiltin(displays[i])) {
+            if ( ! CGDisplayIsBuiltin(displays[i]))
                 [list addObject:[NSDictionary dictionaryWithObjectsAndKeys:
                                  Str(@"External Display"), kTaskItemName,
                                  @"", kTaskItemPID, nil]];
-            }
         }
     }
     
     // scan the kernel process list for discrete gpu-using tasks
     io_registry_entry_t service = 0;
     service = IORegistryGetRootEntry(kIOMasterPortDefault);
-    if (!service) return [NSArray array];
+    if (!service)
+        return [NSArray array];
     
     _procUpdate();
     _procScan(service, list);

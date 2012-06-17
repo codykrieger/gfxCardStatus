@@ -58,9 +58,8 @@ static void _displayReconfigurationCallback(CGDirectDisplayID display, CGDisplay
 
 + (NSArray *)getGPUNames
 {
-    if (_cachedGPUs) {
+    if (_cachedGPUs)
         return _cachedGPUs;
-    }
     
     _cachedGPUs = [NSMutableArray array];
     

@@ -6,7 +6,6 @@
 //  Copyright (c) 2012 Cody Krieger. All rights reserved.
 //
 
-#import <Cocoa/Cocoa.h>
 #import <Growl/Growl.h>
 
 typedef enum {

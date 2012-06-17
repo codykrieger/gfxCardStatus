@@ -6,14 +6,13 @@
 //  Copyright 2010 Cody Krieger. All rights reserved.
 //
 
-#import <Cocoa/Cocoa.h>
-#import <Sparkle/Sparkle.h>
-#import <Sparkle/SUUpdater.h>
-
 #import "GSPreferences.h"
 #import "PreferencesWindowController.h"
 #import "GSMenuController.h"
 #import "GSGPU.h"
+
+#import <Sparkle/Sparkle.h>
+#import <Sparkle/SUUpdater.h>
 
 @interface gfxCardStatusAppDelegate : NSObject <NSApplicationDelegate,GSGPUDelegate> {
     GSPreferences *_prefs;

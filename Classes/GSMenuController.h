@@ -6,7 +6,6 @@
 //  Copyright (c) 2012 Cody Krieger. All rights reserved.
 //
 
-#import <Cocoa/Cocoa.h>
 #import "PreferencesWindowController.h"
 #import "GSPreferences.h"
 

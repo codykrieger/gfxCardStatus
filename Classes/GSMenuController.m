@@ -6,14 +6,14 @@
 //  Copyright (c) 2012 Cody Krieger. All rights reserved.
 //
 
-#import <ReactiveCocoa/ReactiveCocoa.h>
-
 #import "GSMenuController.h"
 #import "GeneralPreferencesViewController.h"
 #import "AdvancedPreferencesViewController.h"
 #import "GSMux.h"
 #import "GSProcess.h"
 #import "GSGPU.h"
+
+#import <ReactiveCocoa/ReactiveCocoa.h>
 
 #define kImageIconIntegratedName    @"integrated"
 #define kImageIconDiscreteName      @"discrete"
@@ -24,6 +24,7 @@
 @interface GSMenuController (Internal)
 - (void)_localizeMenu;
 - (void)_updateProcessList;
+- (void)_updateMenuBarIconText:(BOOL)isUsingIntegrated cardString:(NSString *)cardString;
 @end
 
 @implementation GSMenuController
@@ -114,40 +115,10 @@
     NSString *cardString = (isUsingIntegrated ? [GSGPU integratedGPUName] : [GSGPU discreteGPUName]);
     
     // set menu bar icon
-    if ([_prefs shouldUseImageIcons]) {
+    if ([_prefs shouldUseImageIcons])
         [_statusItem setImage:[NSImage imageNamed:(isUsingIntegrated ? kImageIconIntegratedName : kImageIconDiscreteName)]];
-    } else {
-        // grab first character of GPU string for the menu bar icon
-        unichar firstLetter;
-        
-        if ([GSGPU isLegacyMachine] || ![_prefs shouldUseSmartMenuBarIcons]) {
-            firstLetter = [GSMux isUsingIntegratedGPU] ? 'i' : 'd';
-        } else {
-            firstLetter = [cardString characterAtIndex:0];
-        }
-        
-        // format firstLetter into an NSString *
-        NSString *letter = [[NSString stringWithFormat:@"%C", firstLetter] lowercaseString];
-        int fontSize = ([letter isEqualToString:@"n"] || [letter isEqualToString:@"a"] ? 19 : 18);
-        
-        // set the correct font
-        NSFontManager *fontManager = [NSFontManager sharedFontManager];
-        NSFont *boldItalic = [fontManager fontWithFamily:@"Georgia"
-                                                  traits:NSBoldFontMask|NSItalicFontMask
-                                                  weight:0
-                                                    size:fontSize];
-        
-        // create NSAttributedString with font
-        NSDictionary *attributes = [[NSDictionary alloc] initWithObjectsAndKeys:
-                                    boldItalic, NSFontAttributeName, 
-                                    [NSNumber numberWithDouble:2.0], NSBaselineOffsetAttributeName, nil];
-        NSAttributedString *title = [[NSAttributedString alloc] 
-                                     initWithString:letter
-                                     attributes:attributes];
-        
-        // set menu bar text "icon"
-        [_statusItem setAttributedTitle:title];
-    }
+    else
+        [self _updateMenuBarIconText:isUsingIntegrated cardString:cardString];
     
     if (![GSGPU isLegacyMachine]) {
         BOOL dynamic = [GSMux isUsingDynamicSwitching];
@@ -272,9 +243,8 @@
                           quitItem, switchGPUs, integratedOnly, discreteOnly, 
                           dynamicSwitching, dependentProcesses, processList, 
                           nil];
-    for (NSButton *loc in localized) {
+    for (NSButton *loc in localized)
         [loc setTitle:Str([loc title])];
-    }
 }
 
 - (void)_updateProcessList
@@ -319,6 +289,40 @@
         [statusMenu insertItem:item 
                        atIndex:([statusMenu indexOfItem:processList] + 1)];
     }
+}
+
+- (void)_updateMenuBarIconText:(BOOL)isUsingIntegrated cardString:(NSString *)cardString
+{
+    // grab first character of GPU string for the menu bar icon
+    unichar firstLetter;
+    
+    if ([GSGPU isLegacyMachine] || ![_prefs shouldUseSmartMenuBarIcons]) {
+        firstLetter = [GSMux isUsingIntegratedGPU] ? 'i' : 'd';
+    } else {
+        firstLetter = [cardString characterAtIndex:0];
+    }
+    
+    // format firstLetter into an NSString *
+    NSString *letter = [[NSString stringWithFormat:@"%C", firstLetter] lowercaseString];
+    int fontSize = ([letter isEqualToString:@"n"] || [letter isEqualToString:@"a"] ? 19 : 18);
+    
+    // set the correct font
+    NSFontManager *fontManager = [NSFontManager sharedFontManager];
+    NSFont *boldItalic = [fontManager fontWithFamily:@"Georgia"
+                                              traits:NSBoldFontMask|NSItalicFontMask
+                                              weight:0
+                                                size:fontSize];
+    
+    // create NSAttributedString with font
+    NSDictionary *attributes = [[NSDictionary alloc] initWithObjectsAndKeys:
+                                boldItalic, NSFontAttributeName, 
+                                [NSNumber numberWithDouble:2.0], NSBaselineOffsetAttributeName, nil];
+    NSAttributedString *title = [[NSAttributedString alloc] 
+                                 initWithString:letter
+                                 attributes:attributes];
+    
+    // set menu bar text "icon"
+    [_statusItem setAttributedTitle:title];
 }
 
 @end
