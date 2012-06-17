@@ -37,7 +37,6 @@
 		A17CE49E13B081DE00E5D50F /* GSMux.m in Sources */ = {isa = PBXBuildFile; fileRef = A17CE49D13B081DE00E5D50F /* GSMux.m */; };
 		A1A3A6F9118214E2008B8145 /* integrated-i.png in Resources */ = {isa = PBXBuildFile; fileRef = A1A3A6F8118214E2008B8145 /* integrated-i.png */; };
 		A1B9412C15899CFD000EE7A7 /* Growl.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A1B9412B15899CFD000EE7A7 /* Growl.framework */; };
-		A1C01F2113B06C08003BD4B2 /* GSState.m in Sources */ = {isa = PBXBuildFile; fileRef = A1C01F2013B06C08003BD4B2 /* GSState.m */; };
 		A1CCE20012B13CE4006D07A4 /* NSAttributedString+Hyperlink.m in Sources */ = {isa = PBXBuildFile; fileRef = A1CCE1FF12B13CE4006D07A4 /* NSAttributedString+Hyperlink.m */; };
 		A1D6AC5D11826BF00038AD1A /* discrete-n.png in Resources */ = {isa = PBXBuildFile; fileRef = A1D6AC5C11826BF00038AD1A /* discrete-n.png */; };
 		A1D9C42011850DEF009A4DE1 /* dsa_pub.pem in Resources */ = {isa = PBXBuildFile; fileRef = A1D9C41F11850DEF009A4DE1 /* dsa_pub.pem */; };
@@ -161,8 +160,6 @@
 		A1A3A6F8118214E2008B8145 /* integrated-i.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "integrated-i.png"; sourceTree = "<group>"; };
 		A1B9412B15899CFD000EE7A7 /* Growl.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Growl.framework; sourceTree = "<group>"; };
 		A1B941671589D85A000EE7A7 /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/Localizable.strings; sourceTree = "<group>"; };
-		A1C01F1F13B06C08003BD4B2 /* GSState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GSState.h; sourceTree = "<group>"; };
-		A1C01F2013B06C08003BD4B2 /* GSState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GSState.m; sourceTree = "<group>"; };
 		A1CCE1FE12B13CE4006D07A4 /* NSAttributedString+Hyperlink.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSAttributedString+Hyperlink.h"; sourceTree = "<group>"; };
 		A1CCE1FF12B13CE4006D07A4 /* NSAttributedString+Hyperlink.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSAttributedString+Hyperlink.m"; sourceTree = "<group>"; };
 		A1CFF01E13B1D73A0070650A /* ru */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -187,9 +184,9 @@
 		A1ED2D20158860F900B99CDE /* GSMenuController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GSMenuController.h; sourceTree = "<group>"; };
 		A1ED2D21158860FA00B99CDE /* GSMenuController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GSMenuController.m; sourceTree = "<group>"; };
 		A1F4FB0F13C6D58B002D38D5 /* cs */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = cs; path = cs.lproj/Localizable.strings; sourceTree = "<group>"; };
-		A1F7ED4414B0405B00328A83 /* GTMDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; path = GTMDefines.h; sourceTree = "<group>"; };
-		A1F7ED4614B0407200328A83 /* GTMLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; path = GTMLogger.h; sourceTree = "<group>"; };
-		A1F7ED4814B0407900328A83 /* GTMLoggerRingBufferWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; path = GTMLoggerRingBufferWriter.h; sourceTree = "<group>"; };
+		A1F7ED4414B0405B00328A83 /* GTMDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMDefines.h; sourceTree = "<group>"; };
+		A1F7ED4614B0407200328A83 /* GTMLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMLogger.h; sourceTree = "<group>"; };
+		A1F7ED4814B0407900328A83 /* GTMLoggerRingBufferWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMLoggerRingBufferWriter.h; sourceTree = "<group>"; };
 		A1F7ED4914B0409300328A83 /* GTMLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTMLogger.m; sourceTree = "<group>"; };
 		A1F7ED4B14B0409300328A83 /* GTMLoggerRingBufferWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTMLoggerRingBufferWriter.m; sourceTree = "<group>"; };
 		A1F7ED4F14B040B200328A83 /* GTMGarbageCollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMGarbageCollection.h; sourceTree = "<group>"; };
@@ -226,8 +223,6 @@
 				256AC3D90F4B6AC300CF3369 /* gfxCardStatusAppDelegate.m */,
 				A1ED2D20158860F900B99CDE /* GSMenuController.h */,
 				A1ED2D21158860FA00B99CDE /* GSMenuController.m */,
-				A1C01F1F13B06C08003BD4B2 /* GSState.h */,
-				A1C01F2013B06C08003BD4B2 /* GSState.m */,
 				A1ED2D1D15885D6900B99CDE /* GSNotifier.h */,
 				A1ED2D1E15885D6900B99CDE /* GSNotifier.m */,
 				1DDD58140DA1D0A300B32029 /* MainMenu.xib */,
@@ -534,7 +529,6 @@
 				256AC3DA0F4B6AC300CF3369 /* gfxCardStatusAppDelegate.m in Sources */,
 				A14C180B124EFE6300816A4A /* PrefsController.m in Sources */,
 				A1CCE20012B13CE4006D07A4 /* NSAttributedString+Hyperlink.m in Sources */,
-				A1C01F2113B06C08003BD4B2 /* GSState.m in Sources */,
 				A17CE49A13B07C3700E5D50F /* GSProcess.m in Sources */,
 				A17CE49E13B081DE00E5D50F /* GSMux.m in Sources */,
 				A11599BE13D429750097E4BC /* AdvancedPreferencesViewController.m in Sources */,

@@ -8,7 +8,6 @@
 
 #import <Cocoa/Cocoa.h>
 
-
 @interface PrefsController : NSObject <NSWindowDelegate> {
     NSString *prefsPath;
     NSMutableDictionary *prefs;

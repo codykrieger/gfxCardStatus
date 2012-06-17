@@ -8,7 +8,6 @@
 
 #import "NSAttributedString+Hyperlink.h"
 
-
 @implementation NSAttributedString (Hyperlink)
 
 + (id)hyperlinkFromString:(NSString *)inString withURL:(NSURL *)aURL {
