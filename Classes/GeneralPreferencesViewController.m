@@ -31,10 +31,11 @@
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
-    self = [super initWithNibName:@"GeneralPreferencesView" bundle:nil];
-    if (self) {
-        prefs = [GSPreferences sharedInstance];
-    }
+    if (!(self = [super initWithNibName:@"GeneralPreferencesView" bundle:nil]))
+        return nil;
+    
+    prefs = [GSPreferences sharedInstance];
+    
     return self;
 }
 

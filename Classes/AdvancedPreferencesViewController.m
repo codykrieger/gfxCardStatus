@@ -24,10 +24,10 @@
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
-    self = [super initWithNibName:@"AdvancedPreferencesView" bundle:nil];
-    if (self) {
-        prefs = [GSPreferences sharedInstance];
-    }
+    if (!(self = [super initWithNibName:@"AdvancedPreferencesView" bundle:nil]))
+        return nil;
+    
+    prefs = [GSPreferences sharedInstance];
     
     return self;
 }

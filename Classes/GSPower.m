@@ -95,11 +95,12 @@ void _registerPowerSourceNotification(GSPower *powerSourceMonitor)
 
 - (GSPower *)initWithDelegate:(id<GSPowerDelegate>)object
 {
-    if ((self = [super init])) {
-        self.delegate = object;
+    if (!(self = [super init]))
+        return nil;
         
-        _registerPowerSourceNotification(self);
-    }
+    self.delegate = object;
+
+    _registerPowerSourceNotification(self);
     
     return self;
 }

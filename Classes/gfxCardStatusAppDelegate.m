@@ -93,22 +93,6 @@
 //    [self performSelector:@selector(delayedPowerSourceCheck) withObject:nil afterDelay:7.0];
 }
 
-#pragma mark - Menu Actions
-
-//- (void)menuWillOpen:(NSMenu *)menu {
-//    // white image when menu is open
-//    if ([prefs shouldUseImageIcons]) {
-//        [statusItem setImage:[NSImage imageNamed:[[[statusItem image] name] stringByAppendingString:@"-white.png"]]];
-//    }
-//}
-//
-//- (void)menuDidClose:(NSMenu *)menu {
-//    // black image when menu is closed
-//    if ([prefs shouldUseImageIcons]) {
-//        [statusItem setImage:[NSImage imageNamed:[[[statusItem image] name] stringByReplacingOccurrencesOfString:@"-white" withString:@".png"]]];
-//    }
-//}
-
 #pragma mark - Helpers
 
 //- (NSMenuItem *)senderForMode:(GSSwitcherMode)mode {

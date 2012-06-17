@@ -52,15 +52,15 @@
 
 - (id)init
 {
-    self = [super init];
-    if (self) {
-        _prefs = [GSPreferences sharedInstance];
-        
-        [[_prefs rac_subscribableForKeyPath:kShouldUseSmartMenuBarIconsKeyPath onObject:self] subscribeNext:^(id x) {
-            GTMLoggerDebug(@"Use smart menu bar icons value changed: %@", x);
-            [self updateMenu];
-        }];
-    }
+    if (!(self = [super init]))
+        return nil;
+    
+    _prefs = [GSPreferences sharedInstance];
+    
+    [[_prefs rac_subscribableForKeyPath:kShouldUseSmartMenuBarIconsKeyPath onObject:self] subscribeNext:^(id x) {
+        GTMLoggerDebug(@"Use smart menu bar icons value changed: %@", x);
+        [self updateMenu];
+    }];
     
     return self;
 }

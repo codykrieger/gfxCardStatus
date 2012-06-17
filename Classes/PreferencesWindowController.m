@@ -26,17 +26,18 @@
 
 - (id)init
 {
-    self = [super init];
-    if (self) {
-        NSWindow *prefsWindow = [[NSWindow alloc] initWithContentRect:NSMakeRect(0, 0, 300, 200) 
-                                                             styleMask:(NSTitledWindowMask | NSClosableWindowMask) 
-                                                               backing:NSBackingStoreBuffered defer:YES];
-        [prefsWindow setShowsToolbarButton:NO];
-        [prefsWindow setDelegate:[GSPreferences sharedInstance]];
-        self.window = prefsWindow;
-        
-        [self _createToolbar];
-    }
+    if (!(self = [super init]))
+        return nil;
+    
+    NSWindow *prefsWindow = [[NSWindow alloc] initWithContentRect:NSMakeRect(0, 0, 300, 200)
+                                                         styleMask:(NSTitledWindowMask | NSClosableWindowMask) 
+                                                           backing:NSBackingStoreBuffered defer:YES];
+    [prefsWindow setShowsToolbarButton:NO];
+    [prefsWindow setDelegate:[GSPreferences sharedInstance]];
+    self.window = prefsWindow;
+    
+    [self _createToolbar];
+
     return self;
 }
 
