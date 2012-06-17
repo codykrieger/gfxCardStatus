@@ -10,7 +10,6 @@
 #import "GSGPU.h"
 
 #define kAdvancedPreferencesName        @"Advanced"
-#define kAdvancedPreferencesIdentifier  @"advanced"
 
 @implementation AdvancedPreferencesViewController
 
@@ -76,7 +75,7 @@
 
 - (NSString *)identifier
 {
-    return kAdvancedPreferencesIdentifier;
+    return kAdvancedPreferencesName;
 }
 
 - (NSImage *)image

@@ -13,7 +13,6 @@
 #import <ReactiveCocoa/ReactiveCocoa.h>
 
 #define kGeneralPreferencesName         @"General"
-#define kGeneralPreferencesIdentifier   @"general"
 
 #define kShouldStartAtLoginKeyPath      @"prefsDict.shouldStartAtLogin"
 
@@ -72,7 +71,7 @@
 
 - (NSString *)identifier
 {
-    return kGeneralPreferencesIdentifier;
+    return kGeneralPreferencesName;
 }
 
 - (NSImage *)image
