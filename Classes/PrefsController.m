@@ -7,8 +7,8 @@
 //
 
 #import "PrefsController.h"
-#import "GSState.h"
 #import "GSStartup.h"
+#import "GSGPU.h"
 
 @interface PrefsController ()
 - (NSString *)_getPrefsPath;
@@ -81,7 +81,7 @@
     [prefs setObject:noNumber forKey:@"shouldUseSmartMenuBarIcons"];
     
     [prefs setObject:[NSNumber numberWithInt:0] forKey:kGPUSettingBattery]; // defaults to integrated
-    if ([[GSState sharedInstance] usingLegacy])
+    if ([GSGPU isLegacyMachine])
         [prefs setObject:[NSNumber numberWithInt:1] forKey:kGPUSettingACAdaptor]; // defaults to discrete for legacy machines
     else
         [prefs setObject:[NSNumber numberWithInt:2] forKey:kGPUSettingACAdaptor]; // defaults to dynamic for new machines

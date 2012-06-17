@@ -12,7 +12,6 @@
 
 #import "PrefsController.h"
 #import "PreferencesWindowController.h"
-#import "GSState.h"
 #import "GSMenuController.h"
 #import "GSGPU.h"
 

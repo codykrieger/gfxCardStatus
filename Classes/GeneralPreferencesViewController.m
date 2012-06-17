@@ -8,8 +8,8 @@
 
 #import "GeneralPreferencesViewController.h"
 #import "PrefsController.h"
-#import "GSState.h"
 #import "GSStartup.h"
+#import "GSGPU.h"
 
 @implementation GeneralPreferencesViewController
 
@@ -42,8 +42,7 @@
         [loc setTitle:Str([loc title])];
     }
     
-    GSState *state = [GSState sharedInstance];
-    if ([state usingLegacy])
+    if ([GSGPU isLegacyMachine])
         [prefChkSmartIcons setEnabled:NO];
 }
 

@@ -7,7 +7,7 @@
 //
 
 #import "AdvancedPreferencesViewController.h"
-#import "GSState.h"
+#import "GSGPU.h"
 
 @implementation AdvancedPreferencesViewController
 
@@ -46,7 +46,7 @@
         [field setStringValue:Str([field stringValue])];
     }
     
-    if ([[GSState sharedInstance] usingLegacy]) {
+    if ([GSGPU isLegacyMachine]) {
         [prefSegOnBattery setSegmentCount:2];
         [prefSegOnAc setSegmentCount:2];
     } else {
