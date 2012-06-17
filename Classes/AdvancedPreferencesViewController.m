@@ -46,20 +46,23 @@
     for (NSTextField *field in localizedLabels)
         [field setStringValue:Str([field stringValue])];
     
+    // We don't have a Dynamic Switching mode on legacy machines, so drop that
+    // segment from the options entirely.
     if ([GSGPU isLegacyMachine]) {
         [prefSegOnBattery setSegmentCount:2];
         [prefSegOnAc setSegmentCount:2];
     } else {
-        [prefSegOnBattery setLabel:Str(@"Dynamic") forSegment:2];
-        [prefSegOnAc setLabel:Str(@"Dynamic") forSegment:2];
+        [prefSegOnBattery setLabel:Str(@"Dynamic") forSegment:GSPowerSourceBasedSwitchingModeDynamic];
+        [prefSegOnAc setLabel:Str(@"Dynamic") forSegment:GSPowerSourceBasedSwitchingModeDynamic];
     }
     
-    [prefSegOnBattery setLabel:Str(@"Integrated") forSegment:0];
-    [prefSegOnBattery setLabel:Str(@"Discrete") forSegment:1];
-    [prefSegOnAc setLabel:Str(@"Integrated") forSegment:0];
-    [prefSegOnAc setLabel:Str(@"Discrete") forSegment:1];
+    [prefSegOnBattery setLabel:Str(@"Integrated") forSegment:GSPowerSourceBasedSwitchingModeIntegrated];
+    [prefSegOnBattery setLabel:Str(@"Discrete") forSegment:GSPowerSourceBasedSwitchingModeDiscrete];
     
-    // fit labels after localization
+    [prefSegOnAc setLabel:Str(@"Integrated") forSegment:GSPowerSourceBasedSwitchingModeIntegrated];
+    [prefSegOnAc setLabel:Str(@"Discrete") forSegment:GSPowerSourceBasedSwitchingModeDiscrete];
+    
+    // Fit labels after localization.
     [prefSegOnAc sizeToFit];
     [prefSegOnBattery sizeToFit];
 }

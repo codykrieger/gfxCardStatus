@@ -45,6 +45,9 @@
 {
     [super loadView];
     
+    // Add or remove the app from the current user's Login Items upon hearing
+    // from our awesome friend Josh Abernathy at GitHub that the value we're
+    // subscribed to has changed.
     [[prefs rac_subscribableForKeyPath:kShouldStartAtLoginKeyPath onObject:self] subscribeNext:^(id x) {
         GTMLoggerDebug(@"Start at login value changed: %@", x);
         [GSStartup loadAtStartup:[x boolValue]];
