@@ -145,7 +145,14 @@ void _registerPowerSourceNotification(GSPower *powerSourceMonitor)
 - (void)powerSourceChanged:(GSPowerType)type
 {
     GSPowerType oldPowerSource = _currentPowerSource;
-    _currentPowerSource = type;
+    
+    // If the current power source is already something known, we don't want to
+    // kick it over to unknown, because the next time we get a valid power
+    // source change notification, we'll switch, probably, to the current mode.
+    // And that might trigger a notification, which is obnoxious and stupid. So
+    // we won't do that.
+    if (_currentPowerSource != type && type != GSPowerTypeUnknown)
+        _currentPowerSource = type;
     
     // Make sure we don't do anything if we're not enabled.
     if (!_enabled || type == oldPowerSource)
