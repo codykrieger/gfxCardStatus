@@ -127,9 +127,10 @@
 		A11599C513D429860097E4BC /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/GeneralPreferencesView.xib; sourceTree = "<group>"; };
 		A12AACD2158C9DE100CD140F /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		A12AACD4158C9E0C00CD140F /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
+		A12AACF8158D7E5F00CD140F /* ru-RU */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "ru-RU"; path = "ru-RU.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		A12AACF9158D7E7C00CD140F /* el */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = el; path = el.lproj/Localizable.strings; sourceTree = "<group>"; };
 		A12DE37712064D3F00D8E08C /* zh_CN */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = zh_CN; path = zh_CN.lproj/Localizable.strings; sourceTree = "<group>"; };
 		A12DE37812064D4400D8E08C /* zh_TW */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = zh_TW; path = zh_TW.lproj/Localizable.strings; sourceTree = "<group>"; };
-		A13C595D157C3F7200F6C668 /* el */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = el; path = /Users/codykrieger/projects/gfxCardStatus/el.lproj/Localizable.strings; sourceTree = "<absolute>"; };
 		A13C5FBF119FCFCF00E678FA /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/Localizable.strings; sourceTree = "<group>"; };
 		A13C5FC1119FCFE700E678FA /* French */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = French; path = French.lproj/Localizable.strings; sourceTree = "<group>"; };
 		A13D891D1268F832007EB119 /* Spanish */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = Spanish; path = Spanish.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -152,7 +153,6 @@
 		A16B28F31196B0E7006EB263 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
 		A17220981236DA0B00636797 /* Growl Registration Ticket.growlRegDict */ = {isa = PBXFileReference; explicitFileType = text.plist.xml; fileEncoding = 4; path = "Growl Registration Ticket.growlRegDict"; sourceTree = "<group>"; };
 		A17221831236DE4200636797 /* Growl License.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Growl License.txt"; sourceTree = "<group>"; };
-		A17AEE321523A652006DB84A /* ru-RU */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "ru-RU"; path = "/Users/codykrieger/projects/gfxCardStatus/ru-RU.lproj/Localizable.strings"; sourceTree = "<absolute>"; };
 		A17CE49813B07C3700E5D50F /* GSProcess.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GSProcess.h; sourceTree = "<group>"; };
 		A17CE49913B07C3700E5D50F /* GSProcess.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GSProcess.m; sourceTree = "<group>"; };
 		A17CE49C13B081DE00E5D50F /* GSMux.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GSMux.h; sourceTree = "<group>"; };
@@ -452,6 +452,8 @@
 				lv,
 				en,
 				tr,
+				"ru-RU",
+				el,
 			);
 			mainGroup = 29B97314FDCFA39411CA2CEA /* gfxCardStatus */;
 			projectDirPath = "";
@@ -565,6 +567,7 @@
 				089C165DFE840E0CC02AAC07 /* English */,
 			);
 			name = InfoPlist.strings;
+			path = Localizations;
 			sourceTree = "<group>";
 		};
 		1DDD58140DA1D0A300B32029 /* MainMenu.xib */ = {
@@ -573,7 +576,7 @@
 				1DDD58150DA1D0A300B32029 /* English */,
 			);
 			name = MainMenu.xib;
-			path = ..;
+			path = ../Localizations;
 			sourceTree = "<group>";
 		};
 		A11599C213D429860097E4BC /* AdvancedPreferencesView.xib */ = {
@@ -582,7 +585,7 @@
 				A11599C313D429860097E4BC /* English */,
 			);
 			name = AdvancedPreferencesView.xib;
-			path = ..;
+			path = ../Localizations;
 			sourceTree = "<group>";
 		};
 		A11599C413D429860097E4BC /* GeneralPreferencesView.xib */ = {
@@ -591,7 +594,7 @@
 				A11599C513D429860097E4BC /* English */,
 			);
 			name = GeneralPreferencesView.xib;
-			path = ..;
+			path = ../Localizations;
 			sourceTree = "<group>";
 		};
 		A13C5FBE119FCFCF00E678FA /* Localizable.strings */ = {
@@ -616,12 +619,13 @@
 				A1EAC045141524AD005A852B /* pt-BR */,
 				7056663514963D80009F10BB /* pl */,
 				A19DAD6214CF1E8800D46D80 /* fi */,
-				A17AEE321523A652006DB84A /* ru-RU */,
-				A13C595D157C3F7200F6C668 /* el */,
 				A1ED2B2E15857CB600B99CDE /* lv */,
 				A1B941671589D85A000EE7A7 /* tr */,
+				A12AACF8158D7E5F00CD140F /* ru-RU */,
+				A12AACF9158D7E7C00CD140F /* el */,
 			);
 			name = Localizable.strings;
+			path = Localizations;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
