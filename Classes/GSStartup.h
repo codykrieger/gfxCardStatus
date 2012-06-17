@@ -8,7 +8,9 @@
 
 @interface GSStartup : NSObject
 
+// Whether or not the app exists in the current user's Login Items list.
 + (BOOL)existsInStartupItems;
+// Put the app in the current user's Login Items list.
 + (void)loadAtStartup:(BOOL)value;
 
 @end

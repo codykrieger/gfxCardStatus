@@ -32,8 +32,13 @@
     NSWindow *prefsWindow = [[NSWindow alloc] initWithContentRect:NSMakeRect(0, 0, 300, 200)
                                                          styleMask:(NSTitledWindowMask | NSClosableWindowMask) 
                                                            backing:NSBackingStoreBuffered defer:YES];
-    [prefsWindow setShowsToolbarButton:NO];
-    [prefsWindow setDelegate:[GSPreferences sharedInstance]];
+    prefsWindow.showsToolbarButton = NO;
+    
+    // We flush preferences to disk when the preferences window is closed, hence
+    // setting the window's delegate to the preferences object. So we know when
+    // the window closes.
+    prefsWindow.delegate = [GSPreferences sharedInstance];
+    
     self.window = prefsWindow;
     
     [self _createToolbar];
@@ -56,23 +61,21 @@
     
     _modules = newModules;
     
-    // Reset the toolbar items
-    NSToolbar *toolbar = [self.window toolbar];
+    // Reset the toolbar items.
+    NSToolbar *toolbar = self.window.toolbar;
     if (toolbar) {
-        NSInteger index = [[toolbar items] count]-1;
-        while (index > 0) {
-            [toolbar removeItemAtIndex:index];
-            index--;
-        }
+        NSInteger index = toolbar.items.count - 1;
         
-        // Add the new items
-        for (id<GSPreferencesModule> module in self.modules)
-            [toolbar insertItemWithItemIdentifier:[module identifier] atIndex:[[toolbar items] count]];
+        while (index > 0)
+            [toolbar removeItemAtIndex:index--];
+        
+        // Add the new items.
+        for (id<GSPreferencesModule> module in _modules)
+            [toolbar insertItemWithItemIdentifier:module.identifier atIndex:toolbar.items.count];
     }
     
-    // Change to the correct module
-    // This is where we restore the autosaved info
-    if ([self.modules count]) {
+    // Change to the correct module and restore the autosaved info.
+    if (_modules.count) {
         id<GSPreferencesModule> defaultModule = nil;
         
         // Check the autosave info
@@ -80,7 +83,7 @@
         defaultModule = [self _moduleForIdentifier:savedIdentifier];
         
         if (!defaultModule)
-            defaultModule = [self.modules objectAtIndex:0];
+            defaultModule = [_modules objectAtIndex:0];
         
         [self _changeToModule:defaultModule];
     }
@@ -92,8 +95,8 @@
 {
     NSMutableArray *identifiers = [NSMutableArray array];
     
-    for (id<GSPreferencesModule> module in self.modules)
-        [identifiers addObject:[module identifier]];
+    for (id<GSPreferencesModule> module in _modules)
+        [identifiers addObject:module.identifier];
     
     return identifiers;
 }
@@ -116,8 +119,8 @@
         return item;
     
     // Set the attributes of the item
-    [item setLabel:[module title]];
-    [item setImage:[module image]];
+    [item setLabel:module.title];
+    [item setImage:module.image];
     [item setTarget:self];
     [item setAction:@selector(_selectModule:)];
     
@@ -140,8 +143,8 @@
 
 - (id<GSPreferencesModule>)_moduleForIdentifier:(NSString *)identifier
 {
-    for (id<GSPreferencesModule> module in self.modules) {
-        if ([[module identifier] isEqualToString:identifier])
+    for (id<GSPreferencesModule> module in _modules) {
+        if ([module.identifier isEqualToString:identifier])
             return module;
     }
     
@@ -152,7 +155,7 @@
     if (![sender isKindOfClass:[NSToolbarItem class]])
         return;
     
-    id<GSPreferencesModule> module = [self _moduleForIdentifier:[sender itemIdentifier]];
+    id<GSPreferencesModule> module = [self _moduleForIdentifier:sender.itemIdentifier];
     if (!module)
         return;
     
@@ -161,31 +164,31 @@
 
 - (void)_changeToModule:(id<GSPreferencesModule>)module
 {
-    [[currentModule view] removeFromSuperview];
+    [_currentModule.view removeFromSuperview];
     
     // The view which will be displayed
     NSView *newView = [module view];
     
     // Resize the window
     // Be sure to keep the top-left corner stationary
-    NSRect newWindowFrame = [self.window frameRectForContentRect:[newView frame]];
-    newWindowFrame.origin = [self.window frame].origin;
-    newWindowFrame.origin.y -= newWindowFrame.size.height - [self.window frame].size.height;
+    NSRect newWindowFrame = [self.window frameRectForContentRect:newView.frame];
+    newWindowFrame.origin = self.window.frame.origin;
+    newWindowFrame.origin.y -= newWindowFrame.size.height - self.window.frame.size.height;
     [self.window setFrame:newWindowFrame display:YES animate:YES];
     
-    [[self.window toolbar] setSelectedItemIdentifier:[module identifier]];
-    [self.window setTitle:[module title]];
+    [[self.window toolbar] setSelectedItemIdentifier:module.identifier];
+    [self.window setTitle:module.title];
     
     // Call the optional protocol method if the module implements it
     if ([(NSObject *)module respondsToSelector:@selector(willBeDisplayed)])
         [module willBeDisplayed];
     
     // Show the view
-    currentModule = module;
-    [[self.window contentView] addSubview:[currentModule view]];
+    _currentModule = module;
+    [[self.window contentView] addSubview:_currentModule.view];
     
     // Autosave the selection
-    [[NSUserDefaults standardUserDefaults] setObject:[module identifier] forKey:@"PreferencesWindowSelection"];
+    [[NSUserDefaults standardUserDefaults] setObject:module.identifier forKey:@"PreferencesWindowSelection"];
 }
 
 @end

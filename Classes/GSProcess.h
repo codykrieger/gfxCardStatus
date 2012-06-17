@@ -13,6 +13,8 @@
 
 @interface GSProcess : NSObject
 
+// Get the current list of processes that are requiring the discrete GPU to be
+// powered on and eating away at the user's precious battery life.
 + (NSArray *)getTaskList;
 
 @end

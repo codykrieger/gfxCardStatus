@@ -17,11 +17,15 @@ typedef enum {
 
 @interface GSGPU : NSObject
 
+// If any of the following three method names are confusing...PEBKAC.
 + (NSArray *)getGPUNames;
 + (NSString *)integratedGPUName;
 + (NSString *)discreteGPUName;
+// Whether or not the machine is an old 9400M/9600M GT machine. We have to treat
+// those a little differently all other machines are effectively the same.
 + (BOOL)isLegacyMachine;
 
+// What it says.
 + (void)registerForGPUChangeNotifications:(id<GSGPUDelegate>)object;
 
 // Fires off the display change notification manually in order to trigger menu

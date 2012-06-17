@@ -22,9 +22,13 @@ typedef enum {
 + (void)switcherClose;
 
 + (BOOL)setMode:(GSSwitcherMode)mode;
+
 + (BOOL)isUsingIntegratedGPU;
 + (BOOL)isUsingIntegratedGPU;
 + (BOOL)isUsingDynamicSwitching;
+// Whether or not a machine is using the old-style "you must log out first"
+// switching policy or not. We kick machines into said policy when we switch to
+// Integrated Only or Discrete Only for reliability and consistency purposes.
 + (BOOL)isUsingOldStyleSwitchPolicy;
 
 @end
