@@ -105,8 +105,6 @@
 
 - (void)updateMenu
 {
-    // FIXME: Refactor this whole method.
-    
     GTMLoggerDebug(@"Updating status...");
     
     BOOL isUsingIntegrated = [GSMux isUsingIntegratedGPU];
