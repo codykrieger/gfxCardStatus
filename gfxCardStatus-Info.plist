@@ -41,7 +41,9 @@
 	<key>SUPublicDSAKeyFile</key>
 	<string>dsa_pub.pem</string>
 	<key>SUShowReleaseNotes</key>
-	<string>YES</string>
+	<true/>
+	<key>SUEnableAutomaticChecks</key>
+	<true/>
 	<key>UTExportedTypeDeclarations</key>
 	<array/>
 	<key>UTImportedTypeDeclarations</key>
