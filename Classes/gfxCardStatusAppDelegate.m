@@ -29,6 +29,9 @@
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
+    GTMLogger *logger = [GTMLogger sharedLogger];
+    [logger setFilter:[[GTMLogNoFilter alloc] init]];
+    
     // Initialize the preferences object and set default preferences if this is
     // a first-time run.
     _prefs = [GSPreferences sharedInstance];

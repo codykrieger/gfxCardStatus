@@ -45,6 +45,8 @@ static void _displayReconfigurationCallback(CGDirectDisplayID display, CGDisplay
     // we aren't just randomly changing modes on users unexpectedly. Need to do
     // some testing of this before the v2.2/v2.3 release.
     if (!CGDisplayIsBuiltin(display) && ![GSGPU isLegacyMachine]) {
+        GTMLoggerInfo(@"A non-built-in display reconfiguration callback has been triggered.");
+        
         // FIXME: Implement. This kind of needs to happen.
     }
     
