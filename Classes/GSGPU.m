@@ -38,6 +38,16 @@ static id<GSGPUDelegate> _delegate = nil;
 
 static void _displayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSummaryFlags flags, void *userInfo)
 {
+    // If we got a display reconfiguration callback for a display that's not
+    // built-in, we should probably just kick the user over to Dynamic Switching
+    // if they're on a non-legacy machine. Not sure how often this method will
+    // be called with a non-built-in CGDirectDisplayID, so we should make sure
+    // we aren't just randomly changing modes on users unexpectedly. Need to do
+    // some testing of this before the v2.2/v2.3 release.
+    if (!CGDisplayIsBuiltin(display) && ![GSGPU isLegacyMachine]) {
+        // FIXME: Implement. This kind of needs to happen.
+    }
+    
     if (flags & kCGDisplaySetModeFlag) {
         dispatch_async(_notificationQueue, ^(void) {
             [NSThread sleepForTimeInterval:kNotificationSleepInterval];
