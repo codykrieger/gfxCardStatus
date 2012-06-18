@@ -9,6 +9,7 @@
 #import "GSNotifier.h"
 #import "NSAttributedString+Hyperlink.h"
 #import "GSMux.h"
+#import "GSPreferences.h"
 
 #define kGPUChangedNotificationKey @"GrowlGPUChanged"
 
@@ -47,8 +48,10 @@ static NSString *_lastMessage = nil;
     NSString *message = [NSString stringWithFormat:Str([key stringByAppendingString:@"Message"]), cardName];
     
     // Make sure that we don't display the notification if it's the same message
-    // as the last one we fired off. Because that's unbelievably annoying.
-    if (![message isEqualToString:_lastMessage]) {
+    // as the last one we fired off. Because that's unbelievably annoying. Also
+    // check to make sure the user even wants to see the notifications in the
+    // first place.
+    if (![message isEqualToString:_lastMessage] && [GSPreferences sharedInstance].shouldDisplayNotifications) {
         [GrowlApplicationBridge notifyWithTitle:title
                                     description:message 
                                notificationName:key

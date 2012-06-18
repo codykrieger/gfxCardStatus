@@ -25,6 +25,7 @@
 @synthesize prefChkSmartIcons;
 @synthesize prefChkUpdate;
 @synthesize prefChkStartup;
+@synthesize prefChkGrowl;
 @synthesize prefs;
 
 #pragma mark - Initializers
@@ -53,7 +54,7 @@
         [GSStartup loadAtStartup:[x boolValue]];
     }];
     
-    NSArray *localizedButtons = [[NSArray alloc] initWithObjects:prefChkStartup, prefChkUpdate, prefChkSmartIcons, nil];
+    NSArray *localizedButtons = [[NSArray alloc] initWithObjects:prefChkStartup, prefChkUpdate, prefChkSmartIcons, prefChkGrowl, nil];
     for (NSButton *loc in localizedButtons)
         [loc setTitle:Str([loc title])];
 }

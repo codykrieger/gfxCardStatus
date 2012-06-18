@@ -26,7 +26,7 @@
 /* Preferences window */
 "PrefTitle"				= "gfxCardStatus Preferences";
 "PrefUpdate"			= "Check for updates at startup";
-"PrefGrowl"				= "Use Growl for status change notifications";
+"PrefGrowl"				= "Use Growl to display GPU change notifications";
 "PrefStartup"			= "Load gfxCardStatus at startup";
 "PrefLog"				= "Log diagnostic messages to the console";
 "PrefRestoreState"		= "Restore last used mode at startup";

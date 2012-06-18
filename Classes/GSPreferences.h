@@ -29,6 +29,7 @@ typedef enum {
 
 - (BOOL)shouldCheckForUpdatesOnStartup;
 - (BOOL)shouldStartAtLogin;
+- (BOOL)shouldDisplayNotifications;
 - (BOOL)shouldUsePowerSourceBasedSwitching;
 - (BOOL)shouldUseImageIcons;
 - (BOOL)shouldUseSmartMenuBarIcons;

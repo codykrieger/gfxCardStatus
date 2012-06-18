@@ -322,6 +322,26 @@
 			name = "System Utils";
 			sourceTree = "<group>";
 		};
+		A1616893158F0B660063BE94 /* General */ = {
+			isa = PBXGroup;
+			children = (
+				A11599B913D429750097E4BC /* GeneralPreferencesViewController.h */,
+				A11599BA13D429750097E4BC /* GeneralPreferencesViewController.m */,
+				A11599C413D429860097E4BC /* GeneralPreferencesView.xib */,
+			);
+			name = General;
+			sourceTree = "<group>";
+		};
+		A1616894158F0B6F0063BE94 /* Advanced */ = {
+			isa = PBXGroup;
+			children = (
+				A11599B713D429750097E4BC /* AdvancedPreferencesViewController.h */,
+				A11599B813D429750097E4BC /* AdvancedPreferencesViewController.m */,
+				A11599C213D429860097E4BC /* AdvancedPreferencesView.xib */,
+			);
+			name = Advanced;
+			sourceTree = "<group>";
+		};
 		A18123D812B96F3F00266D46 /* Images */ = {
 			isa = PBXGroup;
 			children = (
@@ -344,12 +364,8 @@
 				A11599BB13D429750097E4BC /* GSPreferencesModule.h */,
 				A11599BC13D429750097E4BC /* PreferencesWindowController.h */,
 				A11599BD13D429750097E4BC /* PreferencesWindowController.m */,
-				A11599B913D429750097E4BC /* GeneralPreferencesViewController.h */,
-				A11599BA13D429750097E4BC /* GeneralPreferencesViewController.m */,
-				A11599B713D429750097E4BC /* AdvancedPreferencesViewController.h */,
-				A11599B813D429750097E4BC /* AdvancedPreferencesViewController.m */,
-				A11599C413D429860097E4BC /* GeneralPreferencesView.xib */,
-				A11599C213D429860097E4BC /* AdvancedPreferencesView.xib */,
+				A1616893158F0B660063BE94 /* General */,
+				A1616894158F0B6F0063BE94 /* Advanced */,
 			);
 			name = GUI;
 			sourceTree = "<group>";

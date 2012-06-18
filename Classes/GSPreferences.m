@@ -22,11 +22,14 @@
 #define kShouldUsePowerSourceBasedSwitchingKey  @"shouldUsePowerSourceBasedSwitching"
 #define kShouldUseSmartMenuBarIconsKey          @"shouldUseSmartMenuBarIcons"
 
+// This used to be called "shouldGrowl"
+#define kShouldDisplayNotificationsKey          @"shouldGrowl"
+
 // Why aren't we just using NSUserDefaults? Because it was unbelievably
 // unreliable. This works all the time, no questions asked.
 #define kPreferencesPlistPath [@"~/Library/Preferences/com.codykrieger.gfxCardStatus-Preferences.plist" stringByExpandingTildeInPath]
 
-@interface GSPreferences ()
+@interface GSPreferences (Internal)
 - (NSString *)_getPrefsPath;
 @end
 
@@ -63,22 +66,31 @@
 {
     GTMLoggerDebug(@"Loading preferences and defaults...");
     
-    // load preferences in from file
+    // Load the preferences dictionary from disk.
     _prefsDict = [[NSMutableDictionary alloc] initWithContentsOfFile:[self _getPrefsPath]];
     
     if (!_prefsDict) {
-        // if preferences file doesn't exist, set the defaults
+        // If preferences file doesn't exist, set the defaults.
         _prefsDict = [[NSMutableDictionary alloc] init];
         [self setDefaults];
     }
     
     _prefsDict[kShouldStartAtLoginKey] = @([GSStartup existsInStartupItems]);
     
-    // ensure that application will be loaded at startup
+    // Ensure that application will be loaded at startup.
     if ([self shouldStartAtLogin])
         [GSStartup loadAtStartup:YES];
     
+    // If an "integrated" image is available in our bundle, assume the user has
+    // custom icons that we should use.
     _prefsDict[kShouldUseImageIconsKey] = @(!![[NSBundle mainBundle] pathForResource:@"integrated" ofType:@"png"]);
+    
+    // Since we removed this preference from v2.2 prematurely, some new users
+    // might not have had it set in their defaults. If the key doesn't exist in
+    // the prefs dictionary, default this sucker to enabled, because
+    // notifications are helpful.
+    if (_prefsDict[kShouldDisplayNotificationsKey] == nil)
+        _prefsDict[kShouldDisplayNotificationsKey] = @YES;
 }
 
 - (void)setDefaults
@@ -87,6 +99,7 @@
     
     _prefsDict[kShouldCheckForUpdatesOnStartupKey] = @YES;
     _prefsDict[kShouldStartAtLoginKey] = @YES;
+    _prefsDict[kShouldDisplayNotificationsKey] = @YES;
     _prefsDict[kShouldUsePowerSourceBasedSwitchingKey] = @NO;
     _prefsDict[kShouldUseSmartMenuBarIconsKey] = @NO;
     
@@ -130,6 +143,11 @@
     return [_prefsDict[kShouldStartAtLoginKey] boolValue];
 }
 
+- (BOOL)shouldDisplayNotifications
+{
+    return [_prefsDict[kShouldDisplayNotificationsKey] boolValue];
+}
+
 - (BOOL)shouldUsePowerSourceBasedSwitching
 {
     return [_prefsDict [kShouldUsePowerSourceBasedSwitchingKey] boolValue];
@@ -162,7 +180,11 @@
     [self savePreferences];
 }
 
+@end
+
 #pragma mark - Private helpers
+
+@implementation GSPreferences (Internal)
 
 - (NSString *)_getPrefsPath
 {
