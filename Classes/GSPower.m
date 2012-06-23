@@ -81,7 +81,6 @@ static void _powerSourceChanged(void *context)
 {
     GSPower *powerSourceMonitor = (__bridge GSPower *)context;
     
-//    [powerSourceMonitor powerSourceChanged:_getCurrentPowerSource()];
     [powerSourceMonitor performSelector:@selector(powerSourceChanged:) withObject:@(_getCurrentPowerSource()) afterDelay:kPowerSourceChangedNotificationDelay];
 }
 
