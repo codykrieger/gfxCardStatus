@@ -80,9 +80,7 @@ cleanup:
 static void _powerSourceChanged(void *context)
 {
     GSPower *powerSourceMonitor = (__bridge GSPower *)context;
-    
-    GTMLoggerInfo(@"Delaying for %d seconds before firing power source changed notification...", kPowerSourceChangedNotificationDelay);
-    [powerSourceMonitor performSelector:@selector(powerSourceChanged:) withObject:@(_getCurrentPowerSource()) afterDelay:kPowerSourceChangedNotificationDelay];
+    [powerSourceMonitor powerSourceChanged:_getCurrentPowerSource()];
 }
 
 void _registerPowerSourceNotification(GSPower *powerSourceMonitor)
@@ -196,6 +194,7 @@ void _registerPowerSourceNotification(GSPower *powerSourceMonitor)
 - (void)handleWake:(NSNotification *)notification
 {
     GTMLoggerInfo(@"Wake notification! %@", notification);
+    GTMLoggerInfo(@"Delaying for %d seconds before firing power source changed notification...", kPowerSourceChangedNotificationDelay);
 
     // Only notify ourselves if we're using a different power source now.
     GSPowerType reallyCurrentPowerSource = _getCurrentPowerSource();
