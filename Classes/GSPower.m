@@ -17,6 +17,8 @@
 
 #define kShouldUsePowerSourceBasedSwitchingKeyPath @"prefsDict.shouldUsePowerSourceBasedSwitching"
 
+#define kPowerSourceChangedNotificationDelay (10)
+
 static BOOL _stringsAreEqual(CFStringRef a, CFStringRef b);
 static GSPowerType _getCurrentPowerSource();
 static void _powerSourceChanged(void *context);
@@ -79,7 +81,8 @@ static void _powerSourceChanged(void *context)
 {
     GSPower *powerSourceMonitor = (__bridge GSPower *)context;
     
-    [powerSourceMonitor powerSourceChanged:_getCurrentPowerSource()];
+//    [powerSourceMonitor powerSourceChanged:_getCurrentPowerSource()];
+    [powerSourceMonitor performSelector:@selector(powerSourceChanged:) withObject:@(_getCurrentPowerSource()) afterDelay:kPowerSourceChangedNotificationDelay];
 }
 
 void _registerPowerSourceNotification(GSPower *powerSourceMonitor)
