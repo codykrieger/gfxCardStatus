@@ -200,7 +200,7 @@ void _registerPowerSourceNotification(GSPower *powerSourceMonitor)
     // Only notify ourselves if we're using a different power source now.
     GSPowerType reallyCurrentPowerSource = _getCurrentPowerSource();
     if (_currentPowerSource != reallyCurrentPowerSource)
-        [self powerSourceChanged:reallyCurrentPowerSource];
+        [self performSelector:@selector(powerSourceChanged:) withObject:@(reallyCurrentPowerSource) afterDelay:kPowerSourceChangedNotificationDelay];
 }
 
 @end
