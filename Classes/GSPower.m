@@ -81,6 +81,7 @@ static void _powerSourceChanged(void *context)
 {
     GSPower *powerSourceMonitor = (__bridge GSPower *)context;
     
+    GTMLoggerInfo(@"Delaying for %d seconds before firing power source changed notification...", kPowerSourceChangedNotificationDelay);
     [powerSourceMonitor performSelector:@selector(powerSourceChanged:) withObject:@(_getCurrentPowerSource()) afterDelay:kPowerSourceChangedNotificationDelay];
 }
 
