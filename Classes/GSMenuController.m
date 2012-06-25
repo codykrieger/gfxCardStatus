@@ -137,7 +137,7 @@
     else
         GTMLoggerInfo(@"%@ in use. Bummer! Less battery life for you.", [GSGPU discreteGPUName]);
     
-    if (![GSGPU isLegacyMachine] && !isUsingIntegrated)
+    if (!isUsingIntegrated)
         [self _updateProcessList];
 }
 
@@ -247,24 +247,21 @@
 
 - (void)_updateProcessList
 {
-    // If we're using a 9400M/9600M GT model, no need to display/update the
-    // dependencies list.
-    if ([GSGPU isLegacyMachine])
-        return;
-    
     for (NSMenuItem *menuItem in [statusMenu itemArray]) {
         if ([menuItem indentationLevel] > 0 && ![menuItem isEqual:processList])
             [statusMenu removeItem:menuItem];
     }
     
     BOOL isUsingIntegrated = [GSMux isUsingIntegratedGPU];
-    
-    [processList setHidden:isUsingIntegrated];
-    [processesSeparator setHidden:isUsingIntegrated];
-    [dependentProcesses setHidden:isUsingIntegrated];
-    
-    // No point in updating the list if it isn't visible.
-    if (isUsingIntegrated)
+
+    BOOL hide = isUsingIntegrated || [GSGPU isLegacyMachine];
+    [processList setHidden:hide];
+    [processesSeparator setHidden:hide];
+    [dependentProcesses setHidden:hide];
+
+    // If we're using a 9400M/9600M GT model, or if we're on the integrated GPU,
+    // no need to display/update the dependencies list.
+    if (hide)
         return;
     
     GTMLoggerDebug(@"Updating process list...");
