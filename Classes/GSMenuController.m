@@ -137,7 +137,7 @@
     else
         GTMLoggerInfo(@"%@ in use. Bummer! Less battery life for you.", [GSGPU discreteGPUName]);
     
-    if (!isUsingIntegrated)
+    if (![GSGPU isLegacyMachine] && !isUsingIntegrated)
         [self _updateProcessList];
 }
 
