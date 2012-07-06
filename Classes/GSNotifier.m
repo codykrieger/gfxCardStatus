@@ -50,12 +50,12 @@ static NSString *_lastMessage = nil;
     // first place.
     if (![message isEqualToString:_lastMessage] && [GSPreferences sharedInstance].shouldDisplayNotifications) {
         if (NSClassFromString(@"NSUserNotification")) {
-            NSUserNotification *notification = [NSUserNotification new];
+            NSUserNotification *notification = [[NSUserNotification alloc] init];
             notification.deliveryDate = [NSDate date];
             notification.hasActionButton = NO;
             notification.title = title;
             notification.informativeText = message;
-            [[NSUserNotificationCenter defaultUserNotificationCenter] scheduleNotification: notification];
+            [[NSUserNotificationCenter defaultUserNotificationCenter] scheduleNotification:notification];
         } else {
             [GrowlApplicationBridge notifyWithTitle:title
                                         description:message
