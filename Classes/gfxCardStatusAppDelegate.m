@@ -73,7 +73,8 @@
     
     // Set up Growl notifications regardless of whether or not we're supposed
     // to Growl.
-    [GrowlApplicationBridge setGrowlDelegate:[GSNotifier sharedInstance]];
+    if (!NSClassFromString(@"NSUserNotification"))
+        [GrowlApplicationBridge setGrowlDelegate:[GSNotifier sharedInstance]];
     
     // Hook up the check for updates on startup preference directly to the
     // automaticallyChecksForUpdates property on the SUUpdater.
