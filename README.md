@@ -15,7 +15,7 @@ with dual GPUs to monitor the status of, and switch between said GPUs.
 - allows locking the system on one GPU or the other, or allowing automatic switching
 - does not require you to log out or restart to switch GPUs - it's all done on the fly!
 - allows you to see which GPU is in use at a glance in the menu bar - "i" for integrated, "d" for discrete
-- Growl support ensures that you know exactly when the GPU changes, provided you have Growl installed
+- Notifications ensure that you know exactly when the GPU changes, provided you have Growl installed or OS X 10.8
 - light, fast, and minimalist. doesn't get in your way, and uses little to no system resources
 
 Feature requests/bug reports are always welcome by email: cody [at] codykrieger [dot] com
