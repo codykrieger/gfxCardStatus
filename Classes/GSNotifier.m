@@ -37,9 +37,6 @@ static NSString *_lastMessage = nil;
 
 + (void)showGPUChangeNotification:(GSGPUType)type
 {
-    // FIXME: Support Mountain Lion's Notification Center here in addition to
-    // Growl on supported (>= 10.8.x) machines.
-    
     // Get the localized notification name and message, as well as the current
     // GPU name for display in the message.
     NSString *key = [self _keyForNotificationType:type];
@@ -52,13 +49,22 @@ static NSString *_lastMessage = nil;
     // check to make sure the user even wants to see the notifications in the
     // first place.
     if (![message isEqualToString:_lastMessage] && [GSPreferences sharedInstance].shouldDisplayNotifications) {
-        [GrowlApplicationBridge notifyWithTitle:title
-                                    description:message 
-                               notificationName:key
-                                       iconData:nil 
-                                       priority:0 
-                                       isSticky:NO 
-                                   clickContext:nil];
+        if (NSClassFromString(@"NSUserNotification")) {
+            NSUserNotification *notification = [NSUserNotification new];
+            notification.deliveryDate = [NSDate date];
+            notification.hasActionButton = NO;
+            notification.title = title;
+            notification.informativeText = message;
+            [[NSUserNotificationCenter defaultUserNotificationCenter] scheduleNotification: notification];
+        } else {
+            [GrowlApplicationBridge notifyWithTitle:title
+                                        description:message
+                                   notificationName:key
+                                           iconData:nil
+                                           priority:0
+                                           isSticky:NO
+                                       clickContext:nil];
+        }
         
         _lastMessage = message;
     }
