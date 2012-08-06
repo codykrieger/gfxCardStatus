@@ -61,6 +61,15 @@
     // Now accepting GPU change notifications! Apply at your nearest GSGPU today.
     [GSGPU registerForGPUChangeNotifications:self];
     
+    // Register with NSWorkspace for system shutdown notifications to ensure
+    // proper termination in the event of system shutdown and/or user logout.
+    // Goal is to ensure machine is set to default dynamic switching before shut down.
+    NSWorkspace *workspace = [NSWorkspace sharedWorkspace];
+    [[workspace notificationCenter] addObserver:self
+                                       selector:@selector(workSpaceWillPowerOff:)
+                                           name:NSWorkspaceWillPowerOffNotification
+                                         object:workspace];
+    
     // Initialize the menu bar icon and hook the menu up to it.
     [menuController setupMenu];
     
@@ -87,6 +96,26 @@
     // Check for updates if the user has them enabled.
     if ([_prefs shouldCheckForUpdatesOnStartup])
         [updater checkForUpdatesInBackground];
+}
+
+#pragma mark - Termination
+
+- (void)applicationWillTerminate:(NSNotification *)aNotification
+{
+    // Set the machine to dynamic switching before shutdown to avoid machine restarting
+    // stuck in a forced GPU mode.
+    if (![GSGPU isLegacyMachine])
+        [GSMux setMode:GSSwitcherModeDynamicSwitching];
+    GTMLoggerDebug(@"Termination notification received. Application forcing switch to DynamicMode.");
+}
+
+-(void)workSpaceWillPowerOff:(NSNotification *)aNotification
+{
+    // Selector called in response to application termination notification from
+    // NSWorkspace. Also implemented to avoid the machine shuting down in a forced
+    // GPU state.  
+    [[NSApplication sharedApplication] terminate:self];
+    GTMLoggerDebug(@"WorkspaceWillPowerOff notification received. Terminating application.");
 }
 
 #pragma mark - GSGPUDelegate protocol
