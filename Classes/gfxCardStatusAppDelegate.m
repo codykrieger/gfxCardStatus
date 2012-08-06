@@ -66,7 +66,7 @@
     // Goal is to ensure machine is set to default dynamic switching before shut down.
     NSWorkspace *workspace = [NSWorkspace sharedWorkspace];
     [[workspace notificationCenter] addObserver:self
-                                       selector:@selector(workSpaceWillPowerOff:)
+                                       selector:@selector(workspaceWillPowerOff:)
                                            name:NSWorkspaceWillPowerOffNotification
                                          object:workspace];
     
@@ -98,7 +98,7 @@
         [updater checkForUpdatesInBackground];
 }
 
-#pragma mark - Termination
+#pragma mark - Termination Notifications
 
 - (void)applicationWillTerminate:(NSNotification *)aNotification
 {
@@ -106,16 +106,17 @@
     // stuck in a forced GPU mode.
     if (![GSGPU isLegacyMachine])
         [GSMux setMode:GSSwitcherModeDynamicSwitching];
-    GTMLoggerDebug(@"Termination notification received. Application forcing switch to DynamicMode.");
+
+    GTMLoggerDebug(@"Termination notification received. Going to Dynamic Switching.");
 }
 
--(void)workSpaceWillPowerOff:(NSNotification *)aNotification
+- (void)workspaceWillPowerOff:(NSNotification *)aNotification
 {
     // Selector called in response to application termination notification from
     // NSWorkspace. Also implemented to avoid the machine shuting down in a forced
-    // GPU state.  
+    // GPU state.
     [[NSApplication sharedApplication] terminate:self];
-    GTMLoggerDebug(@"WorkspaceWillPowerOff notification received. Terminating application.");
+    GTMLoggerDebug(@"NSWorkspaceWillPowerOff notification received. Terminating application.");
 }
 
 #pragma mark - GSGPUDelegate protocol
