@@ -326,6 +326,10 @@ h1, h2, h3, h4, h5, h6 {
   color: #999;
 }
 
+a h1, a h2, a h3, a h4, a h5, a h6 {
+  display: inline-block;
+}
+
 /* extra header spacing on everything but mobile devices */
 @media only screen and (min-width: 768px) {
   #header {
