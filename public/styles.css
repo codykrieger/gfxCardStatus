@@ -332,6 +332,10 @@ h1, h2, h3, h4, h5, h6 {
     margin-top: 28px;
     margin-bottom: 28px;
   }
+
+  h3[id], h4[id] {
+    margin-top: 50px;
+  }
 }
 
 #nav-items {
@@ -372,10 +376,6 @@ h1, h2, h3, h4, h5, h6 {
   color: #fff;
 }
 
-body > .row:last-child { margin-bottom: 28px; }
-
-h4[id] {
-  margin-top: 50px;
-}
+body > .row:last-child { margin-bottom: 50px; }
 
 .red { color: rgb(209, 10, 10); }
