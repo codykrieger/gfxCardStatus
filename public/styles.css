@@ -374,4 +374,8 @@ h1, h2, h3, h4, h5, h6 {
 
 body > .row:last-child { margin-bottom: 28px; }
 
+h4[id] {
+  margin-top: 50px;
+}
+
 .red { color: rgb(209, 10, 10); }
