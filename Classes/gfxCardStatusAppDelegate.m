@@ -13,6 +13,7 @@
 #import "GSProcess.h"
 #import "GSMux.h"
 #import "GSNotifier.h"
+#import "GSNamedPipe.h"
 
 #import <ReactiveCocoa/ReactiveCocoa.h>
 
@@ -75,6 +76,10 @@
     // to Growl.
     if (!NSClassFromString(@"NSUserNotification"))
         [GrowlApplicationBridge setGrowlDelegate:[GSNotifier sharedInstance]];
+    
+    //This begins the named pipe listening.
+    [[GSNamedPipe alloc] init];
+    
     
     // Hook up the check for updates on startup preference directly to the
     // automaticallyChecksForUpdates property on the SUUpdater.

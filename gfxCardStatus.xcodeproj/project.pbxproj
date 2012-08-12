@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		1DDD58160DA1D0A300B32029 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DDD58140DA1D0A300B32029 /* MainMenu.xib */; };
 		256AC3DA0F4B6AC300CF3369 /* gfxCardStatusAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 256AC3D90F4B6AC300CF3369 /* gfxCardStatusAppDelegate.m */; };
+		832BA24F15D7A5F9000944D9 /* GSNamedPipe.m in Sources */ = {isa = PBXBuildFile; fileRef = 832BA24C15D7A5F9000944D9 /* GSNamedPipe.m */; };
+		832BA25015D7A5F9000944D9 /* NamedPipeListener.m in Sources */ = {isa = PBXBuildFile; fileRef = 832BA24E15D7A5F9000944D9 /* NamedPipeListener.m */; };
 		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
 		8D11072D0486CEB800E47090 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
@@ -115,6 +117,10 @@
 		29B97324FDCFA39411CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		7056663514963D80009F10BB /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = pl.lproj/Localizable.strings; sourceTree = "<group>"; };
+		832BA24B15D7A5F9000944D9 /* GSNamedPipe.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GSNamedPipe.h; sourceTree = "<group>"; };
+		832BA24C15D7A5F9000944D9 /* GSNamedPipe.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GSNamedPipe.m; sourceTree = "<group>"; };
+		832BA24D15D7A5F9000944D9 /* NamedPipeListener.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NamedPipeListener.h; sourceTree = "<group>"; };
+		832BA24E15D7A5F9000944D9 /* NamedPipeListener.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NamedPipeListener.m; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* gfxCardStatus-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "gfxCardStatus-Info.plist"; sourceTree = "<group>"; };
 		8D1107320486CEB800E47090 /* gfxCardStatus.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = gfxCardStatus.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A10D2E5811C63CC100E8E2C7 /* Italian */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = Italian; path = Italian.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -218,6 +224,7 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				832BA25215D7A600000944D9 /* Named Pipe */,
 				A1F7ED4314B0403700328A83 /* Google Toolbox for Mac */,
 				A1CCE1FC12B13CC1006D07A4 /* Categories */,
 				A11599C813D42A3D0097E4BC /* Preferences */,
@@ -293,6 +300,17 @@
 				1058C7A2FEA54F0111CA2CBB /* Other Frameworks */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		832BA25215D7A600000944D9 /* Named Pipe */ = {
+			isa = PBXGroup;
+			children = (
+				832BA24B15D7A5F9000944D9 /* GSNamedPipe.h */,
+				832BA24C15D7A5F9000944D9 /* GSNamedPipe.m */,
+				832BA24D15D7A5F9000944D9 /* NamedPipeListener.h */,
+				832BA24E15D7A5F9000944D9 /* NamedPipeListener.m */,
+			);
+			name = "Named Pipe";
 			sourceTree = "<group>";
 		};
 		A11599C813D42A3D0097E4BC /* Preferences */ = {
@@ -569,6 +587,8 @@
 				A1ED2D1B158859DE00B99CDE /* GSStartup.m in Sources */,
 				A1ED2D1F15885D6A00B99CDE /* GSNotifier.m in Sources */,
 				A1ED2D22158860FB00B99CDE /* GSMenuController.m in Sources */,
+				832BA24F15D7A5F9000944D9 /* GSNamedPipe.m in Sources */,
+				832BA25015D7A5F9000944D9 /* NamedPipeListener.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
