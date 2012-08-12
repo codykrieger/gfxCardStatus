@@ -18,7 +18,7 @@
 -(NamedPipeListener *) initWithName:(NSString*)name{
     if (self = [super init]) {
         _pipeName = name;
-        char* tmp = [[@"/tmp/" stringByAppendingString:_pipeName] UTF8String];
+        const char* tmp = [[@"/tmp/" stringByAppendingString:_pipeName] UTF8String];
         _pipeLocation = malloc(sizeof(char) * strlen(tmp));
         strcpy(_pipeLocation, tmp);
         

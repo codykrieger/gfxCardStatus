@@ -13,7 +13,6 @@
 #import "GSProcess.h"
 #import "GSMux.h"
 #import "GSNotifier.h"
-#import "GSNamedPipe.h"
 
 #import <ReactiveCocoa/ReactiveCocoa.h>
 
@@ -87,7 +86,7 @@
         [GrowlApplicationBridge setGrowlDelegate:[GSNotifier sharedInstance]];
     
     //This begins the named pipe listening.
-    [[GSNamedPipe alloc] initWithController: menuController];
+    _namedPipe = [[GSNamedPipe alloc] initWithController: menuController];
     
     
     // Hook up the check for updates on startup preference directly to the

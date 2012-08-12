@@ -14,7 +14,7 @@
 
 @interface NamedPipeListener : NSObject{
     NSOperationQueue *queue;
-    const char * _pipeLocation;
+    char * _pipeLocation;
 }
 
 @property (strong, nonatomic, readonly) NSString *pipeName;
