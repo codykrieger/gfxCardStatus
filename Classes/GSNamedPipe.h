@@ -8,10 +8,15 @@
 
 #import <Foundation/Foundation.h>
 
+#import "GSMenuController.h"
+
 @class NamedPipeListener;
 
 @interface GSNamedPipe : NSObject{
     NamedPipeListener * listener;
+    GSMenuController * menuController;
 }
+
+-(GSNamedPipe *) initWithController: (GSMenuController*) controller;
 
 @end

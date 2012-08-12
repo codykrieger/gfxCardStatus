@@ -16,11 +16,12 @@
 
 @implementation GSNamedPipe
 
--(GSNamedPipe *) init{
+-(GSNamedPipe *) initWithController: (GSMenuController*) controller{
     if(self = [super init]){
         listener = [[NamedPipeListener alloc] initWithName:@"gfxCardStatus"];
         [listener setDelegate:self];
         [listener listenForChangesInBackground];
+        menuController = controller;
     }
     return self;
 }
@@ -41,6 +42,10 @@
     if ([message isEqualToString:DYNAMIC]) {
         GTMLoggerInfo(@"Setting dynamic switching...");
         retval = [GSMux setMode:GSSwitcherModeDynamicSwitching];
+    }
+    
+    if(retval){
+        [menuController updateMenu];
     }
 }
 
