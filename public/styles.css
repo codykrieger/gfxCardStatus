@@ -1,0 +1,385 @@
+/* Requires: normalize.css */
+/* Global Reset & Standards ---------------------- */
+* { -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; }
+
+body { background: white; line-height: 1; color: #222222; position: relative; }
+
+/* Links ---------------------- */
+a { color: #2ba6cb; text-decoration: none; line-height: inherit; }
+
+a:hover { color: #2795b6; }
+
+a:focus { color: #2ba6cb; outline: none; }
+
+p a, p a:visited { line-height: inherit; }
+
+/* Misc ---------------------- */
+.left { float: left; }
+
+.right { float: right; }
+
+.text-left { text-align: left; }
+
+.text-right { text-align: right; }
+
+.text-center { text-align: center; }
+
+.hide { display: none; }
+
+.highlight { background: #ffff99; }
+
+#googlemap img, object, embed { max-width: none; }
+
+#map_canvas embed { max-width: none; }
+
+#map_canvas img { max-width: none; }
+
+#map_canvas object { max-width: none; }
+
+/* Base Type Styles Using Modular Scale ---------------------- */
+body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, form, fieldset, p, blockquote, th, td { margin: 0; padding: 0; }
+
+p { line-height: 1.6; margin-bottom: 17px; }
+p.lead { font-size: 17.5px; line-height: 1.6; margin-bottom: 17px; }
+p img.left, p img { margin: 17px; margin-left: 0; }
+p img.right { margin: 17px; margin-right: 0; }
+
+aside p { font-size: 13px; line-height: 1.35; font-style: italic; }
+
+h1, h2, h3, h4, h5, h6 { text-rendering: optimizeLegibility; line-height: 1.1; margin-bottom: 14px; margin-top: 14px; }
+h1 small, h2 small, h3 small, h4 small, h5 small, h6 small { font-size: 60%; color: #999; line-height: 0; }
+
+h1 { font-size: 44px; }
+
+h2 { font-size: 37px; }
+
+h3 { font-size: 27px; }
+
+h4 { font-size: 23px; }
+
+h5 { font-size: 17px; }
+
+h6 { font-size: 14px; }
+
+hr { border: solid #ddd; border-width: 1px 0 0; clear: both; margin: 22px 0 21px; height: 0; }
+
+.subheader { line-height: 1.3; color: #999; font-weight: normal; margin-bottom: 17px; }
+
+em, i { font-style: italic; line-height: inherit; }
+
+strong, b { font-weight: bold; line-height: inherit; }
+
+small { font-size: 60%; line-height: inherit; }
+
+code { font-weight: bold; background: #ffff99; }
+
+/* Lists ---------------------- */
+ul, ol { line-height: 1.6; margin-bottom: 17px; list-style-position: outside; }
+
+ul li ul { margin-left: 20px; margin-bottom: 0; list-style: outside; }
+ul.square, ul.circle, ul.disc { margin-left: 17px; }
+ul.square { list-style-type: square; }
+ul.square li ul { list-style: inherit; }
+ul.circle { list-style-type: circle; }
+ul.circle li ul { list-style: inherit; }
+ul.disc { list-style-type: disc; }
+ul.disc li ul { list-style: inherit; }
+ul.no-bullet { list-style: none; }
+ul.large li { line-height: 21px; }
+
+/* Blockquotes ---------------------- */
+blockquote, blockquote p { line-height: 1.5; color: #999; }
+
+blockquote { margin: 0 0 17px; padding: 9px 20px 0 19px; border-left: 1px solid #ddd; }
+blockquote cite { display: block; font-size: 13px; color: #555555; }
+blockquote cite:before { content: "\2014 \0020"; }
+blockquote cite a, blockquote cite a:visited { color: #555555; }
+
+abbr, acronym { text-transform: uppercase; font-size: 90%; color: #222222; border-bottom: 1px solid #ddd; cursor: help; }
+
+abbr { text-transform: none; }
+
+/* Print styles.  Inlined to avoid required HTTP connection: www.phpied.com/delay-loading-your-print-css/ Credit to Paul Irish and HTML5 Boilerplate (html5boilerplate.com)
+*/
+.print-only { display: none !important; }
+
+@media print { * { background: transparent !important; color: black !important; box-shadow: none !important; text-shadow: none !important; filter: none !important; -ms-filter: none !important; }
+  /* Black prints faster: h5bp.com/s */
+  a, a:visited { text-decoration: underline; }
+  a[href]:after { content: " (" attr(href) ")"; }
+  abbr[title]:after { content: " (" attr(title) ")"; }
+  .ir a:after, a[href^="javascript:"]:after, a[href^="#"]:after { content: ""; }
+  /* Don't show links for images, or javascript/internal links */
+  pre, blockquote { border: 1px solid #999; page-break-inside: avoid; }
+  thead { display: table-header-group; }
+  /* h5bp.com/t */
+  tr, img { page-break-inside: avoid; }
+  img { max-width: 100% !important; }
+  @page { margin: 0.5cm; }
+  p, h2, h3 { orphans: 3; widows: 3; }
+  h2, h3 { page-break-after: avoid; }
+  .hide-on-print { display: none !important; }
+  .print-only { display: block !important; } }
+/* The Grid ---------------------- */
+.row { width: 940px; max-width: 100%; min-width: 768px; margin: 0 auto; }
+.row .row { width: auto; max-width: none; min-width: 0; margin: 0 -15px; }
+.row.collapse .column, .row.collapse .columns { padding: 0; }
+.row .row { width: auto; max-width: none; min-width: 0; margin: 0 -15px; }
+.row .row.collapse { margin: 0; }
+
+.column, .columns { float: left; min-height: 1px; padding: 0 15px; position: relative; }
+.column.centered, .columns.centered { float: none; margin: 0 auto; }
+
+[class*="column"] + [class*="column"]:last-child { float: right; }
+
+[class*="column"] + [class*="column"].end { float: left; }
+
+.row .one { width: 8.333%; }
+
+.row .two { width: 16.667%; }
+
+.row .three { width: 25%; }
+
+.row .four { width: 33.333%; }
+
+.row .five { width: 41.667%; }
+
+.row .six { width: 50%; }
+
+.row .seven { width: 58.333%; }
+
+.row .eight { width: 66.667%; }
+
+.row .nine { width: 75%; }
+
+.row .ten { width: 83.333%; }
+
+.row .eleven { width: 91.667%; }
+
+.row .twelve { width: 100%; }
+
+.row .offset-by-one { margin-left: 8.333%; }
+
+.row .offset-by-two { margin-left: 16.667%; }
+
+.row .offset-by-three { margin-left: 25%; }
+
+.row .offset-by-four { margin-left: 33.333%; }
+
+.row .offset-by-five { margin-left: 41.667%; }
+
+.row .offset-by-six { margin-left: 50%; }
+
+.row .offset-by-seven { margin-left: 58.333%; }
+
+.row .offset-by-eight { margin-left: 66.667%; }
+
+.row .offset-by-nine { margin-left: 75%; }
+
+.row .offset-by-ten { margin-left: 83.333%; }
+
+.push-two { left: 16.667%; }
+
+.pull-two { right: 16.667%; }
+
+.push-three { left: 25%; }
+
+.pull-three { right: 25%; }
+
+.push-four { left: 33.333%; }
+
+.pull-four { right: 33.333%; }
+
+.push-five { left: 41.667%; }
+
+.pull-five { right: 41.667%; }
+
+.push-six { left: 50%; }
+
+.pull-six { right: 50%; }
+
+.push-seven { left: 58.333%; }
+
+.pull-seven { right: 58.333%; }
+
+.push-eight { left: 66.667%; }
+
+.pull-eight { right: 66.667%; }
+
+.push-nine { left: 75%; }
+
+.pull-nine { right: 75%; }
+
+.push-ten { left: 83.333%; }
+
+.pull-ten { right: 83.333%; }
+
+img, object, embed { max-width: 100%; height: auto; }
+
+img { -ms-interpolation-mode: bicubic; }
+
+#map_canvas img, .map_canvas img { max-width: none!important; }
+
+/* Nicolas Gallagher's micro clearfix */
+.row { *zoom: 1; }
+.row:before, .row:after { content: ""; display: table; }
+.row:after { clear: both; }
+
+/* Mobile Grid and Overrides ---------------------- */
+@media only screen and (max-width: 767px) {
+  body { -webkit-text-size-adjust: none; -ms-text-size-adjust: none; width: 100%; min-width: 0; margin-left: 0; margin-right: 0; padding-left: 0; padding-right: 0; }
+  .row { width: auto; min-width: 0; margin-left: 0; margin-right: 0; }
+  .column, .columns { width: auto !important; float: none; }
+  .column:last-child, .columns:last-child { float: none; }
+  [class*="column"] + [class*="column"]:last-child { float: none; }
+  .column:before, .columns:before, .column:after, .columns:after { content: ""; display: table; }
+  .column:after, .columns:after { clear: both; }
+  .offset-by-one, .offset-by-two, .offset-by-three, .offset-by-four, .offset-by-five, .offset-by-six, .offset-by-seven, .offset-by-eight, .offset-by-nine, .offset-by-ten { margin-left: 0 !important; }
+  .push-two, .push-three, .push-four, .push-five, .push-six, .push-seven, .push-eight, .push-nine, .push-ten { left: auto; }
+  .pull-two, .pull-three, .pull-four, .pull-five, .pull-six, .pull-seven, .pull-eight, .pull-nine, .pull-ten { right: auto; }
+  /* Mobile 4-column Grid */
+  .row .mobile-one { width: 25% !important; float: left; padding: 0 15px; }
+  .row .mobile-one:last-child { float: right; }
+  .row.collapse .mobile-one { padding: 0; }
+  .row .mobile-two { width: 50% !important; float: left; padding: 0 15px; }
+  .row .mobile-two:last-child { float: right; }
+  .row.collapse .mobile-two { padding: 0; }
+  .row .mobile-three { width: 75% !important; float: left; padding: 0 15px; }
+  .row .mobile-three:last-child { float: right; }
+  .row.collapse .mobile-three { padding: 0; }
+  .row .mobile-four { width: 100% !important; float: left; padding: 0 15px; }
+  .row .mobile-four:last-child { float: right; }
+  .row.collapse .mobile-four { padding: 0; }
+  .push-one-mobile { left: 25%; }
+  .pull-one-mobile { right: 25%; }
+  .push-two-mobile { left: 50%; }
+  .pull-two-mobile { right: 50%; }
+  .push-three-mobile { left: 75%; }
+  .pull-three-mobile { right: 75%; }
+}
+/* Block Grids ---------------------- */
+/* These are 2-up, 3-up, 4-up and 5-up ULs, suited
+for repeating blocks of content. Add 'mobile' to
+them to switch them just like the layout grid
+(one item per line) on phones
+
+For IE7/8 compatibility block-grid items need to be
+the same height. You can optionally uncomment the
+lines below to support arbitrary height, but know
+that IE7/8 do not support :nth-child.
+-------------------------------------------------- */
+.block-grid { display: block; overflow: hidden; padding: 0; }
+.block-grid > li { display: block; height: auto; float: left; }
+
+.block-grid.one-up { margin: 0; }
+
+.block-grid.one-up > li { width: 100%; padding: 0 0 15px; }
+
+.block-grid.two-up { margin: 0 -15px; }
+
+.block-grid.two-up > li { width: 50%; padding: 0 15px 15px; }
+
+/*  .block-grid.two-up>li:nth-child(2n+1) {clear: left;} */
+.block-grid.three-up { margin: 0 -12px; }
+
+.block-grid.three-up > li { width: 33.33%; padding: 0 12px 12px; }
+
+/*  .block-grid.three-up>li:nth-child(3n+1) {clear: left;} */
+.block-grid.four-up { margin: 0 -10px; }
+
+.block-grid.four-up > li { width: 25%; padding: 0 10px 10px; }
+
+/*  .block-grid.four-up>li:nth-child(4n+1) {clear: left;} */
+.block-grid.five-up { margin: 0 -8px; }
+
+.block-grid.five-up > li { width: 20%; padding: 0 8px 8px; }
+
+/*  .block-grid.five-up>li:nth-child(5n+1) {clear: left;} */
+/* Mobile Block Grids */
+@media only screen and (max-width: 767px) {
+  .block-grid.mobile { margin-left: 0; }
+  .block-grid.mobile > li { float: none; width: 100%; margin-left: 0; }
+}
+
+/* customizations */
+
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: jubilat, serif;
+  font-size: 20px;
+  font-weight: normal;
+}
+
+@media only screen and (max-width: 767px) {
+  body {
+    font-size: 100%;
+  }
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: proxima-nova, sans-serif;
+  font-weight: normal;
+  color: #999;
+}
+
+a h1, a h2, a h3, a h4, a h5, a h6 {
+  display: inline-block;
+}
+
+/* extra header spacing on everything but mobile devices */
+@media only screen and (min-width: 768px) {
+  #header {
+    margin-top: 28px;
+    margin-bottom: 28px;
+  }
+
+  h3[id], h4[id] {
+    margin-top: 50px;
+  }
+}
+
+#nav-items {
+  text-align: right;
+}
+
+/* center align header + nav on mobile devices */
+@media only screen and (max-width: 767px) {
+  #header {
+    margin-top: 14px;
+    margin-bottom: 14px;
+  }
+  
+  #title, #nav-items {
+    text-align: center;
+  }
+  
+  #nav-items * {
+    font-size: 115% !important;
+  }
+}
+
+.nav-item {
+  display: inline-block;
+  padding: 0 8px;
+  border-radius: 4px;  
+}
+
+.nav-item a {
+  color: #ccc;
+}
+
+.nav-item.selected, .nav-item:hover {
+  background: rgb(209, 10, 10);
+}
+
+.nav-item.selected a, .nav-item:hover a {
+  color: #fff;
+}
+
+body > .row:last-child { margin-bottom: 50px; }
+
+.red { color: rgb(209, 10, 10); }
