@@ -24,7 +24,7 @@ typedef enum {
 + (BOOL)setMode:(GSSwitcherMode)mode;
 
 + (BOOL)isUsingIntegratedGPU;
-+ (BOOL)isUsingIntegratedGPU;
++ (BOOL)isUsingDiscreteGPU;
 + (BOOL)isUsingDynamicSwitching;
 // Whether or not a machine is using the old-style "you must log out first"
 // switching policy or not. We kick machines into said policy when we switch to
