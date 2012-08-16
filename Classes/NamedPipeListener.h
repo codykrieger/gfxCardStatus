@@ -9,20 +9,20 @@
 #import <Cocoa/Cocoa.h>
 
 @protocol NamedPipeListenerDelegate <NSObject>
--(void) messageRecieved: (NSString*) message;
+- (void) messageRecieved:(NSString *)message;
 @end
 
-@interface NamedPipeListener : NSObject{
+@interface NamedPipeListener : NSObject {
     NSOperationQueue *queue;
-    char * _pipeLocation;
+    char *_pipeLocation;
 }
 
 @property (strong, nonatomic, readonly) NSString *pipeName;
-@property (nonatomic,strong)  id delegate;
--(NamedPipeListener*) initWithName: (NSString*) name;
--(NSString *) description;
--(void) listenForChanges;
--(void) listenForChangesInBackground;
--(void) dealloc;
+@property (nonatomic,strong) id delegate;
+- (id)initWithName:(NSString *)name;
+- (NSString *)description;
+- (void)listenForChanges;
+- (void)listenForChangesInBackground;
+- (void)dealloc;
 
 @end

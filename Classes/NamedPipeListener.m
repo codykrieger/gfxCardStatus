@@ -15,7 +15,7 @@
 @synthesize delegate;
 
 // Creates the named pipe listener with the specified name
--(NamedPipeListener *) initWithName:(NSString*)name{
+- (id)initWithName:(NSString *)name {
     if (self = [super init]) {
         _pipeName = name;
         const char* tmp = [[@"/tmp/" stringByAppendingString:_pipeName] UTF8String];
@@ -32,12 +32,12 @@
     return self;
 }
 
--(NSString *) description{
+- (NSString *)description {
     return [NSString stringWithFormat:@"Pipe Name: %@", _pipeName];
 }
 
 // Listen
--(void)listenForChanges{
+- (void)listenForChanges {
     char buf[MAX_BUF_SIZE];
     char * tmp = malloc(sizeof(char) *strlen(_pipeLocation));
     strcpy(tmp, _pipeLocation);
@@ -57,8 +57,8 @@
     close(fd);
 }
 
--(void)listenForChangesInBackground{
-    if(queue == nil){
+- (void)listenForChangesInBackground {
+    if(queue == nil) {
         queue = [[NSOperationQueue alloc] init];
     }
     
@@ -68,12 +68,12 @@
     }];
 }
 
--(void)dealloc{
+- (void)dealloc {
     remove(_pipeLocation);
     free(_pipeLocation);
 }
 
--(void) messageRecieved: (NSString*) message{
+- (void)messageRecieved:(NSString *)message {
     NSLog(@"%@", message);
 }
 

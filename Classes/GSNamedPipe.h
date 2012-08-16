@@ -12,11 +12,11 @@
 
 @class NamedPipeListener;
 
-@interface GSNamedPipe : NSObject{
-    NamedPipeListener * listener;
-    GSMenuController * menuController;
+@interface GSNamedPipe : NSObject {
+    NamedPipeListener *listener;
+    GSMenuController *menuController;
 }
 
--(GSNamedPipe *) initWithController: (GSMenuController*) controller;
+- (id)initWithController:(GSMenuController *)controller;
 
 @end

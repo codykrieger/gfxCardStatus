@@ -88,7 +88,6 @@
     //This begins the named pipe listening.
     _namedPipe = [[GSNamedPipe alloc] initWithController: menuController];
     
-    
     // Hook up the check for updates on startup preference directly to the
     // automaticallyChecksForUpdates property on the SUUpdater.
     updater.automaticallyChecksForUpdates = _prefs.shouldCheckForUpdatesOnStartup;

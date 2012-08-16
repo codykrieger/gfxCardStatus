@@ -16,17 +16,19 @@
 
 @implementation GSNamedPipe
 
--(GSNamedPipe *) initWithController: (GSMenuController*) controller{
-    if(self = [super init]){
-        listener = [[NamedPipeListener alloc] initWithName:@"gfxCardStatus"];
-        [listener setDelegate:self];
-        [listener listenForChangesInBackground];
-        menuController = controller;
-    }
+- (id)initWithController:(GSMenuController *)controller {
+    if (!(self = [self init]))
+        return nil;
+    
+    listener = [[NamedPipeListener alloc] initWithName:@"gfxCardStatus"];
+    [listener setDelegate:self];
+    [listener listenForChangesInBackground];
+    menuController = controller;
+
     return self;
 }
 
--(void) messageRecieved: (NSString*) message{
+- (void)messageRecieved:(NSString*)message {
     GTMLoggerDebug(@"Message recieved from pipe: %@", message);
     
     
@@ -44,7 +46,7 @@
         retval = [GSMux setMode:GSSwitcherModeDynamicSwitching];
     }
     
-    if(retval){
+    if(retval) {
         [menuController updateMenu];
     }
 }
