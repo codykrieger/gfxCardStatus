@@ -76,8 +76,8 @@ static NSString *_lastMessage = nil;
     [versionInfo setMessageText:Str(@"ThanksForDownloading")];
     [versionInfo setInformativeText:Str(@"PleaseConsiderDonating")];
     NSTextView *accessory = [[NSTextView alloc] initWithFrame:NSMakeRect(0, 0, 300, 15)];
-    [accessory insertText:[NSAttributedString hyperlinkFromString:@"http://codykrieger.com/gfxCardStatus" 
-                                                          withURL:[NSURL URLWithString:@"http://codykrieger.com/gfxCardStatus"]]];
+    [accessory insertText:[NSAttributedString hyperlinkFromString:kApplicationWebsiteURL
+                                                          withURL:[NSURL URLWithString:kApplicationWebsiteURL]]];
     [accessory setEditable:NO];
     [accessory setDrawsBackground:NO];
     [versionInfo setAccessoryView:accessory];
