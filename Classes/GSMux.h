@@ -31,4 +31,7 @@ typedef enum {
 // Integrated Only or Discrete Only for reliability and consistency purposes.
 + (BOOL)isUsingOldStyleSwitchPolicy;
 
++ (BOOL)isOnIntegratedOnlyMode;
++ (BOOL)isOnDiscreteOnlyMode;
+
 @end

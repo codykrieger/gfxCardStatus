@@ -11,6 +11,7 @@
 //
 
 #import "GSMux.h"
+#import "GSGPU.h"
 
 #define kNewStyleSwitchPolicyValue (0) // dynamic switching
 #define kOldStyleSwitchPolicyValue (2) // log out before switching
@@ -309,9 +310,13 @@ static void dumpState(io_connect_t connect)
             // Disable dynamic switching
             setDynamicSwitchingEnabled(_switcherConnect, NO);
             
-            // Disable Policy, otherwise gpu switches to Discrete after a bad app closes
-            setFeatureInfo(_switcherConnect, Policy, NO);
-            setSwitchPolicy(_switcherConnect, NO);
+            // Disable Policy, otherwise gpu switches to Discrete after a bad
+            // app closes. Only do this on 2011+ MacBook Pros since 2010 models
+            // go nuts when this happens.
+            if (![GSGPU is2010MacBookPro]) {
+                setFeatureInfo(_switcherConnect, Policy, NO);
+                setSwitchPolicy(_switcherConnect, NO);
+            }
             
             // Hold up a sec!
             sleep(1);
@@ -364,6 +369,16 @@ static void dumpState(io_connect_t connect)
     uint64_t policy = 0;
     getMuxState(_switcherConnect, muxSwitchPolicy, &policy);
     return policy == kOldStyleSwitchPolicyValue;
+}
+
++ (BOOL)isOnIntegratedOnlyMode
+{
+    return [self isUsingIntegratedGPU] && ([self isUsingOldStyleSwitchPolicy] || [GSGPU is2010MacBookPro]);
+}
+
++ (BOOL)isOnDiscreteOnlyMode
+{
+    return [self isUsingDiscreteGPU] && ([self isUsingOldStyleSwitchPolicy] || [GSGPU is2010MacBookPro]);
 }
 
 @end

@@ -120,14 +120,14 @@
 
     if (![GSGPU isLegacyMachine]) {
         BOOL dynamic = [GSMux isUsingDynamicSwitching];
-        BOOL oldStyleSwitchPolicy = [GSMux isUsingOldStyleSwitchPolicy];
+        BOOL isOnIntegratedOnly = [GSMux isOnIntegratedOnlyMode];
 
         GTMLoggerInfo(@"Using dynamic switching?: %d", dynamic);
-        GTMLoggerInfo(@"Using old-style switching policy?: %d", oldStyleSwitchPolicy);
+        GTMLoggerInfo(@"Using old-style switching policy?: %d", [GSMux isUsingOldStyleSwitchPolicy]);
 
-        [integratedOnly setState:(oldStyleSwitchPolicy && isUsingIntegrated) ? NSOnState : NSOffState];
-        [discreteOnly setState:(oldStyleSwitchPolicy && !isUsingIntegrated) ? NSOnState : NSOffState];
-        [dynamicSwitching setState:(dynamic && !oldStyleSwitchPolicy) ? NSOnState : NSOffState];
+        [integratedOnly setState:isOnIntegratedOnly ? NSOnState : NSOffState];
+        [discreteOnly setState:(!isOnIntegratedOnly && !dynamic) ? NSOnState : NSOffState];
+        [dynamicSwitching setState:dynamic ? NSOnState : NSOffState];
     }
 
     [currentCard setTitle:[Str(@"Card") stringByReplacingOccurrencesOfString:@"%%" withString:cardString]];
