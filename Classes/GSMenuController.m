@@ -106,37 +106,37 @@
 - (void)updateMenu
 {
     GTMLoggerDebug(@"Updating status...");
-    
+
     BOOL isUsingIntegrated = [GSMux isUsingIntegratedGPU];
-    
+
     // get updated GPU string
     NSString *cardString = (isUsingIntegrated ? [GSGPU integratedGPUName] : [GSGPU discreteGPUName]);
-    
+
     // set menu bar icon
     if ([_prefs shouldUseImageIcons])
         [_statusItem setImage:[NSImage imageNamed:(isUsingIntegrated ? kImageIconIntegratedName : kImageIconDiscreteName)]];
     else
         [self _updateMenuBarIconText:isUsingIntegrated cardString:cardString];
-    
+
     if (![GSGPU isLegacyMachine]) {
         BOOL dynamic = [GSMux isUsingDynamicSwitching];
         BOOL oldStyleSwitchPolicy = [GSMux isUsingOldStyleSwitchPolicy];
-        
+
         GTMLoggerInfo(@"Using dynamic switching?: %d", dynamic);
         GTMLoggerInfo(@"Using old-style switching policy?: %d", oldStyleSwitchPolicy);
-        
+
         [integratedOnly setState:(oldStyleSwitchPolicy && isUsingIntegrated) ? NSOnState : NSOffState];
         [discreteOnly setState:(oldStyleSwitchPolicy && !isUsingIntegrated) ? NSOnState : NSOffState];
         [dynamicSwitching setState:(dynamic && !oldStyleSwitchPolicy) ? NSOnState : NSOffState];
     }
-    
+
     [currentCard setTitle:[Str(@"Card") stringByReplacingOccurrencesOfString:@"%%" withString:cardString]];
-    
+
     if (isUsingIntegrated)
         GTMLoggerInfo(@"%@ in use. Sweet deal! More battery life.", [GSGPU integratedGPUName]);
     else
         GTMLoggerInfo(@"%@ in use. Bummer! Less battery life for you.", [GSGPU discreteGPUName]);
-    
+
     if (!isUsingIntegrated)
         [self _updateProcessList];
 }
@@ -180,30 +180,33 @@
 
 - (IBAction)setMode:(id)sender
 {
-    // legacy cards
+    // For legacy machines.
     if (sender == switchGPUs) {
         GTMLoggerInfo(@"Switching GPUs...");
         [GSMux setMode:GSSwitcherModeToggleGPU];
         return;
     }
-    
-    // current cards
+
+    // Don't go any further if the user clicked on an already-selected item.
     if ([sender state] == NSOnState) return;
-    
+
     BOOL retval = NO;
+
     if (sender == integratedOnly) {
         GTMLoggerInfo(@"Setting Integrated only...");
         retval = [GSMux setMode:GSSwitcherModeForceIntegrated];
     }
+
     if (sender == discreteOnly) { 
         GTMLoggerInfo(@"Setting Discrete only...");
         retval = [GSMux setMode:GSSwitcherModeForceDiscrete];
     }
+
     if (sender == dynamicSwitching) {
         GTMLoggerInfo(@"Setting dynamic switching...");
         retval = [GSMux setMode:GSSwitcherModeDynamicSwitching];
     }
-    
+
     // only change status in case of success
     if (retval) {
         [integratedOnly setState:(sender == integratedOnly ? NSOnState : NSOffState)];
