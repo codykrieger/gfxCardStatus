@@ -668,6 +668,7 @@
 				GCC_VERSION = "";
 				INFOPLIST_FILE = "gfxCardStatus-Info.plist";
 				INSTALL_PATH = /Applications;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = gfxCardStatus;
 			};
@@ -692,6 +693,7 @@
 				GCC_VERSION = "";
 				INFOPLIST_FILE = "gfxCardStatus-Info.plist";
 				INSTALL_PATH = /Applications;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				OTHER_CFLAGS = "-DNDEBUG";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = gfxCardStatus;
