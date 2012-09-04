@@ -8,6 +8,7 @@
 
 #import "GSGPU.h"
 #import "GSMux.h"
+#import "GSPreferences.h"
 
 #define kIOPCIDevice                "IOPCIDevice"
 #define kIONameKey                  "IOName"
@@ -19,6 +20,8 @@
 #define kLegacyIntegratedGPUName    @"NVIDIA GeForce 9400M"
 #define kLegacyDiscreteGPUName      @"NVIDIA GeForce 9600M GT"
 #define k2010MacBookProDiscreteGPUName @"NVIDIA GeForce GT 330M"
+
+#define kNukeItFromOrbitSwitchingOn2010MacBookPros @"nukeItFromOrbitSwitchingOn2010MacBookPros"
 
 #define kNotificationQueueName      "com.codykrieger.gfxCardStatus.GPUChangeNotificationQueue"
 #define kNotificationSleepInterval  (0.5)
@@ -184,9 +187,18 @@ static void _displayReconfigurationCallback(CGDirectDisplayID display, CGDisplay
     if (_didCache2010MacBookProValue)
         return _cached2010MacBookProValue;
 
-    NSArray *gpuNames = [self getGPUNames];
+    if ([[GSPreferences sharedInstance] boolForKey:kNukeItFromOrbitSwitchingOn2010MacBookPros]) {
+        _cached2010MacBookProValue = NO;
+    } else {
+        NSArray *gpuNames = [self getGPUNames];
+        _cached2010MacBookProValue = [gpuNames containsObject:k2010MacBookProDiscreteGPUName];
+    }
 
-    _cached2010MacBookProValue = [gpuNames containsObject:k2010MacBookProDiscreteGPUName];
+    if (_cached2010MacBookProValue)
+        GTMLoggerInfo(@"Nuke it from orbit switching enabled.");
+    else
+        GTMLoggerInfo(@"Nuke it from orbit switching disabled.");
+
     _didCache2010MacBookProValue = YES;
 
     return _cached2010MacBookProValue;
