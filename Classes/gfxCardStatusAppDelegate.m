@@ -76,7 +76,7 @@
     }
 
     // If we're not on 10.8+, fall back to Growl for notifications.
-    if (!NSClassFromString(@"NSUserNotification"))
+    if (![GSNotifier notificationCenterIsAvailable])
         [GrowlApplicationBridge setGrowlDelegate:[GSNotifier sharedInstance]];
 
     // Hook up the check for updates on startup preference directly to the

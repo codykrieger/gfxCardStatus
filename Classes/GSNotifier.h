@@ -17,4 +17,6 @@
 + (void)showOneTimeNotification;
 + (void)showUnsupportedMachineMessage;
 
++ (BOOL)notificationCenterIsAvailable;
+
 @end

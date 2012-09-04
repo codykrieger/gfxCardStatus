@@ -7,6 +7,7 @@
 //
 
 #import "GeneralPreferencesViewController.h"
+#import "GSNotifier.h"
 #import "GSPreferences.h"
 #import "GSStartup.h"
 #import "GSGPU.h"
@@ -57,6 +58,15 @@
     NSArray *localizedButtons = [[NSArray alloc] initWithObjects:prefChkStartup, prefChkUpdate, prefChkSmartIcons, prefChkGrowl, nil];
     for (NSButton *loc in localizedButtons)
         [loc setTitle:Str([loc title])];
+
+    if ([GSNotifier notificationCenterIsAvailable]) {
+        [prefChkGrowl setHidden:YES];
+
+        NSRect frame = self.view.frame;
+        frame.size.height -= NSHeight(prefChkGrowl.frame);
+        frame.origin.y -= NSHeight(prefChkGrowl.frame);
+        self.view.frame = frame;
+    }
 }
 
 #pragma mark - Passthrough properties

@@ -48,8 +48,9 @@ static NSString *_lastMessage = nil;
     // as the last one we fired off. Because that's unbelievably annoying. Also
     // check to make sure the user even wants to see the notifications in the
     // first place.
-    if (![message isEqualToString:_lastMessage] && [GSPreferences sharedInstance].shouldDisplayNotifications) {
-        if (NSClassFromString(@"NSUserNotification")) {
+    if (![message isEqualToString:_lastMessage]
+        && ([GSPreferences sharedInstance].shouldDisplayNotifications || [self notificationCenterIsAvailable])) {
+        if ([self notificationCenterIsAvailable]) {
             NSUserNotification *notification = [[NSUserNotification alloc] init];
             notification.deliveryDate = [NSDate date];
             notification.hasActionButton = NO;
@@ -93,6 +94,11 @@ static NSString *_lastMessage = nil;
                                        otherButton:nil 
                          informativeTextWithFormat:@""];
     [alert runModal];
+}
+
++ (BOOL)notificationCenterIsAvailable
+{
+    return !!NSClassFromString(@"NSUserNotification");
 }
 
 #pragma mark - GrowlApplicationBridgeDelegate protocol
