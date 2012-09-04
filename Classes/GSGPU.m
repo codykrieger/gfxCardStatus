@@ -18,6 +18,7 @@
 
 #define kLegacyIntegratedGPUName    @"NVIDIA GeForce 9400M"
 #define kLegacyDiscreteGPUName      @"NVIDIA GeForce 9600M GT"
+#define k2010MacBookProDiscreteGPUName @"NVIDIA GeForce GT 330M"
 
 #define kNotificationQueueName      "com.codykrieger.gfxCardStatus.GPUChangeNotificationQueue"
 #define kNotificationSleepInterval  (0.5)
@@ -31,6 +32,9 @@ static NSString *_cachedDiscreteGPUName = nil;
 
 static BOOL _didCacheLegacyValue = NO;
 static BOOL _cachedLegacyValue = NO;
+
+static BOOL _didCache2010MacBookProValue = NO;
+static BOOL _cached2010MacBookProValue = NO;
 
 static id<GSGPUDelegate> _delegate = nil;
 
@@ -165,15 +169,27 @@ static void _displayReconfigurationCallback(CGDirectDisplayID display, CGDisplay
 {
     if (_didCacheLegacyValue)
         return _cachedLegacyValue;
-    
+
     NSArray *gpuNames = [self getGPUNames];
-    
+
     _cachedLegacyValue = [gpuNames containsObject:kLegacyIntegratedGPUName]
                         && [gpuNames containsObject:kLegacyDiscreteGPUName];
-    
     _didCacheLegacyValue = YES;
     
     return _cachedLegacyValue;
+}
+
++ (BOOL)is2010MacBookPro
+{
+    if (_didCache2010MacBookProValue)
+        return _cached2010MacBookProValue;
+
+    NSArray *gpuNames = [self getGPUNames];
+
+    _cached2010MacBookProValue = [gpuNames containsObject:k2010MacBookProDiscreteGPUName];
+    _didCache2010MacBookProValue = YES;
+
+    return _cached2010MacBookProValue;
 }
 
 + (void)registerForGPUChangeNotifications:(id<GSGPUDelegate>)object

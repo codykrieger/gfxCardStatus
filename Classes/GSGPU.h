@@ -24,6 +24,7 @@ typedef enum {
 // Whether or not the machine is an old 9400M/9600M GT machine. We have to treat
 // those a little differently all other machines are effectively the same.
 + (BOOL)isLegacyMachine;
++ (BOOL)is2010MacBookPro;
 
 // What it says.
 + (void)registerForGPUChangeNotifications:(id<GSGPUDelegate>)object;
