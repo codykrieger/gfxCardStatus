@@ -57,3 +57,7 @@
 /* Unsupported machine box */
 "UnsupportedMachine"    = "You are using a system that gfxCardStatus does not support. Please ensure that you are using a MacBook Pro with dual GPUs.";
 "OhISee"                = "Oh, I see.";
+
+/* Miscellaneous notifications */
+"Can'tSwitchToIntegratedOnlySingular" = "You can't switch to Integrated Only while the following item is running:";
+"Can'tSwitchToIntegratedOnlyPlural" = "You can't switch to Integrated Only while the following items are running:";

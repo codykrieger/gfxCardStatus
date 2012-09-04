@@ -9,9 +9,10 @@
 #import "GSMenuController.h"
 #import "GeneralPreferencesViewController.h"
 #import "AdvancedPreferencesViewController.h"
-#import "GSMux.h"
-#import "GSProcess.h"
 #import "GSGPU.h"
+#import "GSMux.h"
+#import "GSNotifier.h"
+#import "GSProcess.h"
 
 #import <ReactiveCocoa/ReactiveCocoa.h>
 
@@ -193,17 +194,31 @@
     BOOL retval = NO;
 
     if (sender == integratedOnly) {
-        GTMLoggerInfo(@"Setting Integrated only...");
+        NSArray *taskList = [GSProcess getTaskList];
+        if (taskList.count > 0) {
+            GTMLoggerInfo(@"Not setting Integrated Only because of dependencies list items: %@", taskList);
+
+            NSMutableArray *taskNames = [[NSMutableArray alloc] init];
+            for (NSDictionary *dict in taskList) {
+                NSString *taskName = [dict objectForKey:kTaskItemName];
+                [taskNames addObject:taskName];
+            }
+
+            [GSNotifier showCantSwitchToIntegratedOnlyMessage:taskNames];
+            return;
+        }
+
+        GTMLoggerInfo(@"Setting Integrated Only...");
         retval = [GSMux setMode:GSSwitcherModeForceIntegrated];
     }
 
     if (sender == discreteOnly) { 
-        GTMLoggerInfo(@"Setting Discrete only...");
+        GTMLoggerInfo(@"Setting Discrete Only...");
         retval = [GSMux setMode:GSSwitcherModeForceDiscrete];
     }
 
     if (sender == dynamicSwitching) {
-        GTMLoggerInfo(@"Setting dynamic switching...");
+        GTMLoggerInfo(@"Setting Dynamic Switching...");
         retval = [GSMux setMode:GSSwitcherModeDynamicSwitching];
     }
 

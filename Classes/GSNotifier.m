@@ -13,6 +13,8 @@
 
 #define kGPUChangedNotificationKey @"GrowlGPUChanged"
 
+#define kIntegratedOnlyMessageExplanationURL @"http://gfx.io/switching.html#integrated-only-mode-limitations"
+
 static NSString *_lastMessage = nil;
 
 @interface GSNotifier ()
@@ -94,6 +96,23 @@ static NSString *_lastMessage = nil;
                                        otherButton:nil 
                          informativeTextWithFormat:@""];
     [alert runModal];
+}
+
++ (void)showCantSwitchToIntegratedOnlyMessage:(NSArray *)taskList
+{
+    NSString *messageKey = [NSString stringWithFormat:@"Can'tSwitchToIntegratedOnly%@", (taskList.count > 1 ? @"Plural" : @"Singular")];
+    NSMutableString *descriptionText = [[taskList description] mutableCopy];
+    [descriptionText deleteCharactersInRange:NSMakeRange(0, 1)];
+    [descriptionText deleteCharactersInRange:NSMakeRange(descriptionText.length - 1, 1)];
+
+    NSAlert *alert = [NSAlert alertWithMessageText:Str(messageKey)
+                                     defaultButton:@"OK"
+                                   alternateButton:@"Why?"
+                                       otherButton:nil
+                         informativeTextWithFormat:@"%@", descriptionText];
+
+    if ([alert runModal] == NSAlertAlternateReturn)
+        [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:kIntegratedOnlyMessageExplanationURL]];
 }
 
 + (BOOL)notificationCenterIsAvailable
