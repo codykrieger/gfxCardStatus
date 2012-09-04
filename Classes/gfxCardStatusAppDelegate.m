@@ -36,11 +36,6 @@
     // a first-time run.
     _prefs = [GSPreferences sharedInstance];
     
-    // Initialize the power object and start listening for power source change
-    // notifications. This object takes care of the actual switching if
-    // necessary.
-    _power = [GSPower sharedInstance];
-    
     // Attempt to open a connection to AppleGraphicsControl.
     if (![GSMux switcherOpen]) {
         GTMLoggerError(@"Can't open connection to AppleGraphicsControl. This probably isn't a gfxCardStatus-compatible machine.");

@@ -47,7 +47,6 @@
 		A1E07E111194B42B00683B07 /* ApplicationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A1E07E101194B42B00683B07 /* ApplicationServices.framework */; };
 		A1ED2B9F1588457400B99CDE /* GSGPU.m in Sources */ = {isa = PBXBuildFile; fileRef = A1ED2B9E1588457400B99CDE /* GSGPU.m */; };
 		A1ED2D1515884C2C00B99CDE /* ReactiveCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A1ED2CF715884B8A00B99CDE /* ReactiveCocoa.framework */; };
-		A1ED2D18158858C900B99CDE /* GSPower.m in Sources */ = {isa = PBXBuildFile; fileRef = A1ED2D17158858C900B99CDE /* GSPower.m */; };
 		A1ED2D1B158859DE00B99CDE /* GSStartup.m in Sources */ = {isa = PBXBuildFile; fileRef = A1ED2D1A158859DE00B99CDE /* GSStartup.m */; };
 		A1ED2D1F15885D6A00B99CDE /* GSNotifier.m in Sources */ = {isa = PBXBuildFile; fileRef = A1ED2D1E15885D6900B99CDE /* GSNotifier.m */; };
 		A1ED2D22158860FB00B99CDE /* GSMenuController.m in Sources */ = {isa = PBXBuildFile; fileRef = A1ED2D21158860FA00B99CDE /* GSMenuController.m */; };
@@ -178,8 +177,6 @@
 		A1ED2B9D1588457400B99CDE /* GSGPU.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GSGPU.h; sourceTree = "<group>"; };
 		A1ED2B9E1588457400B99CDE /* GSGPU.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GSGPU.m; sourceTree = "<group>"; };
 		A1ED2CEB15884B8900B99CDE /* ReactiveCocoa.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ReactiveCocoa.xcodeproj; path = lib/reactivecocoa/ReactiveCocoaFramework/ReactiveCocoa.xcodeproj; sourceTree = "<group>"; };
-		A1ED2D16158858C800B99CDE /* GSPower.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GSPower.h; sourceTree = "<group>"; };
-		A1ED2D17158858C900B99CDE /* GSPower.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GSPower.m; sourceTree = "<group>"; };
 		A1ED2D19158859DE00B99CDE /* GSStartup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GSStartup.h; sourceTree = "<group>"; };
 		A1ED2D1A158859DE00B99CDE /* GSStartup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GSStartup.m; sourceTree = "<group>"; };
 		A1ED2D1D15885D6900B99CDE /* GSNotifier.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GSNotifier.h; sourceTree = "<group>"; };
@@ -314,8 +311,6 @@
 				A1ED2B9E1588457400B99CDE /* GSGPU.m */,
 				A17CE49813B07C3700E5D50F /* GSProcess.h */,
 				A17CE49913B07C3700E5D50F /* GSProcess.m */,
-				A1ED2D16158858C800B99CDE /* GSPower.h */,
-				A1ED2D17158858C900B99CDE /* GSPower.m */,
 				A1ED2D19158859DE00B99CDE /* GSStartup.h */,
 				A1ED2D1A158859DE00B99CDE /* GSStartup.m */,
 			);
@@ -565,7 +560,6 @@
 				A1F7ED4C14B0409300328A83 /* GTMLogger.m in Sources */,
 				A1F7ED4E14B0409300328A83 /* GTMLoggerRingBufferWriter.m in Sources */,
 				A1ED2B9F1588457400B99CDE /* GSGPU.m in Sources */,
-				A1ED2D18158858C900B99CDE /* GSPower.m in Sources */,
 				A1ED2D1B158859DE00B99CDE /* GSStartup.m in Sources */,
 				A1ED2D1F15885D6A00B99CDE /* GSNotifier.m in Sources */,
 				A1ED2D22158860FB00B99CDE /* GSMenuController.m in Sources */,
