@@ -12,12 +12,6 @@
 
 @interface AdvancedPreferencesViewController : NSViewController <GSPreferencesModule>
 
-@property (strong) IBOutlet NSButton *prefChkPowerSourceBasedSwitching; // use power source-based switching
-@property (strong) IBOutlet NSSegmentedControl *prefSegOnBattery; // pref for gpu on battery
-@property (strong) IBOutlet NSSegmentedControl *prefSegOnAc; // pref for gpu on ac
-@property (strong) IBOutlet NSTextField *onBatteryTextField;
-@property (strong) IBOutlet NSTextField *pluggedInTextField;
-
 @property (strong) GSPreferences *prefs;
 
 @end

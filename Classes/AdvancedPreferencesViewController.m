@@ -13,11 +13,6 @@
 
 @implementation AdvancedPreferencesViewController
 
-@synthesize prefChkPowerSourceBasedSwitching;
-@synthesize prefSegOnBattery;
-@synthesize prefSegOnAc;
-@synthesize onBatteryTextField;
-@synthesize pluggedInTextField;
 @synthesize prefs;
 
 #pragma mark - Initializers
@@ -30,41 +25,6 @@
     prefs = [GSPreferences sharedInstance];
     
     return self;
-}
-
-#pragma mark - Overrides
-
-- (void)loadView
-{
-    [super loadView];
-    
-    NSArray *localizedButtons = [NSArray arrayWithObjects:prefChkPowerSourceBasedSwitching, nil];
-    for (NSButton *loc in localizedButtons)
-        [loc setTitle:Str([loc title])];
-    
-    NSArray *localizedLabels = [NSArray arrayWithObjects:onBatteryTextField, pluggedInTextField, nil];
-    for (NSTextField *field in localizedLabels)
-        [field setStringValue:Str([field stringValue])];
-    
-    // We don't have a Dynamic Switching mode on legacy machines, so drop that
-    // segment from the options entirely.
-    if ([GSGPU isLegacyMachine]) {
-        [prefSegOnBattery setSegmentCount:2];
-        [prefSegOnAc setSegmentCount:2];
-    } else {
-        [prefSegOnBattery setLabel:Str(@"Dynamic") forSegment:GSPowerSourceBasedSwitchingModeDynamic];
-        [prefSegOnAc setLabel:Str(@"Dynamic") forSegment:GSPowerSourceBasedSwitchingModeDynamic];
-    }
-    
-    [prefSegOnBattery setLabel:Str(@"Integrated") forSegment:GSPowerSourceBasedSwitchingModeIntegrated];
-    [prefSegOnBattery setLabel:Str(@"Discrete") forSegment:GSPowerSourceBasedSwitchingModeDiscrete];
-    
-    [prefSegOnAc setLabel:Str(@"Integrated") forSegment:GSPowerSourceBasedSwitchingModeIntegrated];
-    [prefSegOnAc setLabel:Str(@"Discrete") forSegment:GSPowerSourceBasedSwitchingModeDiscrete];
-    
-    // Fit labels after localization.
-    [prefSegOnAc sizeToFit];
-    [prefSegOnBattery sizeToFit];
 }
 
 #pragma mark - GSPreferencesModule protocol
