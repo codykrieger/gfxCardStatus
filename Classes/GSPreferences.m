@@ -73,9 +73,8 @@
         // If preferences file doesn't exist, set the defaults.
         _prefsDict = [[NSMutableDictionary alloc] init];
         [self setDefaults];
-    }
-    
-    _prefsDict[kShouldStartAtLoginKey] = @([GSStartup existsInStartupItems]);
+    } else
+        _prefsDict[kShouldStartAtLoginKey] = @([GSStartup existsInStartupItems]);
     
     // Ensure that application will be loaded at startup.
     if ([self shouldStartAtLogin])
