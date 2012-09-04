@@ -42,7 +42,7 @@
 
   <div class="row">
     <div class="twelve columns">
-      <h3 id="mountain-lion">i. graphics switching modes.</h3>
+      <h3 id="switching-modes">i. graphics switching modes.</h3>
       <p>
         gfxCardStatus has three modes of operation:
       </p>
@@ -71,10 +71,29 @@
         the author of the app directly instead of switching to
         <em>Integrated Only</em> as a workaround</strong>. Tell the author that
         their app is affecting your battery life, and ask them (calmly) to fix it.
-      </p>
-      <p>
         If any app authors don't know what the problem is or how to fix it,
         feel free to tell them to <a href="help.html">get in touch with me</a>.
+      </p>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="twelve columns">
+      <h3 id="integrated-only-mode-limitations">ii. integrated only mode limitations.</h3>
+      <p>
+        gfxCardStatus v2.3 and above actively prevents you from switching to
+        <em>Integrated Only</em> mode when any apps are in the
+        <em>Dependencies</em> list (or if you have an external display plugged
+        in). This is because if you were to do this, your discrete GPU would
+        actually stay powered on, even though you've switched to the integrated
+        GPU.
+      </p>
+      <p class="text-center">
+        <img src="integrated-only-dialog.png" alt="Integrated Only mode notification" width="534" />
+        <br />
+        <small>The message you'll see when attempting to switch to Integrated
+          Only while Keynote is open.</small>
+      </p>
     </div>
   </div>
 
