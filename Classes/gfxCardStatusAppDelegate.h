@@ -11,6 +11,7 @@
 #import "GSMenuController.h"
 #import "GSGPU.h"
 #import "GSPower.h"
+#import "GSNamedPipe.h"
 
 #import <Sparkle/Sparkle.h>
 #import <Sparkle/SUUpdater.h>
@@ -18,6 +19,7 @@
 @interface gfxCardStatusAppDelegate : NSObject <NSApplicationDelegate,GSGPUDelegate> {
     GSPreferences *_prefs;
     GSPower *_power;
+    GSNamedPipe *_namedPipe;
 }
 
 @property (strong) IBOutlet SUUpdater *updater;
