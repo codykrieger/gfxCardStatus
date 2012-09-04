@@ -10,7 +10,6 @@
 "About"					= "О gfxCardStatus, v%%";
 "Update"				= "Перевіряти оновлення...";
 "Preferences"			= "Налаштування...";
-"Card"					= "Відеокарта: %%";
 "SwitchGPUs"			= "Змінити GPU";
 "IntegratedOnly"		= "Тільки інтегрована";
 "DiscreteOnly"			= "Тільки дискретна";

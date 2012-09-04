@@ -10,7 +10,6 @@
 "About"            = "關於 gfxCardStatus, v%%";
 "Update"           = "檢查更新...";
 "Preferences"      = "偏好設定...";
-"Card"             = "晶片: %%";
 "SwitchGPUs"       = "變更 GPU (試驗)";
 "IntegratedOnly"   = "僅 Integrated® 晶片";
 "DiscreteOnly"     = "僅 Discrete® 晶片";

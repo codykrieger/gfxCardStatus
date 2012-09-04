@@ -10,7 +10,6 @@
 "About"					= "Par gfxCardStatus, v%%";
 "Update"				= "Meklēt atjauninājumus...";
 "Preferences"			= "Iestatījumi...";
-"Card"					= "GPU: %%";
 "SwitchGPUs"			= "Pārslēgt GPU";
 "IntegratedOnly"		= "Tikai integrētais";
 "DiscreteOnly"			= "Tikai diskrētais";

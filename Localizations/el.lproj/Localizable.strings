@@ -10,7 +10,6 @@
 "About"					= "Πληροφορίες για το gfxCardStatus, v%%";
 "Update"				= "Έλεγχος αναβαθμίσεων...";
 "Preferences"			= "Ρυθμίσεις...";
-"Card"					= "Κάρτα: %%";
 "SwitchGPUs"			= "Αλλαγή κάρτας γραγικών";
 "IntegratedOnly"		= "Ενσωματωμένη μόνο";
 "DiscreteOnly"			= "Διακριτική μόνο";

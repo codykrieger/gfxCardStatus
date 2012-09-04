@@ -10,7 +10,6 @@
 "About"					= "Om gfxCardStatus, v%%";
 "Update"				= "Sök efter uppdateringar...";
 "Preferences"			= "Inställningar...";
-"Card"					= "Kort: %%";
 "SwitchGPUs"			= "Växla GPU";
 "IntegratedOnly"		= "Enbart integrerad";
 "DiscreteOnly"			= "Enbart dedikerad";

@@ -11,7 +11,6 @@
 "About"					= "Om gfxCardStatus, v%%";
 "Update"				= "Tjek for Opdateringer…";
 "Preferences"			= "Indstillinger...";
-"Card"					= "Kort: %%";
 "SwitchGPUs"			= "Skift GPUs";
 "IntegratedOnly"		= "Kun Integrated";
 "DiscreteOnly"			= "Kun Discrete";

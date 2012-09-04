@@ -11,7 +11,6 @@
 "About"					= "Over gfxCardStatus, v%%";
 "Update"				= "Controleren op updates...";
 "Preferences"			= "Voorkeuren...";
-"Card"					= "GPU: %%";
 "SwitchGPUs"			= "Van GPU wisselen";
 "IntegratedOnly"		= "Alleen geïntegreerde GPU gebruiken";
 "DiscreteOnly"			= "Alleen toegewijde GPU gebruiken";

@@ -10,7 +10,6 @@
 "About"					= "Acerca do gfxCardStatus, v%%";
 "Update"				= "Procurar actualizações...";
 "Preferences"			= "Preferências...";
-"Card"					= "GPU: %%";
 "SwitchGPUs"			= "Alternar GPU";
 "IntegratedOnly"		= "Apenas integrado";
 "DiscreteOnly"			= "Apenas dedicado";

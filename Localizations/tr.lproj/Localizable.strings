@@ -10,7 +10,6 @@
 "About"					= "gfxCardStatus Hakkında, v%%";
 "Update"				= "Güncellemeleri kontrol et...";
 "Preferences"			= "Tercihler...";
-"Card"					= "Kart: %%";
 "SwitchGPUs"			= "GPU'ları değiştir";
 "IntegratedOnly"		= "Entegre";
 "DiscreteOnly"			= "İkincil";

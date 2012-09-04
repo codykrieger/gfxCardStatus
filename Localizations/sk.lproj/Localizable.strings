@@ -10,7 +10,6 @@
 "About"					= "O aplikácii gfxCardStatus, v%%";
 "Update"				= "Skontrolovať aktualizácie...";
 "Preferences"			= "Nastavenia...";
-"Card"					= "Karta: %%";
 "SwitchGPUs"			= "Prepnúť GPU";
 "IntegratedOnly"		= "Iba integrovaná";
 "DiscreteOnly"			= "Iba diskrétna";

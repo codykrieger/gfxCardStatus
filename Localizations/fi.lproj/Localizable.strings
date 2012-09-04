@@ -10,7 +10,6 @@
 "About"					= "Tietoja: gfxCardStatus, v%%";
 "Update"				= "Tarkista päivitykset...";
 "Preferences"			= "Asetukset...";
-"Card"					= "Näytönohjain: %%";
 "SwitchGPUs"			= "Vaihda ohjainta";
 "IntegratedOnly"		= "Vain integroitu näytönohjain";
 "DiscreteOnly"			= "Vain tehokkaampi näytönohjain";
