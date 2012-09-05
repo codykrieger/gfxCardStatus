@@ -13,7 +13,7 @@
 
 #define kGPUChangedNotificationKey @"GrowlGPUChanged"
 
-#define kIntegratedOnlyMessageExplanationURL @"http://gfx.io/switching.html#integrated-only-mode-limitations"
+#define kIntegratedOnlyMessageExplanationURL [kApplicationWebsiteURL stringByAppendingString:@"/switching.html#integrated-only-mode-limitations"]
 
 static NSString *_lastMessage = nil;
 
