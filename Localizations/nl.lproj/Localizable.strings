@@ -2,49 +2,57 @@
    Localizable.strings
    gfxCardStatus
 
-   Created by Jelle Kuin on 20.11.10.
-   Modified by Daniele Sluijters on 28.02.11
-   Copyright 2010 Jelle Kuin. All rights reserved.
+   Created by Tom Klaver on 8/22/2012.
+   Copyright 2012 Tom Klaver. All rights reserved.
  */
 
 /* Main menu */
 "About"					= "Over gfxCardStatus, v%%";
-"Update"				= "Controleren op updates...";
-"Preferences"			= "Voorkeuren...";
-"SwitchGPUs"			= "Van GPU wisselen";
-"IntegratedOnly"		= "Alleen geïntegreerde GPU gebruiken";
-"DiscreteOnly"			= "Alleen toegewijde GPU gebruiken";
-"DynamicSwitching"		= "Dynamisch wisselen";
-"Dependencies"			= "GPU afhankelijkheid";
-"NoProcess"				= "Geen";
+"Update"				= "Zoek naar nieuwe versies…";
+"Preferences"			= "Voorkeuren…";
+"SwitchGPUs"			= "Wissel GPU's";
+"IntegratedOnly"		= "Alleen geïntegreerd";
+"DiscreteOnly"			= "Alleen toegeweid";
+"DynamicSwitching"		= "Wissel dynamisch";
+"Dependencies"			= "Afhankelijk van";
+"NoProcess"				= "Niets";
 "Quit"					= "Stop";
-"Close"					= "Sluiten";
-"PowerSource"           = "Stroombron: %%";
+"Close"					= "Cool!";
+"PowerSource"           = "Voedingsbron: %%";
 "Battery"               = "Batterij";
 "ACAdapter"             = "Lichtnetadapter";
 
 /* Preferences window */
-"PrefTitle"				= "gfxCardStatus Voorkeuren";
-"PrefUpdate"			= "Automatisch controleren op updates";
-"PrefGrowl"				= "Gebruik Growl voor notificaties";
+"PrefTitle"				= "gfxCardStatus-voorkeuren";
+"PrefUpdate"			= "Zoek naar nieuwe versies bij opstarten";
+"PrefGrowl"				= "Gebruik Growl voor berichtgevingen";
 "PrefStartup"			= "Open gfxCardStatus na inloggen";
-"PrefLog"				= "Log diagnostische berichten naar de console";
-"PrefRestoreState"		= "Wisselen naar laatst gebruikte GPU bij opstarten";
-"PrefPowerSwitching"	= "Op basis van gebruik lichtnetadapter/batterij";
+"PrefLog"				= "Sla diagnostische berichten op in console";
+"PrefRestoreState"		= "Herstel laatst gebruikte modus bij opstarten";
+"PrefPowerSwitching"	= "Wissel op basis van voedingsbron";
 "Integrated"            = "Geïntegreerd";
-"Discrete"              = "Toegewijd";
+"Discrete"              = "Toegeweid";
 "Dynamic"               = "Dynamisch";
-"OnBattery"             = "Bij batterij:";
-"PluggedIn"             = "Bij lichtnetadapter:";
+"OnBattery"             = "Met batterij als voedingsbron:";
+"PluggedIn"             = "Met lichtnetadapter als voedingsbron:";
 "General"               = "Algemeen";
 "Switching"             = "Wisselen";
 "Advanced"              = "Geavanceerd";
-"SmartMenuBarIcons"     = "Gebruik slimme menubalkiconen";
+"SmartMenuBarIcons"     = "Gebruik slimme symbolen in menubalk";
 
 /* About box */
 "AboutTitle"			= "Over gfxCardStatus";
 "AboutWebsite"			= "Website";
 
 /* Growl */
-"GrowlGPUChanged"       = "Videomodus";
-"GrowlGPUChangedMessage"           = "'%1$@' wordt nu gebruikt.";
+"GrowlGPUChanged"           = "GPU aangepast";
+"GrowlGPUChangedMessage"    = "'%1$@' wordt nu gebruikt.";
+
+/* Startup box */
+"ThanksForDownloading"      = "Bedankt voor het downloaden van gfxCardStatus!";
+"PleaseConsiderDonating"    = "Als u gfxCardStatus graag gebruikt, overweeg dan om te doneren. Hiermee stimuleert u de ontwikkeling en helpt u met de kosten voor gebruik van de servers. U kunt de doneerkoppeling en FAQ (die u echt eens moet lezen) vinden op de gfxCardStatus-website:";
+"DontShowAgain"             = "Toon niet opnieuw!";
+
+/* Unsupported machine box */
+"UnsupportedMachine"    = "U gebruikt een systeem dat niet door gfxCardStatus wordt ondersteund. Verzeker u ervan dat u een MacBook Pro gebruikt met dubbele GPU's.";
+"OhISee"                = "Ah, ik begrijp het.";

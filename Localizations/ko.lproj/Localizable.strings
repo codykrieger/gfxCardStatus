@@ -10,7 +10,6 @@
 "About"					= "gfxCardStatusv%%에 관하여";
 "Update"				= "업데이트 확인...";
 "Preferences"			= "환경설정...";
-"Card"					= "그래픽 카드: %%";
 "SwitchGPUs"			= "GPU ";
 "IntegratedOnly"		= "내장 그래픽 카드만 사용";
 "DiscreteOnly"			= "독립 그래픽 카드만 사용";
