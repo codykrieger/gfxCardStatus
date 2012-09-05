@@ -1,0 +1,59 @@
+/*
+ Localizable.strings
+ gfxCardStatus
+
+ Created by 정상준 on 8/7/2012.
+ Copyright 2012 정상준. All rights reserved.
+ */
+
+/* Main menu */
+"About"					= "gfxCardStatusv%%에 관하여";
+"Update"				= "업데이트 확인...";
+"Preferences"			= "환경설정...";
+"Card"					= "그래픽 카드: %%";
+"SwitchGPUs"			= "GPU ";
+"IntegratedOnly"		= "내장 그래픽 카드만 사용";
+"DiscreteOnly"			= "독립 그래픽 카드만 사용";
+"DynamicSwitching"		= "동적 전환";
+"Dependencies"			= "의존성";
+"NoProcess"				= "없음";
+"Quit"					= "종료";
+"Close"					= "닫기";
+"PowerSource"           = "전원 공급원: %%";
+"Battery"               = "배터리";
+"ACAdapter"             = "전원 어댑터";
+
+/* Preferences window */
+"PrefTitle"				= "gfxCardStatus 환경설정";
+"PrefUpdate"			= "시작시 업데이트 확인하기";
+"PrefGrowl"				= "GPU 상태 변화를 Growl로 보여주기";
+"PrefStartup"			= "로그인할 때 gfxCardStatus 실행";
+"PrefLog"				= "콘솔에 진단 메시지 기록하기";
+"PrefRestoreState"		= "시작시 마지막 상태 복원하기";
+"PrefPowerSwitching"	= "전원 공급원에 따라 전환하기";
+"Integrated"            = "내장";
+"Discrete"              = "독립";
+"Dynamic"               = "동적";
+"OnBattery"             = "배터리 사용:";
+"PluggedIn"             = "전원 연결:";
+"General"               = "일반";
+"Switching"             = "전환";
+"Advanced"              = "고급";
+"SmartMenuBarIcons"     = "스마트 메뉴 막대 아이콘 사용";
+
+/* About box */
+"AboutTitle"			= "gfxCardStatus에 관하여";
+"AboutWebsite"			= "웹사이트";
+
+/* Growl */
+"GrowlGPUChanged"           = "GPU 변경";
+"GrowlGPUChangedMessage"    = "'%1$@' 사용";
+
+/* Startup box */
+"ThanksForDownloading"      = "gfxCardStatus를 다운로드해주셔서 감사합니다!";
+"PleaseConsiderDonating"    = "만약 여러분에게 이 프로그램이 유용했다면, 호스팅비와 개발을 지원하기 위해서 기부해주세요. 기부에 관한 내용과 자주 묻는 질문(여러분이 반드시 읽으셔야되는 내용)은 gfxCardStatus 웹사이트에서 찾을 수 있습니다:";
+"DontShowAgain"             = "다시 보이지 않기";
+
+/* Unsupported machine box */
+"UnsupportedMachine"    = "gfxCardStatus가 지원하지 않는 기기입니다. 듀얼 GPU가 포함된 MacBook Pro인지 다시 확인해주세요.";
+"OhISee"                = "아하, 그렇군요.";
