@@ -101,9 +101,10 @@ static NSString *_lastMessage = nil;
 + (void)showCantSwitchToIntegratedOnlyMessage:(NSArray *)taskList
 {
     NSString *messageKey = [NSString stringWithFormat:@"Can'tSwitchToIntegratedOnly%@", (taskList.count > 1 ? @"Plural" : @"Singular")];
-    NSMutableString *descriptionText = [[taskList description] mutableCopy];
-    [descriptionText deleteCharactersInRange:NSMakeRange(0, 1)];
-    [descriptionText deleteCharactersInRange:NSMakeRange(descriptionText.length - 1, 1)];
+
+    NSMutableString *descriptionText = [[NSMutableString alloc] init];
+    for (NSString *taskName in taskList)
+        [descriptionText appendFormat:@"%@\n", taskName];
 
     NSAlert *alert = [NSAlert alertWithMessageText:Str(messageKey)
                                      defaultButton:@"OK"
