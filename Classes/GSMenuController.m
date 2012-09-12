@@ -110,14 +110,14 @@
 
     BOOL isUsingIntegrated = [GSMux isUsingIntegratedGPU];
 
-    // get updated GPU string
-    NSString *cardString = (isUsingIntegrated ? [GSGPU integratedGPUName] : [GSGPU discreteGPUName]);
+    NSString *gpuString = (isUsingIntegrated ? [GSGPU integratedGPUName] : [GSGPU discreteGPUName]);
 
-    // set menu bar icon
+    // Set menu bar icon (either with images or text, depending on the presence
+    // of properly-named icon images in gfxCardStatus.app/Contents/Resources).
     if ([_prefs shouldUseImageIcons])
         [_statusItem setImage:[NSImage imageNamed:(isUsingIntegrated ? kImageIconIntegratedName : kImageIconDiscreteName)]];
     else
-        [self _updateMenuBarIconText:isUsingIntegrated cardString:cardString];
+        [self _updateMenuBarIconText:isUsingIntegrated cardString:gpuString];
 
     if (![GSGPU isLegacyMachine]) {
         BOOL dynamic = [GSMux isUsingDynamicSwitching];
@@ -131,7 +131,7 @@
         [dynamicSwitching setState:dynamic ? NSOnState : NSOffState];
     }
 
-    [currentCard setTitle:[Str(@"Card") stringByReplacingOccurrencesOfString:@"%%" withString:cardString]];
+    [currentCard setTitle:[Str(@"Card") stringByReplacingOccurrencesOfString:@"%%" withString:gpuString]];
 
     if (isUsingIntegrated)
         GTMLoggerInfo(@"%@ in use. Sweet deal! More battery life.", [GSGPU integratedGPUName]);
@@ -222,7 +222,7 @@
         retval = [GSMux setMode:GSSwitcherModeDynamicSwitching];
     }
 
-    // only change status in case of success
+    // Only change status in case of GPU switch success.
     if (retval) {
         [integratedOnly setState:(sender == integratedOnly ? NSOnState : NSOffState)];
         [discreteOnly setState:(sender == discreteOnly ? NSOnState : NSOffState)];
@@ -306,7 +306,7 @@
 
 - (void)_updateMenuBarIconText:(BOOL)isUsingIntegrated cardString:(NSString *)cardString
 {
-    // grab first character of GPU string for the menu bar icon
+    // Grab the first character of GPU string for the menu bar icon.
     unichar firstLetter;
     
     if ([GSGPU isLegacyMachine] || ![_prefs shouldUseSmartMenuBarIcons]) {
@@ -314,19 +314,17 @@
     } else {
         firstLetter = [cardString characterAtIndex:0];
     }
-    
-    // format firstLetter into an NSString *
+
     NSString *letter = [[NSString stringWithFormat:@"%C", firstLetter] lowercaseString];
     int fontSize = ([letter isEqualToString:@"n"] || [letter isEqualToString:@"a"] ? 19 : 18);
-    
-    // set the correct font
+
+    // Set our font style.
     NSFontManager *fontManager = [NSFontManager sharedFontManager];
     NSFont *boldItalic = [fontManager fontWithFamily:@"Georgia"
                                               traits:NSBoldFontMask|NSItalicFontMask
                                               weight:0
                                                 size:fontSize];
-    
-    // create NSAttributedString with font
+
     NSDictionary *attributes = [[NSDictionary alloc] initWithObjectsAndKeys:
                                 boldItalic, NSFontAttributeName, 
                                 [NSNumber numberWithDouble:2.0], NSBaselineOffsetAttributeName, nil];
@@ -334,7 +332,7 @@
                                  initWithString:letter
                                  attributes:attributes];
     
-    // set menu bar text "icon"
+    // Finally set the menu bar item's text.
     [_statusItem setAttributedTitle:title];
 }
 
