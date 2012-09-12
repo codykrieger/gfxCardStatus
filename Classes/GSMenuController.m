@@ -126,7 +126,7 @@
         GTMLoggerInfo(@"Using dynamic switching?: %d", dynamic);
         GTMLoggerInfo(@"Using old-style switching policy?: %d", [GSMux isUsingOldStyleSwitchPolicy]);
 
-        [integratedOnly setState:isOnIntegratedOnly ? NSOnState : NSOffState];
+        [integratedOnly setState:(isOnIntegratedOnly && !dynamic) ? NSOnState : NSOffState];
         [discreteOnly setState:(!isOnIntegratedOnly && !dynamic) ? NSOnState : NSOffState];
         [dynamicSwitching setState:dynamic ? NSOnState : NSOffState];
     }
