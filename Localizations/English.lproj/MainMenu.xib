@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <archive type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="7.10">
 	<data>
-		<int key="IBDocument.SystemTarget">1070</int>
-		<string key="IBDocument.SystemVersion">11E53</string>
-		<string key="IBDocument.InterfaceBuilderVersion">2182</string>
-		<string key="IBDocument.AppKitVersion">1138.47</string>
-		<string key="IBDocument.HIToolboxVersion">569.00</string>
+		<int key="IBDocument.SystemTarget">1080</int>
+		<string key="IBDocument.SystemVersion">12C48</string>
+		<string key="IBDocument.InterfaceBuilderVersion">2549</string>
+		<string key="IBDocument.AppKitVersion">1187.34</string>
+		<string key="IBDocument.HIToolboxVersion">625.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.CocoaPlugin</string>
-			<string key="NS.object.0">2182</string>
+			<string key="NS.object.0">2549</string>
 		</object>
 		<object class="NSArray" key="IBDocument.IntegratedClassDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
+			<string>NSCustomObject</string>
 			<string>NSMenu</string>
 			<string>NSMenuItem</string>
-			<string>NSCustomObject</string>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -1463,7 +1463,7 @@
 					</object>
 					<object class="NSMenuItem" id="569156310">
 						<reference key="NSMenu" ref="38435637"/>
-						<string key="NSTitle">codykrieger.com/gfxCardStatus</string>
+						<string key="NSTitle">VisitWebsite</string>
 						<string key="NSKeyEquiv"/>
 						<int key="NSMnemonicLoc">2147483647</int>
 						<reference key="NSOnImage" ref="35465992"/>
@@ -2360,6 +2360,14 @@
 						<reference key="destination" ref="1023494607"/>
 					</object>
 					<int key="connectionID">874</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">visitWebsiteItem</string>
+						<reference key="source" ref="37682140"/>
+						<reference key="destination" ref="569156310"/>
+					</object>
+					<int key="connectionID">876</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -3882,7 +3890,7 @@
 				<reference key="dict.values" ref="0"/>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">875</int>
+			<int key="maxID">876</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -3961,6 +3969,7 @@
 							<string>switchGPUs</string>
 							<string>updateItem</string>
 							<string>versionItem</string>
+							<string>visitWebsiteItem</string>
 						</object>
 						<object class="NSArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
@@ -3975,6 +3984,7 @@
 							<string>NSMenuItem</string>
 							<string>NSMenuItem</string>
 							<string>NSMenu</string>
+							<string>NSMenuItem</string>
 							<string>NSMenuItem</string>
 							<string>NSMenuItem</string>
 							<string>NSMenuItem</string>
@@ -3998,6 +4008,7 @@
 							<string>switchGPUs</string>
 							<string>updateItem</string>
 							<string>versionItem</string>
+							<string>visitWebsiteItem</string>
 						</object>
 						<object class="NSArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
@@ -4055,6 +4066,10 @@
 							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">versionItem</string>
+								<string key="candidateClassName">NSMenuItem</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">visitWebsiteItem</string>
 								<string key="candidateClassName">NSMenuItem</string>
 							</object>
 						</object>
@@ -4129,6 +4144,131 @@
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
 						<string key="minorKey">./Classes/NSDocument.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">NSDocumentController</string>
+					<object class="NSMutableDictionary" key="actions">
+						<string key="NS.key.0">_openRecentDocument:</string>
+						<string key="NS.object.0">id</string>
+					</object>
+					<object class="NSMutableDictionary" key="actionInfosByName">
+						<string key="NS.key.0">_openRecentDocument:</string>
+						<object class="IBActionInfo" key="NS.object.0">
+							<string key="name">_openRecentDocument:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+					</object>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/NSDocumentController.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">NSMovePanel</string>
+					<string key="superclassName">NSPanel</string>
+					<object class="NSMutableDictionary" key="actions">
+						<bool key="EncodedWithXMLCoder">YES</bool>
+						<object class="NSArray" key="dict.sortedKeys">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>cancel:</string>
+							<string>newDocument:</string>
+							<string>ok:</string>
+						</object>
+						<object class="NSArray" key="dict.values">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>id</string>
+							<string>id</string>
+							<string>id</string>
+						</object>
+					</object>
+					<object class="NSMutableDictionary" key="actionInfosByName">
+						<bool key="EncodedWithXMLCoder">YES</bool>
+						<object class="NSArray" key="dict.sortedKeys">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>cancel:</string>
+							<string>newDocument:</string>
+							<string>ok:</string>
+						</object>
+						<object class="NSArray" key="dict.values">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<object class="IBActionInfo">
+								<string key="name">cancel:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">newDocument:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">ok:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+						</object>
+					</object>
+					<object class="NSMutableDictionary" key="outlets">
+						<bool key="EncodedWithXMLCoder">YES</bool>
+						<object class="NSArray" key="dict.sortedKeys">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>_cancelButton</string>
+							<string>_moveButton</string>
+							<string>_movePanelContentView</string>
+							<string>_movePopUp</string>
+							<string>_movePopUpContainer</string>
+							<string>_movePopUpLabel</string>
+						</object>
+						<object class="NSArray" key="dict.values">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>NSButton</string>
+							<string>NSButton</string>
+							<string>NSView</string>
+							<string>FILocationPopUp</string>
+							<string>NSView</string>
+							<string>NSTextField</string>
+						</object>
+					</object>
+					<object class="NSMutableDictionary" key="toOneOutletInfosByName">
+						<bool key="EncodedWithXMLCoder">YES</bool>
+						<object class="NSArray" key="dict.sortedKeys">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>_cancelButton</string>
+							<string>_moveButton</string>
+							<string>_movePanelContentView</string>
+							<string>_movePopUp</string>
+							<string>_movePopUpContainer</string>
+							<string>_movePopUpLabel</string>
+						</object>
+						<object class="NSArray" key="dict.values">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<object class="IBToOneOutletInfo">
+								<string key="name">_cancelButton</string>
+								<string key="candidateClassName">NSButton</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">_moveButton</string>
+								<string key="candidateClassName">NSButton</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">_movePanelContentView</string>
+								<string key="candidateClassName">NSView</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">_movePopUp</string>
+								<string key="candidateClassName">FILocationPopUp</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">_movePopUpContainer</string>
+								<string key="candidateClassName">NSView</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">_movePopUpLabel</string>
+								<string key="candidateClassName">NSTextField</string>
+							</object>
+						</object>
+					</object>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/NSMovePanel.h</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">

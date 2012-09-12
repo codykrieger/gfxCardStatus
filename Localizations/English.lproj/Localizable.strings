@@ -22,6 +22,7 @@
 "PowerSource"           = "Power Source: %%";
 "Battery"               = "Battery";
 "ACAdapter"             = "AC Adapter";
+"VisitWebsite"          = "Visit website (%%)...";
 
 /* Preferences window */
 "PrefTitle"				= "gfxCardStatus Preferences";

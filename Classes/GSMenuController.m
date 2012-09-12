@@ -38,6 +38,7 @@
 @synthesize updateItem;
 @synthesize preferencesItem;
 @synthesize quitItem;
+@synthesize visitWebsiteItem;
 @synthesize currentCard;
 @synthesize currentPowerSource;
 @synthesize switchGPUs;
@@ -255,6 +256,7 @@
 {
     NSString *version = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"];
     [versionItem setTitle:[Str(@"About") stringByReplacingOccurrencesOfString:@"%%" withString:version]];
+    [visitWebsiteItem setTitle:[Str(visitWebsiteItem.title) stringByReplacingOccurrencesOfString:@"%%" withString:kApplicationWebsiteURL]];
     NSArray *localized = [NSArray arrayWithObjects:updateItem, preferencesItem,
                           quitItem, switchGPUs, integratedOnly, discreteOnly, 
                           dynamicSwitching, dependentProcesses, processList, 

@@ -26,22 +26,23 @@
 @property (strong) IBOutlet NSMenu *statusMenu;
 
 // dynamic menu items - these change
-@property (strong) IBOutlet NSMenuItem *versionItem;
-@property (strong) IBOutlet NSMenuItem *updateItem;
-@property (strong) IBOutlet NSMenuItem *preferencesItem;
-@property (strong) IBOutlet NSMenuItem *quitItem;
+@property (weak) IBOutlet NSMenuItem *versionItem;
+@property (weak) IBOutlet NSMenuItem *updateItem;
+@property (weak) IBOutlet NSMenuItem *preferencesItem;
+@property (weak) IBOutlet NSMenuItem *quitItem;
+@property (weak) IBOutlet NSMenuItem *visitWebsiteItem;
 
-@property (strong) IBOutlet NSMenuItem *currentCard;
-@property (strong) IBOutlet NSMenuItem *currentPowerSource;
-@property (strong) IBOutlet NSMenuItem *switchGPUs;
-@property (strong) IBOutlet NSMenuItem *integratedOnly;
-@property (strong) IBOutlet NSMenuItem *discreteOnly;
-@property (strong) IBOutlet NSMenuItem *dynamicSwitching;
+@property (weak) IBOutlet NSMenuItem *currentCard;
+@property (weak) IBOutlet NSMenuItem *currentPowerSource;
+@property (weak) IBOutlet NSMenuItem *switchGPUs;
+@property (weak) IBOutlet NSMenuItem *integratedOnly;
+@property (weak) IBOutlet NSMenuItem *discreteOnly;
+@property (weak) IBOutlet NSMenuItem *dynamicSwitching;
 
 // process list menu items
-@property (strong) IBOutlet NSMenuItem *processesSeparator;
-@property (strong) IBOutlet NSMenuItem *dependentProcesses;
-@property (strong) IBOutlet NSMenuItem *processList;
+@property (weak) IBOutlet NSMenuItem *processesSeparator;
+@property (weak) IBOutlet NSMenuItem *dependentProcesses;
+@property (weak) IBOutlet NSMenuItem *processList;
 
 @property BOOL menuIsOpen;
 
