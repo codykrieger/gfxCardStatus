@@ -37,7 +37,7 @@
 	<key>NSServices</key>
 	<array/>
 	<key>SUFeedURL</key>
-	<string>http://codykrieger.com/gfxCardStatus/appcast.xml</string>
+	<string>http://gfx.io/appcast.xml</string>
 	<key>SUPublicDSAKeyFile</key>
 	<string>dsa_pub.pem</string>
 	<key>SUShowReleaseNotes</key>
