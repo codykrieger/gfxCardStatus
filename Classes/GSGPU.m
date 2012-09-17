@@ -187,9 +187,9 @@ static void _displayReconfigurationCallback(CGDirectDisplayID display, CGDisplay
     if (_didCache2010MacBookProValue)
         return _cached2010MacBookProValue;
 
-    if ([[GSPreferences sharedInstance] boolForKey:kNukeItFromOrbitSwitchingOn2010MacBookPros]) {
+    if ([[GSPreferences sharedInstance] boolForKey:kNukeItFromOrbitSwitchingOn2010MacBookPros])
         _cached2010MacBookProValue = NO;
-    } else {
+    else {
         NSArray *gpuNames = [self getGPUNames];
         _cached2010MacBookProValue = [gpuNames containsObject:k2010MacBookProDiscreteGPUName];
     }
