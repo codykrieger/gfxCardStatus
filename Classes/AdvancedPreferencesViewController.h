@@ -14,4 +14,6 @@
 
 @property (strong) GSPreferences *prefs;
 
+- (IBAction)whyButtonClicked:(id)sender;
+
 @end

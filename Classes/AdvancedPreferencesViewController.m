@@ -11,6 +11,8 @@
 
 #define kAdvancedPreferencesName        @"Advanced"
 
+#define kPowerSourceBasedSwitchingExplanationURL [kApplicationWebsiteURL stringByAppendingString:@"/switching.html#power-source-based-switching"]
+
 @implementation AdvancedPreferencesViewController
 
 @synthesize prefs;
@@ -42,6 +44,13 @@
 - (NSImage *)image
 {
     return [NSImage imageNamed:NSImageNameAdvanced];
+}
+
+#pragma mark - AdvancedPreferencesViewController API
+
+- (IBAction)whyButtonClicked:(id)sender
+{
+    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:kPowerSourceBasedSwitchingExplanationURL]];
 }
 
 @end
