@@ -2,13 +2,25 @@
 <rss version="2.0" xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle"  xmlns:dc="http://purl.org/dc/elements/1.1/">
   <channel>
     <title>gfxCardStatus Appcast</title>
-    <link>http://codykrieger.com/sparkle/gfxCardStatus/appcast.xml</link>
+    <link>http://gfx.io/appcast.xml</link>
     <description>gfxCardStatus changes and updates.</description>
     <language>en</language>
     <item>
+      <title>Version 2.3</title>
+      <sparkle:releaseNotesLink>
+        http://gfx.io/release-notes/2.3.html
+      </sparkle:releaseNotesLink>
+      <pubDate>Sun, 23 Sep 2012 21:00:00 -0800</pubDate>
+      <enclosure url="http://codykrieger.com/downloads/gfxCardStatus-2.3.zip"
+        sparkle:version="2.3"
+        type="application/octet-stream"
+        length="979240"
+        sparkle:dsaSignature="MC0CFDW2/ZVDPHYrm07RoseSksD3mZfUAhUAl0tCosfY8MR3jrGR90rz8JuePOo=" />
+    </item>
+    <item>
       <title>Version 2.2.1</title>
       <sparkle:releaseNotesLink>
-        http://codykrieger.com/sparkle/gfxCardStatus/releasenotes/2.2.1.html
+        http://gfx.io/release-notes/2.2.1.html
       </sparkle:releaseNotesLink>
       <pubDate>Sun, 25 Jun 2012 01:00:00 -0800</pubDate>
       <enclosure url="http://codykrieger.com/downloads/gfxCardStatus-2.2.1.zip"
@@ -20,7 +32,7 @@
     <item>
       <title>Version 2.1</title>
       <sparkle:releaseNotesLink>
-        http://codykrieger.com/gfxCardStatus/releasenotes/2.1.html
+        http://gfx.io/release-notes/2.1.html
       </sparkle:releaseNotesLink>
       <pubDate>Wed, 20 Jul 2011 02:03:17 -0800</pubDate>
       <enclosure url="http://codykrieger.com/downloads/gfxCardStatus-2.1.zip" sparkle:version="2.1" type="application/octet-stream" length="639040" sparkle:dsaSignature="MC4CFQCXF6idAe4Qec3xqBBSBRwkRrMX0QIVAI63G6xTaJTkjLycUC7VHHWAeHxg" />
@@ -28,7 +40,7 @@
     <item>
       <title>Version 2.0.1</title>
       <sparkle:releaseNotesLink>
-        http://codykrieger.com/gfxCardStatus/releasenotes/2.0.1.html
+        http://gfx.io/release-notes/2.0.1.html
       </sparkle:releaseNotesLink>
       <pubDate>Tue, 01 Mar 2011 21:28:00 -0500</pubDate>
       <enclosure url="http://codykrieger.com/downloads/gfxCardStatus-2.0.1.zip" sparkle:version="2.0.1" length="628607" type="application/octet-stream" sparkle:dsaSignature="MC0CFQCr4CIgAJu92kG0xuO3PiW+Gl0t2wIUdX6vq6LHbhDJdhaSC2iFqRYHzLU=" />
@@ -36,7 +48,7 @@
     <item>
       <title>Version 2.0</title>
       <sparkle:releaseNotesLink>
-        http://codykrieger.com/gfxCardStatus/releasenotes/2.0.html
+        http://gfx.io/release-notes/2.0.html
       </sparkle:releaseNotesLink>
       <pubDate>Fri, 17 Dec 2010 09:56:13 -0500</pubDate>
       <enclosure url="http://codykrieger.com/downloads/gfxCardStatus-2.0.zip" sparkle:version="2.0" length="628786" type="application/octet-stream" sparkle:dsaSignature="MC4CFQDM/0epopF8kptKnDcfpaV+p0BglwIVAIyTSyY1g/ZPaPF6wUuc7Vwije4o" />
@@ -44,7 +56,7 @@
     <item>
       <title>Version 1.8.1 (Quick bugfix release)</title>
       <sparkle:releaseNotesLink>
-        http://codykrieger.com/gfxCardStatus/releasenotes/1.8.1.html
+        http://gfx.io/release-notes/1.8.1.html
       </sparkle:releaseNotesLink>
       <pubDate>Mon, 2 Aug 2010 13:20:00 -0500</pubDate>
       <enclosure url="http://codykrieger.com/downloads/gfxCardStatus-1.8.1.zip" sparkle:version="1.8.1" length="607767" type="application/octet-stream" sparkle:dsaSignature="MCwCFDuqboNH0yQSHKHZAuJUeo6aFDjbAhRp4b8IXL3yT4g+H2MqnBciwcjrqQ==" />
@@ -52,7 +64,7 @@
     <item>
       <title>Version 1.8 (Power source-based switching! IMPORTANT DETAILS, view release notes: http://codykrieger.com/gfxCardStatus/changelog)</title>
       <sparkle:releaseNotesLink>
-        http://codykrieger.com/gfxCardStatus/releasenotes/1.8.html
+        http://gfx.io/release-notes/1.8.html
       </sparkle:releaseNotesLink>
       <pubDate>Sun, 1 Aug 2010 21:35:00 -0500</pubDate>
       <enclosure url="http://codykrieger.com/downloads/gfxCardStatus-1.8.zip" sparkle:version="1.8" length="607676" type="application/octet-stream" sparkle:dsaSignature="MC4CFQCgJEcKoSD9U7/ZqSyDviNnNO2h3gIVAKoT3T/rfqAfiwV83oD7Q0nJUe7l" />
@@ -60,7 +72,7 @@
     <item>
       <title>Version 1.7.5 (Fixed external monitor dependency detection, fixed bug where GPU could switch back after quitting all 330M apps, revised logo for better visibility on dark backgrounds, added mode restoration upon startup (preference), added French localization (mostly))</title>
       <sparkle:releaseNotesLink>
-        http://codykrieger.com/gfxCardStatus/releasenotes/1.7.5.html
+        http://gfx.io/release-notes/1.7.5.html
       </sparkle:releaseNotesLink>
       <pubDate>Mon, 24 May 2010 00:12:00 -0500</pubDate>
       <enclosure url="http://codykrieger.com/downloads/gfxCardStatus-1.7.5.zip" sparkle:version="1.7.5" length="596532" type="application/octet-stream" sparkle:dsaSignature="MC0CFQC4qFWKCP4Zw2Qrj+0xhfQfJrN4DQIUbq9SIz9RMQAsGu3d5Zps4VUQNLs=" />
@@ -68,7 +80,7 @@
     <item>
       <title>Version 1.7 (Added untested support for 9400M/9600M status detection, added support for locking the system on a particular GPU, general performance enhancements, eliminated much of the delay involved in listing dependent processes)</title>
       <sparkle:releaseNotesLink>
-        http://codykrieger.com/gfxCardStatus/releasenotes/1.7.html
+        http://gfx.io/release-notes/1.7.html
       </sparkle:releaseNotesLink>
       <pubDate>Fri, 12 May 2010 23:59:00 -0500</pubDate>
       <enclosure url="http://codykrieger.com/downloads/gfxCardStatus-1.7.zip" sparkle:version="1.7" length="569466" type="application/octet-stream" sparkle:dsaSignature="MCwCFHcwPM1thtjEJ+i/bwdry+6xtIZIAhQ9EEz+T2qwFbkTfoU2NtZtCB5+wQ==" />
@@ -76,7 +88,7 @@
     <item>
       <title>Version 1.6.1 (Added about information, made GPU switching class obey console logging preference, hid dependency list if using integrated GPU)</title>
       <sparkle:releaseNotesLink>
-        http://codykrieger.com/gfxCardStatus/releasenotes/1.6.1.html
+        http://gfx.io/release-notes/1.6.1.html
       </sparkle:releaseNotesLink>
       <pubDate>Fri, 8 May 2010 2:55:00 -0800</pubDate>
       <enclosure url="http://codykrieger.com/downloads/gfxCardStatus-1.6.1.zip" sparkle:version="1.6.1" length="571092" type="application/octet-stream" sparkle:dsaSignature="MC0CFQCeVIIdN+rFIUQhgUSEd6d9p9GkvQIUHcpROY0hoHF2s+KUu0wXCgi/K8Y=" />
@@ -84,7 +96,7 @@
     <item>
       <title>Version 1.6 (Allows manual GPU switching, shows external display in dependent process list)</title>
       <sparkle:releaseNotesLink>
-        http://codykrieger.com/gfxCardStatus/releasenotes/1.6.html
+        http://gfx.io/release-notes/1.6.html
       </sparkle:releaseNotesLink>
       <pubDate>Fri, 7 May 2010 15:35:00 -0800</pubDate>
       <enclosure url="http://codykrieger.com/downloads/gfxCardStatus-1.6.zip" sparkle:version="1.6" length="577563" type="application/octet-stream" sparkle:dsaSignature="MC0CFQCmQ0FHhNC+e91KoaTPoYieb3oOsgIUdOf2I4f/2G+G1gjuEYdH5aAiHyo=" />
@@ -92,7 +104,7 @@
     <item>
       <title>Version 1.5 (Growl tweaking, dependent process list)</title>
       <sparkle:releaseNotesLink>
-        http://codykrieger.com/gfxCardStatus/releasenotes/1.5.html
+        http://gfx.io/release-notes/1.5.html
       </sparkle:releaseNotesLink>
       <pubDate>Sat, 1 May 2010 3:00:00 -0500</pubDate>
       <enclosure url="http://codykrieger.com/downloads/gfxCardStatus-1.5.zip" sparkle:version="1.5" length="605894" type="application/octet-stream" sparkle:dsaSignature="MC0CFEY0OA/r5OK0J8fpbxCXAMP9ewTjAhUAuGwo7dzq4JzNFMmmNU/LOjCs3lI=" />
@@ -100,7 +112,7 @@
     <item>
       <title>Version 1.4 (Growl support, ability to turn on/off console logging, more performance enhancements)</title>
       <sparkle:releaseNotesLink>
-        http://codykrieger.com/gfxCardStatus/releasenotes/1.4.html
+        http://gfx.io/release-notes/1.4.html
       </sparkle:releaseNotesLink>
       <pubDate>Sun, 26 Apr 2010 23:20:00 -0500</pubDate>
       <enclosure url="http://codykrieger.com/downloads/gfxCardStatus-1.4.zip" sparkle:version="1.4" length="599401" type="application/octet-stream" sparkle:dsaSignature="MCwCFFeMqc/aRwlpdzdB59eEEVprPSIHAhQTn1XhLw3xQSsLMz/sWyWpBKsdVw==" />
@@ -108,7 +120,7 @@
     <item>
       <title>Version 1.3 (Removed polling on an interval, not necessary)</title>
       <sparkle:releaseNotesLink>
-        http://codykrieger.com/gfxCardStatus/releasenotes/1.3.html
+        http://gfx.io/release-notes/1.3.html
       </sparkle:releaseNotesLink>
       <pubDate>Sun, 25 Apr 2010 23:05:00 -0500</pubDate>
       <enclosure url="http://codykrieger.com/downloads/gfxCardStatus-1.3.zip" sparkle:version="1.3" length="489687" type="application/octet-stream" sparkle:dsaSignature="MC0CFBWzYUMKhYGXSfj0zPPrq9VITpRNAhUAxMuXJLcXGEpRAfM/eZPylOq9qHo=" />
@@ -116,7 +128,7 @@
     <item>
       <title>Version 1.2 (Preferences, Icon, Application Update Checking)</title>
       <sparkle:releaseNotesLink>
-        http://codykrieger.com/gfxCardStatus/releasenotes/1.2.html
+        http://gfx.io/release-notes/1.2.html
       </sparkle:releaseNotesLink>
       <pubDate>Sun, 25 Apr 2010 20:00:00 -0500</pubDate>
       <enclosure url="http://codykrieger.com/downloads/gfxCardStatus-1.2.zip" sparkle:version="1.2" length="492850" type="application/octet-stream" sparkle:dsaSignature="MC0CFQDJ0fcEgIvWB4FsffjABuUmHC68sAIUeg17KAtxK2wEgGR3rvbysnFA1S0=" />
