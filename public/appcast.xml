@@ -11,6 +11,7 @@
         http://gfx.io/release-notes/2.3.html
       </sparkle:releaseNotesLink>
       <pubDate>Sun, 23 Sep 2012 21:00:00 -0800</pubDate>
+      <sparkle:minimumSystemVersion>10.7</sparkle:minimumSystemVersion>
       <enclosure url="http://codykrieger.com/downloads/gfxCardStatus-2.3.zip"
         sparkle:version="2.3"
         type="application/octet-stream"
