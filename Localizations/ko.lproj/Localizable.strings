@@ -2,14 +2,15 @@
  Localizable.strings
  gfxCardStatus
 
- Created by 정상준 on 8/7/2012.
- Copyright 2012 정상준. All rights reserved.
+ Created by 정상준 (bandoche) on 9/25/2012.
+ Copyright 2012 정상준(bandoche). All rights reserved.
  */
 
 /* Main menu */
-"About"					= "gfxCardStatusv%%에 관하여";
+"About" 				= "gfxCardStatus v%%에 관하여";
 "Update"				= "업데이트 확인...";
 "Preferences"			= "환경설정...";
+"Card"					= "GPU: %%";
 "SwitchGPUs"			= "GPU ";
 "IntegratedOnly"		= "내장 그래픽 카드만 사용";
 "DiscreteOnly"			= "독립 그래픽 카드만 사용";
@@ -21,6 +22,7 @@
 "PowerSource"           = "전원 공급원: %%";
 "Battery"               = "배터리";
 "ACAdapter"             = "전원 어댑터";
+"VisitWebsite"          = "웹사이트 방문 (%%)...";
 
 /* Preferences window */
 "PrefTitle"				= "gfxCardStatus 환경설정";
@@ -45,7 +47,7 @@
 "AboutWebsite"			= "웹사이트";
 
 /* Growl */
-"GrowlGPUChanged"           = "GPU 변경";
+"GrowlGPUChanged"           = "GPU 변경됨";
 "GrowlGPUChangedMessage"    = "'%1$@' 사용";
 
 /* Startup box */
@@ -56,3 +58,7 @@
 /* Unsupported machine box */
 "UnsupportedMachine"    = "gfxCardStatus가 지원하지 않는 기기입니다. 듀얼 GPU가 포함된 MacBook Pro인지 다시 확인해주세요.";
 "OhISee"                = "아하, 그렇군요.";
+
+/* Miscellaneous notifications */
+"Can'tSwitchToIntegratedOnlySingular" = "아래 항목이 실행중인 동안에는 내장 그래픽으로 전환할 수 없습니다.:";
+"Can'tSwitchToIntegratedOnlyPlural" = "아래 항목들이 실행중인 동안에는 내장 그래픽으로 전환할 수 없습니다:";
