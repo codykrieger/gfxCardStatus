@@ -1,0 +1,132 @@
+.button {
+  display: inline-block;
+  background: #3b88d8;
+  background: -moz-linear-gradient(0% 100% 90deg, #377ad0, #52a8e8);
+  background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#52a8e8), to(#377ad0));
+  border-top: 1px solid #4081af;
+  border-right: 1px solid #2e69a3;
+  border-bottom: 1px solid #20559a;
+  border-left: 1px solid #2e69a3;
+  -webkit-box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.2), 0 1px 2px 0 #b3b3b3;
+  -moz-box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.2), 0 1px 2px 0 #b3b3b3;
+  -o-box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.2), 0 1px 2px 0 #b3b3b3;
+  -ms-box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.2), 0 1px 2px 0 #b3b3b3;
+  box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.2), 0 1px 2px 0 #b3b3b3;
+  text-shadow: 0 -1px 1px #3275bc;
+  font-size: 1rem !important;
+  font-weight: normal !important;
+  font-family: "Lucida Grande", "Lucida Sans Unicode", Arial, Verdana, sans-serif !important;
+  color: #fff !important;
+  -webkit-border-radius: 30px;
+  -moz-border-radius: 30px;
+  -o-border-radius: 30px;
+  -ms-border-radius: 30px;
+  border-radius: 30px;
+  padding: 6px 14px;
+  line-height: normal !important;
+  -webkit-transition: none !important;
+  -moz-transition: none !important;
+  -o-transition: none !important;
+  -ms-transition: none !important;
+  transition: none !important;
+  width: auto !important;
+}
+
+.button::-moz-focus-inner {
+  border: 0;
+}
+
+.super.button {
+  -webkit-border-radius: 5px !important;
+  -moz-border-radius: 5px !important;
+  -o-border-radius: 5px !important;
+  -ms-border-radius: 5px !important;
+  border-radius: 5px !important;
+}
+
+.red.button {
+  background: #ba3b3b;
+  background: -moz-linear-gradient(0% 100% 90deg, #ba3b3b, #db3b3b);
+  background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#db3b3b), to(#ba3b3b));
+  border: 1px solid #893b3b;
+  text-shadow: 0 -1px 1px #a12d2e;
+}
+
+.red.button:hover {
+  background: #ba3b3b;
+  background: -moz-linear-gradient(0% 100% 90deg, #ba3b3b, #db3b3b);
+  background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#cb3b3b), to(#9b3b3b));
+  border: 1px solid #593b3b;
+  text-shadow: 0 -1px 1px #7e2324;
+}
+
+.medium.button {
+  -webkit-border-radius: 20px;
+  -moz-border-radius: 20px;
+  -o-border-radius: 20px;
+  -ms-border-radius: 20px;
+  border-radius: 20px;
+  font-size: 1.3rem !important;
+  padding: 5px 12px;
+}
+
+.large.button {
+  -webkit-border-radius: 20px;
+  -moz-border-radius: 20px;
+  -o-border-radius: 20px;
+  -ms-border-radius: 20px;
+  border-radius: 20px;
+  font-size: 1.8rem !important;
+  font-weight: bold;
+  padding: 10px 17px;
+}
+
+.button:hover {
+  background: #2a81d7;
+  background: -moz-linear-gradient(0% 100% 90deg, #206bcb, #3e9ee5);
+  background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#3e9ee5), to(#206bcb));
+  border-top: 1px solid #2a73a6;
+  border-right: 1px solid #165899;
+  border-bottom: 1px solid #07428f;
+  border-left: 1px solid #165899;
+  -webkit-box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.3);
+  -moz-box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.3);
+  -o-box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.3);
+  -ms-box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.3);
+  box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.3);
+  cursor: pointer;
+  text-shadow: 0 -1px 1px #1d62ab;
+  text-decoration: none;
+}
+
+.button:active {
+  background: #3282d3;
+  border: 1px solid #154c8c;
+  border-bottom: 1px solid #0e408e;
+  -webkit-box-shadow: inset 0 0 6px 3px rgba(255, 255, 255, 0.2), 0 1px 0 0 white;
+  -moz-box-shadow: inset 0 0 6px 3px rgba(255, 255, 255, 0.2), 0 1px 0 0 white;
+  -o-box-shadow: inset 0 0 6px 3px rgba(255, 255, 255, 0.2), 0 1px 0 0 white;
+  -ms-box-shadow: inset 0 0 6px 3px rgba(255, 255, 255, 0.2), 0 1px 0 0 white;
+  box-shadow: inset 0 0 6px 3px rgba(255, 255, 255, 0.2), 0 1px 0 0 white;
+  text-shadow: 0 -1px 1px #2361a4;
+}
+
+.button[disabled], .button[data-disabled],
+.button[disabled]:hover, .button[data-disabled]:hover,
+.button[disabled]:active, .button[data-disabled]:active {
+  background: #999;
+  background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#dadada), to(#f3f3f3));
+  border-top: 1px solid #c5c5c5;
+  border-right: 1px solid #cecece;
+  border-bottom: 1px solid #d9d9d9;
+  border-left: 1px solid #cecece;
+  color: #8f8f8f !important;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  -o-box-shadow: none;
+  -ms-box-shadow: none;
+  box-shadow: none;
+  cursor: not-allowed;
+  text-shadow: 0 -1px 1px #ebebeb;
+}
+

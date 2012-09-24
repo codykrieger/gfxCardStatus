@@ -11,12 +11,9 @@
   <!-- Set the viewport width to device width for mobile -->
   <meta name="viewport" content="width=device-width" />
 
-  <title>gfxCardStatus and you &mdash; switching.</title>
+  <title>gfxCardStatus &mdash; switching.</title>
 
   <link href="styles.css" rel="stylesheet" type="text/css">
-
-  <!-- foundation -->
-  <script src="javascripts/modernizr.foundation.js"></script>
 
   <!-- typekit -->
   <script type="text/javascript" src="//use.typekit.net/ycl4eyc.js"></script>
@@ -31,10 +28,10 @@
 
   <div id="header" class="row">
     <div id="title" class="six columns">
-      <a href="intro.html"><h3><span class="red">gfxCardStatus</span> and <span class="red">you</span>.</h3></a>
+      <a href="/"><h3><span class="red">gfxCardStatus</span>.</h3></a>
     </div>
     <div id="nav-items" class="six columns">
-      <h3 class="nav-item"><a href="intro.html">intro</a></h3>
+      <h3 class="nav-item"><a href="howto.html">howto guide</a></h3>
       <h3 class="nav-item selected"><a href="switching.html">switching</a></h3>
       <h3 class="nav-item"><a href="help.html">help</a></h3>
     </div>
@@ -101,6 +98,35 @@
       </p>
     </div>
   </div>
+
+  <div class="row">
+    <div class="twelve columns">
+      <h3 id="power-source-based-switching">iii. why was power source-based switching removed?</h3>
+      <p>
+        gfxCardStatus v2.2.1 and below contained a feature called
+        <em>power source-based switching</em>. As I mentioned on
+        <a href="/howto.html#mountain-lion">the main howto page</a>, OS X
+        Mountain Lion (10.8) won't cause your machine to switch to the
+        discrete GPU nearly as often when opening up applications. This
+        effectively makes <em>power source-based switching</em> useless.
+      </p>
+      <p>
+        In addition, the feature hadn't ever worked 100% correctly, and for
+        many users, it did more harm than good. It was getting to the point
+        where I received several hundred support emails per month, just about
+        this one feature not working properly. I can no longer deal with that
+        large of a support burden, considering that I work on gfxCardStatus
+        in my (increasingly limited) free time.
+      </p>
+      <p>
+        Having said all of that, please don't email me asking if
+        <em>power source-based switching</em> will ever come back in a future
+        version of gfxCardStatus. It is highly unlikely.
+      </p>
+    </div>
+  </div>
+
+  <div class="annoying"></div>
 
   <script type="text/javascript">
     var _gauges = _gauges || [];

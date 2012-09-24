@@ -5,9 +5,9 @@
 body { background: white; line-height: 1; color: #222222; position: relative; }
 
 /* Links ---------------------- */
-a { color: #2ba6cb; text-decoration: none; line-height: inherit; }
+a { color: #4089d4; text-decoration: none; line-height: inherit; }
 
-a:hover { color: #2795b6; }
+a:hover { color: #285688; }
 
 a:focus { color: #2ba6cb; outline: none; }
 
@@ -69,14 +69,14 @@ em, i { font-style: italic; line-height: inherit; }
 
 strong, b { font-weight: bold; line-height: inherit; }
 
-small { font-size: 60%; line-height: inherit; }
+small { font-size: 75%; line-height: inherit; }
 
 code { font-weight: bold; background: #ffff99; }
 
 /* Lists ---------------------- */
-ul, ol { line-height: 1.6; margin-bottom: 17px; list-style-position: outside; }
+ul, ol { line-height: 1.6; margin-bottom: 17px; list-style-position: inside; }
 
-ul li ul { margin-left: 20px; margin-bottom: 0; list-style: outside; }
+ul li ul { margin-left: 20px; margin-bottom: 0; list-style: inside; }
 ul.square, ul.circle, ul.disc { margin-left: 17px; }
 ul.square { list-style-type: square; }
 ul.square li ul { list-style: inherit; }
@@ -352,11 +352,11 @@ a h1, a h2, a h3, a h4, a h5, a h6 {
     margin-top: 14px;
     margin-bottom: 14px;
   }
-  
+
   #title, #nav-items {
     text-align: center;
   }
-  
+
   #nav-items * {
     font-size: 115% !important;
   }
@@ -380,6 +380,22 @@ a h1, a h2, a h3, a h4, a h5, a h6 {
   color: #fff;
 }
 
-body > .row:last-child { margin-bottom: 50px; }
+.annoying {
+  width: 100%;
+  height: 50px;
+}
+
+.row.actions, .row.info {
+  margin-top: 32px;
+}
+
+.row.info {
+  font-size: 80%;
+}
+
+.FlattrButton {
+  margin-top: 15px;
+}
 
 .red { color: rgb(209, 10, 10); }
+
