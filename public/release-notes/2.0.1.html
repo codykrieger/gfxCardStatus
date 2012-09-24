@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html> 
+<head> 
+  <title>gfxCardStatus v2.0.1</title> 
+  <style type="text/css"> 
+    body {
+      font-family: Helvetica, sans-serif;
+      font-size: 10pt;
+    }
+    h1 {
+      padding: 0;
+      margin: 5px;
+    }
+    ul {
+      list-style-position: inside;
+      margin: 0;
+      padding: 0;
+    }
+    #description {
+      margin: 5px;
+      font-style: italic;
+    }
+    #container {
+      border: dotted 1px #777;
+    }
+    .header {
+      background: #b6dbff;
+      padding: 5px;
+      border-top: dotted 1px #777;
+      border-bottom: dotted 1px #777;
+      font-weight: bold;
+      font-size: 12pt;
+    }
+    .header:first-child {
+      border-top: none;
+    }
+    .content {
+      padding: 10px;
+    }
+  </style> 
+</head> 
+<body> 
+  <h1>gfxCardStatus, v2.0.1</h1> 
+  <div id="description"> 
+    by Cody Krieger, web: <a href="http://codykrieger.com">http://codykrieger.com</a>, email: cody [at] codykrieger [dot] com
+  </div> 
+  <div id="container"> 
+    <div class="header"> 
+      New In This Version
+    </div> 
+    <div class="content"> 
+      <ul> 
+        <li>Support for 2011 MacBook Pros w/ Intel HD 3000/AMD Radeon chipsets!</li>
+        <li>Icons are now "d" for discrete, "i" for integrated across the board.</li>
+        <li>Made settings and modes more generic (e.g. "Discrete Only" instead of "NVIDIA Only")
+          to make them applicable to all supported machines</li>
+        <li>Fixed a few memory leaks</li>
+      </ul>
+    </div> 
+    <div class="header">
+      Known Issues
+    </div>
+    <div class="content">
+      <ul>
+        <li>There are a couple of strings not localized in the menu and in the preferences window</li>
+        <li>The power source-based switching is working intermittently for some.
+          The next update should include a totally overhauled power source monitor.</li>
+      </ul>
+    </div>
+  </div> 
+</body> 
+</html>

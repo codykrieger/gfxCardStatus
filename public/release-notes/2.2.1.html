@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html> 
+<head> 
+  <title>gfxCardStatus v2.2.1</title> 
+  <style type="text/css"> 
+    body {
+      font-family: Helvetica, sans-serif;
+      font-size: 10pt;
+    }
+    h1 {
+      padding: 0;
+      margin: 15px 0;
+    }
+    ul {
+      list-style-position: inside;
+      margin: 0;
+      padding: 0;
+    }
+    .header {
+      padding: 5px 0;
+      font-weight: bold;
+      font-size: 14pt;
+      border-bottom: 1px dashed #ccc;
+    }
+    .content {
+      padding: 10px;
+    }
+  </style> 
+</head> 
+<body> 
+  <h1>gfxCardStatus v2.2.1</h1> 
+  <div id="container"> 
+    <div class="header"> 
+      New in this version: 2012 + Retina MacBook Pro support!
+    </div> 
+    <div class="content"> 
+      <ul> 
+        <li>Fixed the issue with Integrated Only where quitting some apps would
+          cause the discrete GPU to activate. Integrated Only mode now tricks
+          OS X into thinking that you're not using a machine with automatic
+          graphics switching, so it never attempts to switch GPUs on you.</li>
+        <li>A huge ground-up rewrite of almost the whole app that <strong>shouldn't
+            require an update to work with new hardware in the future.</strong></li>
+        <li>Now localized in 21 languages! English, Danish, French, German,
+          Italian, Spanish, Swedish, Czech, Greek, Finnish, Latvian, Dutch,
+          Polish, Portuguese, Brazilian Portuguese, Russian, Slovak, Turkish,
+          Ukranian, Simplified Chinese, and Traditional Chinese.</li>
+      </ul>
+    </div> 
+    <div class="header">
+      Known Issues
+    </div>
+    <div class="content">
+      <ul>
+        <li>Plugging in external displays while on Integrated Only doesn't work.
+          I'm still doing some research to see if it's possible to detect when
+          a display is plugged in while on Integrated Only.</li>
+        <li>Power source-based switching is still a liiiittle finicky when you
+          plug in/unplug while asleep sometimes.</li>
+      </ul>
+    </div>
+    <div class="header">
+      Thanks!
+    </div>
+    <div class="content">
+      Thanks so much to everyone who contributed to this release in some way,
+      shape or form. You're all awesome.
+    </div>
+  </div> 
+</body> 
+</html>
