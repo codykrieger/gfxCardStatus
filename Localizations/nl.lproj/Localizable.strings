@@ -12,7 +12,7 @@
 "Preferences"			= "Voorkeuren…";
 "SwitchGPUs"			= "Wissel GPU's";
 "IntegratedOnly"		= "Alleen geïntegreerd";
-"DiscreteOnly"			= "Alleen toegeweid";
+"DiscreteOnly"			= "Alleen toegewijd";
 "DynamicSwitching"		= "Wissel dynamisch";
 "Dependencies"			= "Afhankelijk van";
 "NoProcess"				= "Niets";
@@ -31,7 +31,7 @@
 "PrefRestoreState"		= "Herstel laatst gebruikte modus bij opstarten";
 "PrefPowerSwitching"	= "Wissel op basis van voedingsbron";
 "Integrated"            = "Geïntegreerd";
-"Discrete"              = "Toegeweid";
+"Discrete"              = "Toegewijd";
 "Dynamic"               = "Dynamisch";
 "OnBattery"             = "Met batterij als voedingsbron:";
 "PluggedIn"             = "Met lichtnetadapter als voedingsbron:";
