@@ -322,7 +322,8 @@ static void dumpState(io_connect_t connect)
             sleep(1);
             
             BOOL integrated = [GSMux isUsingIntegratedGPU];
-            if ((mode==GSSwitcherModeForceIntegrated && !integrated) || (mode==GSSwitcherModeForceDiscrete && integrated))
+            if ((mode == GSSwitcherModeForceIntegrated && !integrated)
+                || (mode == GSSwitcherModeForceDiscrete && integrated))
                 forceSwitch(_switcherConnect);
             
             break;
