@@ -1,0 +1,66 @@
+/*
+ Localizable.strings
+ gfxCardStatus
+
+ Created by Alin Bădilă on 26.09.2012.
+ Copyright 2012 Alin Bădilă. All rights reserved.
+ e-mail: demon981@gmail.com
+
+ */
+
+/* Main menu */
+"About"					= "Despre gfxCardStatus, v%%";
+"Update"				= "Actualizări disponibile...";
+"Preferences"			= "Opțiuni...";
+"Card"					= "GPU: %%";
+"SwitchGPUs"			= "Activez GPU";
+"IntegratedOnly"		= "Doar integrată";
+"DiscreteOnly"			= "Doar dedicată";
+"DynamicSwitching"		= "Activare automată";
+"Dependencies"			= "Dependințe";
+"NoProcess"				= "None";
+"Quit"					= "Ieșire";
+"Close"					= "Cool!";
+"PowerSource"           = "Sursă alimentare: %%";
+"Battery"               = "Baterie";
+"ACAdapter"             = "Încărcător priză";
+"VisitWebsite"          = "Vizitează saitul (%%)...";
+
+/* Preferences window */
+"PrefTitle"				= "Opțiuni gfxCardStatus";
+"PrefUpdate"			= "Verifică actualizări la pornirea aplicației";
+"PrefGrowl"				= "Folosesc Growl pentru notificări";
+"PrefStartup"			= "Lansez gfxCardStatus la încărcarea sistemului";
+"PrefLog"				= "Înregistreaz mesajele de diagnoză în consolă";
+"PrefRestoreState"		= "Restaurez la lansare ultimul mod folosit";
+"PrefPowerSwitching"	= "Activez funcție de sursa de energie în uz";
+"Integrated"            = "Integrată";
+"Discrete"              = "Dedicată";
+"Dynamic"               = "Automată";
+"OnBattery"             = "Pe baterie:";
+"PluggedIn"             = "Cu încărcător conectat:";
+"General"               = "General";
+"Switching"             = "Se activează";
+"Advanced"              = "Avansat";
+"SmartMenuBarIcons"     = "Folosesc iconițe inteligente";
+
+/* About box */
+"AboutTitle"			= "Despre gfxCardStatus";
+"AboutWebsite"			= "Sait";
+
+/* Growl */
+"GrowlGPUChanged"           = "GPU activat";
+"GrowlGPUChangedMessage"    = "'%1$@' acum în uz.";
+
+/* Startup box */
+"ThanksForDownloading"      = "Mulțumesc pentru că ai descărcat gfxCardStatus!";
+"PleaseConsiderDonating"    = "Dacă aplicația îți este de folos, te rog să iei în considerare posibilitatea unei donații în vederea dezvoltării și găzduirii aplicației. Adresa pentru donații și pagina cu cele mai frecvente întrebări (pe care chiar ar TREBUI să le citești) se găsesc pe saitul gfxCardStatus:";
+"DontShowAgain"             = "Nu mai afișa asta din nou!";
+
+/* Unsupported machine box */
+"UnsupportedMachine"    = "Folosești o configurație de sistem nesuportată de gfxCardStatus. Aplicația este destinată pentru MacBook Pro cu două plăci video.";
+"OhISee"                = "Hmm, înțeleg.";
+
+/* Miscellaneous notifications */
+"Can'tSwitchToIntegratedOnlySingular" = "Nu pot activa placa grafică integrată deoarece încă rulează aplicația:";
+"Can'tSwitchToIntegratedOnlyPlural" = "Nu pot activa placa grafică integrată deoarece încă rulează aplicațiile:";
