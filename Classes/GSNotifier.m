@@ -17,7 +17,7 @@
 
 static NSString *_lastMessage = nil;
 
-@interface GSNotifier ()
+@interface GSNotifier () <NSUserNotificationCenterDelegate>
 + (NSString *)_keyForNotificationType:(GSGPUType)type;
 @end
 
@@ -33,6 +33,16 @@ static NSString *_lastMessage = nil;
         _sharedObject = [[self alloc] init];
     });
     return _sharedObject;
+}
+
+- (id)init
+{
+    if (!(self = [super init]))
+        return nil;
+
+    [NSUserNotificationCenter defaultUserNotificationCenter].delegate = self;
+
+    return self;
 }
 
 #pragma mark - GSNotifier API
@@ -128,6 +138,13 @@ static NSString *_lastMessage = nil;
     return [NSDictionary dictionaryWithContentsOfFile:
             [[NSBundle mainBundle] pathForResource:@"Growl Registration Ticket" 
                                             ofType:@"growlRegDict"]];
+}
+
+#pragma mark - NSUserNotificationCenterDelegate protocol
+
+- (void)userNotificationCenter:(NSUserNotificationCenter *)center didDeliverNotification:(NSUserNotification *)notification
+{
+    [center removeDeliveredNotification:notification];
 }
 
 #pragma mark - Private helpers
