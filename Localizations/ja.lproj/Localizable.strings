@@ -1,0 +1,64 @@
+/* 
+   Localizable.strings
+   gfxCardStatus
+
+   Created by RiSyomei on 9/25/12.
+   Copyright 2012 RiSyomei. All rights reserved.
+ */
+
+/* Main menu */
+"About"					= "gfxCardStatus, v%%について";
+"Update"				= "更新をチェックする...";
+"Preferences"			= "環境設定...";
+"Card"					= "GPU: %%";
+"SwitchGPUs"			= "ビデオカードを切り替える";
+"IntegratedOnly"		= "オンボードグラフィックのみ";
+"DiscreteOnly"			= "単体グラフィックのみ";
+"DynamicSwitching"		= "自動切り替え";
+"Dependencies"			= "依頼関係";
+"NoProcess"				= "なし";
+"Quit"					= "gfxCardStatusを終了";
+"Close"					= "閉じる";
+"PowerSource"           = "パワーソース: %%";
+"Battery"               = "バッテリー";
+"ACAdapter"             = "ACアダプター";
+"VisitWebsite"          = "ウェブサイトへ(%%)...";
+
+/* Preferences window */
+"PrefTitle"				= "gfxCardStatus環境設定";
+"PrefUpdate"			= "アプリ起動時アップデートをチェック";
+"PrefGrowl"				= "Growlを使ってビデオカードの切り替え状態を表示";
+"PrefStartup"			= "ログイン後自動的にgfxCardStatusを起動";
+"PrefLog"				= "コンソールに診断ログを出力";
+"PrefRestoreState"		= "アプリ起動時に前回の設定を読み出す";
+"PrefPowerSwitching"	= "パワーソースベースの切り替えをつかう";
+"Integrated"            = "オンボードグラフィックス";
+"Discrete"              = "単体グラフィックス";
+"Dynamic"               = "自動切り替え";
+"OnBattery"             = "バッテリー使用時:";
+"PluggedIn"             = "ACアダプター使用時:";
+"General"               = "一般的";
+"Switching"             = "切り替え";
+"Advanced"              = "上級設定";
+"SmartMenuBarIcons"     = "スマートアイコンを使用";
+
+/* About box */
+"AboutTitle"			= "gfxCardStatusについて";
+"AboutWebsite"			= "ウェブサイトへ";
+
+/* Growl */
+"GrowlGPUChanged"           = "グラフィックカードを切り替えました";
+"GrowlGPUChangedMessage"    = "'%1$@'を使用中.";
+
+/* Startup box */
+"ThanksForDownloading"      = "gfxCardStatusをダウンロードして頂き、誠にありがとう!";
+"PleaseConsiderDonating"    = "このアプリが役立つと思った方にこのアプリの開発及びサーバーを維持するための寄付をお願いします。 寄付先とFAQはgfxCardStatusウェブサイトで確認できます。";
+"DontShowAgain"             = "次回起動時に表示しない";
+
+/* Unsupported machine box */
+"UnsupportedMachine"    = "gfxCardStatusはご使用のシステムに対応できません。デュアルグラフィックカードMacBookのみに対応しています。";
+"OhISee"                = "確認";
+
+/* Miscellaneous notifications */
+"Can'tSwitchToIntegratedOnlySingular" = "次のアプリが開いているため、オンボードグラフィックに切り替えることはできません:";
+"Can'tSwitchToIntegratedOnlyPlural"   = "次のアプリが開いているため、オンボードグラフィックに切り替えることはできません:";
