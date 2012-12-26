@@ -82,7 +82,8 @@
     // Hook up the check for updates on startup preference directly to the
     // automaticallyChecksForUpdates property on the SUUpdater.
     updater.automaticallyChecksForUpdates = _prefs.shouldCheckForUpdatesOnStartup;
-    [[_prefs rac_subscribableForKeyPath:kShouldCheckForUpdatesOnStartupKeyPath onObject:self] subscribeNext:^(id x) {
+
+    [[_prefs rac_signalForKeyPath:kShouldCheckForUpdatesOnStartupKeyPath onObject:self] subscribeNext:^(id x) {
         GTMLoggerDebug(@"Check for updates on startup value changed: %@", x);
         updater.automaticallyChecksForUpdates = [x boolValue];
     }];

@@ -60,7 +60,7 @@
     
     _prefs = [GSPreferences sharedInstance];
     
-    [[_prefs rac_subscribableForKeyPath:kShouldUseSmartMenuBarIconsKeyPath onObject:self] subscribeNext:^(id x) {
+    [[_prefs rac_signalForKeyPath:kShouldUseSmartMenuBarIconsKeyPath onObject:self] subscribeNext:^(id x) {
         GTMLoggerDebug(@"Use smart menu bar icons value changed: %@", x);
         [self updateMenu];
     }];
@@ -86,7 +86,7 @@
     
     // Listen for when the menu opens and change the icons appropriately if the
     // user is using images.
-    [RACAbleSelf(self.menuIsOpen) subscribeNext:^(id x) {
+    [RACAble(self.menuIsOpen) subscribeNext:^(id x) {
         GTMLoggerDebug(@"Menu open: %@", x);
         
         if (_prefs.shouldUseImageIcons) {
