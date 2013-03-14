@@ -64,7 +64,14 @@ static void _displayReconfigurationCallback(CGDirectDisplayID display, CGDisplay
             BOOL isUsingIntegrated = [GSMux isUsingIntegratedGPU];
             
             GTMLoggerInfo(@"Notification: GPU changed. Integrated? %d", isUsingIntegrated);
-            
+
+            // For Macbook Pro 2010 users who have set the mode to Integrated Only,
+            // there will be rogue apps like Chrome that switch the graphics to
+            // Discrete Only upon closing. This will reverse the switch
+            if (!isUsingIntegrated && ([GSMux currentGSSwitcherMode]==GSSwitcherModeForceIntegrated)) {
+                [GSMux setMode:GSSwitcherModeForceIntegrated];
+            }
+
             GSGPUType activeType = (isUsingIntegrated ? GSGPUTypeIntegrated : GSGPUTypeDiscrete);
             [_delegate GPUDidChangeTo:activeType];
         });
