@@ -16,6 +16,9 @@
 
 #import <ReactiveCocoa/ReactiveCocoa.h>
 
+#include <signal.h>
+#include <unistd.h>
+
 #define kImageIconIntegratedName    @"integrated"
 #define kImageIconDiscreteName      @"discrete"
 #define kImageIconOpenSuffix        @"-white"
@@ -196,6 +199,7 @@
 
     if (sender == integratedOnly) {
         NSArray *taskList = [GSProcess getTaskList];
+        NSLog(@"Tasks: %@", taskList);
         if (taskList.count > 0) {
             GTMLoggerInfo(@"Not setting Integrated Only because of dependencies list items: %@", taskList);
 
@@ -205,8 +209,14 @@
                 [taskNames addObject:taskName];
             }
 
-            [GSNotifier showCantSwitchToIntegratedOnlyMessage:taskNames];
-            return;
+            if ([GSNotifier showCantSwitchToIntegratedOnlyMessage:taskNames]) {
+                for (NSDictionary *task in taskList) {
+                    pid_t pid = [(NSNumber *)[task objectForKey:@"pid"] intValue];
+                    killpg(getpgid(pid), SIGTERM);
+                }
+            } else {
+                return;
+            }
         }
 
         GTMLoggerInfo(@"Setting Integrated Only...");

@@ -108,7 +108,7 @@ static NSString *_lastMessage = nil;
     [alert runModal];
 }
 
-+ (void)showCantSwitchToIntegratedOnlyMessage:(NSArray *)taskList
++ (BOOL)showCantSwitchToIntegratedOnlyMessage:(NSArray *)taskList
 {
     NSString *messageKey = [NSString stringWithFormat:@"Can'tSwitchToIntegratedOnly%@", (taskList.count > 1 ? @"Plural" : @"Singular")];
 
@@ -119,11 +119,17 @@ static NSString *_lastMessage = nil;
     NSAlert *alert = [NSAlert alertWithMessageText:Str(messageKey)
                                      defaultButton:@"OK"
                                    alternateButton:@"Why?"
-                                       otherButton:nil
+                                       otherButton:@"Kill processes"
                          informativeTextWithFormat:@"%@", descriptionText];
 
-    if ([alert runModal] == NSAlertAlternateReturn)
+    NSInteger alertReturn = [alert runModal];
+    if (alertReturn == NSAlertAlternateReturn)
         [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:kIntegratedOnlyMessageExplanationURL]];
+    else if (alertReturn == NSAlertOtherReturn)
+        return YES;
+
+    return NO;
+    
 }
 
 + (BOOL)notificationCenterIsAvailable
