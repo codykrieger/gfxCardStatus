@@ -199,7 +199,6 @@
 
     if (sender == integratedOnly) {
         NSArray *taskList = [GSProcess getTaskList];
-        NSLog(@"Tasks: %@", taskList);
         if (taskList.count > 0) {
             GTMLoggerInfo(@"Not setting Integrated Only because of dependencies list items: %@", taskList);
 
@@ -212,7 +211,8 @@
             if ([GSNotifier showCantSwitchToIntegratedOnlyMessage:taskNames]) {
                 for (NSDictionary *task in taskList) {
                     NSNumber *pid = [task objectForKey:@"pid"];
-                    if (pid == nil) {
+                    NSLog(@"%@", [pid class]);
+                    if ([pid class] != [NSNumber class]) {
                         return;
                     }
                     killpg(getpgid([pid intValue]), SIGTERM);
