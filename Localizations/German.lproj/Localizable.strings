@@ -3,7 +3,11 @@
    gfxCardStatus
 
    Created by Sascha Teske 2011/08/25.
-   Copyright 2011 Sascha Teske. 
+   Copyright 2011 Sascha Teske.
+
+   Updated by Niklas Korz <niklas@niklaskorz.de> 2013/04/14.
+   Copyright 2013 Niklas Korz.
+   Added: Everything below the Growl part
 */
 
 /* Main menu */
@@ -24,7 +28,7 @@
 
 /* Preferences window */
 "PrefTitle"				= "gfxCardStatus Einstellungen";
-"PrefUpdate"			= "Beim Starten nach updates suchen";
+"PrefUpdate"			= "Beim Starten nach Updates suchen";
 "PrefGrowl"				= "Growl für Statuswechsel Benachrichtigungen verwenden";
 "PrefStartup"			= "gfxCardStatus beim Booten starten";
 "PrefLog"				= "Diagnosenachrichten in der Konsole speichern";
@@ -46,3 +50,16 @@
 /* Growl */
 "GrowlGPUChanged"       = "GPU umgeschaltet";
 "GrowlGPUChangedMessage"           = "'%1$@' wird jetzt verwendet.";
+
+/* Startup box */
+"ThanksForDownloading"      = "Danke, dass Sie gfxCardStatus heruntergeladen haben!";
+"PleaseConsiderDonating"    = "Sollten Sie dieses Programm nützlich finden, dann ziehen Sie es bitte in Erwägung, etwas für die Unterstützung der Entwicklung und für die Hosting-Kosten zu spenden. Sie können den Spendelink auf der FAQ Seite (welche Sie wirklich lesen sollten) auf der gfxCardStatus Webseite finden:";
+"DontShowAgain"             = "Zeige dies nicht wieder an!";
+
+/* Unsupported machine box */
+"UnsupportedMachine"    = "Sie benutzen ein System, dass von gfxCardStatus nicht unterstützt wird. Bitte stellen Sie sicher, dass Sie ein MacBook Pro mit Dual GPUs verwenden.";
+"OhISee"                = "Oh, ach so.";
+
+/* Miscellaneous notifications */
+"Can'tSwitchToIntegratedOnlySingular" = "Sie können nicht zu \"Nur integriert\" wechseln, während der folgende Eintrag läuft:";
+"Can'tSwitchToIntegratedOnlyPlural" = "Sie können nicht zu \"Nur integriert\" wechseln, während die folgenden Einträge laufen:";
