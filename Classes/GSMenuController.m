@@ -211,7 +211,6 @@
             if ([GSNotifier showCantSwitchToIntegratedOnlyMessage:taskNames]) {
                 for (NSDictionary *task in taskList) {
                     NSNumber *pid = [task objectForKey:@"pid"];
-                    NSLog(@"%@", [pid class]);
                     if ([pid class] != [NSNumber class]) {
                         return;
                     }
