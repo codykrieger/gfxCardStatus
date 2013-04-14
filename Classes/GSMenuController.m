@@ -212,9 +212,10 @@
             if ([GSNotifier showCantSwitchToIntegratedOnlyMessage:taskNames]) {
                 for (NSDictionary *task in taskList) {
                     NSNumber *pid = [task objectForKey:@"pid"];
-                    if (pid != nil) {
-                        killpg(getpgid([pid intValue]), SIGTERM);
+                    if (pid == nil) {
+                        return;
                     }
+                    killpg(getpgid([pid intValue]), SIGTERM);
                 }
             } else {
                 return;
