@@ -12,12 +12,12 @@
 "Preferences"			= "Voorkeuren…";
 "SwitchGPUs"			= "Wissel GPU's";
 "IntegratedOnly"		= "Alleen geïntegreerd";
-"DiscreteOnly"			= "Alleen toegewijd";
+"DiscreteOnly"			= "Alleen discreet";
 "DynamicSwitching"		= "Wissel dynamisch";
-"Dependencies"			= "Afhankelijk van";
+"Dependencies"			= "Afhankelijke programma's";
 "NoProcess"				= "Niets";
 "Quit"					= "Stop";
-"Close"					= "Cool!";
+"Close"					= "Sluiten";
 "PowerSource"           = "Voedingsbron: %%";
 "Battery"               = "Batterij";
 "ACAdapter"             = "Lichtnetadapter";
@@ -25,13 +25,13 @@
 /* Preferences window */
 "PrefTitle"				= "gfxCardStatus-voorkeuren";
 "PrefUpdate"			= "Zoek naar nieuwe versies bij opstarten";
-"PrefGrowl"				= "Gebruik Growl voor berichtgevingen";
+"PrefGrowl"				= "Gebruik Growl voor berichten";
 "PrefStartup"			= "Open gfxCardStatus na inloggen";
 "PrefLog"				= "Sla diagnostische berichten op in console";
 "PrefRestoreState"		= "Herstel laatst gebruikte modus bij opstarten";
 "PrefPowerSwitching"	= "Wissel op basis van voedingsbron";
 "Integrated"            = "Geïntegreerd";
-"Discrete"              = "Toegewijd";
+"Discrete"              = "Discreet";
 "Dynamic"               = "Dynamisch";
 "OnBattery"             = "Met batterij als voedingsbron:";
 "PluggedIn"             = "Met lichtnetadapter als voedingsbron:";
