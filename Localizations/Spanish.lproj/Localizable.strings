@@ -4,46 +4,64 @@
 
    Created by Thierry Coppey on 18.09.10.
    Copyright 2010 Giovanni Peláez. All rights reserved.
+ 
+   Updated by Immanuel Sterzik <immist@gmail.com> 2013/06/30.
+   Added: Everything below the Growl part, missing translations, and improved comprehensibility of some points
  */
 
 /* Main menu */
 "About"					= "Acerca de gfxCardStatus, v%%";
 "Update"				= "Buscar Actualizaciones...";
-"Preferences"			= "Ajustes...";
+"Preferences"			= "Preferencias...";
+"Card"					= "GPU: %%";
 "SwitchGPUs"			= "Cambiar de GPU";
-"IntegratedOnly"		= "Solo Integrated";
-"DiscreteOnly"			= "Solo Discrete";
-"DynamicSwitching"		= "Cambiar Dinámicamente";
+"IntegratedOnly"		= "Solo Integrada";
+"DiscreteOnly"			= "Solo Dedicada";
+"DynamicSwitching"		= "Cambio Dinámico";
 "Dependencies"			= "Dependencias";
 "NoProcess"				= "Ninguna";
-"Quit"					= "Cerrar";
-"Close"                 = "¡Listo!";
-"PowerSource"           = "Power Source: %%";
-"Battery"               = "Battery";
-"ACAdapter"             = "AC Adapter";
+"Quit"					= "Salir";
+"Close"                 = "Cerrar";
+"PowerSource"           = "Fuente de poder: %%";
+"Battery"               = "Batería";
+"ACAdapter"             = "Adaptador de CA";
+"VisitWebsite"          = "Visitar sitio web (%%)...";
 
 /* Preferences window */
 "PrefTitle"				= "Ajustes de gfxCardStatus";
 "PrefUpdate"			= "Buscar actualizaciones al iniciar";
 "PrefGrowl"				= "Usar Growl para las notificaciones de cambio de estado";
-"PrefStartup"			= "Abrir gfxCardStatus al iniciar";
+"PrefStartup"			= "Abrir gfxCardStatus al inicio";
 "PrefLog"				= "Transcribir los mensajes de diagnóstico a la consola";
 "PrefRestoreState"		= "Restaurar el último modo usado al iniciar";
 "PrefPowerSwitching"	= "Cambiar de GPU según la fuente de energía";
-"Integrated"            = "Integrated";
-"Discrete"              = "Discrete";
-"Dynamic"               = "Dynamic";
+"Integrated"            = "Integrada";
+"Discrete"              = "Dedicada";
+"Dynamic"               = "Dinámico";
 "OnBattery"             = "On Battery:";
 "PluggedIn"             = "Plugged In:";
 "General"               = "General";
 "Switching"             = "Switching";
-"SmartMenuBarIcons"     = "Use smart menu bar icons";
+"SmartMenuBarIcons"     = "Usar íconos de menu inteligentes";
 
 /* About box */
 "AboutTitle"			= "Acerca de gfxCardStatus";
-"AboutWebsite"			= "Sitio Web";
-"Close"					= "¡Bien!";
+"AboutWebsite"			= "Sitio web";
+"Close"					= "Cerrar";
 
 /* Growl */
-"GrowlGPUChanged"       = "GPU changed";
-"GrowlGPUChangedMessage"           = "'%1$@' now in use.";
+"GrowlGPUChanged"       = "GPU cambiada";
+"GrowlGPUChangedMessage"           = "'%1$@' está en uso ahora.";
+
+/* Startup box */
+"ThanksForDownloading"      = "¡Gracias por haber descargado gfxCardStatus!";
+"PleaseConsiderDonating"    = "Si encuentras útil a éste programa, por favor considera hacer una donación para apoyarnos con el desarrollo y los costos del hospedaje. Puedes encontrar el link para hacer una donación en la página FAQ (la cual REALMENTE debería leer) del sitio web de gfxCardStatus:";
+"DontShowAgain"             = "¡No muestres esto denuevo!";
+
+/* Unsupported machine box */
+"UnsupportedMachine"    = "Estás utilizando un sistema que no está soportado por gfxCardStatus. Por favor asegurate que estés usando un MacBook Pro con doble GPU.";
+"OhISee"                = "Ah, ya veo.";
+
+/* Miscellaneous notifications */
+"Can'tSwitchToIntegratedOnlySingular" = "No puedes cambiar a \"Solo Integrada\" mientras corra la siguiente aplicación:";
+"Can'tSwitchToIntegratedOnlyPlural" = "No puedes cambiar a \"Solo Integrada\" mientras corran las siguientes aplicaciones:";
