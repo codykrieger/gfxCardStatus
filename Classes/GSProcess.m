@@ -168,7 +168,7 @@ static void _procScan(io_registry_entry_t service, NSMutableArray *arr) {
     // scan the kernel process list for discrete gpu-using tasks
     io_registry_entry_t service = 0;
     service = IORegistryGetRootEntry(kIOMasterPortDefault);
-    if (!service)
+    if (!service) ////COMMENT THIS TO DISABLE DISCRETE_LOCK
         return [NSArray array];
     
     _procUpdate();

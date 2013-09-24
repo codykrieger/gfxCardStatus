@@ -196,7 +196,7 @@
 
     if (sender == integratedOnly) {
         NSArray *taskList = [GSProcess getTaskList];
-        if (taskList.count > 0) {
+        /*if (taskList.count > 0) {
             GTMLoggerInfo(@"Not setting Integrated Only because of dependencies list items: %@", taskList);
 
             NSMutableArray *taskNames = [[NSMutableArray alloc] init];
@@ -207,7 +207,7 @@
 
             [GSNotifier showCantSwitchToIntegratedOnlyMessage:taskNames];
             return;
-        }
+        }*/
 
         GTMLoggerInfo(@"Setting Integrated Only...");
         retval = [GSMux setMode:GSSwitcherModeForceIntegrated];
