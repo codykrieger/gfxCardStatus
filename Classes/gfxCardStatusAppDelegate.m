@@ -47,10 +47,18 @@
         GTMLoggerInfo(@"Integrated GPU name: %@", [GSGPU integratedGPUName]);
         GTMLoggerInfo(@"Discrete GPU name: %@", [GSGPU discreteGPUName]);
         
-        // Set the machine to dynamic switching to get it out of any kind of
-        // weird state from the get go.
-        if (![GSGPU isLegacyMachine])
+        NSArray *args = [[NSProcessInfo processInfo] arguments];
+        if ([args indexOfObject:@"--discrete"] != NSNotFound) {
+            [GSMux setMode:GSSwitcherModeForceDiscrete];
+        } else if ([args indexOfObject:@"--integrated"] != NSNotFound) {
+            [GSMux setMode:GSSwitcherModeForceIntegrated];
+        } else if ([args indexOfObject:@"--dynamic"] != NSNotFound) {
             [GSMux setMode:GSSwitcherModeDynamicSwitching];
+        } else if (![GSGPU isLegacyMachine]) {
+            // Set the machine to dynamic switching to get it out of any kind of
+            // weird state from the get go.
+            [GSMux setMode:GSSwitcherModeDynamicSwitching];
+        }
     }
 
     // Now accepting GPU change notifications! Apply at your nearest GSGPU today.
