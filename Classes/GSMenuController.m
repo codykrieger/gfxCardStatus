@@ -298,11 +298,28 @@
             title = [title stringByAppendingFormat:@", PID: %@", pid];
         
         NSMenuItem *item = [[NSMenuItem alloc] initWithTitle:title 
-                                                      action:nil 
+                                                      action: @selector(killProcess:) 
                                                keyEquivalent:@""];
+        [item setRepresentedObject: pid];
+        [item setTarget:self];
         [item setIndentationLevel:1];
-        [statusMenu insertItem:item 
-                       atIndex:([statusMenu indexOfItem:processList] + 1)];
+        [statusMenu insertItem:item atIndex:([statusMenu indexOfItem:processList] + 1)];
+    }
+}
+
+- (IBAction) killProcess: (id)sender{
+    NSMenuItem *menuItem = sender;
+    NSString *pid = [menuItem representedObject];
+
+    NSAlert *alert = [[NSAlert alloc] init];
+    [alert addButtonWithTitle:@"Kill Process"];
+    [alert addButtonWithTitle:@"Cancel"];
+    [alert setMessageText:@"Are you sure you want to kill the process?"];
+    [alert setInformativeText:@"You might lose data. This is not elegant. Are you sure you want to continue?"];
+    [alert setAlertStyle:NSWarningAlertStyle];
+    if ([alert runModal] == NSAlertFirstButtonReturn) {
+        NSLog(@"Kill process id: %@", pid );
+        kill([pid intValue], SIGTERM);
     }
 }
 
