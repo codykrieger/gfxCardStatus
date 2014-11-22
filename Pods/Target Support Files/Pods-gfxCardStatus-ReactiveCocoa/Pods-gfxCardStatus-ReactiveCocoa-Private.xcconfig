@@ -1,0 +1,5 @@
+#include "Pods-gfxCardStatus-ReactiveCocoa.xcconfig"
+GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
+HEADER_SEARCH_PATHS = "${PODS_ROOT}/Headers/Build" "${PODS_ROOT}/Headers/Build/ReactiveCocoa" "${PODS_ROOT}/Headers/Build/ReactiveCocoa/ReactiveCocoa" "${PODS_ROOT}/Headers/Public" "${PODS_ROOT}/Headers/Public/ReactiveCocoa" "${PODS_ROOT}/Headers/Public/ReactiveCocoa/ReactiveCocoa"
+OTHER_LDFLAGS = -ObjC
+PODS_ROOT = ${SRCROOT}

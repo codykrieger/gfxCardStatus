@@ -1,4 +1,0 @@
-[submodule "lib/reactivecocoa"]
-	path = lib/reactivecocoa
-	url = git@github.com:codykrieger/ReactiveCocoa.git
-  ignore = untracked
