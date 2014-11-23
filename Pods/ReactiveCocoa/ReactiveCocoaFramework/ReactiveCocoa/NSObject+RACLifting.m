@@ -1,112 +1,87 @@
 //
 //  NSObject+RACLifting.m
-//  ReactiveCocoa
+//  iOSDemo
 //
 //  Created by Josh Abernathy on 10/13/12.
 //  Copyright (c) 2012 GitHub, Inc. All rights reserved.
 //
 
 #import "NSObject+RACLifting.h"
-#import "RACEXTScope.h"
+#import "EXTScope.h"
 #import "NSInvocation+RACTypeParsing.h"
 #import "NSObject+RACDeallocating.h"
-#import "NSObject+RACDescription.h"
+#import "RACBlockTrampoline.h"
+#import "RACMulticastConnection.h"
+#import "RACReplaySubject.h"
 #import "RACSignal+Operations.h"
 #import "RACTuple.h"
+#import "RACUnit.h"
+
+static RACSignal *RACLiftAndCallBlock(id object, NSArray *args, RACSignal * (^block)(NSArray *));
+
+// A proxy object that lifts messages to its target to operate on signals.
+// Messages sent to an RACLiftProxy object will be lifted according to the same
+// rules as -rac_liftSelector:withObjects:, with the exception that messages
+// returning a non-object type are not possible.
+@interface RACLiftProxy : NSProxy
+- (id)initWithTarget:(NSObject *)target;
+@end
 
 @implementation NSObject (RACLifting)
 
-- (RACSignal *)rac_liftSelector:(SEL)selector withSignalsFromArray:(NSArray *)signals {
-	NSCParameterAssert(selector != NULL);
-	NSCParameterAssert(signals != nil);
-	NSCParameterAssert(signals.count > 0);
+- (RACSignal *)rac_liftSignals:(NSArray *)signals withReducingInvocation:(id (^)(RACTuple *))reduceBlock {
+	RACMulticastConnection *connection = [[[RACSignal combineLatest:signals] map:reduceBlock] multicast:[RACReplaySubject replaySubjectWithCapacity:1]];
 
+	RACDisposable *disposable = [connection connect];
+	[self rac_addDeallocDisposable:disposable];
+
+	return connection.signal;
+}
+
+- (RACSignal *)rac_liftSelector:(SEL)selector withObjectsFromArray:(NSArray *)args {
 	NSMethodSignature *methodSignature = [self methodSignatureForSelector:selector];
 	NSCAssert(methodSignature != nil, @"%@ does not respond to %@", self, NSStringFromSelector(selector));
 
 	NSUInteger numberOfArguments __attribute__((unused)) = methodSignature.numberOfArguments - 2;
-	NSCAssert(numberOfArguments == signals.count, @"Wrong number of signals for %@ (expected %lu, got %lu)", NSStringFromSelector(selector), (unsigned long)numberOfArguments, (unsigned long)signals.count);
+	NSCAssert(numberOfArguments == args.count, @"wrong number of args for -%@, expecting %lu, received %lu", NSStringFromSelector(selector), (unsigned long)numberOfArguments, (unsigned long)args.count);
 
 	@unsafeify(self);
+	return RACLiftAndCallBlock(self, args, ^(NSArray *arguments) {
+		@strongify(self);
+		NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:methodSignature];
+		invocation.selector = selector;
 
-	return [[[[[RACSignal
-		combineLatest:signals]
-		takeUntil:self.rac_willDeallocSignal]
-		map:^(RACTuple *arguments) {
-			@strongify(self);
-
-			NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:methodSignature];
-			invocation.selector = selector;
-			invocation.rac_argumentsTuple = arguments;
-			[invocation invokeWithTarget:self];
-
-			return invocation.rac_returnValue;
-		}]
-		replayLast]
-		setNameWithFormat:@"%@ -rac_liftSelector: %s withSignalsFromArray: %@", [self rac_description], sel_getName(selector), signals];
-}
-
-- (RACSignal *)rac_liftSelector:(SEL)selector withSignals:(RACSignal *)firstSignal, ... {
-	NSCParameterAssert(firstSignal != nil);
-
-	NSMutableArray *signals = [NSMutableArray array];
-
-	va_list args;
-	va_start(args, firstSignal);
-	for (id currentSignal = firstSignal; currentSignal != nil; currentSignal = va_arg(args, id)) {
-		NSCAssert([currentSignal isKindOfClass:RACSignal.class], @"Argument %@ is not a RACSignal", currentSignal);
-
-		[signals addObject:currentSignal];
-	}
-	va_end(args);
-
-	return [[self
-		rac_liftSelector:selector withSignalsFromArray:signals]
-		setNameWithFormat:@"%@ -rac_liftSelector: %s withSignals: %@", [self rac_description], sel_getName(selector), signals];
-}
-
-@end
-
-@implementation NSObject (RACLiftingDeprecated)
-
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdeprecated-implementations"
-
-static NSArray *RACMapArgumentsToSignals(NSArray *args) {
-	NSMutableArray *mappedArgs = [NSMutableArray array];
-	for (id arg in args) {
-		if ([arg isEqual:RACTupleNil.tupleNil]) {
-			[mappedArgs addObject:[RACSignal return:nil]];
-		} else if ([arg isKindOfClass:RACSignal.class]) {
-			[mappedArgs addObject:arg];
-		} else {
-			[mappedArgs addObject:[RACSignal return:arg]];
+		for (NSUInteger i = 0; i < arguments.count; i++) {
+			[invocation rac_setArgument:[arguments[i] isKindOfClass:RACTupleNil.class] ? nil : arguments[i] atIndex:i + 2];
 		}
-	}
 
-	return mappedArgs;
+		[invocation invokeWithTarget:self];
+		return [invocation rac_returnValue];
+	});
 }
 
 - (RACSignal *)rac_liftSelector:(SEL)selector withObjects:(id)arg, ... {
 	NSMethodSignature *methodSignature = [self methodSignatureForSelector:selector];
-	NSMutableArray *arguments = [NSMutableArray array];
+	NSCAssert(methodSignature != nil, @"%@ does not respond to %@", self, NSStringFromSelector(selector));
+
+	NSMutableArray *arguments = [NSMutableArray arrayWithCapacity:methodSignature.numberOfArguments - 2];
 
 	va_list args;
 	va_start(args, arg);
+	// First two arguments are self and selector.
 	for (NSUInteger i = 2; i < methodSignature.numberOfArguments; i++) {
 		id currentObject = (i == 2 ? arg : va_arg(args, id));
 		[arguments addObject:currentObject ?: RACTupleNil.tupleNil];
 	}
 
 	va_end(args);
+
 	return [self rac_liftSelector:selector withObjectsFromArray:arguments];
 }
 
-- (RACSignal *)rac_liftSelector:(SEL)selector withObjectsFromArray:(NSArray *)args {
-	return [self rac_liftSelector:selector withSignalsFromArray:RACMapArgumentsToSignals(args)];
-}
-
 - (RACSignal *)rac_liftBlock:(id)block withArguments:(id)arg, ... {
+	NSCParameterAssert(block != nil);
+
 	NSMutableArray *arguments = [NSMutableArray array];
 
 	va_list args;
@@ -114,19 +89,90 @@ static NSArray *RACMapArgumentsToSignals(NSArray *args) {
 	for (id currentObject = arg; currentObject != nil; currentObject = va_arg(args, id)) {
 		[arguments addObject:currentObject];
 	}
-
 	va_end(args);
+
 	return [self rac_liftBlock:block withArgumentsFromArray:arguments];
 }
 
 - (RACSignal *)rac_liftBlock:(id)block withArgumentsFromArray:(NSArray *)args {
-	return [[[[RACSignal
-		combineLatest:RACMapArgumentsToSignals(args)]
-		reduceEach:block]
-		takeUntil:self.rac_willDeallocSignal]
-		replayLast];
+	NSCParameterAssert(block != nil);
+
+	return RACLiftAndCallBlock(self, args, ^(NSArray *arguments) {
+		return [RACBlockTrampoline invokeBlock:block withArguments:[RACTuple tupleWithObjectsFromArray:arguments]];
+	});
 }
 
-#pragma clang diagnostic pop
+- (instancetype)rac_lift {
+	return (id)[[RACLiftProxy alloc] initWithTarget:self];
+}
+
+@end
+
+static RACSignal *RACLiftAndCallBlock(id object, NSArray *args, RACSignal * (^block)(NSArray *)) {
+	NSCParameterAssert(block != nil);
+
+	NSMutableArray *signals = [NSMutableArray arrayWithCapacity:args.count];
+	NSMutableDictionary *argIndexesBySignal = [NSMutableDictionary dictionaryWithCapacity:args.count];
+
+	for (NSUInteger i = 0; i < args.count; i++) {
+		id currentObject = args[i];
+		if ([currentObject isKindOfClass:RACSignal.class]) {
+			[signals addObject:currentObject];
+			argIndexesBySignal[[NSValue valueWithNonretainedObject:currentObject]] = @(i);
+		}
+	}
+
+	if (signals.count < 1) {
+		return block(args);
+	} else {
+		NSMutableArray *arguments = [args mutableCopy];
+		return [object rac_liftSignals:signals withReducingInvocation:^(RACTuple *xs) {
+			for (NSUInteger i = 0; i < xs.count; i++) {
+				RACSignal *signal = signals[i];
+				NSUInteger argIndex = [argIndexesBySignal[[NSValue valueWithNonretainedObject:signal]] unsignedIntegerValue];
+				[arguments replaceObjectAtIndex:argIndex withObject:xs[i] ?: RACTupleNil.tupleNil];
+			}
+
+			return block(arguments);
+		}];
+	}
+}
+
+@implementation RACLiftProxy {
+	NSObject *_target;
+}
+
+- (id)initWithTarget:(id)target {
+	_target = target;
+	return self;
+}
+
+- (NSMethodSignature *)methodSignatureForSelector:(SEL)aSelector {
+	return [_target methodSignatureForSelector:aSelector] ?: [super methodSignatureForSelector:aSelector];
+}
+
+- (void)forwardInvocation:(NSInvocation *)anInvocation {
+	NSMethodSignature *signature = anInvocation.methodSignature;
+	NSUInteger argumentsCount = signature.numberOfArguments - 2;
+
+	NSMutableArray *arguments = [NSMutableArray arrayWithCapacity:argumentsCount];
+
+	// First two arguments are self and selector.
+	for (NSUInteger i = 2; i < signature.numberOfArguments; i++) {
+		id argument = [anInvocation rac_argumentAtIndex:i];
+		[arguments addObject:argument ?: RACTupleNil.tupleNil];
+	}
+
+	__autoreleasing id returnValue = [_target rac_liftSelector:anInvocation.selector withObjectsFromArray:arguments];
+
+	const char *returnType = signature.methodReturnType;
+	if (signature.methodReturnLength > 0) {
+		if (strcmp(returnType, "@") == 0 || strcmp(returnType, "#") == 0) {
+			[anInvocation setReturnValue:&returnValue];
+		} else {
+			NSCAssert(NO, @"-rac_lift may only lift messages which return void or object types; %@ returns %s", NSStringFromSelector(anInvocation.selector), returnType);
+		}
+	}
+}
 
 @end

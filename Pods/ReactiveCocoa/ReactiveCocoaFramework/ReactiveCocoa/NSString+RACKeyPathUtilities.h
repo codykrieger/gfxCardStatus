@@ -8,27 +8,15 @@
 
 #import <Foundation/Foundation.h>
 
-// A private category of methods to extract parts of a key path.
 @interface NSString (RACKeyPathUtilities)
 
-// Returns an array of the components of the receiver.
-//
-// Calling this method on a string that isn't a key path is considered undefined
-// behavior.
+// Returns an array of the components of the receiver, or nil if the receiver is
+// not a valid key path.
 - (NSArray *)rac_keyPathComponents;
 
 // Returns a key path with all the components of the receiver except for the
-// last one.
-//
-// Calling this method on a string that isn't a key path is considered undefined
-// behavior.
+// last one or nil if the receiver is not a valid key path, or has only one
+// component.
 - (NSString *)rac_keyPathByDeletingLastKeyPathComponent;
-
-// Returns a key path with all the components of the receiver expect for the
-// first one.
-//
-// Calling this method on a string that isn't a key path is considered undefined
-// behavior.
-- (NSString *)rac_keyPathByDeletingFirstKeyPathComponent;
 
 @end

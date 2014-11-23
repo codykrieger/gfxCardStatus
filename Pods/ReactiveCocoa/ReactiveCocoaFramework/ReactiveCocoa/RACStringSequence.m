@@ -7,6 +7,7 @@
 //
 
 #import "RACStringSequence.h"
+#import "EXTScope.h"
 
 @interface RACStringSequence ()
 

@@ -10,7 +10,7 @@
 #import "NSObject+RACKVOWrapper.h"
 #import "RACDisposable.h"
 
-// A private trampoline object that represents a KVO observation.
+// The KVO trampoline object. Represents a KVO observation.
 //
 // Disposing of the trampoline will stop observation.
 @interface RACKVOTrampoline : RACDisposable

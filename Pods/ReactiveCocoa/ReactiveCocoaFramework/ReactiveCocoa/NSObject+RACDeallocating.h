@@ -14,21 +14,17 @@
 
 @interface NSObject (RACDeallocating)
 
-/// The compound disposable which will be disposed of when the receiver is
-/// deallocated.
+// The compound disposable which will be disposed of when the receiver is
+// deallocated.
 @property (atomic, readonly, strong) RACCompoundDisposable *rac_deallocDisposable;
 
-/// Returns a signal that will complete immediately before the receiver is fully
-/// deallocated. If already deallocated when the signal is subscribed to,
-/// a `completed` event will be sent immediately.
+// Returns a signal that will complete immediately before the receiver is fully deallocated.
 - (RACSignal *)rac_willDeallocSignal;
 
-@end
+// Returns a signal that will complete after the receiver has been deallocated.
+- (RACSignal *)rac_didDeallocSignal;
 
-@interface NSObject (RACDeallocatingDeprecated)
-
-- (RACSignal *)rac_didDeallocSignal __attribute__((deprecated("Use -rac_willDeallocSignal")));
-
-- (void)rac_addDeallocDisposable:(RACDisposable *)disposable __attribute__((deprecated("Add disposables to -rac_deallocDisposable instead")));
+// Adds a disposable which will be disposed when the receiver deallocates.
+- (void)rac_addDeallocDisposable:(RACDisposable *)disposable;
 
 @end

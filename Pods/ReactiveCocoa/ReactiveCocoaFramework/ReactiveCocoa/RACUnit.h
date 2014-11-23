@@ -8,12 +8,13 @@
 
 #import <Foundation/Foundation.h>
 
-/// A unit represents an empty value.
-///
-/// It should never be necessary to create a unit yourself. Just use +defaultUnit.
+
+// A unit represents an empty value.
+//
+// It should never be necessary to create a unit yourself. Just use +defaultUnit.
 @interface RACUnit : NSObject
 
-/// A singleton instance.
+// A singleton instance.
 + (RACUnit *)defaultUnit;
 
 @end

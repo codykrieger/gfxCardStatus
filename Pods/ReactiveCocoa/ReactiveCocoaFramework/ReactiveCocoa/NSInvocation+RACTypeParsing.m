@@ -7,7 +7,6 @@
 //
 
 #import "NSInvocation+RACTypeParsing.h"
-#import "RACTuple.h"
 #import "RACUnit.h"
 #import <CoreGraphics/CoreGraphics.h>
 
@@ -18,6 +17,13 @@
 	do { \
 		type val = [object selector]; \
 		[self setArgument:&val atIndex:(NSInteger)index]; \
+	} while(0)
+
+#define PULL_AND_SET_STRUCT(type) \
+	do { \
+		type val; \
+		[object getValue:&val]; \
+		[self setArgument:&val atIndex:(NSInteger)index]; \
 	} while (0)
 
 	const char *argType = [self.methodSignature getArgumentTypeAtIndex:index];
@@ -26,59 +32,50 @@
 		argType++;
 	}
 
-	if (strcmp(argType, @encode(id)) == 0 || strcmp(argType, @encode(Class)) == 0) {
+	if (strcmp(argType, "@") == 0 || strcmp(argType, "#") == 0) {
 		[self setArgument:&object atIndex:(NSInteger)index];
-	} else if (strcmp(argType, @encode(char)) == 0) {
+	} else if (strcmp(argType, "c") == 0) {
 		PULL_AND_SET(char, charValue);
-	} else if (strcmp(argType, @encode(int)) == 0) {
+	} else if (strcmp(argType, "i") == 0) {
 		PULL_AND_SET(int, intValue);
-	} else if (strcmp(argType, @encode(short)) == 0) {
+	} else if (strcmp(argType, "s") == 0) {
 		PULL_AND_SET(short, shortValue);
-	} else if (strcmp(argType, @encode(long)) == 0) {
+	} else if (strcmp(argType, "l") == 0) {
 		PULL_AND_SET(long, longValue);
-	} else if (strcmp(argType, @encode(long long)) == 0) {
+	} else if (strcmp(argType, "q") == 0) {
 		PULL_AND_SET(long long, longLongValue);
-	} else if (strcmp(argType, @encode(unsigned char)) == 0) {
+	} else if (strcmp(argType, "C") == 0) {
 		PULL_AND_SET(unsigned char, unsignedCharValue);
-	} else if (strcmp(argType, @encode(unsigned int)) == 0) {
+	} else if (strcmp(argType, "I") == 0) {
 		PULL_AND_SET(unsigned int, unsignedIntValue);
-	} else if (strcmp(argType, @encode(unsigned short)) == 0) {
+	} else if (strcmp(argType, "S") == 0) {
 		PULL_AND_SET(unsigned short, unsignedShortValue);
-	} else if (strcmp(argType, @encode(unsigned long)) == 0) {
+	} else if (strcmp(argType, "L") == 0) {
 		PULL_AND_SET(unsigned long, unsignedLongValue);
-	} else if (strcmp(argType, @encode(unsigned long long)) == 0) {
+	} else if (strcmp(argType, "Q") == 0) {
 		PULL_AND_SET(unsigned long long, unsignedLongLongValue);
-	} else if (strcmp(argType, @encode(float)) == 0) {
+	} else if (strcmp(argType, "f") == 0) {
 		PULL_AND_SET(float, floatValue);
-	} else if (strcmp(argType, @encode(double)) == 0) {
+	} else if (strcmp(argType, "d") == 0) {
 		PULL_AND_SET(double, doubleValue);
-	} else if (strcmp(argType, @encode(BOOL)) == 0) {
-		PULL_AND_SET(BOOL, boolValue);
-	} else if (strcmp(argType, @encode(char *)) == 0) {
-		const char *cString = [object UTF8String];
-		[self setArgument:&cString atIndex:(NSInteger)index];
-		[self retainArguments];
-	} else if (strcmp(argType, @encode(void (^)(void))) == 0) {
-		[self setArgument:&object atIndex:(NSInteger)index];
+	} else if (strcmp(argType, "*") == 0) {
+		PULL_AND_SET(const char *, UTF8String);
+	} else if (argType[0] == '^') {
+		PULL_AND_SET(void *, pointerValue);
+	} else if (strcmp(argType, @encode(CGRect)) == 0) {
+		PULL_AND_SET_STRUCT(CGRect);
+	} else if (strcmp(argType, @encode(CGSize)) == 0) {
+		PULL_AND_SET_STRUCT(CGSize);
+	} else if (strcmp(argType, @encode(CGPoint)) == 0) {
+		PULL_AND_SET_STRUCT(CGPoint);
+	} else if (strcmp(argType, @encode(NSRange)) == 0) {
+		PULL_AND_SET_STRUCT(NSRange);
 	} else {
-		NSCParameterAssert([object isKindOfClass:NSValue.class]);
-
-		NSUInteger valueSize = 0;
-		NSGetSizeAndAlignment([object objCType], &valueSize, NULL);
-
-#if DEBUG
-		NSUInteger argSize = 0;
-		NSGetSizeAndAlignment(argType, &argSize, NULL);
-		NSCAssert(valueSize == argSize, @"Value size does not match argument size in -rac_setArgument: %@ atIndex: %lu", object, (unsigned long)index);
-#endif
-		
-		unsigned char valueBytes[valueSize];
-		[object getValue:valueBytes];
-
-		[self setArgument:valueBytes atIndex:(NSInteger)index];
+		NSCAssert(NO, @"Unknown argument type %s", argType);
 	}
 
 #undef PULL_AND_SET
+#undef PULL_AND_SET_STRUCT
 }
 
 - (id)rac_argumentAtIndex:(NSUInteger)index {
@@ -89,81 +86,69 @@
 		return @(val); \
 	} while (0)
 
-	const char *argType = [self.methodSignature getArgumentTypeAtIndex:index];
+#define WRAP_AND_RETURN_STRUCT(type) \
+	do { \
+		type val; \
+		[self getArgument:&val atIndex:(NSInteger)index]; \
+		return [NSValue valueWithBytes:&val objCType:@encode(type)]; \
+	} while (0)
+
+	const char *typeSignature = [self.methodSignature getArgumentTypeAtIndex:index];
 	// Skip const type qualifier.
-	if (argType[0] == 'r') {
-		argType++;
+	if (typeSignature[0] == 'r') {
+		typeSignature++;
 	}
 
-	if (strcmp(argType, @encode(id)) == 0 || strcmp(argType, @encode(Class)) == 0) {
+	if (strcmp(typeSignature, "@") == 0 || strcmp(typeSignature, "#") == 0) {
 		__autoreleasing id returnObj;
 		[self getArgument:&returnObj atIndex:(NSInteger)index];
 		return returnObj;
-	} else if (strcmp(argType, @encode(char)) == 0) {
+	} else if (strcmp(typeSignature, "c") == 0) {
 		WRAP_AND_RETURN(char);
-	} else if (strcmp(argType, @encode(int)) == 0) {
+	} else if (strcmp(typeSignature, "i") == 0) {
 		WRAP_AND_RETURN(int);
-	} else if (strcmp(argType, @encode(short)) == 0) {
+	} else if (strcmp(typeSignature, "s") == 0) {
 		WRAP_AND_RETURN(short);
-	} else if (strcmp(argType, @encode(long)) == 0) {
+	} else if (strcmp(typeSignature, "l") == 0) {
 		WRAP_AND_RETURN(long);
-	} else if (strcmp(argType, @encode(long long)) == 0) {
+	} else if (strcmp(typeSignature, "q") == 0) {
 		WRAP_AND_RETURN(long long);
-	} else if (strcmp(argType, @encode(unsigned char)) == 0) {
+	} else if (strcmp(typeSignature, "C") == 0) {
 		WRAP_AND_RETURN(unsigned char);
-	} else if (strcmp(argType, @encode(unsigned int)) == 0) {
+	} else if (strcmp(typeSignature, "I") == 0) {
 		WRAP_AND_RETURN(unsigned int);
-	} else if (strcmp(argType, @encode(unsigned short)) == 0) {
+	} else if (strcmp(typeSignature, "S") == 0) {
 		WRAP_AND_RETURN(unsigned short);
-	} else if (strcmp(argType, @encode(unsigned long)) == 0) {
+	} else if (strcmp(typeSignature, "L") == 0) {
 		WRAP_AND_RETURN(unsigned long);
-	} else if (strcmp(argType, @encode(unsigned long long)) == 0) {
+	} else if (strcmp(typeSignature, "Q") == 0) {
 		WRAP_AND_RETURN(unsigned long long);
-	} else if (strcmp(argType, @encode(float)) == 0) {
+	} else if (strcmp(typeSignature, "f") == 0) {
 		WRAP_AND_RETURN(float);
-	} else if (strcmp(argType, @encode(double)) == 0) {
+	} else if (strcmp(typeSignature, "d") == 0) {
 		WRAP_AND_RETURN(double);
-	} else if (strcmp(argType, @encode(BOOL)) == 0) {
-		WRAP_AND_RETURN(BOOL);
-	} else if (strcmp(argType, @encode(char *)) == 0) {
+	} else if (strcmp(typeSignature, "*") == 0) {
 		WRAP_AND_RETURN(const char *);
-	} else if (strcmp(argType, @encode(void (^)(void))) == 0) {
-		__unsafe_unretained id block = nil;
-		[self getArgument:&block atIndex:(NSInteger)index];
-		return [block copy];
+	} else if (typeSignature[0] == '^') {
+		const void *pointer = NULL;
+		[self getArgument:&pointer atIndex:(NSInteger)index];
+		return [NSValue valueWithPointer:pointer];
+	} else if (strcmp(typeSignature, @encode(CGRect)) == 0) {
+		WRAP_AND_RETURN_STRUCT(CGRect);
+	} else if (strcmp(typeSignature, @encode(CGSize)) == 0) {
+		WRAP_AND_RETURN_STRUCT(CGSize);
+	} else if (strcmp(typeSignature, @encode(CGPoint)) == 0) {
+		WRAP_AND_RETURN_STRUCT(CGPoint);
+	} else if (strcmp(typeSignature, @encode(NSRange)) == 0) {
+		WRAP_AND_RETURN_STRUCT(NSRange);
 	} else {
-		NSUInteger valueSize = 0;
-		NSGetSizeAndAlignment(argType, &valueSize, NULL);
-
-		unsigned char valueBytes[valueSize];
-		[self getArgument:valueBytes atIndex:(NSInteger)index];
-		
-		return [NSValue valueWithBytes:valueBytes objCType:argType];
+		NSCAssert(NO, @"Unknown return type signature %s", typeSignature);
 	}
 
 	return nil;
 
 #undef WRAP_AND_RETURN
-}
-
-- (RACTuple *)rac_argumentsTuple {
-	NSUInteger numberOfArguments = self.methodSignature.numberOfArguments;
-	NSMutableArray *argumentsArray = [NSMutableArray arrayWithCapacity:numberOfArguments - 2];
-	for (NSUInteger index = 2; index < numberOfArguments; index++) {
-		[argumentsArray addObject:[self rac_argumentAtIndex:index] ?: RACTupleNil.tupleNil];
-	}
-
-	return [RACTuple tupleWithObjectsFromArray:argumentsArray];
-}
-
-- (void)setRac_argumentsTuple:(RACTuple *)arguments {
-	NSCAssert(arguments.count == self.methodSignature.numberOfArguments - 2, @"Number of supplied arguments (%lu), does not match the number expected by the signature (%lu)", (unsigned long)arguments.count, (unsigned long)self.methodSignature.numberOfArguments - 2);
-
-	NSUInteger index = 2;
-	for (id arg in arguments) {
-		[self rac_setArgument:(arg == RACTupleNil.tupleNil ? nil : arg) atIndex:index];
-		index++;
-	}
+#undef WRAP_AND_RETURN_STRUCT
 }
 
 - (id)rac_returnValue {
@@ -174,59 +159,71 @@
 		return @(val); \
 	} while (0)
 
-	const char *returnType = self.methodSignature.methodReturnType;
+#define WRAP_AND_RETURN_STRUCT(type) \
+	do { \
+		type val; \
+		[self getReturnValue:&val]; \
+		return [NSValue valueWithBytes:&val objCType:@encode(type)]; \
+	} while (0)
+
+	const char *typeSignature = self.methodSignature.methodReturnType;
 	// Skip const type qualifier.
-	if (returnType[0] == 'r') {
-		returnType++;
+	if (typeSignature[0] == 'r') {
+		typeSignature++;
 	}
 
-	if (strcmp(returnType, @encode(id)) == 0 || strcmp(returnType, @encode(Class)) == 0 || strcmp(returnType, @encode(void (^)(void))) == 0) {
+	if (strcmp(typeSignature, "@") == 0 || strcmp(typeSignature, "#") == 0) {
 		__autoreleasing id returnObj;
 		[self getReturnValue:&returnObj];
 		return returnObj;
-	} else if (strcmp(returnType, @encode(char)) == 0) {
+	} else if (strcmp(typeSignature, "c") == 0) {
 		WRAP_AND_RETURN(char);
-	} else if (strcmp(returnType, @encode(int)) == 0) {
+	} else if (strcmp(typeSignature, "i") == 0) {
 		WRAP_AND_RETURN(int);
-	} else if (strcmp(returnType, @encode(short)) == 0) {
+	} else if (strcmp(typeSignature, "s") == 0) {
 		WRAP_AND_RETURN(short);
-	} else if (strcmp(returnType, @encode(long)) == 0) {
+	} else if (strcmp(typeSignature, "l") == 0) {
 		WRAP_AND_RETURN(long);
-	} else if (strcmp(returnType, @encode(long long)) == 0) {
+	} else if (strcmp(typeSignature, "q") == 0) {
 		WRAP_AND_RETURN(long long);
-	} else if (strcmp(returnType, @encode(unsigned char)) == 0) {
+	} else if (strcmp(typeSignature, "C") == 0) {
 		WRAP_AND_RETURN(unsigned char);
-	} else if (strcmp(returnType, @encode(unsigned int)) == 0) {
+	} else if (strcmp(typeSignature, "I") == 0) {
 		WRAP_AND_RETURN(unsigned int);
-	} else if (strcmp(returnType, @encode(unsigned short)) == 0) {
+	} else if (strcmp(typeSignature, "S") == 0) {
 		WRAP_AND_RETURN(unsigned short);
-	} else if (strcmp(returnType, @encode(unsigned long)) == 0) {
+	} else if (strcmp(typeSignature, "L") == 0) {
 		WRAP_AND_RETURN(unsigned long);
-	} else if (strcmp(returnType, @encode(unsigned long long)) == 0) {
+	} else if (strcmp(typeSignature, "Q") == 0) {
 		WRAP_AND_RETURN(unsigned long long);
-	} else if (strcmp(returnType, @encode(float)) == 0) {
+	} else if (strcmp(typeSignature, "f") == 0) {
 		WRAP_AND_RETURN(float);
-	} else if (strcmp(returnType, @encode(double)) == 0) {
+	} else if (strcmp(typeSignature, "d") == 0) {
 		WRAP_AND_RETURN(double);
-	} else if (strcmp(returnType, @encode(BOOL)) == 0) {
-		WRAP_AND_RETURN(BOOL);
-	} else if (strcmp(returnType, @encode(char *)) == 0) {
+	} else if (strcmp(typeSignature, "*") == 0) {
 		WRAP_AND_RETURN(const char *);
-	} else if (strcmp(returnType, @encode(void)) == 0) {
+	} else if (strcmp(typeSignature, "v") == 0) {
 		return RACUnit.defaultUnit;
+	} else if (typeSignature[0] == '^') {
+		const void *pointer = NULL;
+		[self getReturnValue:&pointer];
+		return [NSValue valueWithPointer:pointer];
+	} else if (strcmp(typeSignature, @encode(CGRect)) == 0) {
+		WRAP_AND_RETURN_STRUCT(CGRect);
+	} else if (strcmp(typeSignature, @encode(CGSize)) == 0) {
+		WRAP_AND_RETURN_STRUCT(CGSize);
+	} else if (strcmp(typeSignature, @encode(CGPoint)) == 0) {
+		WRAP_AND_RETURN_STRUCT(CGPoint);
+	} else if (strcmp(typeSignature, @encode(NSRange)) == 0) {
+		WRAP_AND_RETURN_STRUCT(NSRange);
 	} else {
-		NSUInteger valueSize = 0;
-		NSGetSizeAndAlignment(returnType, &valueSize, NULL);
-
-		unsigned char valueBytes[valueSize];
-		[self getReturnValue:valueBytes];
-
-		return [NSValue valueWithBytes:valueBytes objCType:returnType];
+		NSCAssert(NO, @"Unknown return type signature %s", typeSignature);
 	}
 
 	return nil;
 
 #undef WRAP_AND_RETURN
+#undef WRAP_AND_RETURN_STRUCT
 }
 
 @end

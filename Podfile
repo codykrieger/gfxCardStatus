@@ -4,6 +4,6 @@ platform :osx, '10.7'
 source 'https://github.com/CocoaPods/Specs.git'
 
 target 'gfxCardStatus' do
-	pod 'ReactiveCocoa'
+	pod 'ReactiveCocoa', '~> 1.x'
 end
 

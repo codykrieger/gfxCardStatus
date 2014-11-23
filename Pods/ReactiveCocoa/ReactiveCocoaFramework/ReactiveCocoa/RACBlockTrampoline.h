@@ -10,7 +10,7 @@
 
 @class RACTuple;
 
-// A private class that allows a limited type of dynamic block invocation.
+// Allows a limited type of dynamic block invocation.
 @interface RACBlockTrampoline : NSObject
 
 // Invokes the given block with the given arguments. All of the block's

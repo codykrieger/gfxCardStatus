@@ -6,12 +6,13 @@
 //  Copyright (c) 2012 GitHub, Inc. All rights reserved.
 //
 
-#import "RACSubject.h"
+#import <ReactiveCocoa/RACSubject.h>
 
-/// A grouped signal is used by -[RACSignal groupBy:transform:].
+
+// A grouped signal is used by -[RACSignal groupBy:transform:].
 @interface RACGroupedSignal : RACSubject
 
-/// The key shared by the group.
+// The key shared by the group.
 @property (nonatomic, readonly, copy) id<NSCopying> key;
 
 + (instancetype)signalWithKey:(id<NSCopying>)key;

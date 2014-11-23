@@ -7,11 +7,11 @@
 //
 
 #import "NSControl+RACTextSignalSupport.h"
-#import "RACEXTScope.h"
-#import "NSObject+RACDescription.h"
+#import "EXTScope.h"
 #import "RACDisposable.h"
 #import "RACSignal.h"
 #import "RACSubscriber.h"
+#import "NSObject+RACDescription.h"
 
 @implementation NSControl (RACTextSignalSupport)
 

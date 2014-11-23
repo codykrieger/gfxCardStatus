@@ -8,6 +8,7 @@
 
 #import "NSEnumerator+RACSequenceAdditions.h"
 #import "RACSequence.h"
+#import "EXTScope.h"
 
 @implementation NSEnumerator (RACSequenceAdditions)
 

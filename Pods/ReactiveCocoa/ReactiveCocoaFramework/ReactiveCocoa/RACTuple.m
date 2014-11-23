@@ -7,7 +7,8 @@
 //
 
 #import "RACTuple.h"
-#import "RACEXTKeyPathCoding.h"
+#import "EXTKeyPathCoding.h"
+#import "NSArray+RACSequenceAdditions.h"
 #import "RACTupleSequence.h"
 
 @implementation RACTupleNil
@@ -160,7 +161,7 @@
 - (id)objectAtIndex:(NSUInteger)index {
 	if (index >= self.count) return nil;
 	
-	id object = self.backingArray[index];
+	id object = [self.backingArray objectAtIndex:index];
 	return (object == RACTupleNil.tupleNil ? nil : object);
 }
 
@@ -183,27 +184,27 @@
 }
 
 - (id)first {
-	return self[0];
+	return [self objectAtIndex:0];
 }
 
 - (id)second {
-	return self[1];
+	return [self objectAtIndex:1];
 }
 
 - (id)third {
-	return self[2];
+	return [self objectAtIndex:2];
 }
 
 - (id)fourth {
-	return self[3];
+	return [self objectAtIndex:3];
 }
 
 - (id)fifth {
-	return self[4];
+	return [self objectAtIndex:4];
 }
 
 - (id)last {
-	return self[self.count - 1];
+	return [self objectAtIndex:self.count - 1];
 }
 
 @end

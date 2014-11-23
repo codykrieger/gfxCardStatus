@@ -7,16 +7,16 @@
 //
 
 #import "RACScheduler.h"
-#import "RACBacktrace.h"
 #import "RACCompoundDisposable.h"
 #import "RACDisposable.h"
 #import "RACImmediateScheduler.h"
+#import "RACQueueScheduler.h"
 #import "RACScheduler+Private.h"
 #import "RACSubscriptionScheduler.h"
-#import "RACTargetQueueScheduler.h"
+#import <libkern/OSAtomic.h>
 
-// The key for the thread-specific current scheduler.
-NSString * const RACSchedulerCurrentSchedulerKey = @"RACSchedulerCurrentSchedulerKey";
+// The key for the queue-specific current scheduler.
+const void *RACSchedulerCurrentSchedulerKey = &RACSchedulerCurrentSchedulerKey;
 
 @interface RACScheduler ()
 @property (nonatomic, readonly, copy) NSString *name;
@@ -36,11 +36,7 @@ NSString * const RACSchedulerCurrentSchedulerKey = @"RACSchedulerCurrentSchedule
 	self = [super init];
 	if (self == nil) return nil;
 
-	if (name == nil) {
-		_name = [NSString stringWithFormat:@"com.ReactiveCocoa.%@.anonymousScheduler", self.class];
-	} else {
-		_name = [name copy];
-	}
+	_name = [name ?: @"com.ReactiveCocoa.RACScheduler.anonymousScheduler" copy];
 
 	return self;
 }
@@ -61,14 +57,14 @@ NSString * const RACSchedulerCurrentSchedulerKey = @"RACSchedulerCurrentSchedule
 	static dispatch_once_t onceToken;
 	static RACScheduler *mainThreadScheduler;
 	dispatch_once(&onceToken, ^{
-		mainThreadScheduler = [[RACTargetQueueScheduler alloc] initWithName:@"com.ReactiveCocoa.RACScheduler.mainThreadScheduler" targetQueue:dispatch_get_main_queue()];
+		mainThreadScheduler = [[RACQueueScheduler alloc] initWithName:@"com.ReactiveCocoa.RACScheduler.mainThreadScheduler" targetQueue:dispatch_get_main_queue()];
 	});
 	
 	return mainThreadScheduler;
 }
 
 + (instancetype)schedulerWithPriority:(RACSchedulerPriority)priority name:(NSString *)name {
-	return [[RACTargetQueueScheduler alloc] initWithName:name targetQueue:dispatch_get_global_queue(priority, 0)];
+	return [[RACQueueScheduler alloc] initWithName:name targetQueue:dispatch_get_global_queue(priority, 0)];
 }
 
 + (instancetype)schedulerWithPriority:(RACSchedulerPriority)priority {
@@ -77,6 +73,12 @@ NSString * const RACSchedulerCurrentSchedulerKey = @"RACSchedulerCurrentSchedule
 
 + (instancetype)scheduler {
 	return [self schedulerWithPriority:RACSchedulerPriorityDefault];
+}
+
++ (instancetype)schedulerWithQueue:(dispatch_queue_t)queue name:(NSString *)name {
+	NSCParameterAssert(queue != NULL);
+
+	return [[RACQueueScheduler alloc] initWithName:name targetQueue:queue];
 }
 
 + (instancetype)subscriptionScheduler {
@@ -94,7 +96,7 @@ NSString * const RACSchedulerCurrentSchedulerKey = @"RACSchedulerCurrentSchedule
 }
 
 + (instancetype)currentScheduler {
-	RACScheduler *scheduler = NSThread.currentThread.threadDictionary[RACSchedulerCurrentSchedulerKey];
+	RACScheduler *scheduler = (__bridge id)dispatch_get_specific(RACSchedulerCurrentSchedulerKey);
 	if (scheduler != nil) return scheduler;
 	if ([self.class isOnMainThread]) return RACScheduler.mainThreadScheduler;
 
@@ -104,22 +106,18 @@ NSString * const RACSchedulerCurrentSchedulerKey = @"RACSchedulerCurrentSchedule
 #pragma mark Scheduling
 
 - (RACDisposable *)schedule:(void (^)(void))block {
-	NSCAssert(NO, @"%@ must be implemented by subclasses.", NSStringFromSelector(_cmd));
+	NSCAssert(NO, @"-schedule: must be implemented by subclasses.");
 	return nil;
 }
 
-- (RACDisposable *)after:(NSDate *)date schedule:(void (^)(void))block {
-	NSCAssert(NO, @"%@ must be implemented by subclasses.", NSStringFromSelector(_cmd));
+- (RACDisposable *)after:(dispatch_time_t)when schedule:(void (^)(void))block {
+	NSCAssert(NO, @"-after:schedule: must be implemented by subclasses.");
 	return nil;
 }
 
 - (RACDisposable *)afterDelay:(NSTimeInterval)delay schedule:(void (^)(void))block {
-	return [self after:[NSDate dateWithTimeIntervalSinceNow:delay] schedule:block];
-}
-
-- (RACDisposable *)after:(NSDate *)date repeatingEvery:(NSTimeInterval)interval withLeeway:(NSTimeInterval)leeway schedule:(void (^)(void))block {
-	NSCAssert(NO, @"%@ must be implemented by subclasses.", NSStringFromSelector(_cmd));
-	return nil;
+	dispatch_time_t when = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delay * NSEC_PER_SEC));
+	return [self after:when schedule:block];
 }
 
 - (RACDisposable *)scheduleRecursiveBlock:(RACSchedulerRecursiveBlock)recursiveBlock {
@@ -154,7 +152,7 @@ NSString * const RACSchedulerCurrentSchedulerKey = @"RACSchedulerCurrentSchedule
 			// This doesn't actually need to be __block qualified, but Clang
 			// complains otherwise. :C
 			__block NSLock *lock = [[NSLock alloc] init];
-			lock.name = [NSString stringWithFormat:@"%@ %s", self, sel_getName(_cmd)];
+			lock.name = [NSString stringWithFormat:@"%@ %@", self, NSStringFromSelector(_cmd)];
 
 			__block NSUInteger rescheduleCount = 0;
 
@@ -184,23 +182,8 @@ NSString * const RACSchedulerCurrentSchedulerKey = @"RACSchedulerCurrentSchedule
 			}
 		}];
 
-		[selfDisposable addDisposable:schedulingDisposable];
+		if (schedulingDisposable != nil) [selfDisposable addDisposable:schedulingDisposable];
 	}
 }
-
-@end
-
-@implementation RACScheduler (Deprecated)
-
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdeprecated-implementations"
-
-+ (instancetype)schedulerWithQueue:(dispatch_queue_t)queue name:(NSString *)name {
-	NSCParameterAssert(queue != NULL);
-
-	return [[RACTargetQueueScheduler alloc] initWithName:name targetQueue:queue];
-}
-
-#pragma clang diagnostic pop
 
 @end

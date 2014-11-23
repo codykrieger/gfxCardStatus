@@ -7,13 +7,14 @@
 //
 
 #import "RACReplaySubject.h"
-#import "RACCompoundDisposable.h"
 #import "RACDisposable.h"
 #import "RACScheduler+Private.h"
 #import "RACSubscriber.h"
 #import "RACTuple.h"
+#import "RACCompoundDisposable.h"
+#import <libkern/OSAtomic.h>
 
-const NSUInteger RACReplaySubjectUnlimitedCapacity = NSUIntegerMax;
+const NSUInteger RACReplaySubjectUnlimitedCapacity = 0;
 
 @interface RACReplaySubject ()
 
@@ -45,7 +46,7 @@ const NSUInteger RACReplaySubjectUnlimitedCapacity = NSUIntegerMax;
 	if (self == nil) return nil;
 	
 	_capacity = capacity;
-	_valuesReceived = (capacity == RACReplaySubjectUnlimitedCapacity ? [NSMutableArray array] : [NSMutableArray arrayWithCapacity:capacity]);
+	_valuesReceived = [NSMutableArray arrayWithCapacity:capacity];
 	
 	return self;
 }
@@ -76,7 +77,7 @@ const NSUInteger RACReplaySubjectUnlimitedCapacity = NSUIntegerMax;
 		}
 	}];
 
-	[compoundDisposable addDisposable:schedulingDisposable];
+	if (schedulingDisposable != nil) [compoundDisposable addDisposable:schedulingDisposable];
 
 	return compoundDisposable;
 }

@@ -7,31 +7,78 @@
 //
 
 #import "RACSignal.h"
+#import "NSObject+RACDescription.h"
+#import "EXTScope.h"
+#import "RACBehaviorSubject.h"
+#import "RACBlockTrampoline.h"
 #import "RACCompoundDisposable.h"
 #import "RACDisposable.h"
-#import "RACDynamicSignal.h"
-#import "RACEmptySignal.h"
-#import "RACErrorSignal.h"
-#import "RACMulticastConnection.h"
+#import "RACPassthroughSubscriber.h"
 #import "RACReplaySubject.h"
-#import "RACReturnSignal.h"
+#import "RACScheduler+Private.h"
 #import "RACScheduler.h"
-#import "RACSerialDisposable.h"
 #import "RACSignal+Operations.h"
+#import "RACSignal+Private.h"
 #import "RACSubject.h"
-#import "RACSubscriber+Private.h"
+#import "RACSubscriber.h"
 #import "RACTuple.h"
+#import "RACMulticastConnection.h"
+#import <libkern/OSAtomic.h>
+
+// Retains signals while they wait for subscriptions.
+//
+// This set must only be used on the main thread.
+static NSMutableSet *RACActiveSignals = nil;
+
+// A linked list of RACSignals, used in RACActiveSignalsToCheck.
+typedef struct RACSignalList {
+	CFTypeRef retainedSignal;
+	struct RACSignalList *next;
+} RACSignalList;
+
+// An atomic queue of signals to check for subscribers. If any signals with zero
+// subscribers are found in this queue, they are removed from RACActiveSignals.
+static OSQueueHead RACActiveSignalsToCheck = OS_ATOMIC_QUEUE_INIT;
+
+// Whether RACActiveSignalsToCheck will be enumerated on the next iteration on
+// the main run loop.
+static volatile uint32_t RACWillCheckActiveSignals = 0;
+
+@interface RACSignal () {
+	// Contains all subscribers to the receiver.
+	//
+	// All access to this array must be synchronized using `_subscribersLock`.
+	NSMutableArray *_subscribers;
+
+	// Synchronizes access to `_subscribers`.
+	OSSpinLock _subscribersLock;
+}
+
+@property (nonatomic, copy) RACDisposable * (^didSubscribe)(id<RACSubscriber> subscriber);
+
+@end
 
 @implementation RACSignal
 
 #pragma mark Lifecycle
 
++ (void)initialize {
+	if (self != RACSignal.class) return;
+
+	RACActiveSignals = [[NSMutableSet alloc] init];
+}
+
 + (RACSignal *)createSignal:(RACDisposable * (^)(id<RACSubscriber> subscriber))didSubscribe {
-	return [RACDynamicSignal createSignal:didSubscribe];
+	RACSignal *signal = [[RACSignal alloc] init];
+	signal.didSubscribe = didSubscribe;
+	return [signal setNameWithFormat:@"+createSignal:"];
 }
 
 + (RACSignal *)error:(NSError *)error {
-	return [RACErrorSignal error:error];
+	return [[self createSignal:^ RACDisposable * (id<RACSubscriber> subscriber) {
+		[subscriber sendError:error];
+		return nil;
+	}] setNameWithFormat:@"+error: %@", error];
 }
 
 + (RACSignal *)never {
@@ -40,14 +87,35 @@
 	}] setNameWithFormat:@"+never"];
 }
 
-+ (RACSignal *)startEagerlyWithScheduler:(RACScheduler *)scheduler block:(void (^)(id<RACSubscriber> subscriber))block {
-	NSCParameterAssert(scheduler != nil);
++ (RACSignal *)start:(id (^)(BOOL *success, NSError **error))block {
+	return [[self startWithScheduler:[RACScheduler scheduler] block:block] setNameWithFormat:@"+start:"];
+}
+
++ (RACSignal *)startWithScheduler:(RACScheduler *)scheduler block:(id (^)(BOOL *success, NSError **error))block {
+	return [[self startWithScheduler:scheduler subjectBlock:^(RACSubject *subject) {
+		BOOL success = YES;
+		NSError *error = nil;
+		id returned = block(&success, &error);
+		
+		if (!success) {
+			[subject sendError:error];
+		} else {
+			[subject sendNext:returned];
+			[subject sendCompleted];
+		}
+	}] setNameWithFormat:@"+startWithScheduler:block:"];
+}
+
++ (RACSignal *)startWithScheduler:(RACScheduler *)scheduler subjectBlock:(void (^)(RACSubject *subject))block {
 	NSCParameterAssert(block != NULL);
 
-	RACSignal *signal = [self startLazilyWithScheduler:scheduler block:block];
-	// Subscribe to force the lazy signal to call its block.
-	[[signal publish] connect];
-	return [signal setNameWithFormat:@"+startEagerlyWithScheduler:%@ block:", scheduler];
+	RACReplaySubject *subject = [[RACReplaySubject subject] setNameWithFormat:@"+startWithScheduler:subjectBlock:"];
+
+	[scheduler schedule:^{
+		block(subject);
+	}];
+	
+	return subject;
 }
 
 + (RACSignal *)startLazilyWithScheduler:(RACScheduler *)scheduler block:(void (^)(id<RACSubscriber> subscriber))block {
@@ -71,6 +139,79 @@
 		setNameWithFormat:@"+startLazilyWithScheduler:%@ block:", scheduler];
 }
 
+- (instancetype)init {
+	self = [super init];
+	if (self == nil) return nil;
+	
+	// As soon as we're created we're already trying to be released. Such is life.
+	[self invalidateGlobalRefIfNoNewSubscribersShowUp];
+	
+	return self;
+}
+
+static void RACCheckActiveSignals(void) {
+	// Clear this flag now, so another thread can re-dispatch to the main queue
+	// as needed.
+	OSAtomicAnd32Barrier(0, &RACWillCheckActiveSignals);
+
+	RACSignalList *elem;
+
+	while ((elem = OSAtomicDequeue(&RACActiveSignalsToCheck, offsetof(RACSignalList, next))) != NULL) {
+		RACSignal *signal = CFBridgingRelease(elem->retainedSignal);
+		free(elem);
+
+		if (signal.subscriberCount > 0) {
+			// We want to keep the signal around until all its subscribers are done
+			[RACActiveSignals addObject:signal];
+		} else {
+			[RACActiveSignals removeObject:signal];
+		}
+	}
+}
+
+- (void)invalidateGlobalRefIfNoNewSubscribersShowUp {
+	// If no one subscribes in one pass of the main run loop, then we're free to
+	// go. It's up to the caller to keep us alive if they still want us.
+	RACSignalList *elem = malloc(sizeof(*elem));
+	// This also serves to retain the signal until the next pass.
+	elem->retainedSignal = CFBridgingRetain(self);
+	OSAtomicEnqueue(&RACActiveSignalsToCheck, elem, offsetof(RACSignalList, next));
+
+	// Not using a barrier because duplicate scheduling isn't erroneous, just
+	// less optimized.
+	int32_t willCheck = OSAtomicOr32Orig(1, &RACWillCheckActiveSignals);
+
+	// Only schedule a check if RACWillCheckActiveSignals was 0 before.
+	if (willCheck == 0) {
+		dispatch_async(dispatch_get_main_queue(), ^{
+			RACCheckActiveSignals();
+		});
+	}
+}
+
+#pragma mark Managing Subscribers
+
+- (NSUInteger)subscriberCount {
+	OSSpinLockLock(&_subscribersLock);
+	NSUInteger count = _subscribers.count;
+	OSSpinLockUnlock(&_subscribersLock);
+
+	return count;
+}
+
+- (void)performBlockOnEachSubscriber:(void (^)(id<RACSubscriber> subscriber))block {
+	NSCParameterAssert(block != NULL);
+
+	NSArray *currentSubscribers = nil;
+	OSSpinLockLock(&_subscribersLock);
+	currentSubscribers = [_subscribers copy];
+	OSSpinLockUnlock(&_subscribersLock);
+	
+	for (id<RACSubscriber> subscriber in currentSubscribers) {
+		block(subscriber);
+	}
+}
+
 #pragma mark NSObject
 
 - (NSString *)description {
@@ -82,11 +223,18 @@
 @implementation RACSignal (RACStream)
 
 + (RACSignal *)empty {
-	return [RACEmptySignal empty];
+	return [[self createSignal:^ RACDisposable * (id<RACSubscriber> subscriber) {
+		[subscriber sendCompleted];
+		return nil;
+	}] setNameWithFormat:@"+empty"];
 }
 
 + (RACSignal *)return:(id)value {
-	return [RACReturnSignal return:value];
+	return [[self createSignal:^ RACDisposable * (id<RACSubscriber> subscriber) {
+		[subscriber sendNext:value];
+		[subscriber sendCompleted];
+		return nil;
+	}] setNameWithFormat:@"+return: %@", [value rac_description]];
 }
 
 - (RACSignal *)bind:(RACStreamBindBlock (^)(void))block {
@@ -133,8 +281,10 @@
 				[signals addObject:signal];
 			}
 
-			RACSerialDisposable *selfDisposable = [[RACSerialDisposable alloc] init];
+			RACCompoundDisposable *selfDisposable = [RACCompoundDisposable compoundDisposable];
 			[compoundDisposable addDisposable:selfDisposable];
+
+			__weak RACDisposable *weakSelfDisposable = selfDisposable;
 
 			RACDisposable *disposable = [signal subscribeNext:^(id x) {
 				[subscriber sendNext:x];
@@ -143,41 +293,37 @@
 				[subscriber sendError:error];
 			} completed:^{
 				@autoreleasepool {
-					completeSignal(signal, selfDisposable);
+					completeSignal(signal, weakSelfDisposable);
 				}
 			}];
 
-			selfDisposable.disposable = disposable;
+			if (disposable != nil) [selfDisposable addDisposable:disposable];
 		};
 
 		@autoreleasepool {
-			RACSerialDisposable *selfDisposable = [[RACSerialDisposable alloc] init];
+			RACCompoundDisposable *selfDisposable = [RACCompoundDisposable compoundDisposable];
 			[compoundDisposable addDisposable:selfDisposable];
 
-			RACDisposable *bindingDisposable = [self subscribeNext:^(id x) {
-				// Manually check disposal to handle synchronous errors.
-				if (compoundDisposable.disposed) return;
+			__weak RACDisposable *weakSelfDisposable = selfDisposable;
 
+			RACDisposable *bindingDisposable = [self subscribeNext:^(id x) {
 				BOOL stop = NO;
 				id signal = bindingBlock(x, &stop);
 
 				@autoreleasepool {
 					if (signal != nil) addSignal(signal);
-					if (signal == nil || stop) {
-						[selfDisposable dispose];
-						completeSignal(self, selfDisposable);
-					}
+					if (signal == nil || stop) completeSignal(self, weakSelfDisposable);
 				}
 			} error:^(NSError *error) {
 				[compoundDisposable dispose];
 				[subscriber sendError:error];
 			} completed:^{
 				@autoreleasepool {
-					completeSignal(self, selfDisposable);
+					completeSignal(self, weakSelfDisposable);
 				}
 			}];
 
-			selfDisposable.disposable = bindingDisposable;
+			if (bindingDisposable != nil) [selfDisposable addDisposable:bindingDisposable];
 		}
 
 		return compoundDisposable;
@@ -186,7 +332,7 @@
 
 - (RACSignal *)concat:(RACSignal *)signal {
 	return [[RACSignal createSignal:^(id<RACSubscriber> subscriber) {
-		RACSerialDisposable *serialDisposable = [[RACSerialDisposable alloc] init];
+		RACCompoundDisposable *disposable = [RACCompoundDisposable compoundDisposable];
 
 		RACDisposable *sourceDisposable = [self subscribeNext:^(id x) {
 			[subscriber sendNext:x];
@@ -194,11 +340,11 @@
 			[subscriber sendError:error];
 		} completed:^{
 			RACDisposable *concattedDisposable = [signal subscribe:subscriber];
-			serialDisposable.disposable = concattedDisposable;
+			if (concattedDisposable != nil) [disposable addDisposable:concattedDisposable];
 		}];
 
-		serialDisposable.disposable = sourceDisposable;
-		return serialDisposable;
+		if (sourceDisposable != nil) [disposable addDisposable:sourceDisposable];
+		return disposable;
 	}] setNameWithFormat:@"[%@] -concat: %@", self.name, signal];
 }
 
@@ -206,6 +352,8 @@
 	NSCParameterAssert(signal != nil);
 
 	return [[RACSignal createSignal:^(id<RACSubscriber> subscriber) {
+		RACCompoundDisposable *disposable = [RACCompoundDisposable compoundDisposable];
+
 		__block BOOL selfCompleted = NO;
 		NSMutableArray *selfValues = [NSMutableArray array];
 
@@ -213,7 +361,7 @@
 		NSMutableArray *otherValues = [NSMutableArray array];
 
 		void (^sendCompletedIfNecessary)(void) = ^{
-			@synchronized (selfValues) {
+			@synchronized (disposable) {
 				BOOL selfEmpty = (selfCompleted && selfValues.count == 0);
 				BOOL otherEmpty = (otherCompleted && otherValues.count == 0);
 				if (selfEmpty || otherEmpty) [subscriber sendCompleted];
@@ -221,7 +369,7 @@
 		};
 
 		void (^sendNext)(void) = ^{
-			@synchronized (selfValues) {
+			@synchronized (disposable) {
 				if (selfValues.count == 0) return;
 				if (otherValues.count == 0) return;
 
@@ -235,37 +383,38 @@
 		};
 
 		RACDisposable *selfDisposable = [self subscribeNext:^(id x) {
-			@synchronized (selfValues) {
+			@synchronized (disposable) {
 				[selfValues addObject:x ?: RACTupleNil.tupleNil];
 				sendNext();
 			}
 		} error:^(NSError *error) {
 			[subscriber sendError:error];
 		} completed:^{
-			@synchronized (selfValues) {
+			@synchronized (disposable) {
 				selfCompleted = YES;
 				sendCompletedIfNecessary();
 			}
 		}];
 
+		if (selfDisposable != nil) [disposable addDisposable:selfDisposable];
+
 		RACDisposable *otherDisposable = [signal subscribeNext:^(id x) {
-			@synchronized (selfValues) {
+			@synchronized (disposable) {
 				[otherValues addObject:x ?: RACTupleNil.tupleNil];
 				sendNext();
 			}
 		} error:^(NSError *error) {
 			[subscriber sendError:error];
 		} completed:^{
-			@synchronized (selfValues) {
+			@synchronized (disposable) {
 				otherCompleted = YES;
 				sendCompletedIfNecessary();
 			}
 		}];
 
-		return [RACDisposable disposableWithBlock:^{
-			[selfDisposable dispose];
-			[otherDisposable dispose];
-		}];
+		if (otherDisposable != nil) [disposable addDisposable:otherDisposable];
+
+		return disposable;
 	}] setNameWithFormat:@"[%@] -zipWith: %@", self.name, signal];
 }
 
@@ -274,8 +423,47 @@
 @implementation RACSignal (Subscription)
 
 - (RACDisposable *)subscribe:(id<RACSubscriber>)subscriber {
-	NSCAssert(NO, @"This method must be overridden by subclasses");
-	return nil;
+	NSCParameterAssert(subscriber != nil);
+
+	RACCompoundDisposable *disposable = [RACCompoundDisposable compoundDisposable];
+	subscriber = [[RACPassthroughSubscriber alloc] initWithSubscriber:subscriber disposable:disposable];
+	
+	OSSpinLockLock(&_subscribersLock);
+	if (_subscribers == nil) _subscribers = [[NSMutableArray alloc] init];
+	[_subscribers addObject:subscriber];
+	OSSpinLockUnlock(&_subscribersLock);
+	
+	@weakify(self, subscriber);
+	RACDisposable *defaultDisposable = [RACDisposable disposableWithBlock:^{
+		@strongify(self, subscriber);
+		if (self == nil) return;
+
+		BOOL stillHasSubscribers = YES;
+
+		OSSpinLockLock(&_subscribersLock);
+		[_subscribers removeObjectIdenticalTo:subscriber];
+		stillHasSubscribers = _subscribers.count > 0;
+		OSSpinLockUnlock(&_subscribersLock);
+		
+		if (!stillHasSubscribers) {
+			[self invalidateGlobalRefIfNoNewSubscribersShowUp];
+		}
+	}];
+
+	[disposable addDisposable:defaultDisposable];
+
+	if (self.didSubscribe != NULL) {
+		RACDisposable *schedulingDisposable = [RACScheduler.subscriptionScheduler schedule:^{
+			RACDisposable *innerDisposable = self.didSubscribe(subscriber);
+			if (innerDisposable != nil) [disposable addDisposable:innerDisposable];
+		}];
+
+		if (schedulingDisposable != nil) [disposable addDisposable:schedulingDisposable];
+	}
+	
+	[subscriber didSubscribeWithDisposable:disposable];
+	
+	return disposable;
 }
 
 - (RACDisposable *)subscribeNext:(void (^)(id x))nextBlock {
@@ -376,7 +564,7 @@ static const NSTimeInterval RACSignalAsynchronousWaitTimeout = 10;
 
 	[[[[self
 		take:1]
-		timeout:RACSignalAsynchronousWaitTimeout onScheduler:[RACScheduler scheduler]]
+		timeout:RACSignalAsynchronousWaitTimeout]
 		deliverOn:RACScheduler.mainThreadScheduler]
 		subscribeNext:^(id x) {
 			result = x;
@@ -403,48 +591,8 @@ static const NSTimeInterval RACSignalAsynchronousWaitTimeout = 10;
 
 - (BOOL)asynchronouslyWaitUntilCompleted:(NSError **)error {
 	BOOL success = NO;
-	[[self ignoreValues] asynchronousFirstOrDefault:nil success:&success error:error];
+	[[self ignoreElements] asynchronousFirstOrDefault:nil success:&success error:error];
 	return success;
 }
-
-@end
-
-@implementation RACSignal (Deprecated)
-
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdeprecated-implementations"
-
-+ (RACSignal *)startWithScheduler:(RACScheduler *)scheduler subjectBlock:(void (^)(RACSubject *subject))block {
-	NSCParameterAssert(block != NULL);
-
-	RACReplaySubject *subject = [[RACReplaySubject subject] setNameWithFormat:@"+startWithScheduler:subjectBlock:"];
-
-	[scheduler schedule:^{
-		block(subject);
-	}];
-
-	return subject;
-}
-
-+ (RACSignal *)start:(id (^)(BOOL *success, NSError **error))block {
-	return [[self startWithScheduler:[RACScheduler scheduler] block:block] setNameWithFormat:@"+start:"];
-}
-
-+ (RACSignal *)startWithScheduler:(RACScheduler *)scheduler block:(id (^)(BOOL *success, NSError **error))block {
-	return [[self startWithScheduler:scheduler subjectBlock:^(id<RACSubscriber> subscriber) {
-		BOOL success = YES;
-		NSError *error = nil;
-		id returned = block(&success, &error);
-
-		if (!success) {
-			[subscriber sendError:error];
-		} else {
-			[subscriber sendNext:returned];
-			[subscriber sendCompleted];
-		}
-	}] setNameWithFormat:@"+startWithScheduler:block:"];
-}
-
-#pragma clang diagnostic pop
 
 @end

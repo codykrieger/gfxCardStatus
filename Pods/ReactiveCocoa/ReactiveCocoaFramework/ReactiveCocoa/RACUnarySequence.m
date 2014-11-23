@@ -7,7 +7,7 @@
 //
 
 #import "RACUnarySequence.h"
-#import "RACEXTKeyPathCoding.h"
+#import "EXTKeyPathCoding.h"
 #import "NSObject+RACDescription.h"
 
 @interface RACUnarySequence ()
