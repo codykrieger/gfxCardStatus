@@ -60,7 +60,7 @@
     
     _prefs = [GSPreferences sharedInstance];
     
-    [[_prefs rac_signalForKeyPath:kShouldUseSmartMenuBarIconsKeyPath onObject:self] subscribeNext:^(id x) {
+    [[_prefs rac_signalForKeyPath:kShouldUseSmartMenuBarIconsKeyPath observer:self] subscribeNext:^(id x) {
         GTMLoggerDebug(@"Use smart menu bar icons value changed: %@", x);
         [self updateMenu];
     }];
