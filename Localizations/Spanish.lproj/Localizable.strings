@@ -7,25 +7,27 @@
  
    Updated by Immanuel Sterzik <immist@gmail.com> 2013/06/30.
    Added: Everything below the Growl part, missing translations, and improved comprehensibility of some points
+   Updated by Darío Hereñú on 2014/12/29.
+   Added: Some mispellings and semantic issues, et alia.
  */
 
 /* Main menu */
 "About"					= "Acerca de gfxCardStatus, v%%";
-"Update"				= "Buscar Actualizaciones...";
+"Update"				= "Actualizar...";
 "Preferences"			= "Preferencias...";
 "Card"					= "GPU: %%";
 "SwitchGPUs"			= "Cambiar de GPU";
-"IntegratedOnly"		= "Solo Integrada";
-"DiscreteOnly"			= "Solo Dedicada";
-"DynamicSwitching"		= "Cambio Dinámico";
+"IntegratedOnly"		= "Solo integrada";
+"DiscreteOnly"			= "Solo dedicada";
+"DynamicSwitching"		= "Cambio dinámico";
 "Dependencies"			= "Dependencias";
 "NoProcess"				= "Ninguna";
 "Quit"					= "Salir";
-"Close"                 = "Cerrar";
-"PowerSource"           = "Fuente de poder: %%";
-"Battery"               = "Batería";
-"ACAdapter"             = "Adaptador de CA";
-"VisitWebsite"          = "Visitar sitio web (%%)...";
+"Close"              = "Cerrar";
+"PowerSource"        = "Fuente de poder: %%";
+"Battery"            = "Batería";
+"ACAdapter"          = "Adaptador de CA";
+"VisitWebsite"       = "Visitar sitio de internet (%%)...";
 
 /* Preferences window */
 "PrefTitle"				= "Ajustes de gfxCardStatus";
@@ -33,35 +35,35 @@
 "PrefGrowl"				= "Usar Growl para las notificaciones de cambio de estado";
 "PrefStartup"			= "Abrir gfxCardStatus al inicio";
 "PrefLog"				= "Transcribir los mensajes de diagnóstico a la consola";
-"PrefRestoreState"		= "Restaurar el último modo usado al iniciar";
+"PrefRestoreState"	= "Restaurar el último modo usado al iniciar";
 "PrefPowerSwitching"	= "Cambiar de GPU según la fuente de energía";
-"Integrated"            = "Integrada";
-"Discrete"              = "Dedicada";
-"Dynamic"               = "Dinámico";
-"OnBattery"             = "On Battery:";
-"PluggedIn"             = "Plugged In:";
-"General"               = "General";
-"Switching"             = "Switching";
-"SmartMenuBarIcons"     = "Usar íconos de menu inteligentes";
+"Integrated"         = "Integrada";
+"Discrete"           = "Dedicada";
+"Dynamic"            = "Dinámico";
+"OnBattery"          = "Sobre la batería:";
+"PluggedIn"          = "Enchufada:";
+"General"            = "General";
+"Switching"          = "Cambiando";
+"SmartMenuBarIcons"  = "Usar íconos de menú inteligentes";
 
 /* About box */
 "AboutTitle"			= "Acerca de gfxCardStatus";
-"AboutWebsite"			= "Sitio web";
+"AboutWebsite"			= "Sitio de internet";
 "Close"					= "Cerrar";
 
 /* Growl */
-"GrowlGPUChanged"       = "GPU cambiada";
-"GrowlGPUChangedMessage"           = "'%1$@' está en uso ahora.";
+"GrowlGPUChanged"    = "GPU cambiada";
+"GrowlGPUChangedMessage"      = "'%1$@' está en uso ahora.";
 
 /* Startup box */
 "ThanksForDownloading"      = "¡Gracias por haber descargado gfxCardStatus!";
-"PleaseConsiderDonating"    = "Si encuentras útil a éste programa, por favor considera hacer una donación para apoyarnos con el desarrollo y los costos del hospedaje. Puedes encontrar el link para hacer una donación en la página FAQ (la cual REALMENTE debería leer) del sitio web de gfxCardStatus:";
-"DontShowAgain"             = "¡No muestres esto denuevo!";
+"PleaseConsiderDonating"    = "Si encuentras útil este programa, por favor considera hacer una donación para apoyarnos con el desarrollo y los costos del hospedaje. Puedes encontrar el enlace para hacer una donación en la página FAQ (la cual REALMENTE deberías leer) del sitio de internet de gfxCardStatus:";
+"DontShowAgain"             = "¡No mostrarlo nuevamente!";
 
 /* Unsupported machine box */
-"UnsupportedMachine"    = "Estás utilizando un sistema que no está soportado por gfxCardStatus. Por favor asegurate que estés usando un MacBook Pro con doble GPU.";
+"UnsupportedMachine"    = "Estás utilizando un sistema que no es admitido por gfxCardStatus. Por favor asegurate que estés usando un MacBook Pro con doble GPU.";
 "OhISee"                = "Ah, ya veo.";
 
 /* Miscellaneous notifications */
-"Can'tSwitchToIntegratedOnlySingular" = "No puedes cambiar a \"Solo Integrada\" mientras corra la siguiente aplicación:";
-"Can'tSwitchToIntegratedOnlyPlural" = "No puedes cambiar a \"Solo Integrada\" mientras corran las siguientes aplicaciones:";
+"Can'tSwitchToIntegratedOnlySingular" = "No puedes cambiar a \"Solo Integrada\" mientras está ejecutándose la siguiente aplicación:";
+"Can'tSwitchToIntegratedOnlyPlural" = "No puedes cambiar a \"Solo Integrada\" mientras están ejecutándose las siguientes aplicaciones:";
