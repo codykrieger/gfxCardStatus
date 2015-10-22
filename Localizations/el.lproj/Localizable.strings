@@ -2,8 +2,11 @@
     Localizable.strings
     gfxCardStatus
 
-    Created by Giorgos Mavrikas on 2015/10/22.
-    The contents of this files are released in the public domain.
+    Created by Michael Schinis on 04.06.2012.
+    Copyright 2012 Michael Schinis. All rights reserved.
+
+    Updated by Giorgos Mavrikas on 2015/10/22.
+    Copyright 2015 Giorgos Mavrikas. All rights reserved.
  */
 
 /* Main menu */
@@ -56,9 +59,9 @@
 "DontShowAgain"             = "Να μην επανεμφανιστεί!";
 
 /* Unsupported machine box */
-"UnsupportedMachine"    = "Χρησιμοποιείτε ένα σύστημα που δεν το αναγνωρίζουμε. Σιγουρευθείτε ότι το MacBook σας έχει 2 κάρτες γραφικών";
+"UnsupportedMachine"    = "Χρησιμοποιείτε ένα σύστημα που δεν αναγνωρίζουμε. Σιγουρευθείτε ότι το MacBook σας έχει 2 κάρτες γραφικών";
 "OhISee"                = "Μάλιστα";
 
 /* Miscellaneous notifications */
 "Can'tSwitchToIntegratedOnlySingular" = "Δεν μπορείτε να γυρίσετε σε λειτουργία αποκλειστικά ενσωματωμένης GPU ενώ τρέχει το ακόλουθο:";
-"Can'tSwitchToIntegratedOnlyPlural" = "Yεν μπορείτε να γυρίσετε σε λειτουργία αποκλειστικά ενσωματωμένης GPU ενώ τρέχουν τα ακόλουθα:";
+"Can'tSwitchToIntegratedOnlyPlural" = "Δεν μπορείτε να γυρίσετε σε λειτουργία αποκλειστικά ενσωματωμένης GPU ενώ τρέχουν τα ακόλουθα:";
