@@ -1,49 +1,67 @@
 /* 
-   Localizable.strings
-   gfxCardStatus
+    Localizable.strings
+    gfxCardStatus
 
-   Created by Michael Schinis on 04.06.2012.
-   Copyright 2012 Michael Schinis. All rights reserved.
+    Created by Michael Schinis on 04.06.2012.
+    Copyright 2012 Michael Schinis. All rights reserved.
+
+    Updated by Giorgos Mavrikas on 2015/10/22.
+    Copyright 2015 Giorgos Mavrikas. All rights reserved.
  */
 
 /* Main menu */
-"About"					= "Πληροφορίες για το gfxCardStatus, v%%";
-"Update"				= "Έλεγχος αναβαθμίσεων...";
+"About"					= "Σχετικά με το gfxCardStatus, v%%";
+"Update"				= "Έλεγχος για ενημερώσεις...";
 "Preferences"			= "Ρυθμίσεις...";
-"SwitchGPUs"			= "Αλλαγή κάρτας γραγικών";
-"IntegratedOnly"		= "Ενσωματωμένη μόνο";
-"DiscreteOnly"			= "Διακριτική μόνο";
-"DynamicSwitching"		= "Αυτόματη αλλαγή";
+"Card"					= "GPU: %%";
+"SwitchGPUs"			= "Εναλλαγή GPUs";
+"IntegratedOnly"		= "Αποκλειστικά ενσωματωμένη";
+"DiscreteOnly"			= "Αποκλειστικά διακριτή";
+"DynamicSwitching"		= "Δυναμική εναλλαγή";
 "Dependencies"			= "Εξαρτήσεις";
-"NoProcess"				= "Καθόλου";
+"NoProcess"				= "Καμία";
 "Quit"					= "Έξοδος";
-"Close"					= "Τέλεια!";
-"PowerSource"           = "Πηγή ρέυματος: %%";
+"Close"					= "Κουλ!";
+"PowerSource"           = "Πηγή ισχύος %%";
 "Battery"               = "Μπαταρία";
 "ACAdapter"             = "Τροφοδοτικό AC";
+"VisitWebsite"          = "Επισκευθείτε τον ιστότοπο (%%)...";
 
 /* Preferences window */
-"PrefTitle"				= "Ρυθμίσεις για το gfxCardStatus";
-"PrefUpdate"			= "Αυτόματος έλεγχος αναβαθμίσεων στην εκκίνηση.";
-"PrefGrowl"				= "Χρήση του Growl για ενημερωτικά μυνήματα.";
-"PrefStartup"			= "Εκκίνηση του gfxCardStatus κατα την εκκίνηση.";
-"PrefLog"				= "Καταγραφή διαγνωστικών μυνημάτων στη κονσόλα";
-"PrefRestoreState"		= "Επαναφορά προηγούμενων επιλογών.";
-"PrefPowerSwitching"	= "Αλλαγή κάρτας, βάση πηγής ρέυματος.";
+"PrefTitle"				= "Ρυθμίσεις gfxCardStatus";
+"PrefUpdate"			= "Έλεγχος για ενημερώσεις κατά την εκκίνηση";
+"PrefGrowl"				= "Χρησιμοποίηση του Growl για ειδοποιήσεις αλλαγής GPU";
+"PrefStartup"			= "Ξεκίνημα του gfxCardStatus κατά την εκκίνηση";
+"PrefLog"				= "Εγγραφή των διαγνωστικών μηνυμάτων στην κονσόλα";
+"PrefRestoreState"		= "Αποκατάσταση τελευταίας επιλογής κατά την εκκίνηση";
+"PrefPowerSwitching"	= "Ενεργοποίηση αλλαγών GPU βάσει πηγής ισχύος";
 "Integrated"            = "Ενσωματωμένη";
-"Discrete"              = "Διακριτική";
-"Dynamic"               = "Αυτόματη";
-"OnBattery"             = "Στη μπαταρία:";
-"PluggedIn"             = "Στο τροφοδοτικό:";
-"General"               = "Γενικά";
-"Switching"             = "Αλλαγή";
-"Advanced"              = "Προχωρημένα";
-"SmartMenuBarIcons"     = "Χρήση έξυπνων εικονιδίων μενού.";
+"Discrete"              = "Διακριτή";
+"Dynamic"               = "Δυναμικό";
+"OnBattery"             = "Σε μπαταρία:";
+"PluggedIn"             = "Σε τροφοδοτικό:";
+"General"               = "Γενικές";
+"Switching"             = "Εναλλαγή";
+"Advanced"              = "Προχωρημένες";
+"SmartMenuBarIcons"     = "Χρήση έξυπνων εικονιδίων μενού μπάρας";
 
 /* About box */
-"AboutTitle"			= "Πληροφορίες για το gfxCardStatus";
-"AboutWebsite"			= "Ιστοσελίδα";
+"AboutTitle"			= "Σχετικά με το gfxCardStatus";
+"AboutWebsite"			= "Ιστότοπος";
 
 /* Growl */
-"GrowlGPUChanged"       = "Καρτα γραφικών έχει αλλάξει";
-"GrowlGPUChangedMessage"           = "Τέθηκε σε λειτουργεία: '%1$@'";
+"GrowlGPUChanged"           = "Η GPU άλλαξε";
+"GrowlGPUChangedMessage"    = "Χρησιμοποιείται η '%1$@'";
+
+/* Startup box */
+"ThanksForDownloading"      = "Ευχαριστούμε που κατεβάσατε το gfxCardStatus!";
+"PleaseConsiderDonating"    = "Εάν το βρίσκετε χρήσιμο εργαλείο, παρακαλούμε σκεφθείτε την πιθανότητα να κάνετε μια δωρεά για την κάλυψη του κόστους ανάπτυξης! Μπορείτε να βρείτε το σύνδεσμο για δωρεές καθώς και το αρχείο συχνών ερωτήσεων (που ΠΡΕΠΕΙ να διαβάσετε) στην ιστοσελίδα μας: ";
+"DontShowAgain"             = "Να μην επανεμφανιστεί!";
+
+/* Unsupported machine box */
+"UnsupportedMachine"    = "Χρησιμοποιείτε ένα σύστημα που δεν αναγνωρίζουμε. Σιγουρευθείτε ότι το MacBook σας έχει 2 κάρτες γραφικών";
+"OhISee"                = "Μάλιστα";
+
+/* Miscellaneous notifications */
+"Can'tSwitchToIntegratedOnlySingular" = "Δεν μπορείτε να γυρίσετε σε λειτουργία αποκλειστικά ενσωματωμένης GPU ενώ τρέχει το ακόλουθο:";
+"Can'tSwitchToIntegratedOnlyPlural" = "Δεν μπορείτε να γυρίσετε σε λειτουργία αποκλειστικά ενσωματωμένης GPU ενώ τρέχουν τα ακόλουθα:";
