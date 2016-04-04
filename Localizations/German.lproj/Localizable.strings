@@ -8,6 +8,9 @@
    Updated by Niklas Korz <niklas@niklaskorz.de> 2013/04/14.
    Copyright 2013 Niklas Korz.
    Added: Everything below the Growl part
+   
+   Updated by Robert McHardy <robert@robertmchardy.de> 2016/04/03
+   Copyright 2016 Robert McHardy.
 */
 
 /* Main menu */
@@ -26,12 +29,12 @@
 "PowerSource"           = "Stromquelle: %%";
 "Battery"               = "Batterie";
 "ACAdapter"             = "Extern";
-"VisitWebsite"          = "Website besuchen (%%)...";
+"VisitWebsite"          = "Webseite besuchen (%%)...";
 
 /* Preferences window */
 "PrefTitle"				= "gfxCardStatus Einstellungen";
 "PrefUpdate"			= "Beim Starten nach Updates suchen";
-"PrefGrowl"				= "Growl für Statuswechsel Benachrichtigungen verwenden";
+"PrefGrowl"				= "Growl für Benachrichtigungen bei Statuswechsel verwenden";
 "PrefStartup"			= "gfxCardStatus beim Booten starten";
 "PrefLog"				= "Diagnosenachrichten in der Konsole speichern";
 "PrefRestoreState"		= "Letzten genutzten Modus beim Starten wiederherstellen";
@@ -47,7 +50,7 @@
 
 /* About box */
 "AboutTitle"			= "Über gfxCardStatus";
-"AboutWebsite"			= "Website";
+"AboutWebsite"			= "Webseite";
 
 /* Growl */
 "GrowlGPUChanged"       = "GPU umgeschaltet";
@@ -55,7 +58,7 @@
 
 /* Startup box */
 "ThanksForDownloading"      = "Danke, dass Sie gfxCardStatus heruntergeladen haben!";
-"PleaseConsiderDonating"    = "Sollten Sie dieses Programm nützlich finden, dann ziehen Sie es bitte in Erwägung, etwas für die Unterstützung der Entwicklung und für die Hosting-Kosten zu spenden. Sie können den Spendelink auf der FAQ Seite (welche Sie wirklich lesen sollten) auf der gfxCardStatus Webseite finden:";
+"PleaseConsiderDonating"    = "Sollten Sie dieses Programm nützlich finden, dann ziehen Sie es bitte in Erwägung, etwas für die Unterstützung der Entwicklung und für die Hosting-Kosten zu spenden. Sie können den Spenden-Link auf der FAQ-Seite (welche Sie wirklich lesen sollten) auf der gfxCardStatus-Webseite finden:";
 "DontShowAgain"             = "Zeige dies nicht wieder an!";
 
 /* Unsupported machine box */
@@ -63,5 +66,5 @@
 "OhISee"                = "Oh, ach so.";
 
 /* Miscellaneous notifications */
-"Can'tSwitchToIntegratedOnlySingular" = "Sie können nicht zu \"Nur integriert\" wechseln, während der folgende Eintrag läuft:";
-"Can'tSwitchToIntegratedOnlyPlural" = "Sie können nicht zu \"Nur integriert\" wechseln, während die folgenden Einträge laufen:";
+"Can'tSwitchToIntegratedOnlySingular" = "Sie können nicht zu \"Nur Integriert\" wechseln, während der folgende Eintrag läuft:";
+"Can'tSwitchToIntegratedOnlyPlural" = "Sie können nicht zu \"Nur Integriert\" wechseln, während die folgenden Einträge laufen:";
