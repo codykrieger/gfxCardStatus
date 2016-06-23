@@ -122,7 +122,7 @@
 
     if (![GSGPU isLegacyMachine]) {
         BOOL dynamic = [GSMux isUsingDynamicSwitching];
-        BOOL isOnIntegratedOnly = [GSMux isOnIntegratedOnlyMode];
+        BOOL isOnIntegratedOnly = [GSMux isUsingIntegratedGPU];
 
         GTMLoggerInfo(@"Using dynamic switching?: %d", dynamic);
         GTMLoggerInfo(@"Using old-style switching policy?: %d", [GSMux isUsingOldStyleSwitchPolicy]);
