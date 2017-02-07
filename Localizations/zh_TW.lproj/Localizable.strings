@@ -1,4 +1,4 @@
-/* 
+/*
    Localizable.strings
    gfxCardStatus
 
@@ -11,8 +11,8 @@
 "Update"           = "檢查更新...";
 "Preferences"      = "偏好設定...";
 "SwitchGPUs"       = "變更 GPU (試驗)";
-"IntegratedOnly"   = "僅 Integrated® 晶片";
-"DiscreteOnly"     = "僅 Discrete® 晶片";
+"IntegratedOnly"   = "僅使用內建顯示卡";
+"DiscreteOnly"     = "僅使用獨立顯示卡";
 "DynamicSwitching" = "自動圖形切換";
 "Dependencies"     = "相依程式";
 "NoProcess"        = "沒有";
@@ -20,7 +20,7 @@
 "Close"            = "關閉！";
 "PowerSource"      = "電源供應: %%";
 "Battery"               = "電池";
-"ACAdapter"             = "電源荭換器";
+"ACAdapter"             = "AC 電源";
 
 /* Preferences window */
 "PrefTitle"        = "gfxCardStatus 偏好設定";
@@ -30,11 +30,11 @@
 "PrefLog"          = "記錄診斷訊息至系統監視程式";
 "PrefRestoreState" = "起始時回復到上次使用的模式";
 "PrefPowerSwitching"	= "以電源供應模式切換圖形晶片";
-"Integrated"            = "Integrated";
-"Discrete"              = "Discrete";
+"Integrated"            = "內建顯示卡";
+"Discrete"              = "獨立顯示卡";
 "Dynamic"               = "自動切換";
 "OnBattery"        = "使用電池時:";
-"PluggedIn"        = "電源荭換器:";
+"PluggedIn"        = "使用AC 電源時:";
 "General"               = "General";
 "Switching"             = "Switching";
 "SmartMenuBarIcons"     = "Use smart menu bar icons";
