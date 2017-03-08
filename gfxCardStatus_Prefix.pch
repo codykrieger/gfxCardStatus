@@ -8,5 +8,5 @@
 
     #define Str(key) NSLocalizedString(key, key)
 
-    #define kApplicationWebsiteURL @"http://gfx.io"
+    #define kApplicationWebsiteURL @"https://gfx.io"
 #endif
