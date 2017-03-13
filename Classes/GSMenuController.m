@@ -16,6 +16,9 @@
 
 #import <ReactiveCocoa/ReactiveCocoa.h>
 
+#include <signal.h>
+#include <unistd.h>
+
 #define kImageIconIntegratedName    @"integrated"
 #define kImageIconDiscreteName      @"discrete"
 #define kImageIconOpenSuffix        @"-white"
@@ -205,8 +208,17 @@
                 [taskNames addObject:taskName];
             }
 
-            [GSNotifier showCantSwitchToIntegratedOnlyMessage:taskNames];
-            return;
+            if ([GSNotifier showCantSwitchToIntegratedOnlyMessage:taskNames]) {
+                for (NSDictionary *task in taskList) {
+                    NSNumber *pid = [task objectForKey:@"pid"];
+                    if ([pid class] != [NSNumber class]) {
+                        return;
+                    }
+                    killpg(getpgid([pid intValue]), SIGTERM);
+                }
+            } else {
+                return;
+            }
         }
 
         GTMLoggerInfo(@"Setting Integrated Only...");
