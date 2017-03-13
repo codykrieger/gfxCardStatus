@@ -52,6 +52,7 @@
 - (IBAction)openAbout:(id)sender;
 - (IBAction)openPreferences:(id)sender;
 - (IBAction)openApplicationURL:(id)sender;
+- (IBAction)killProcess:(id)sender;
 - (IBAction)quit:(id)sender;
 
 - (IBAction)setMode:(id)sender;

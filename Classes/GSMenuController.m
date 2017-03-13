@@ -288,21 +288,50 @@
     
     NSArray *processes = [GSProcess getTaskList];
     
-    [processList setHidden:([processes count] > 0)];
+    [processList setHidden:([processes count] > 0)];    
+    
+    NSArray *sortDescriptors = [NSArray arrayWithObjects: [NSSortDescriptor sortDescriptorWithKey:kTaskItemPID ascending:NO], nil];
+
+    processes = [processes sortedArrayUsingDescriptors: sortDescriptors];
     
     for (NSDictionary *dict in processes) {
         NSString *taskName = [dict objectForKey:kTaskItemName];
         NSString *pid = [dict objectForKey:kTaskItemPID];
         NSString *title = [NSString stringWithString:taskName];
-        if (![pid isEqualToString:@""])
-            title = [title stringByAppendingFormat:@", PID: %@", pid];
-        
+
+        if (![pid isEqualToString:@""]){
+            title = [NSString stringWithFormat:@"%@, PID: %@", title, pid];
+        }
+
         NSMenuItem *item = [[NSMenuItem alloc] initWithTitle:title 
-                                                      action:nil 
+                                                      action: nil
                                                keyEquivalent:@""];
+
+
+        if (![pid isEqualToString:@""]){
+            [item setRepresentedObject: pid];
+            [item setAction: @selector(killProcess:) ];
+            [item setTarget:self];
+        }
+        
         [item setIndentationLevel:1];
-        [statusMenu insertItem:item 
-                       atIndex:([statusMenu indexOfItem:processList] + 1)];
+        [statusMenu insertItem:item atIndex:([statusMenu indexOfItem:processList] + 1)];
+    }
+}
+
+- (IBAction) killProcess: (id)sender{
+    NSMenuItem *menuItem = sender;
+    NSString *pid = [menuItem representedObject];
+
+    NSAlert *alert = [[NSAlert alloc] init];
+    [alert addButtonWithTitle:@"Kill Process"];
+    [alert addButtonWithTitle:@"Cancel"];
+    [alert setMessageText:@"Are you sure you want to kill the process?"];
+    [alert setInformativeText:@"You might lose data. This is not elegant. Are you sure you want to continue?"];
+    [alert setAlertStyle:NSWarningAlertStyle];
+    if ([alert runModal] == NSAlertFirstButtonReturn) {
+        NSLog(@"Kill process id: %@", pid );
+        kill([pid intValue], SIGTERM);
     }
 }
 

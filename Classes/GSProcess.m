@@ -87,7 +87,7 @@ static void _procTask(const void *value, void *param) {
 err:
     [arr addObject:[NSDictionary dictionaryWithObjectsAndKeys:
                     [[NSString alloc] initWithUTF8String:k->kp_proc.p_comm], kTaskItemName,
-                    @"", kTaskItemPID, nil]];
+                    [key stringValue], kTaskItemPID, nil]];
 done:
     return;
 }
