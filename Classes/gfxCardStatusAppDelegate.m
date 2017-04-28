@@ -14,7 +14,7 @@
 #import "GSMux.h"
 #import "GSNotifier.h"
 
-#import <ReactiveCocoa/ReactiveCocoa.h>
+@import ReactiveObjC;
 
 #define kHasSeenOneTimeNotificationKey @"hasSeenVersionTwoMessage"
 
@@ -90,12 +90,12 @@
     // Hook up the check for updates on startup preference directly to the
     // automaticallyChecksForUpdates property on the SUUpdater.
     updater.automaticallyChecksForUpdates = _prefs.shouldCheckForUpdatesOnStartup;
-
-    [[_prefs rac_signalForKeyPath:kShouldCheckForUpdatesOnStartupKeyPath observer:self] subscribeNext:^(id x) {
+    
+    [[_prefs rac_valuesForKeyPath: kShouldCheckForUpdatesOnStartupKeyPath observer: self] subscribeNext:^(id x) {
         GTMLoggerDebug(@"Check for updates on startup value changed: %@", x);
         updater.automaticallyChecksForUpdates = [x boolValue];
     }];
-
+    
     // Check for updates if the user has them enabled.
     if ([_prefs shouldCheckForUpdatesOnStartup])
         [updater checkForUpdatesInBackground];

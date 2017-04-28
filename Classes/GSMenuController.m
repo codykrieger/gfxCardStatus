@@ -14,7 +14,7 @@
 #import "GSNotifier.h"
 #import "GSProcess.h"
 
-#import <ReactiveCocoa/ReactiveCocoa.h>
+@import ReactiveObjC;
 
 #define kImageIconIntegratedName    @"integrated"
 #define kImageIconDiscreteName      @"discrete"
@@ -60,7 +60,7 @@
     
     _prefs = [GSPreferences sharedInstance];
     
-    [[_prefs rac_signalForKeyPath:kShouldUseSmartMenuBarIconsKeyPath observer:self] subscribeNext:^(id x) {
+    [[_prefs rac_valuesForKeyPath:kShouldUseSmartMenuBarIconsKeyPath observer:self] subscribeNext:^(id x) {
         GTMLoggerDebug(@"Use smart menu bar icons value changed: %@", x);
         [self updateMenu];
     }];
@@ -86,7 +86,8 @@
     
     // Listen for when the menu opens and change the icons appropriately if the
     // user is using images.
-    [RACAble(self.menuIsOpen) subscribeNext:^(id x) {
+    
+    [[self rac_valuesForKeyPath: NSStringFromSelector(@selector(menuIsOpen)) observer: self] subscribeNext:^(id x) {
         GTMLoggerDebug(@"Menu open: %@", x);
         
         if (_prefs.shouldUseImageIcons) {
