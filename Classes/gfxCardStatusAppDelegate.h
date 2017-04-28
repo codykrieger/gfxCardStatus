@@ -11,8 +11,7 @@
 #import "GSMenuController.h"
 #import "GSGPU.h"
 
-#import <Sparkle/Sparkle.h>
-#import <Sparkle/SUUpdater.h>
+@import Sparkle;
 
 @interface gfxCardStatusAppDelegate : NSObject <NSApplicationDelegate,GSGPUDelegate> {
     GSPreferences *_prefs;
