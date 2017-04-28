@@ -660,13 +660,14 @@
 				GCC_VERSION = "";
 				INFOPLIST_FILE = "gfxCardStatus-Info.plist";
 				INSTALL_PATH = /Applications;
-				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.codykrieger.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = gfxCardStatus;
+				SDKROOT = macosx;
 			};
 			name = Debug;
 		};
@@ -688,7 +689,7 @@
 				GCC_VERSION = "";
 				INFOPLIST_FILE = "gfxCardStatus-Info.plist";
 				INSTALL_PATH = /Applications;
-				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				OTHER_CFLAGS = (
 					"$(inherited)",
 					"-DNDEBUG",
@@ -700,6 +701,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.codykrieger.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = gfxCardStatus;
 				PROVISIONING_PROFILE = "";
+				SDKROOT = macosx;
 			};
 			name = Release;
 		};
@@ -735,11 +737,11 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = "";
 				INSTALL_PATH = /Applications;
-				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CFLAGS = "-DDEBUG";
 				RUN_CLANG_STATIC_ANALYZER = YES;
-				SDKROOT = "";
+				SDKROOT = macosx;
 			};
 			name = Debug;
 		};
@@ -775,9 +777,9 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = "";
 				INSTALL_PATH = /Applications;
-				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				RUN_CLANG_STATIC_ANALYZER = YES;
-				SDKROOT = "";
+				SDKROOT = macosx;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
