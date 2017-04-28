@@ -52,7 +52,7 @@
 		A1F7ED4E14B0409300328A83 /* GTMLoggerRingBufferWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = A1F7ED4B14B0409300328A83 /* GTMLoggerRingBufferWriter.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		A1F7ED5114B0410E00328A83 /* ReleaseNotes.txt in Resources */ = {isa = PBXBuildFile; fileRef = A1F7ED5014B0410E00328A83 /* ReleaseNotes.txt */; };
 		A1F7ED5314B0413900328A83 /* COPYING in Resources */ = {isa = PBXBuildFile; fileRef = A1F7ED5214B0413900328A83 /* COPYING */; };
-		FC51FE5832FA3ED1B029A41C /* libPods-gfxCardStatus.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D6BE542FAEFCCBA4FE7893D /* libPods-gfxCardStatus.a */; };
+		B06C98EA214C1347E0461F20 /* Pods_gfxCardStatus.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 123034BCBE6D9611C6D2EDFB /* Pods_gfxCardStatus.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -72,8 +72,8 @@
 /* Begin PBXFileReference section */
 		089C165DFE840E0CC02AAC07 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
+		123034BCBE6D9611C6D2EDFB /* Pods_gfxCardStatus.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_gfxCardStatus.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		13E42FB307B3F0F600E4EEF1 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
-		1D6BE542FAEFCCBA4FE7893D /* libPods-gfxCardStatus.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-gfxCardStatus.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DDD58150DA1D0A300B32029 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		256AC3D80F4B6AC300CF3369 /* gfxCardStatusAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gfxCardStatusAppDelegate.h; sourceTree = "<group>"; };
 		256AC3D90F4B6AC300CF3369 /* gfxCardStatusAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = gfxCardStatusAppDelegate.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
@@ -178,7 +178,7 @@
 				A1E07D581194B42100683B07 /* IOKit.framework in Frameworks */,
 				A1E07E111194B42B00683B07 /* ApplicationServices.framework in Frameworks */,
 				A1B9412C15899CFD000EE7A7 /* Growl.framework in Frameworks */,
-				FC51FE5832FA3ED1B029A41C /* libPods-gfxCardStatus.a in Frameworks */,
+				B06C98EA214C1347E0461F20 /* Pods_gfxCardStatus.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -243,7 +243,7 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		29B97314FDCFA39411CA2CEA /* gfxCardStatus */ = {
+		29B97314FDCFA39411CA2CEA = {
 			isa = PBXGroup;
 			children = (
 				080E96DDFE201D6D7F000001 /* Classes */,
@@ -270,7 +270,7 @@
 			children = (
 				1058C7A0FEA54F0111CA2CBB /* Linked Frameworks */,
 				1058C7A2FEA54F0111CA2CBB /* Other Frameworks */,
-				1D6BE542FAEFCCBA4FE7893D /* libPods-gfxCardStatus.a */,
+				123034BCBE6D9611C6D2EDFB /* Pods_gfxCardStatus.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -450,7 +450,7 @@
 				nb,
 				ja,
 			);
-			mainGroup = 29B97314FDCFA39411CA2CEA /* gfxCardStatus */;
+			mainGroup = 29B97314FDCFA39411CA2CEA;
 			productRefGroup = 19C28FACFE9D520D11CA2CBB /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
