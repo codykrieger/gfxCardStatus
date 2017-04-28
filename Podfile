@@ -7,5 +7,8 @@ use_frameworks!
 
 target 'gfxCardStatus' do
 	pod 'ReactiveObjC', '~> 3.x'
+  
+  pod 'Sparkle'
+  
 end
 

@@ -1,12 +1,15 @@
 PODS:
   - ReactiveObjC (3.0.0)
+  - Sparkle (1.17.0)
 
 DEPENDENCIES:
   - ReactiveObjC (~> 3.x)
+  - Sparkle
 
 SPEC CHECKSUMS:
   ReactiveObjC: ce79989e8684b9086b5f8d0c74bc7b81a8729c9e
+  Sparkle: ccfb47699feea7b40b51cf3176f69404e5b1da6c
 
-PODFILE CHECKSUM: 8fdca935476f2d216f8dc8c411d5e47f7c454b8d
+PODFILE CHECKSUM: fe4286d3a9f12ea5b956e005df27bca13c9e6fa5
 
 COCOAPODS: 1.2.1
