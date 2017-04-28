@@ -20,7 +20,7 @@
     [attrString addAttribute:NSLinkAttributeName value:[aURL absoluteString] range:range];
     [attrString addAttribute:NSForegroundColorAttributeName value:[NSColor blueColor] range:range];
     [attrString addAttribute:
-     NSUnderlineStyleAttributeName value:[NSNumber numberWithInt:NSSingleUnderlineStyle] range:range];
+     NSUnderlineStyleAttributeName value:[NSNumber numberWithInt:NSUnderlineStyleSingle] range:range];
     
     [attrString endEditing];
     
