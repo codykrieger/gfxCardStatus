@@ -2,63 +2,63 @@
  Localizable.strings
  gfxCardStatus
 
- Created by Espen Burud on 20.11.2012.
- Copyright 2012 Espen Burud. All rights reserved.
+ Created by Sjur Moshagen on 17.10.2017, based on nb translation.
+ Copyright 2012 Sjur Moshagen. All rights reserved.
  */
 
 /* Main menu */
 "About"					= "Om gfxCardStatus, v%%";
-"Update"				= "Søk etter oppdateringer...";
-"Preferences"			= "Innstillninger...";
+"Update"				= "Søk etter oppdateringar...";
+"Preferences"			= "Innstillingar...";
 "Card"					= "GPU: %%";
-"SwitchGPUs"			= "Bytt GPU";
-"IntegratedOnly"		= "Kun integrert";
-"DiscreteOnly"			= "Kun separat";
+"SwitchGPUs"			= "Byt GPU";
+"IntegratedOnly"		= "Berre integrert";
+"DiscreteOnly"			= "Berre separat";
 "DynamicSwitching"		= "Dynamisk grafikkveksling";
-"Dependencies"			= "Avhengigheter";
+"Dependencies"			= "Avhengigheiter";
 "NoProcess"				= "Ingen";
 "Quit"					= "Avslutt";
-"Close"					= "Lukk";
-"PowerSource"           = "Strømkilde: %%";
+"Close"					= "Lat att";
+"PowerSource"           = "Straumkilde: %%";
 "Battery"               = "Batteri";
-"ACAdapter"             = "Strømadapter";
-"VisitWebsite"          = "Besøk nettside (%%)...";
+"ACAdapter"             = "Straumadapter";
+"VisitWebsite"          = "Gå til nettsida (%%)...";
 
 /* Preferences window */
-"PrefTitle"				= "gfxCardStatus-innstillinger";
-"PrefUpdate"			= "Søk etter oppdateringer ved start";
-"PrefGrowl"				= "Bruk Growl for statusmmeldinger";
+"PrefTitle"				= "gfxCardStatus-innstillingar";
+"PrefUpdate"			= "Leit etter oppdateringar ved start";
+"PrefGrowl"				= "Bruk Growl for statusmeldingar";
 "PrefStartup"			= "Start gfxCardStatus ved innlogging";
-"PrefLog"				= "Logg diagnosemeldinger til konsoll";
+"PrefLog"				= "Logg diagnosemeldingar til konsoll";
 "PrefRestoreState"		= "Tilbakestill sist brukte innstilling ved start";
-"PrefPowerSwitching"	= "Baser bytte på strømkilde";
+"PrefPowerSwitching"	= "Baser byte på straumkilde";
 "Integrated"            = "Integrert";
 "Discrete"              = "Separat";
 "Dynamic"               = "Dynamisk";
 "OnBattery"             = "Batteri:";
-"PluggedIn"             = "Strømadapter:";
+"PluggedIn"             = "Straumadapter:";
 "General"               = "Generelt";
-"Switching"             = "Bytte";
+"Switching"             = "Byte";
 "Advanced"              = "Avansert";
-"SmartMenuBarIcons"     = "Bruk smart menylinje-symboler";
+"SmartMenuBarIcons"     = "Bruk smart menylinje-symbol";
 
 /* About box */
 "AboutTitle"			= "Om gfxCardStatus";
 "AboutWebsite"			= "Nettside";
 
 /* Growl */
-"GrowlGPUChanged"       = "GPU endret";
-"GrowlGPUChangedMessage"           = "'%1$@' benyttes nå.";
+"GrowlGPUChanged"       = "GPU endra";
+"GrowlGPUChangedMessage"           = "'%1$@' blir nytta no.";
 
 /* Startup box */
-"ThanksForDownloading"      = "Takk for at du lastet ned gfxCardStatus!";
-"PleaseConsiderDonating"    = "Dersom du synes programmet er nyttig, vær så snill og vurder å donere for å støtte utviklingen og dekke nettkostnader. Du finner donasjonslenken og OSS-siden (som du ABSOLUTT bør lese) på gfxCardStatus-nettsiden:";
-"DontShowAgain"             = "Ikke vis dette igjen!";
+"ThanksForDownloading"      = "Takk for at du lasta ned gfxCardStatus!";
+"PleaseConsiderDonating"    = "Dersom du tykkjer programmet er nyttig, ver så snill og vurder å donera for å støtta utviklinga og dekkja nettkostnader. Du finn donasjonslenkja og OSS-sida (som du ABSOLUTT bør lesa) på gfxCardStatus-nettsida:";
+"DontShowAgain"             = "Ikkje vis dette igjen!";
 
 /* Unsupported machine box */
-"UnsupportedMachine"    = "Du bruker et system som gfxCardStatus ikke støtter. Forsikre deg om at du bruker en MacBook Pro med doble GPU-er.";
-"OhISee"                = "Ok, Jeg forstår.";
+"UnsupportedMachine"    = "Du nyttar eit system som gfxCardStatus ikkje støttar. Forsikre deg om at du nyttar ein MacBook Pro med doble GPU-ar.";
+"OhISee"                = "Ok, eg skjønar.";
 
 /* Miscellaneous notifications */
-"Can'tSwitchToIntegratedOnlySingular" = "Du kan ikke bytte til Kun integrert mens følgende program kjører:";
-"Can'tSwitchToIntegratedOnlyPlural" = "Du kan ikke bytte til Kun integrert mens følgende programmer kjører:";
+"Can'tSwitchToIntegratedOnlySingular" = "Du kan ikkje byta til Berre integrert mens dette programmet køyrer:";
+"Can'tSwitchToIntegratedOnlyPlural" = "Du kan ikkje byta til Berre integrert mens desse programma køyrer:";
