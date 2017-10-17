@@ -9,11 +9,11 @@
 /* Main menu */
 "About"					= "Om gfxCardStatus, v%%";
 "Update"				= "Søk etter oppdateringer...";
-"Preferences"			= "Instillninger...";
+"Preferences"			= "Innstillninger...";
 "Card"					= "GPU: %%";
 "SwitchGPUs"			= "Bytt GPU";
 "IntegratedOnly"		= "Kun integrert";
-"DiscreteOnly"			= "Kun dedikert";
+"DiscreteOnly"			= "Kun separat";
 "DynamicSwitching"		= "Dynamisk grafikkveksling";
 "Dependencies"			= "Avhengigheter";
 "NoProcess"				= "Ingen";
@@ -22,25 +22,25 @@
 "PowerSource"           = "Strømkilde: %%";
 "Battery"               = "Batteri";
 "ACAdapter"             = "Strømadapter";
-"VisitWebsite"          = "Visit website (%%)...";
+"VisitWebsite"          = "Besøk nettside (%%)...";
 
 /* Preferences window */
-"PrefTitle"				= "gfxCardStatus instillinger";
+"PrefTitle"				= "gfxCardStatus-innstillinger";
 "PrefUpdate"			= "Søk etter oppdateringer ved start";
 "PrefGrowl"				= "Bruk Growl for statusmmeldinger";
-"PrefStartup"			= "Start gfxCardStatus ved inlogging";
-"PrefLog"				= "Logg diagnosemeldinger till konsoll";
+"PrefStartup"			= "Start gfxCardStatus ved innlogging";
+"PrefLog"				= "Logg diagnosemeldinger til konsoll";
 "PrefRestoreState"		= "Tilbakestill sist brukte innstilling ved start";
 "PrefPowerSwitching"	= "Baser bytte på strømkilde";
 "Integrated"            = "Integrert";
-"Discrete"              = "Diskre";
-"Dynamic"               = "Dynaamisk";
+"Discrete"              = "Separat";
+"Dynamic"               = "Dynamisk";
 "OnBattery"             = "Batteri:";
 "PluggedIn"             = "Strømadapter:";
 "General"               = "Generelt";
 "Switching"             = "Bytte";
-"Advanced"              = "Advanced";
-"SmartMenuBarIcons"     = "Bruk smart menylinje symboler";
+"Advanced"              = "Avansert";
+"SmartMenuBarIcons"     = "Bruk smart menylinje-symboler";
 
 /* About box */
 "AboutTitle"			= "Om gfxCardStatus";
@@ -51,14 +51,14 @@
 "GrowlGPUChangedMessage"           = "'%1$@' benyttes nå.";
 
 /* Startup box */
-"ThanksForDownloading"      = "Thanks for downloading gfxCardStatus!";
-"PleaseConsiderDonating"    = "If you find it useful, please consider donating to support development and hosting costs. You can find the donate link, and the FAQ page (which you should REALLY read) at the gfxCardStatus website:";
-"DontShowAgain"             = "Don't show this again!";
+"ThanksForDownloading"      = "Takk for at du lastet ned gfxCardStatus!";
+"PleaseConsiderDonating"    = "Dersom du synes programmet er nyttig, vær så snill og vurder å donere for å støtte utviklingen og dekke nettkostnader. Du finner donasjonslenken og OSS-siden (som du ABSOLUTT bør lese) på gfxCardStatus-nettsiden:";
+"DontShowAgain"             = "Ikke vis dette igjen!";
 
 /* Unsupported machine box */
-"UnsupportedMachine"    = "You are using a system that gfxCardStatus does not support. Please ensure that you are using a MacBook Pro with dual GPUs.";
-"OhISee"                = "Oh, I see.";
+"UnsupportedMachine"    = "Du bruker et system som gfxCardStatus ikke støtter. Forsikre deg om at du bruker en MacBook Pro med doble GPU-er.";
+"OhISee"                = "Ok, Jeg forstår.";
 
 /* Miscellaneous notifications */
-"Can'tSwitchToIntegratedOnlySingular" = "You can't switch to Integrated Only while the following item is running:";
-"Can'tSwitchToIntegratedOnlyPlural" = "You can't switch to Integrated Only while the following items are running:";
+"Can'tSwitchToIntegratedOnlySingular" = "Du kan ikke bytte til Kun integrert mens følgende program kjører:";
+"Can'tSwitchToIntegratedOnlyPlural" = "Du kan ikke bytte til Kun integrert mens følgende programmer kjører:";
