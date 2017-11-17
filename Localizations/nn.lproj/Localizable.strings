@@ -1,0 +1,64 @@
+/*
+ Localizable.strings
+ gfxCardStatus
+
+ Created by Sjur Moshagen on 17.10.2017, based on nb translation.
+ Copyright 2012 Sjur Moshagen. All rights reserved.
+ */
+
+/* Main menu */
+"About"					= "Om gfxCardStatus, v%%";
+"Update"				= "Søk etter oppdateringar...";
+"Preferences"			= "Innstillingar...";
+"Card"					= "GPU: %%";
+"SwitchGPUs"			= "Byt GPU";
+"IntegratedOnly"		= "Berre integrert";
+"DiscreteOnly"			= "Berre separat";
+"DynamicSwitching"		= "Dynamisk grafikkveksling";
+"Dependencies"			= "Avhengigheiter";
+"NoProcess"				= "Ingen";
+"Quit"					= "Avslutt";
+"Close"					= "Lat att";
+"PowerSource"           = "Straumkilde: %%";
+"Battery"               = "Batteri";
+"ACAdapter"             = "Straumadapter";
+"VisitWebsite"          = "Gå til nettsida (%%)...";
+
+/* Preferences window */
+"PrefTitle"				= "gfxCardStatus-innstillingar";
+"PrefUpdate"			= "Leit etter oppdateringar ved start";
+"PrefGrowl"				= "Bruk Growl for statusmeldingar";
+"PrefStartup"			= "Start gfxCardStatus ved innlogging";
+"PrefLog"				= "Logg diagnosemeldingar til konsoll";
+"PrefRestoreState"		= "Tilbakestill sist brukte innstilling ved start";
+"PrefPowerSwitching"	= "Baser byte på straumkilde";
+"Integrated"            = "Integrert";
+"Discrete"              = "Separat";
+"Dynamic"               = "Dynamisk";
+"OnBattery"             = "Batteri:";
+"PluggedIn"             = "Straumadapter:";
+"General"               = "Generelt";
+"Switching"             = "Byte";
+"Advanced"              = "Avansert";
+"SmartMenuBarIcons"     = "Bruk smart menylinje-symbol";
+
+/* About box */
+"AboutTitle"			= "Om gfxCardStatus";
+"AboutWebsite"			= "Nettside";
+
+/* Growl */
+"GrowlGPUChanged"       = "GPU endra";
+"GrowlGPUChangedMessage"           = "'%1$@' blir nytta no.";
+
+/* Startup box */
+"ThanksForDownloading"      = "Takk for at du lasta ned gfxCardStatus!";
+"PleaseConsiderDonating"    = "Dersom du tykkjer programmet er nyttig, ver så snill og vurder å donera for å støtta utviklinga og dekkja nettkostnader. Du finn donasjonslenkja og OSS-sida (som du ABSOLUTT bør lesa) på gfxCardStatus-nettsida:";
+"DontShowAgain"             = "Ikkje vis dette igjen!";
+
+/* Unsupported machine box */
+"UnsupportedMachine"    = "Du nyttar eit system som gfxCardStatus ikkje støttar. Forsikre deg om at du nyttar ein MacBook Pro med doble GPU-ar.";
+"OhISee"                = "Ok, eg skjønar.";
+
+/* Miscellaneous notifications */
+"Can'tSwitchToIntegratedOnlySingular" = "Du kan ikkje byta til Berre integrert mens dette programmet køyrer:";
+"Can'tSwitchToIntegratedOnlyPlural" = "Du kan ikkje byta til Berre integrert mens desse programma køyrer:";
