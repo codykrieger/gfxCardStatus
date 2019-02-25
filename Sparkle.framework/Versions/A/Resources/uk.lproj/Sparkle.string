@@ -1,0 +1,95 @@
+/* No comment provided by engineer. */
+"%1$@ %2$@ has been downloaded and is ready to use! Would you like to install it and relaunch %1$@ now?" = "Оновлення %1$@ %2$@ завантажено і готове до використання. Встановити оновлення і перезавантажити %1$@?";
+
+/* No comment provided by engineer. */
+"%1$@ can't be updated when it's running from a read-only volume like a disk image or an optical drive. Move %1$@ to your Applications folder, relaunch it from there, and try again." = "%1$@ не можна оновити, допоки її завантажено з образу диску або іншого джерела, яке доступне тільки для читання. Перемістіть %1$@ в папку Програми, перезавантажте її і спробуйте знову.";
+
+/* No comment provided by engineer. */
+"%@ %@ is currently the newest version available." = "У вас вже встановлено останню версію %1$@ %2$@.";
+
+/* No comment provided by engineer. */
+"%@ %@ is now available--you have %@. Would you like to download it now?" = "Оновлення %1$@ %2$@ доступне для завантаження — у вас встановлено версію %3$@. Хочете завантажити оновлення?";
+
+/* No comment provided by engineer. */
+"%@ downloaded" = "%@ завантажено";
+
+/* No comment provided by engineer. */
+"%@ of %@" = "%1$@ з %2$@";
+
+/* No comment provided by engineer. */
+"A new version of %@ is available!" = "Доступна нова версія %@.";
+
+/* No comment provided by engineer. */
+"A new version of %@ is ready to install!" = "Нова версія %@ готова до встановлення.";
+
+/* No comment provided by engineer. */
+"An error occurred in retrieving update information. Please try again later." = "Під час отримання інформації про оновлення виникла помилка. Спробуйте знову пізніше.";
+
+/* No comment provided by engineer. */
+"An error occurred while downloading the update. Please try again later." = "Під час завантаження оновлення виникла помилка. Спробуйте знову пізніше.";
+
+/* No comment provided by engineer. */
+"An error occurred while extracting the archive. Please try again later." = "Під час розпакування архіву виникла помилка. Спробуйте знову пізніше.";
+
+/* No comment provided by engineer. */
+"An error occurred while installing the update. Please try again later." = "Під час встановлення оновлення виникла помилка. Спробуйте знову пізніше.";
+
+/* No comment provided by engineer. */
+"An error occurred while parsing the update feed." = "Під час опрацювання інформації про оновлення виникла помилка.";
+
+/* No comment provided by engineer. */
+"An error occurred while relaunching %1$@, but the new version will be available next time you run %1$@." = "Під час перезавантаження %1$@ виникла помилка. Оновлення буде встановлено під час наступного завантаження %1$@.";
+
+/* the unit for bytes */
+"B" = "б";
+
+/* No comment provided by engineer. */
+"Cancel" = "Скасувати";
+
+/* No comment provided by engineer. */
+"Cancel Update" = "Скасувати оновлення";
+
+/* No comment provided by engineer. */
+"Checking for updates..." = "Оновлення...";
+
+/* No comment provided by engineer. */
+"Downloading update..." = "Завантаження оновлення...";
+
+/* No comment provided by engineer. */
+"Extracting update..." = "Розпакування оновлення...";
+
+/* the unit for gigabytes */
+"GB" = "Гб";
+
+/* No comment provided by engineer. */
+"Install and Relaunch" = "Встановити і перезавантажити";
+
+/* No comment provided by engineer. */
+"Installing update..." = "Встановлюється оновлення...";
+
+/* the unit for kilobytes */
+"KB" = "Кб";
+
+/* the unit for megabytes */
+"MB" = "Мб";
+
+/* No comment provided by engineer. */
+"OK" = "ОК";
+
+/* No comment provided by engineer. */
+"Ready to Install" = "Готово до встановлення";
+
+/* No comment provided by engineer. */
+"Should %1$@ automatically check for updates? You can always check for updates manually from the %1$@ menu." = "Перевіряти оновлення для %1$@ автоматично? Ви завжди можете перевірити наявність оновлень через меню програми.";
+
+/* No comment provided by engineer. */
+"Update Error!" = "Помилка оновлення.";
+
+/* No comment provided by engineer. */
+"Updating %@" = "Оновлюю %@";
+
+/* No comment provided by engineer. */
+"You already have the newest version of %@." = "У вас вже встановлена остання версія %@.";
+
+/* No comment provided by engineer. */
+"You're up to date!" = "У вас встановлена остання версія.";

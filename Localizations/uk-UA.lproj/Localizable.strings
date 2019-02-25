@@ -1,48 +1,66 @@
-/* 
+/*
  Localizable.strings
  gfxCardStatus
  
  Created by Sergey Tatarenkov (sergey (at) tatarenkov.name) on 27.05.11.
  Copyright 2011 Sergey Tatarenkov. All rights reserved.
+ Updated by Taras (Telegram: @tarasyyyk) on 10.01.2019.
  */
 
 /* Main menu */
-"About"					= "О gfxCardStatus, v%%";
-"Update"				= "Перевіряти оновлення...";
-"Preferences"			= "Налаштування...";
-"SwitchGPUs"			= "Змінити GPU";
-"IntegratedOnly"		= "Тільки інтегрована";
-"DiscreteOnly"			= "Тільки дискретна";
-"DynamicSwitching"		= "Динамична зміна";
-"Dependencies"			= "Залежності";
-"NoProcess"				= "Немає";
-"Quit"					= "Вийти";
-"Close"					= "Карамба!";
+"About"                 = "Про програму gfxCardStatus, v%%";
+"Update"                = "Перевірити оновлення";
+"Preferences"           = "Налаштування";
+"Card"                  = "GPU: %%";
+"SwitchGPUs"            = "Переключити GPU";
+"IntegratedOnly"        = "Тільки інтегрована";
+"DiscreteOnly"          = "Тільки дискретна";
+"DynamicSwitching"      = "Динамичне переключення";
+"Dependencies"          = "Дискретна GPU використовується через:";
+"NoProcess"             = "Немає";
+"Quit"                  = "Вийти";
+"Close"                 = "Закрити!";
 "PowerSource"           = "Джерело живлення: %%";
 "Battery"               = "Акумулятор";
-"ACAdapter"             = "Адаптер";
+"ACAdapter"             = "Блок живлення";
+"VisitWebsite"          = "Відвідати сайт (%%)";
 
 /* Preferences window */
-"PrefTitle"				= "gfxCardStatus налаштування";
-"PrefUpdate"			= "Перевіряти оновлення при запуску";
-"PrefGrowl"				= "Викорістовувати Growl для повідомлення про зміну статусу";
-"PrefStartup"			= "Запускати gfxCardStatus при завантаженні системи";
-"PrefLog"				= "Вести журнал у консолі";
-"PrefRestoreState"		= "Відновлювати останній використовуваний режим при завантаженні системи";
-"PrefPowerSwitching"	= "Використовувати режим в залежнорсті від джерела живлення";
-"Integrated"            = "Інтегрирована";
+"PrefTitle"             = "Налаштування програми";
+"PrefUpdate"            = "Перевіряти оновлення при запуску програми";
+"PrefGrowl"             = "Використовувати сповіщення Growl для повідомлення про зміну статусу";
+"PrefStartup"           = "Запускати gfxCardStatus при завантаженні системи";
+"PrefLog"               = "Записувати діагностичні повідомлення в консоль";
+"PrefRestoreState"      = "Запам'ятовувати використовувану відеокарту при виході";
+"PrefPowerSwitching"    = "Переключати відеокарту в залежності від джерела живлення";
+"Integrated"            = "Інтегрована";
 "Discrete"              = "Дискретна";
 "Dynamic"               = "Динамічно";
 "OnBattery"             = "Від акумулятора:";
-"PluggedIn"             = "Від адаптера:";
-"General"               = "General";
-"Switching"             = "Switching";
-"SmartMenuBarIcons"     = "Use smart menu bar icons";
+"PluggedIn"             = "Від блоку живлення:";
+"General"               = "Загальні";
+"Switching"             = "Перемикання";
+"Advanced"              = "Додаткові";
+"SmartMenuBarIcons"     = "Використовувати розумні іконки в рядку меню";
 
 /* About box */
-"AboutTitle"			= "О gfxCardStatus";
-"AboutWebsite"			= "Сайт";
+"AboutTitle"            = "Про програму gfxCardStatus";
+"AboutWebsite"          = "Сайт";
 
 /* Growl */
-"GrowlGPUChanged"       = "GPU змінен";
-"GrowlGPUChangedMessage"           = "'%1$@' використовується.";
+"GrowlGPUChanged"        = "GPU змінено";
+"GrowlGPUChangedMessage" = "Використовується '%1$@'";
+
+/* Startup box */
+"ThanksForDownloading"   = "Дякуємо, що завантажили gfxCardStatus!";
+"PleaseConsiderDonating" = "Якщо ви вважаєте, що ця програма корисна, перегляньте можливість пожертвування для підтримки розробника. Ви знайдете посилання на сторінку для пожертвувань та ЧАПів (яку ДУЖЕ рекомендується прочитати) на сайті gfxCardStatus:";
+"DontShowAgain"          = "Більше не показувати!";
+
+/* Unsupported machine box */
+"UnsupportedMachine"    = "Ви використовуєте систему, яку gfxCardStatus не підтримує. Будь ласка, переконайтеся, що ви використовуєте MacBook з двома відеокартами (моделі з 15' екраном).";
+"OhISee"                = "Зрозуміло.";
+
+/* Miscellaneous notifications */
+"Can'tSwitchToIntegratedOnlySingular" = "Ви не можете переключитися на інтегровану відеокарту, допоки працює:";
+"Can'tSwitchToIntegratedOnlyPlural"   = "Ви не можете переключитися на інтегровану відеокарту, допоки працюють:";
+"Why?"                                = "Чому?";
