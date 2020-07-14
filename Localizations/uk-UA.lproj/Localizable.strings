@@ -15,7 +15,7 @@
 "SwitchGPUs"            = "Переключити GPU";
 "IntegratedOnly"        = "Тільки інтегрована";
 "DiscreteOnly"          = "Тільки дискретна";
-"DynamicSwitching"      = "Динамичне переключення";
+"DynamicSwitching"      = "Динамічне переключення";
 "Dependencies"          = "Дискретна GPU використовується через:";
 "NoProcess"             = "Немає";
 "Quit"                  = "Вийти";
