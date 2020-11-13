@@ -331,6 +331,7 @@
     double baselineOffset = 2.0;
     NSProcessInfo* processInfo = [NSProcessInfo processInfo];
     
+    // [NSProcessInfo operatingSystemVersion] is only available since macOS 10.10
     if ([processInfo respondsToSelector:@selector(operatingSystemVersion)]) {
         NSOperatingSystemVersion systemVersion = [processInfo operatingSystemVersion];
         // 10.16 is for backward compatibility targeting 10.x SDK
