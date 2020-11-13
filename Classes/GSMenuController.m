@@ -327,9 +327,22 @@
                                               weight:0
                                                 size:fontSize];
 
+    // Quick fix for menubar icon offset in macOS Big Sur
+    double baselineOffset = 2.0;
+    NSProcessInfo* processInfo = [NSProcessInfo processInfo];
+    
+    // [NSProcessInfo operatingSystemVersion] is only available since macOS 10.10
+    if ([processInfo respondsToSelector:@selector(operatingSystemVersion)]) {
+        NSOperatingSystemVersion systemVersion = [processInfo operatingSystemVersion];
+        // 10.16 is for backward compatibility targeting 10.x SDK
+        if (systemVersion.majorVersion >= 11 || (systemVersion.majorVersion >= 10 && systemVersion.minorVersion >= 16)) {
+            baselineOffset = -1.0;
+        }
+    }
+    
     NSDictionary *attributes = [[NSDictionary alloc] initWithObjectsAndKeys:
-                                boldItalic, NSFontAttributeName, 
-                                [NSNumber numberWithDouble:2.0], NSBaselineOffsetAttributeName, nil];
+                                boldItalic, NSFontAttributeName,
+                                [NSNumber numberWithDouble:baselineOffset], NSBaselineOffsetAttributeName, nil];
     NSAttributedString *title = [[NSAttributedString alloc] 
                                  initWithString:letter
                                  attributes:attributes];
