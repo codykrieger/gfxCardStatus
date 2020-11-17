@@ -1,4 +1,5 @@
 # gfxCardStatus
+
 by Cody Krieger
 
 gfxCardStatus is an open-source menu bar application for OS X that allows users
@@ -6,23 +7,8 @@ of dual GPU MacBook Pros to monitor the status of, and switch between said GPUs.
 
 ## Building from source
 
-In order to successfully build gfxCardStatus, you've got to have its submodules
-(namely ReactiveCocoa) cheked out.
-
-Either:
-
-```
-git clone --recursive git://github.com/codykrieger/gfxCardStatus.git
-```
-
-Or, if you've already got the repo cloned:
-
-```
-cd /path/to/gfxCardStatus
-git submodule update --init --recursive
-```
-
-Then just open up the Xcode project, build it, and you're ready to go.
+Building is easy. Open up `gfxCardStatus.xcworkspace` (**not**
+`gfxCardStatus.xcodeproj`), hit ⌘B, and away you go.
 
 ## License
 
