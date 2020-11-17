@@ -66,6 +66,7 @@
 		0BF00D4925640EAE004C430E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		0BF00D4A25640EAE004C430E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		0BFCB547256416EC00875EF8 /* gfxCardStatus.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = gfxCardStatus.entitlements; sourceTree = "<group>"; };
+		0BFCB5712564240400875EF8 /* gfxCardStatusDebug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = gfxCardStatusDebug.entitlements; sourceTree = "<group>"; };
 		1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
 		13E42FB307B3F0F600E4EEF1 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
 		1954B85F00E60ECFBBBBAC4C /* Pods-gfxCardStatus.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-gfxCardStatus.debug.xcconfig"; path = "Pods/Target Support Files/Pods-gfxCardStatus/Pods-gfxCardStatus.debug.xcconfig"; sourceTree = "<group>"; };
@@ -307,6 +308,7 @@
 			isa = PBXGroup;
 			children = (
 				0BFCB547256416EC00875EF8 /* gfxCardStatus.entitlements */,
+				0BFCB5712564240400875EF8 /* gfxCardStatusDebug.entitlements */,
 				A161687E158E0E370063BE94 /* LICENSE */,
 				8D1107310486CEB800E47090 /* gfxCardStatus-Info.plist */,
 				089C165CFE840E0CC02AAC07 /* InfoPlist.strings */,
@@ -559,12 +561,12 @@
 			baseConfigurationReference = 1954B85F00E60ECFBBBBAC4C /* Pods-gfxCardStatus.debug.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_ENTITLEMENTS = gfxCardStatus.entitlements;
-				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_ENTITLEMENTS = gfxCardStatusDebug.entitlements;
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = LF22FTQC25;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_HARDENED_RUNTIME = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
