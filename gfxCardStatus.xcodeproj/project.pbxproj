@@ -44,10 +44,6 @@
 		A1ED2D1B158859DE00B99CDE /* GSStartup.m in Sources */ = {isa = PBXBuildFile; fileRef = A1ED2D1A158859DE00B99CDE /* GSStartup.m */; };
 		A1ED2D1F15885D6A00B99CDE /* GSNotifier.m in Sources */ = {isa = PBXBuildFile; fileRef = A1ED2D1E15885D6900B99CDE /* GSNotifier.m */; };
 		A1ED2D22158860FB00B99CDE /* GSMenuController.m in Sources */ = {isa = PBXBuildFile; fileRef = A1ED2D21158860FA00B99CDE /* GSMenuController.m */; };
-		A1F7ED4C14B0409300328A83 /* GTMLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = A1F7ED4914B0409300328A83 /* GTMLogger.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		A1F7ED4E14B0409300328A83 /* GTMLoggerRingBufferWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = A1F7ED4B14B0409300328A83 /* GTMLoggerRingBufferWriter.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		A1F7ED5114B0410E00328A83 /* ReleaseNotes.txt in Resources */ = {isa = PBXBuildFile; fileRef = A1F7ED5014B0410E00328A83 /* ReleaseNotes.txt */; };
-		A1F7ED5314B0413900328A83 /* COPYING in Resources */ = {isa = PBXBuildFile; fileRef = A1F7ED5214B0413900328A83 /* COPYING */; };
 		B0B4BBF0FB799EA1787A5375 /* libPods-gfxCardStatus.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6217969E451FCA311515DB28 /* libPods-gfxCardStatus.a */; };
 /* End PBXBuildFile section */
 
@@ -150,14 +146,6 @@
 		A1ED2D20158860F900B99CDE /* GSMenuController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GSMenuController.h; sourceTree = "<group>"; };
 		A1ED2D21158860FA00B99CDE /* GSMenuController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GSMenuController.m; sourceTree = "<group>"; };
 		A1F4FB0F13C6D58B002D38D5 /* cs */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = cs; path = cs.lproj/Localizable.strings; sourceTree = "<group>"; };
-		A1F7ED4414B0405B00328A83 /* GTMDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMDefines.h; sourceTree = "<group>"; };
-		A1F7ED4614B0407200328A83 /* GTMLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMLogger.h; sourceTree = "<group>"; };
-		A1F7ED4814B0407900328A83 /* GTMLoggerRingBufferWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMLoggerRingBufferWriter.h; sourceTree = "<group>"; };
-		A1F7ED4914B0409300328A83 /* GTMLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTMLogger.m; sourceTree = "<group>"; };
-		A1F7ED4B14B0409300328A83 /* GTMLoggerRingBufferWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTMLoggerRingBufferWriter.m; sourceTree = "<group>"; };
-		A1F7ED4F14B040B200328A83 /* GTMGarbageCollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMGarbageCollection.h; sourceTree = "<group>"; };
-		A1F7ED5014B0410E00328A83 /* ReleaseNotes.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ReleaseNotes.txt; sourceTree = "<group>"; };
-		A1F7ED5214B0413900328A83 /* COPYING */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = COPYING; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -180,7 +168,6 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				A1F7ED4314B0403700328A83 /* Google Toolbox for Mac */,
 				A1CCE1FC12B13CC1006D07A4 /* Categories */,
 				A11599C813D42A3D0097E4BC /* Preferences */,
 				A11599CA13D42A720097E4BC /* System Utils */,
@@ -355,21 +342,6 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		A1F7ED4314B0403700328A83 /* Google Toolbox for Mac */ = {
-			isa = PBXGroup;
-			children = (
-				A1F7ED4F14B040B200328A83 /* GTMGarbageCollection.h */,
-				A1F7ED4414B0405B00328A83 /* GTMDefines.h */,
-				A1F7ED4614B0407200328A83 /* GTMLogger.h */,
-				A1F7ED4814B0407900328A83 /* GTMLoggerRingBufferWriter.h */,
-				A1F7ED4914B0409300328A83 /* GTMLogger.m */,
-				A1F7ED4B14B0409300328A83 /* GTMLoggerRingBufferWriter.m */,
-				A1F7ED5214B0413900328A83 /* COPYING */,
-				A1F7ED5014B0410E00328A83 /* ReleaseNotes.txt */,
-			);
-			path = "Google Toolbox for Mac";
-			sourceTree = "<group>";
-		};
 		F3EBB20E1B4F0046610C342A /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -470,8 +442,6 @@
 				A14B9EAB13C5613F009A761C /* Credits.rtf in Resources */,
 				A11599C613D429860097E4BC /* AdvancedPreferencesView.xib in Resources */,
 				A11599C713D429860097E4BC /* GeneralPreferencesView.xib in Resources */,
-				A1F7ED5114B0410E00328A83 /* ReleaseNotes.txt in Resources */,
-				A1F7ED5314B0413900328A83 /* COPYING in Resources */,
 				A161687F158E0E380063BE94 /* LICENSE in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -525,8 +495,6 @@
 				A11599BE13D429750097E4BC /* AdvancedPreferencesViewController.m in Sources */,
 				A11599BF13D429750097E4BC /* GeneralPreferencesViewController.m in Sources */,
 				A11599C013D429750097E4BC /* PreferencesWindowController.m in Sources */,
-				A1F7ED4C14B0409300328A83 /* GTMLogger.m in Sources */,
-				A1F7ED4E14B0409300328A83 /* GTMLoggerRingBufferWriter.m in Sources */,
 				A1ED2B9F1588457400B99CDE /* GSGPU.m in Sources */,
 				A1ED2D1B158859DE00B99CDE /* GSStartup.m in Sources */,
 				A1ED2D1F15885D6A00B99CDE /* GSNotifier.m in Sources */,

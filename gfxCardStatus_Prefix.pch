@@ -4,7 +4,20 @@
 
 #ifdef __OBJC__
     #import <Cocoa/Cocoa.h>
-    #import "GTMLogger.h"
+
+    #define GTMLoggerDebug(...) do {} while(0)
+//      [[GTMLogger sharedLogger] logFuncDebug:__func__ msg:__VA_ARGS__]
+    #define GTMLoggerInfo(...) do {} while(0)
+//      [[GTMLogger sharedLogger] logFuncInfo:__func__ msg:__VA_ARGS__]
+    #define GTMLoggerError(...) do {} while(0)
+//      [[GTMLogger sharedLogger] logFuncError:__func__ msg:__VA_ARGS__]
+    #define GTMLoggerAssert(...) do {} while(0)
+//      [[GTMLogger sharedLogger] logFuncAssert:__func__ msg:__VA_ARGS__]
+
+    #ifndef DEBUG
+    #undef GTMLoggerDebug
+    #define GTMLoggerDebug(...) do {} while(0)
+    #endif
 
     #define Str(key) NSLocalizedString(key, key)
 
