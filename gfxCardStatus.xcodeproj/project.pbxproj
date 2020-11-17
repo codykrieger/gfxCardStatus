@@ -410,6 +410,14 @@
 				ro,
 				nb,
 				ja,
+				ru,
+				"uk-UA",
+				sk,
+				cs,
+				"pt-PT",
+				"pt-BR",
+				fi,
+				ko,
 			);
 			mainGroup = 29B97314FDCFA39411CA2CEA /* gfxCardStatus */;
 			projectDirPath = "";
