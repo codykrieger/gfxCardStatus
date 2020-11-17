@@ -5,14 +5,9 @@
 #ifdef __OBJC__
     #import <Cocoa/Cocoa.h>
 
-    #define GTMLoggerDebug(...) do {} while(0)
-//      [[GTMLogger sharedLogger] logFuncDebug:__func__ msg:__VA_ARGS__]
-    #define GTMLoggerInfo(...) do {} while(0)
-//      [[GTMLogger sharedLogger] logFuncInfo:__func__ msg:__VA_ARGS__]
-    #define GTMLoggerError(...) do {} while(0)
-//      [[GTMLogger sharedLogger] logFuncError:__func__ msg:__VA_ARGS__]
-    #define GTMLoggerAssert(...) do {} while(0)
-//      [[GTMLogger sharedLogger] logFuncAssert:__func__ msg:__VA_ARGS__]
+    #define GTMLoggerDebug(msg, ...) NSLog(@"dbg: " msg, ## __VA_ARGS__)
+    #define GTMLoggerInfo(msg, ...) NSLog(@"info: " msg, ## __VA_ARGS__)
+    #define GTMLoggerError(msg, ...) NSLog(@"err: " msg, ## __VA_ARGS__)
 
     #ifndef DEBUG
     #undef GTMLoggerDebug
