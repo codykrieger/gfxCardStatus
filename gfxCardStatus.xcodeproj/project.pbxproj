@@ -64,6 +64,7 @@
 		0BF00D4825640EAE004C430E /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/GeneralPreferencesView.xib; sourceTree = "<group>"; };
 		0BF00D4925640EAE004C430E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		0BF00D4A25640EAE004C430E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		0BFCB547256416EC00875EF8 /* gfxCardStatus.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = gfxCardStatus.entitlements; sourceTree = "<group>"; };
 		1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
 		13E42FB307B3F0F600E4EEF1 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
 		1954B85F00E60ECFBBBBAC4C /* Pods-gfxCardStatus.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-gfxCardStatus.debug.xcconfig"; path = "Pods/Target Support Files/Pods-gfxCardStatus/Pods-gfxCardStatus.debug.xcconfig"; sourceTree = "<group>"; };
@@ -198,6 +199,7 @@
 		29B97314FDCFA39411CA2CEA /* gfxCardStatus */ = {
 			isa = PBXGroup;
 			children = (
+				0BFCB547256416EC00875EF8 /* gfxCardStatus.entitlements */,
 				080E96DDFE201D6D7F000001 /* Classes */,
 				A1ED2B331585847600B99CDE /* Supporting Files */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
@@ -556,9 +558,11 @@
 			baseConfigurationReference = 1954B85F00E60ECFBBBBAC4C /* Pods-gfxCardStatus.debug.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGN_ENTITLEMENTS = gfxCardStatus.entitlements;
 				CODE_SIGN_IDENTITY = "-";
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_HARDENED_RUNTIME = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
@@ -582,9 +586,13 @@
 			baseConfigurationReference = 47382E47D3515DA628166AFB /* Pods-gfxCardStatus.release.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGN_ENTITLEMENTS = gfxCardStatus.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = LF22FTQC25;
+				ENABLE_HARDENED_RUNTIME = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
@@ -603,6 +611,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.codykrieger.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = gfxCardStatus;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 			};
 			name = Release;
 		};
