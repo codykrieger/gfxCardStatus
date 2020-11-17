@@ -1,6 +1,6 @@
 #!/usr/bin/ruby
 if ARGV.length < 2
-  puts "Usage: ruby sign_update.rb update_archive private_key"
+  puts "Usage: #{$0} update_archive private_key"
   exit
 end
 
