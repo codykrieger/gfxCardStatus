@@ -17,7 +17,6 @@
 		A11599C013D429750097E4BC /* PreferencesWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = A11599BD13D429750097E4BC /* PreferencesWindowController.m */; };
 		A11599C613D429860097E4BC /* AdvancedPreferencesView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A11599C213D429860097E4BC /* AdvancedPreferencesView.xib */; };
 		A11599C713D429860097E4BC /* GeneralPreferencesView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A11599C413D429860097E4BC /* GeneralPreferencesView.xib */; };
-		A12AACD1158B1EEC00CD140F /* Growl.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = A1B9412B15899CFD000EE7A7 /* Growl.framework */; };
 		A12AACD3158C9DE100CD140F /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A12AACD2158C9DE100CD140F /* QuartzCore.framework */; };
 		A13C5FC0119FCFCF00E678FA /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = A13C5FBE119FCFCF00E678FA /* Localizable.strings */; };
 		A14B9EA013C55A33009A761C /* discrete-a-white.png in Resources */ = {isa = PBXBuildFile; fileRef = A14B9E9E13C55A33009A761C /* discrete-a-white.png */; };
@@ -32,12 +31,9 @@
 		A159E4FC1184EC5100E68428 /* Sparkle.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = A159E4E91184E84300E68428 /* Sparkle.framework */; };
 		A161687F158E0E380063BE94 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = A161687E158E0E370063BE94 /* LICENSE */; };
 		A16B28F41196B0E7006EB263 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = A16B28F31196B0E7006EB263 /* README.md */; };
-		A17220A91236DA8A00636797 /* Growl Registration Ticket.growlRegDict in Resources */ = {isa = PBXBuildFile; fileRef = A17220981236DA0B00636797 /* Growl Registration Ticket.growlRegDict */; };
-		A17221841236DE4200636797 /* Growl License.txt in Resources */ = {isa = PBXBuildFile; fileRef = A17221831236DE4200636797 /* Growl License.txt */; };
 		A17CE49A13B07C3700E5D50F /* GSProcess.m in Sources */ = {isa = PBXBuildFile; fileRef = A17CE49913B07C3700E5D50F /* GSProcess.m */; };
 		A17CE49E13B081DE00E5D50F /* GSMux.m in Sources */ = {isa = PBXBuildFile; fileRef = A17CE49D13B081DE00E5D50F /* GSMux.m */; };
 		A1A3A6F9118214E2008B8145 /* integrated-i.png in Resources */ = {isa = PBXBuildFile; fileRef = A1A3A6F8118214E2008B8145 /* integrated-i.png */; };
-		A1B9412C15899CFD000EE7A7 /* Growl.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A1B9412B15899CFD000EE7A7 /* Growl.framework */; };
 		A1CCE20012B13CE4006D07A4 /* NSAttributedString+Hyperlink.m in Sources */ = {isa = PBXBuildFile; fileRef = A1CCE1FF12B13CE4006D07A4 /* NSAttributedString+Hyperlink.m */; };
 		A1D6AC5D11826BF00038AD1A /* discrete-n.png in Resources */ = {isa = PBXBuildFile; fileRef = A1D6AC5C11826BF00038AD1A /* discrete-n.png */; };
 		A1D9C42011850DEF009A4DE1 /* dsa_pub.pem in Resources */ = {isa = PBXBuildFile; fileRef = A1D9C41F11850DEF009A4DE1 /* dsa_pub.pem */; };
@@ -63,7 +59,6 @@
 			dstSubfolderSpec = 10;
 			files = (
 				A159E4FC1184EC5100E68428 /* Sparkle.framework in CopyFiles */,
-				A12AACD1158B1EEC00CD140F /* Growl.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -123,8 +118,6 @@
 		A159E4E91184E84300E68428 /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Sparkle.framework; sourceTree = "<group>"; };
 		A161687E158E0E370063BE94 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		A16B28F31196B0E7006EB263 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
-		A17220981236DA0B00636797 /* Growl Registration Ticket.growlRegDict */ = {isa = PBXFileReference; explicitFileType = text.plist.xml; fileEncoding = 4; path = "Growl Registration Ticket.growlRegDict"; sourceTree = "<group>"; };
-		A17221831236DE4200636797 /* Growl License.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Growl License.txt"; sourceTree = "<group>"; };
 		A17CE49813B07C3700E5D50F /* GSProcess.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GSProcess.h; sourceTree = "<group>"; };
 		A17CE49913B07C3700E5D50F /* GSProcess.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GSProcess.m; sourceTree = "<group>"; };
 		A17CE49C13B081DE00E5D50F /* GSMux.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GSMux.h; sourceTree = "<group>"; };
@@ -177,7 +170,6 @@
 				A159E4EA1184E84300E68428 /* Sparkle.framework in Frameworks */,
 				A1E07D581194B42100683B07 /* IOKit.framework in Frameworks */,
 				A1E07E111194B42B00683B07 /* ApplicationServices.framework in Frameworks */,
-				A1B9412C15899CFD000EE7A7 /* Growl.framework in Frameworks */,
 				B0B4BBF0FB799EA1787A5375 /* libPods-gfxCardStatus.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -358,8 +350,6 @@
 				29B97316FDCFA39411CA2CEA /* main.m */,
 				A14B9EAA13C5613F009A761C /* Credits.rtf */,
 				A16B28F31196B0E7006EB263 /* README.md */,
-				A17221831236DE4200636797 /* Growl License.txt */,
-				A17220981236DA0B00636797 /* Growl Registration Ticket.growlRegDict */,
 				A13C5FBE119FCFCF00E678FA /* Localizable.strings */,
 			);
 			name = "Supporting Files";
@@ -471,8 +461,6 @@
 				A1D9C43A11851B77009A4DE1 /* gfxCardStatus.icns in Resources */,
 				A16B28F41196B0E7006EB263 /* README.md in Resources */,
 				A13C5FC0119FCFCF00E678FA /* Localizable.strings in Resources */,
-				A17220A91236DA8A00636797 /* Growl Registration Ticket.growlRegDict in Resources */,
-				A17221841236DE4200636797 /* Growl License.txt in Resources */,
 				A14C17F7124EBBFA00816A4A /* discrete-d-white.png in Resources */,
 				A14C17F8124EBBFA00816A4A /* discrete-d.png in Resources */,
 				A14C17FB124EBC1100816A4A /* integrated-i-white.png in Resources */,
