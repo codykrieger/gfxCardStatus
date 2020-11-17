@@ -30,8 +30,6 @@
 
 @implementation GSMenuController
 
-@synthesize delegate;
-
 @synthesize statusMenu;
 
 @synthesize versionItem;

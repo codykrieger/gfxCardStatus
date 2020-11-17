@@ -9,18 +9,12 @@
 #import "PreferencesWindowController.h"
 #import "GSPreferences.h"
 
-@protocol GSMenuControllerDelegate <NSObject>
-- (void)something;
-@end
-
 @interface GSMenuController : NSObject <NSMenuDelegate> {
     NSStatusItem *_statusItem;
     
     GSPreferences *_prefs;
     PreferencesWindowController *_preferencesWindowController;
 }
-
-@property (unsafe_unretained) id<GSMenuControllerDelegate> delegate;
 
 // the menu
 @property (strong) IBOutlet NSMenu *statusMenu;
