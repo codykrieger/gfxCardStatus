@@ -39,8 +39,6 @@ typedef enum {
 - (void)setBool:(BOOL)value forKey:(NSString *)key;
 - (BOOL)boolForKey:(NSString *)key;
 
-- (void)savePreferences;
-
 + (GSPreferences *)sharedInstance;
 
 @end

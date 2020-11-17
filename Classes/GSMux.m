@@ -131,15 +131,6 @@ static BOOL setFeatureInfo(io_connect_t connect, muxFeature feature, BOOL enable
     return setMuxState(connect, enabled ? muxEnableFeature : muxDisableFeature, 1<<feature);
 }
 
-static BOOL getFeatureInfo(io_connect_t connect, muxFeature feature)
-{
-    uint64_t featureInfo = 0;
-    if (!getMuxState(connect, muxFeatureInfo, &featureInfo))
-        return 0;
-    
-    return ((1 << feature) & featureInfo) ? YES : NO;
-}
-
 static void setSwitchPolicy(io_connect_t connect, BOOL dynamic)
 {
     // arg = 2: user needs to logout before switching, arg = 0: instant switching
@@ -159,6 +150,17 @@ static void forceSwitch(io_connect_t connect)
 }
 
 // --------------------------------------------------------------
+
+#if 0
+
+static BOOL getFeatureInfo(io_connect_t connect, muxFeature feature)
+{
+    uint64_t featureInfo = 0;
+    if (!getMuxState(connect, muxFeatureInfo, &featureInfo))
+        return 0;
+
+    return ((1 << feature) & featureInfo) ? YES : NO;
+}
 
 static char *getFeatureName(muxFeature feature)
 {
@@ -236,6 +238,8 @@ static void dumpState(io_connect_t connect)
     else
         GTMLoggerDebug(@"setExclusive returned 0x%08x.", kernResult);
 }
+
+#endif // 0
 
 @implementation GSMux
 

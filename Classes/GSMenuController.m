@@ -92,15 +92,15 @@
     [RACAble(self.menuIsOpen) subscribeNext:^(id x) {
         GTMLoggerDebug(@"Menu open: %@", x);
         
-        if (_prefs.shouldUseImageIcons) {
-            NSString *imageName = _statusItem.image.name;
+        if (self->_prefs.shouldUseImageIcons) {
+            NSString *imageName = self->_statusItem.image.name;
             
             if ([x boolValue])
                 imageName = [imageName stringByAppendingString:kImageIconOpenSuffix];
             else
                 imageName = [imageName stringByReplacingOccurrencesOfString:kImageIconOpenSuffix withString:@""];
             
-            [_statusItem setImage:[NSImage imageNamed:imageName]];
+            [self->_statusItem setImage:[NSImage imageNamed:imageName]];
         }
     }];
     
