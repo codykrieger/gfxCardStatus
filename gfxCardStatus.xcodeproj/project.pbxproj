@@ -123,7 +123,6 @@
 		A1AD1113168B06BC00E4A8EE /* ro */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ro; path = ro.lproj/Localizable.strings; sourceTree = "<group>"; };
 		A1AD1114168B096700E4A8EE /* nb */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nb; path = nb.lproj/Localizable.strings; sourceTree = "<group>"; };
 		A1AD1115168B0A5D00E4A8EE /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
-		A1B9412B15899CFD000EE7A7 /* Growl.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Growl.framework; sourceTree = "<group>"; };
 		A1B941671589D85A000EE7A7 /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		A1CCE1FE12B13CE4006D07A4 /* NSAttributedString+Hyperlink.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSAttributedString+Hyperlink.h"; sourceTree = "<group>"; };
 		A1CCE1FF12B13CE4006D07A4 /* NSAttributedString+Hyperlink.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSAttributedString+Hyperlink.m"; sourceTree = "<group>"; };
@@ -186,7 +185,6 @@
 			isa = PBXGroup;
 			children = (
 				A12AACD2158C9DE100CD140F /* QuartzCore.framework */,
-				A1B9412B15899CFD000EE7A7 /* Growl.framework */,
 				A159E4E91184E84300E68428 /* Sparkle.framework */,
 				1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */,
 				A1E07D571194B42100683B07 /* IOKit.framework */,
