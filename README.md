@@ -28,7 +28,7 @@ Then just open up the Xcode project, build it, and you're ready to go.
 
 Licensed under the New BSD License.
 
-Copyright (c) 2010-2012, Cody Krieger
+Copyright (c) 2010-2020, Cody Krieger
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
