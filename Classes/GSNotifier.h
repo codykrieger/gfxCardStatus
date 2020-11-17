@@ -7,9 +7,8 @@
 //
 
 #import "GSGPU.h"
-#import <Growl/Growl.h>
 
-@interface GSNotifier : NSObject<GrowlApplicationBridgeDelegate>
+@interface GSNotifier : NSObject
 
 + (GSNotifier *)sharedInstance;
 

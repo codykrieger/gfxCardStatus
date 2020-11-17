@@ -59,6 +59,7 @@
     for (NSButton *loc in localizedButtons)
         [loc setTitle:Str([loc title])];
 
+    // FIXME: This logic and the associated checkbox can go away now that we don't support Growl.
     if ([GSNotifier notificationCenterIsAvailable]) {
         [prefChkGrowl setHidden:YES];
 

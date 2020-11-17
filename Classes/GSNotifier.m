@@ -69,14 +69,6 @@ static NSString *_lastMessage = nil;
             notification.title = title;
             notification.informativeText = message;
             [[NSUserNotificationCenter defaultUserNotificationCenter] scheduleNotification:notification];
-        } else {
-            [GrowlApplicationBridge notifyWithTitle:title
-                                        description:message
-                                   notificationName:key
-                                           iconData:nil
-                                           priority:0
-                                           isSticky:NO
-                                       clickContext:nil];
         }
         
         _lastMessage = message;
@@ -129,15 +121,6 @@ static NSString *_lastMessage = nil;
 + (BOOL)notificationCenterIsAvailable
 {
     return !!NSClassFromString(@"NSUserNotification");
-}
-
-#pragma mark - GrowlApplicationBridgeDelegate protocol
-
-- (NSDictionary *)registrationDictionaryForGrowl
-{
-    return [NSDictionary dictionaryWithContentsOfFile:
-            [[NSBundle mainBundle] pathForResource:@"Growl Registration Ticket" 
-                                            ofType:@"growlRegDict"]];
 }
 
 #pragma mark - NSUserNotificationCenterDelegate protocol

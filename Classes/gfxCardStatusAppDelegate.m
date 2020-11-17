@@ -83,10 +83,6 @@
         [_prefs setBool:YES forKey:kHasSeenOneTimeNotificationKey];
     }
 
-    // If we're not on 10.8+, fall back to Growl for notifications.
-    if (![GSNotifier notificationCenterIsAvailable])
-        [GrowlApplicationBridge setGrowlDelegate:[GSNotifier sharedInstance]];
-
     // Hook up the check for updates on startup preference directly to the
     // automaticallyChecksForUpdates property on the SUUpdater.
     updater.automaticallyChecksForUpdates = _prefs.shouldCheckForUpdatesOnStartup;
