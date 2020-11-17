@@ -11,7 +11,7 @@
 	<key>CFBundleIconFile</key>
 	<string>gfxCardStatus.icns</string>
 	<key>CFBundleIdentifier</key>
-	<string>com.codykrieger.${PRODUCT_NAME:rfc1034identifier}</string>
+	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
@@ -30,27 +30,27 @@
 	<string>${MACOSX_DEPLOYMENT_TARGET}</string>
 	<key>LSUIElement</key>
 	<true/>
+	<key>NSHumanReadableCopyright</key>
+	<string>Copyright © 2010-2020 Cody Krieger and contributors.</string>
 	<key>NSMainNibFile</key>
 	<string>MainMenu</string>
 	<key>NSPrincipalClass</key>
 	<string>NSApplication</string>
 	<key>NSServices</key>
 	<array/>
+	<key>SUEnableAutomaticChecks</key>
+	<true/>
+	<key>SUEnableSystemProfiling</key>
+	<true/>
 	<key>SUFeedURL</key>
 	<string>https://gfx.io/appcast.xml</string>
 	<key>SUPublicDSAKeyFile</key>
 	<string>dsa_pub.pem</string>
 	<key>SUShowReleaseNotes</key>
 	<true/>
-	<key>SUEnableAutomaticChecks</key>
-	<true/>
-	<key>SUEnableSystemProfiling</key>
-	<true/>
 	<key>UTExportedTypeDeclarations</key>
 	<array/>
 	<key>UTImportedTypeDeclarations</key>
 	<array/>
-	<key>NSHumanReadableCopyright</key>
-	<string>Copyright © 2010-2012 Cody Krieger and contributors.</string>
 </dict>
 </plist>
