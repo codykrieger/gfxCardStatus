@@ -80,10 +80,6 @@
     if ([self shouldStartAtLogin])
         [GSStartup loadAtStartup:YES];
     
-    // If an "integrated" image is available in our bundle, assume the user has
-    // custom icons that we should use.
-    _prefsDict[kShouldUseImageIconsKey] = @(!![[NSBundle mainBundle] pathForResource:@"integrated" ofType:@"png"]);
-    
     // Since we removed this preference from v2.2 prematurely, some new users
     // might not have had it set in their defaults. If the key doesn't exist in
     // the prefs dictionary, default this sucker to enabled, because
