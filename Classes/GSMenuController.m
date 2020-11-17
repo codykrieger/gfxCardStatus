@@ -59,7 +59,8 @@
         return nil;
     
     _prefs = [GSPreferences sharedInstance];
-    
+
+    // FIXME: Rip out ReactiveCocoa.
     [[_prefs rac_signalForKeyPath:kShouldUseSmartMenuBarIconsKeyPath observer:self] subscribeNext:^(id x) {
         GTMLoggerDebug(@"Use smart menu bar icons value changed: %@", x);
         [self updateMenu];
@@ -83,7 +84,9 @@
     [integratedOnly setHidden:isLegacyMachine];
     [discreteOnly setHidden:isLegacyMachine];
     [dynamicSwitching setHidden:isLegacyMachine];
-    
+
+    // FIXME: Rip out ReactiveCocoa.
+
     // Listen for when the menu opens and change the icons appropriately if the
     // user is using images.
     [RACAble(self.menuIsOpen) subscribeNext:^(id x) {

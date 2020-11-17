@@ -84,6 +84,7 @@
     // automaticallyChecksForUpdates property on the SUUpdater.
     updater.automaticallyChecksForUpdates = _prefs.shouldCheckForUpdatesOnStartup;
 
+    // FIXME: Rip out ReactiveCocoa.
     [[_prefs rac_signalForKeyPath:kShouldCheckForUpdatesOnStartupKeyPath observer:self] subscribeNext:^(id x) {
         GTMLoggerDebug(@"Check for updates on startup value changed: %@", x);
         updater.automaticallyChecksForUpdates = [x boolValue];
