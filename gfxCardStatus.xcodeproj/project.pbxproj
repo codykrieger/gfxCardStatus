@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0BFCB55525641F8800875EF8 /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A159E4E91184E84300E68428 /* Sparkle.framework */; };
+		0BFCB55625641F8800875EF8 /* Sparkle.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A159E4E91184E84300E68428 /* Sparkle.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		1DDD58160DA1D0A300B32029 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DDD58140DA1D0A300B32029 /* MainMenu.xib */; };
 		256AC3DA0F4B6AC300CF3369 /* gfxCardStatusAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 256AC3D90F4B6AC300CF3369 /* gfxCardStatusAppDelegate.m */; };
 		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
@@ -21,8 +23,6 @@
 		A13C5FC0119FCFCF00E678FA /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = A13C5FBE119FCFCF00E678FA /* Localizable.strings */; };
 		A14B9EAB13C5613F009A761C /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = A14B9EAA13C5613F009A761C /* Credits.rtf */; };
 		A14C180B124EFE6300816A4A /* GSPreferences.m in Sources */ = {isa = PBXBuildFile; fileRef = A14C180A124EFE6300816A4A /* GSPreferences.m */; };
-		A159E4EA1184E84300E68428 /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A159E4E91184E84300E68428 /* Sparkle.framework */; };
-		A159E4FC1184EC5100E68428 /* Sparkle.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = A159E4E91184E84300E68428 /* Sparkle.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		A161687F158E0E380063BE94 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = A161687E158E0E370063BE94 /* LICENSE */; };
 		A16B28F41196B0E7006EB263 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = A16B28F31196B0E7006EB263 /* README.md */; };
 		A17CE49A13B07C3700E5D50F /* GSProcess.m in Sources */ = {isa = PBXBuildFile; fileRef = A17CE49913B07C3700E5D50F /* GSProcess.m */; };
@@ -40,14 +40,15 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		A159E5011184EC5D00E68428 /* CopyFiles */ = {
+		0BFCB55725641F8800875EF8 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				A159E4FC1184EC5100E68428 /* Sparkle.framework in CopyFiles */,
+				0BFCB55625641F8800875EF8 /* Sparkle.framework in Embed Frameworks */,
 			);
+			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
@@ -138,8 +139,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				A12AACD3158C9DE100CD140F /* QuartzCore.framework in Frameworks */,
+				0BFCB55525641F8800875EF8 /* Sparkle.framework in Frameworks */,
 				8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */,
-				A159E4EA1184E84300E68428 /* Sparkle.framework in Frameworks */,
 				A1E07D581194B42100683B07 /* IOKit.framework in Frameworks */,
 				A1E07E111194B42B00683B07 /* ApplicationServices.framework in Frameworks */,
 				B0B4BBF0FB799EA1787A5375 /* libPods-gfxCardStatus.a in Frameworks */,
@@ -199,7 +200,6 @@
 		29B97314FDCFA39411CA2CEA /* gfxCardStatus */ = {
 			isa = PBXGroup;
 			children = (
-				0BFCB547256416EC00875EF8 /* gfxCardStatus.entitlements */,
 				080E96DDFE201D6D7F000001 /* Classes */,
 				A1ED2B331585847600B99CDE /* Supporting Files */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
@@ -306,6 +306,7 @@
 		A1ED2B331585847600B99CDE /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				0BFCB547256416EC00875EF8 /* gfxCardStatus.entitlements */,
 				A161687E158E0E370063BE94 /* LICENSE */,
 				8D1107310486CEB800E47090 /* gfxCardStatus-Info.plist */,
 				089C165CFE840E0CC02AAC07 /* InfoPlist.strings */,
@@ -338,8 +339,8 @@
 				8D1107290486CEB800E47090 /* Resources */,
 				8D11072C0486CEB800E47090 /* Sources */,
 				8D11072E0486CEB800E47090 /* Frameworks */,
-				A159E5011184EC5D00E68428 /* CopyFiles */,
 				6694BB017A8C4DE6A5E66D51 /* Copy Pods Resources */,
+				0BFCB55725641F8800875EF8 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -559,25 +560,33 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_ENTITLEMENTS = gfxCardStatus.entitlements;
-				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = LF22FTQC25;
 				ENABLE_HARDENED_RUNTIME = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)\"",
+					"$(SRCROOT)",
+					"$(PROJECT_DIR)",
 				);
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = gfxCardStatus_Prefix.pch;
 				INFOPLIST_FILE = "gfxCardStatus-Info.plist";
 				INSTALL_PATH = /Applications;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.codykrieger.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = gfxCardStatus;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 			};
 			name = Debug;
 		};
@@ -595,12 +604,17 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)\"",
+					"$(SRCROOT)",
+					"$(PROJECT_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = gfxCardStatus_Prefix.pch;
 				INFOPLIST_FILE = "gfxCardStatus-Info.plist";
 				INSTALL_PATH = /Applications;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
 				OTHER_CFLAGS = (
 					"$(inherited)",
 					"-DNDEBUG",
