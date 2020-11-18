@@ -13,25 +13,26 @@ typedef enum {
     GSSwitcherModeToggleGPU
 } GSSwitcherMode;
 
-#define kDriverClassName "AppleGraphicsControl"
-
-@interface GSMux : NSObject
-
+@protocol GSMuxProtocol <NSObject>
+@required
 // Switching driver initialization and cleanup routines.
-+ (BOOL)switcherOpen;
-+ (void)switcherClose;
+- (BOOL)switcherOpen;
+- (void)switcherClose;
 
-+ (BOOL)setMode:(GSSwitcherMode)mode;
+- (BOOL)setMode:(GSSwitcherMode)mode;
 
-+ (BOOL)isUsingIntegratedGPU;
-+ (BOOL)isUsingDiscreteGPU;
-+ (BOOL)isUsingDynamicSwitching;
+- (BOOL)isUsingIntegratedGPU;
+- (BOOL)isUsingDiscreteGPU;
+- (BOOL)isUsingDynamicSwitching;
 // Whether or not a machine is using the old-style "you must log out first"
 // switching policy or not. We kick machines into said policy when we switch to
 // Integrated Only or Discrete Only for reliability and consistency purposes.
-+ (BOOL)isUsingOldStyleSwitchPolicy;
+- (BOOL)isUsingOldStyleSwitchPolicy;
 
-+ (BOOL)isOnIntegratedOnlyMode;
-+ (BOOL)isOnDiscreteOnlyMode;
+- (BOOL)isOnIntegratedOnlyMode;
+- (BOOL)isOnDiscreteOnlyMode;
+@end
 
+@interface GSMux : NSObject
++ (id<GSMuxProtocol>)defaultMux;
 @end

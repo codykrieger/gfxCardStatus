@@ -34,7 +34,7 @@
     _prefs = [GSPreferences sharedInstance];
 
     // Attempt to open a connection to AppleGraphicsControl.
-    if (![GSMux switcherOpen]) {
+    if (![[GSMux defaultMux] switcherOpen]) {
         GSLogError(@"Can't open connection to AppleGraphicsControl. This probably isn't a gfxCardStatus-compatible machine.");
         
         [GSNotifier showUnsupportedMachineMessage];
@@ -46,15 +46,15 @@
         
         NSArray *args = [[NSProcessInfo processInfo] arguments];
         if ([args indexOfObject:@"--discrete"] != NSNotFound) {
-            [GSMux setMode:GSSwitcherModeForceDiscrete];
+            [[GSMux defaultMux] setMode:GSSwitcherModeForceDiscrete];
         } else if ([args indexOfObject:@"--integrated"] != NSNotFound) {
-            [GSMux setMode:GSSwitcherModeForceIntegrated];
+            [[GSMux defaultMux] setMode:GSSwitcherModeForceIntegrated];
         } else if ([args indexOfObject:@"--dynamic"] != NSNotFound) {
-            [GSMux setMode:GSSwitcherModeDynamicSwitching];
+            [[GSMux defaultMux] setMode:GSSwitcherModeDynamicSwitching];
         } else if (![GSGPU isLegacyMachine]) {
             // Set the machine to dynamic switching to get it out of any kind of
             // weird state from the get go.
-            [GSMux setMode:GSSwitcherModeDynamicSwitching];
+            [[GSMux defaultMux] setMode:GSSwitcherModeDynamicSwitching];
         }
     }
 
@@ -102,7 +102,7 @@
     // Set the machine to dynamic switching before shutdown to avoid machine restarting
     // stuck in a forced GPU mode.
     if (![GSGPU isLegacyMachine])
-        [GSMux setMode:GSSwitcherModeDynamicSwitching];
+        [[GSMux defaultMux] setMode:GSSwitcherModeDynamicSwitching];
 
     GSLogDebug(@"Termination notification received. Going to Dynamic Switching.");
 }

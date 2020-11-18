@@ -13,10 +13,12 @@
 #import "GSMux.h"
 #import "GSGPU.h"
 
+#define kDriverClassName "AppleGraphicsControl"
+
+#define kUseMockImpl (0)
+
 #define kNewStyleSwitchPolicyValue (0) // dynamic switching
 #define kOldStyleSwitchPolicyValue (2) // log out before switching
-
-static io_connect_t _switcherConnect = IO_OBJECT_NULL;
 
 // Stuff to look at:
 // nvram -p -> gpu_policy
@@ -241,12 +243,25 @@ static void dumpState(io_connect_t connect)
 
 #endif // 0
 
-@implementation GSMux
+@interface _GSMuxImpl : GSMux<GSMuxProtocol>
+@end
+
+@implementation _GSMuxImpl {
+    io_connect_t _switcherConnect;
+}
+
+- (instancetype)init
+{
+    if (!(self = [super init]))
+        return nil;
+    _switcherConnect = IO_OBJECT_NULL;
+    return self;
+}
 
 #pragma mark - GSMux API
 #pragma mark Initialization/destruction
 
-+ (BOOL)switcherOpen
+- (BOOL)switcherOpen
 {
     kern_return_t kernResult = 0; 
     io_service_t service = IO_OBJECT_NULL;
@@ -286,7 +301,7 @@ static void dumpState(io_connect_t connect)
     return kernResult == KERN_SUCCESS;
 }
 
-+ (void)switcherClose
+- (void)switcherClose
 {
     kern_return_t kernResult;
     if (_switcherConnect == IO_OBJECT_NULL) return;
@@ -303,7 +318,7 @@ static void dumpState(io_connect_t connect)
 
 #pragma mark Switching magic
 
-+ (BOOL)setMode:(GSSwitcherMode)mode
+- (BOOL)setMode:(GSSwitcherMode)mode
 {
     if (_switcherConnect == IO_OBJECT_NULL)
         return NO;
@@ -325,7 +340,7 @@ static void dumpState(io_connect_t connect)
             // Hold up a sec!
             sleep(1);
             
-            BOOL integrated = [GSMux isUsingIntegratedGPU];
+            BOOL integrated = self.isUsingIntegratedGPU;
             if ((mode == GSSwitcherModeForceIntegrated && !integrated)
                 || (mode == GSSwitcherModeForceDiscrete && integrated))
                 forceSwitch(_switcherConnect);
@@ -348,7 +363,7 @@ static void dumpState(io_connect_t connect)
     return YES;
 }
 
-+ (BOOL)isUsingIntegratedGPU
+- (BOOL)isUsingIntegratedGPU
 {
     uint64_t output;
     if (_switcherConnect == IO_OBJECT_NULL) return NO;
@@ -356,12 +371,12 @@ static void dumpState(io_connect_t connect)
     return output != 0;
 }
 
-+ (BOOL)isUsingDiscreteGPU
+- (BOOL)isUsingDiscreteGPU
 {
-    return ![self isUsingIntegratedGPU];
+    return !self.isUsingIntegratedGPU;
 }
 
-+ (BOOL)isUsingDynamicSwitching
+- (BOOL)isUsingDynamicSwitching
 {
     uint64_t output;
     if (_switcherConnect == IO_OBJECT_NULL) return NO;
@@ -369,21 +384,90 @@ static void dumpState(io_connect_t connect)
     return output != 0;
 }
 
-+ (BOOL)isUsingOldStyleSwitchPolicy
+- (BOOL)isUsingOldStyleSwitchPolicy
 {
     uint64_t policy = 0;
     getMuxState(_switcherConnect, muxSwitchPolicy, &policy);
     return policy == kOldStyleSwitchPolicyValue;
 }
 
-+ (BOOL)isOnIntegratedOnlyMode
+- (BOOL)isOnIntegratedOnlyMode
 {
-    return [self isUsingIntegratedGPU] && ([self isUsingOldStyleSwitchPolicy] || [GSGPU is2010MacBookPro]);
+    return self.isUsingIntegratedGPU && (self.isUsingOldStyleSwitchPolicy || [GSGPU is2010MacBookPro]);
 }
 
-+ (BOOL)isOnDiscreteOnlyMode
+- (BOOL)isOnDiscreteOnlyMode
 {
-    return [self isUsingDiscreteGPU] && ([self isUsingOldStyleSwitchPolicy] || [GSGPU is2010MacBookPro]);
+    return self.isUsingDiscreteGPU && (self.isUsingOldStyleSwitchPolicy || [GSGPU is2010MacBookPro]);
+}
+
+@end
+
+@interface _GSMuxMockImpl : GSMux<GSMuxProtocol>
+@end
+
+@implementation _GSMuxMockImpl
+
+- (BOOL)switcherOpen
+{
+    return YES;
+}
+
+- (void)switcherClose
+{
+}
+
+- (BOOL)setMode:(GSSwitcherMode)mode
+{
+    return YES;
+}
+
+- (BOOL)isUsingIntegratedGPU
+{
+    return YES;
+}
+
+- (BOOL)isUsingDiscreteGPU
+{
+    return NO;
+}
+
+- (BOOL)isUsingDynamicSwitching
+{
+    return YES;
+}
+
+- (BOOL)isUsingOldStyleSwitchPolicy
+{
+    return NO;
+}
+
+- (BOOL)isOnIntegratedOnlyMode
+{
+    return self.isUsingIntegratedGPU && (self.isUsingOldStyleSwitchPolicy || [GSGPU is2010MacBookPro]);
+}
+
+- (BOOL)isOnDiscreteOnlyMode
+{
+    return self.isUsingDiscreteGPU && (self.isUsingOldStyleSwitchPolicy || [GSGPU is2010MacBookPro]);
+}
+
+@end
+
+@implementation GSMux
+
++ (id<GSMuxProtocol>)defaultMux
+{
+    static id<GSMuxProtocol> object = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+#if kUseMockImpl
+        object = [[_GSMuxMockImpl alloc] init];
+#else
+        object = [[_GSMuxImpl alloc] init];
+#endif // kUseMockImpl
+    });
+    return object;
 }
 
 @end

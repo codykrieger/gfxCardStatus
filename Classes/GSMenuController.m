@@ -110,7 +110,7 @@
 {
     GSLogDebug(@"Updating status...");
 
-    BOOL isUsingIntegrated = [GSMux isUsingIntegratedGPU];
+    BOOL isUsingIntegrated = [GSMux defaultMux].isUsingIntegratedGPU;
 
     NSString *gpuString = (isUsingIntegrated ? [GSGPU integratedGPUName] : [GSGPU discreteGPUName]);
 
@@ -122,11 +122,11 @@
         [self _updateMenuBarIconText:isUsingIntegrated cardString:gpuString];
 
     if (![GSGPU isLegacyMachine]) {
-        BOOL dynamic = [GSMux isUsingDynamicSwitching];
-        BOOL isOnIntegratedOnly = [GSMux isOnIntegratedOnlyMode];
+        BOOL dynamic = [GSMux defaultMux].isUsingDynamicSwitching;
+        BOOL isOnIntegratedOnly = [GSMux defaultMux].isOnIntegratedOnlyMode;
 
         GSLogInfo(@"Using dynamic switching?: %d", dynamic);
-        GSLogInfo(@"Using old-style switching policy?: %d", [GSMux isUsingOldStyleSwitchPolicy]);
+        GSLogInfo(@"Using old-style switching policy?: %d", [GSMux defaultMux].isUsingOldStyleSwitchPolicy);
 
         [integratedOnly setState:(isOnIntegratedOnly && !dynamic) ? NSOnState : NSOffState];
         [discreteOnly setState:(!isOnIntegratedOnly && !dynamic) ? NSOnState : NSOffState];
@@ -186,7 +186,7 @@
     // For legacy machines.
     if (sender == switchGPUs) {
         GSLogInfo(@"Switching GPUs...");
-        [GSMux setMode:GSSwitcherModeToggleGPU];
+        [[GSMux defaultMux] setMode:GSSwitcherModeToggleGPU];
         return;
     }
 
@@ -211,17 +211,17 @@
         }
 
         GSLogInfo(@"Setting Integrated Only...");
-        retval = [GSMux setMode:GSSwitcherModeForceIntegrated];
+        retval = [[GSMux defaultMux] setMode:GSSwitcherModeForceIntegrated];
     }
 
     if (sender == discreteOnly) { 
         GSLogInfo(@"Setting Discrete Only...");
-        retval = [GSMux setMode:GSSwitcherModeForceDiscrete];
+        retval = [[GSMux defaultMux] setMode:GSSwitcherModeForceDiscrete];
     }
 
     if (sender == dynamicSwitching) {
         GSLogInfo(@"Setting Dynamic Switching...");
-        retval = [GSMux setMode:GSSwitcherModeDynamicSwitching];
+        retval = [[GSMux defaultMux] setMode:GSSwitcherModeDynamicSwitching];
     }
 
     // Only change status in case of GPU switch success.
@@ -273,7 +273,7 @@
             [statusMenu removeItem:menuItem];
     }
     
-    BOOL isUsingIntegrated = [GSMux isUsingIntegratedGPU];
+    BOOL isUsingIntegrated = [GSMux defaultMux].isUsingIntegratedGPU;
 
     BOOL hide = isUsingIntegrated || [GSGPU isLegacyMachine];
     [processList setHidden:hide];
@@ -313,7 +313,7 @@
     unichar firstLetter;
     
     if ([GSGPU isLegacyMachine] || ![_prefs shouldUseSmartMenuBarIcons]) {
-        firstLetter = [GSMux isUsingIntegratedGPU] ? 'i' : 'd';
+        firstLetter = [GSMux defaultMux].isUsingIntegratedGPU ? 'i' : 'd';
     } else {
         firstLetter = [cardString characterAtIndex:0];
     }

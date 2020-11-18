@@ -61,7 +61,7 @@ static void _displayReconfigurationCallback(CGDirectDisplayID display, CGDisplay
         dispatch_async(_notificationQueue, ^(void) {
             [NSThread sleepForTimeInterval:kNotificationSleepInterval];
             
-            BOOL isUsingIntegrated = [GSMux isUsingIntegratedGPU];
+            BOOL isUsingIntegrated = [GSMux defaultMux].isUsingIntegratedGPU;
             
             GSLogInfo(@"Notification: GPU changed. Integrated? %d", isUsingIntegrated);
             
