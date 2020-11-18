@@ -22,9 +22,6 @@
 
 @implementation gfxCardStatusAppDelegate
 
-@synthesize updater;
-@synthesize menuController;
-
 #pragma mark - Initialization
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
@@ -38,7 +35,7 @@
         GSLogError(@"Can't open connection to AppleGraphicsControl. This probably isn't a gfxCardStatus-compatible machine.");
         
         [GSNotifier showUnsupportedMachineMessage];
-        [menuController quit:self];
+        [_menuController quit:self];
     } else {
         GSLogInfo(@"GPUs present: %@", [GSGPU getGPUNames]);
         GSLogInfo(@"Integrated GPU name: %@", [GSGPU integratedGPUName]);
@@ -71,7 +68,7 @@
                                          object:workspace];
 
     // Initialize the menu bar icon and hook the menu up to it.
-    [menuController setupMenu];
+    [_menuController setupMenu];
 
     // Show the one-time startup notification asking users to be kind and donate
     // if they like gfxCardStatus. Then make it go away forever.
@@ -82,17 +79,17 @@
 
     // Hook up the check for updates on startup preference directly to the
     // automaticallyChecksForUpdates property on the SUUpdater.
-    updater.automaticallyChecksForUpdates = _prefs.shouldCheckForUpdatesOnStartup;
+    _updater.automaticallyChecksForUpdates = _prefs.shouldCheckForUpdatesOnStartup;
 
     // FIXME: Rip out ReactiveCocoa.
     [[_prefs rac_signalForKeyPath:kShouldCheckForUpdatesOnStartupKeyPath observer:self] subscribeNext:^(id x) {
         GSLogDebug(@"Check for updates on startup value changed: %@", x);
-        self->updater.automaticallyChecksForUpdates = [x boolValue];
+        self->_updater.automaticallyChecksForUpdates = [x boolValue];
     }];
 
     // Check for updates if the user has them enabled.
     if ([_prefs shouldCheckForUpdatesOnStartup])
-        [updater checkForUpdatesInBackground];
+        [_updater checkForUpdatesInBackground];
 }
 
 #pragma mark - Termination Notifications
@@ -120,7 +117,7 @@
 
 - (void)GPUDidChangeTo:(GSGPUType)gpu
 {
-    [menuController updateMenu];
+    [_menuController updateMenu];
     [GSNotifier showGPUChangeNotification:gpu];
 }
 
