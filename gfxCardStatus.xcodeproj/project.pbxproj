@@ -54,15 +54,15 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		0B7A944725645B3A0086537C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/GeneralPreferencesView.xib; sourceTree = "<group>"; };
+		0B7A944825645B3A0086537C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/AdvancedPreferencesView.xib; sourceTree = "<group>"; };
+		0B7A944925645B3A0086537C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		0BF00D4025640E8B004C430E /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		0BF00D4125640E8E004C430E /* da */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = da; path = da.lproj/Localizable.strings; sourceTree = "<group>"; };
 		0BF00D4225640E90004C430E /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
 		0BF00D4325640E92004C430E /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/Localizable.strings; sourceTree = "<group>"; };
 		0BF00D4425640EA0004C430E /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/Localizable.strings; sourceTree = "<group>"; };
 		0BF00D4525640EA6004C430E /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
-		0BF00D4625640EAE004C430E /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
-		0BF00D4725640EAE004C430E /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/AdvancedPreferencesView.xib; sourceTree = "<group>"; };
-		0BF00D4825640EAE004C430E /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/GeneralPreferencesView.xib; sourceTree = "<group>"; };
 		0BF00D4925640EAE004C430E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		0BF00D4A25640EAE004C430E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		0BFCB547256416EC00875EF8 /* gfxCardStatus.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = gfxCardStatus.entitlements; sourceTree = "<group>"; };
@@ -396,6 +396,7 @@
 				sv,
 				it,
 				es,
+				Base,
 			);
 			mainGroup = 29B97314FDCFA39411CA2CEA /* gfxCardStatus */;
 			projectDirPath = "";
@@ -513,7 +514,7 @@
 		1DDD58140DA1D0A300B32029 /* MainMenu.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				0BF00D4625640EAE004C430E /* en */,
+				0B7A944925645B3A0086537C /* Base */,
 			);
 			name = MainMenu.xib;
 			path = ../Localizations;
@@ -522,7 +523,7 @@
 		A11599C213D429860097E4BC /* AdvancedPreferencesView.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				0BF00D4725640EAE004C430E /* en */,
+				0B7A944825645B3A0086537C /* Base */,
 			);
 			name = AdvancedPreferencesView.xib;
 			path = ../Localizations;
@@ -531,7 +532,7 @@
 		A11599C413D429860097E4BC /* GeneralPreferencesView.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				0BF00D4825640EAE004C430E /* en */,
+				0B7A944725645B3A0086537C /* Base */,
 			);
 			name = GeneralPreferencesView.xib;
 			path = ../Localizations;
