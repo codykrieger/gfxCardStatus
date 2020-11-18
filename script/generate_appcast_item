@@ -28,11 +28,11 @@ PUBDATE=$(LC_TIME=en_US date +"%a, %d %b %G %T %z")
 DOWNLOAD_URL="$DOWNLOAD_BASE_URL/$ARCHIVE_FILENAME"
 
 echo "----> signing archive (dsa)..."
-DSA_SIGNATURE="$("$PWD"/sign_update_dsa.rb "$ARCHIVE_FILENAME" "$PWD"/dsa_priv.pem)"
+DSA_SIGNATURE="$(script/sign_update_dsa.rb "$ARCHIVE_FILENAME" "$PWD/dsa_priv.pem")"
 [ $DSA_SIGNATURE ] || { echo "DSA signing failed (unable to load private key?)"; false; }
 
 echo "----> signing archive (ed25519)..."
-ED25519_SIGNATURE="$($PWD/sign_update "$ARCHIVE_FILENAME" | sed -E 's/^sparkle:edSignature="(.+)" length=".*"$/\1/g')"
+ED25519_SIGNATURE="$(script/sign_update "$ARCHIVE_FILENAME" | sed -E 's/^sparkle:edSignature="(.+)" length=".*"$/\1/g')"
 [ $ED25519_SIGNATURE ] || { echo "Ed25519 signing failed"; false; }
 
 echo -e "----> done! drop this into the relevant appcast(s):\n"
