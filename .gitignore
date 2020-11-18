@@ -1,4 +1,4 @@
-# xcode noise
+# Xcode noise
 build/*
 *.pbxuser
 *.mode1v3
@@ -6,11 +6,11 @@ build/*
 project.xcworkspace
 xcuserdata
 
-# old skool
-.svn
-
-# osx noise
+# macOS noise
 .DS_Store
 profile
 DerivedData
 dsa_priv.pem
+
+# misc
+/TODO.md
