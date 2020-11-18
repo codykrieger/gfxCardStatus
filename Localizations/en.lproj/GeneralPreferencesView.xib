@@ -8,7 +8,6 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="GeneralPreferencesViewController">
             <connections>
-                <outlet property="prefChkGrowl" destination="44" id="48"/>
                 <outlet property="prefChkSmartIcons" destination="35" id="39"/>
                 <outlet property="prefChkStartup" destination="4" id="13"/>
                 <outlet property="prefChkUpdate" destination="2" id="11"/>
@@ -16,15 +15,14 @@
             </connections>
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
-        <customObject id="-3" userLabel="Application"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <customView id="1">
-            <rect key="frame" x="0.0" y="0.0" width="440" height="130"/>
+            <rect key="frame" x="0.0" y="0.0" width="440" height="94"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
-                <button focusRingType="none" fixedFrame="YES" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2">
-                    <rect key="frame" x="18" y="58" width="404" height="18"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <buttonCell key="cell" type="check" title="PrefUpdate" bezelStyle="regularSquare" imagePosition="leading" alignment="left" state="on" focusRingType="none" inset="2" id="7">
+                <button focusRingType="none" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2">
+                    <rect key="frame" x="18" y="38" width="404" height="18"/>
+                    <buttonCell key="cell" type="check" title="PrefUpdate" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" focusRingType="none" inset="2" id="7">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
@@ -32,10 +30,9 @@
                         <binding destination="23" name="value" keyPath="selection.shouldCheckForUpdatesOnStartup" id="27"/>
                     </connections>
                 </button>
-                <button focusRingType="none" fixedFrame="YES" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4">
-                    <rect key="frame" x="18" y="38" width="404" height="18"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <buttonCell key="cell" type="check" title="PrefStartup" bezelStyle="regularSquare" imagePosition="leading" alignment="left" state="on" focusRingType="none" inset="2" id="5">
+                <button focusRingType="none" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4">
+                    <rect key="frame" x="18" y="18" width="404" height="18"/>
+                    <buttonCell key="cell" type="check" title="PrefStartup" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" focusRingType="none" inset="2" id="5">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
@@ -43,21 +40,9 @@
                         <binding destination="23" name="value" keyPath="selection.shouldStartAtLogin" id="31"/>
                     </connections>
                 </button>
-                <button focusRingType="none" fixedFrame="YES" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="44">
-                    <rect key="frame" x="18" y="18" width="404" height="18"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <buttonCell key="cell" type="check" title="PrefGrowl" bezelStyle="regularSquare" imagePosition="leading" alignment="left" state="on" focusRingType="none" inset="2" id="45">
-                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                        <font key="font" metaFont="system"/>
-                    </buttonCell>
-                    <connections>
-                        <binding destination="23" name="value" keyPath="selection.shouldGrowl" id="47"/>
-                    </connections>
-                </button>
-                <button focusRingType="none" fixedFrame="YES" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="35">
-                    <rect key="frame" x="18" y="94" width="404" height="18"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <buttonCell key="cell" type="check" title="SmartMenuBarIcons" bezelStyle="regularSquare" imagePosition="leading" alignment="left" state="on" focusRingType="none" inset="2" id="36">
+                <button focusRingType="none" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="35">
+                    <rect key="frame" x="18" y="58" width="404" height="18"/>
+                    <buttonCell key="cell" type="check" title="SmartMenuBarIcons" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" focusRingType="none" inset="2" id="36">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
@@ -71,7 +56,18 @@
                     </connections>
                 </button>
             </subviews>
-            <point key="canvasLocation" x="70" y="154"/>
+            <constraints>
+                <constraint firstItem="35" firstAttribute="top" secondItem="1" secondAttribute="top" constant="20" symbolic="YES" id="4qE-p8-3UI"/>
+                <constraint firstItem="4" firstAttribute="top" secondItem="2" secondAttribute="bottom" constant="6" symbolic="YES" id="BB9-NH-anN"/>
+                <constraint firstItem="35" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="20" symbolic="YES" id="He4-3u-ZgS"/>
+                <constraint firstItem="35" firstAttribute="trailing" secondItem="2" secondAttribute="trailing" id="LOE-pc-6rP"/>
+                <constraint firstItem="35" firstAttribute="leading" secondItem="2" secondAttribute="leading" id="Pz0-nl-Edf"/>
+                <constraint firstItem="2" firstAttribute="trailing" secondItem="4" secondAttribute="trailing" id="fTH-cT-UvW"/>
+                <constraint firstItem="2" firstAttribute="leading" secondItem="4" secondAttribute="leading" id="jIG-Zn-fEU"/>
+                <constraint firstAttribute="trailing" secondItem="35" secondAttribute="trailing" constant="20" symbolic="YES" id="l7R-nK-d1n"/>
+                <constraint firstItem="2" firstAttribute="top" secondItem="35" secondAttribute="bottom" constant="6" symbolic="YES" id="tIj-gu-2q5"/>
+            </constraints>
+            <point key="canvasLocation" x="70" y="136"/>
         </customView>
         <objectController id="23">
             <connections>
