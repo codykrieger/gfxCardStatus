@@ -4,8 +4,9 @@
 
 BUILT_PRODUCTS_DIR="$(pwd)/build/Release"
 PROJECT_NAME="gfxCardStatus"
-VERSION=$(defaults read "$BUILT_PRODUCTS_DIR/$PROJECT_NAME.app/Contents/Info.plist" CFBundleVersion)
-DEPLOYMENT_TARGET=$(defaults read "$BUILT_PRODUCTS_DIR/$PROJECT_NAME.app/Contents/Info.plist" LSMinimumSystemVersion)
+VERSION="$(defaults read "$BUILT_PRODUCTS_DIR/$PROJECT_NAME.app/Contents/Info.plist" CFBundleShortVersionString)"
+BUILD_VERSION="$(defaults read "$BUILT_PRODUCTS_DIR/$PROJECT_NAME.app/Contents/Info.plist" CFBundleVersion)"
+DEPLOYMENT_TARGET="$(defaults read "$BUILT_PRODUCTS_DIR/$PROJECT_NAME.app/Contents/Info.plist" LSMinimumSystemVersion)"
 DOWNLOAD_BASE_URL="https://gfx.io/downloads"
 RELEASENOTES_URL="https://gfx.io/releasenotes/$VERSION.html"
 
@@ -31,7 +32,12 @@ cat <<EOF
     $RELEASENOTES_URL
   </sparkle:releaseNotesLink>
   <pubDate>$PUBDATE</pubDate>
-  <enclosure url="$DOWNLOAD_URL" sparkle:version="$VERSION" type="application/octet-stream" length="$SIZE" sparkle:dsaSignature="$SIGNATURE" />
   <sparkle:minimumSystemVersion>$DEPLOYMENT_TARGET</sparkle:minimumSystemVersion>
+  <enclosure url="$DOWNLOAD_URL"
+    sparkle:version="$BUILD_VERSION"
+    sparkle:shortVersionString="$VERSION"
+    type="application/octet-stream"
+    length="$SIZE"
+    sparkle:dsaSignature="$SIGNATURE" />
 </item>
 EOF
