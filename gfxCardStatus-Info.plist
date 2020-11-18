@@ -42,8 +42,8 @@
 	<true/>
 	<key>SUFeedURL</key>
 	<string>https://gfx.io/appcast.release.xml</string>
-	<key>SUPublicDSAKeyFile</key>
-	<string>dsa_pub.pem</string>
+	<key>SUPublicEDKey</key>
+	<string>4duXTeQPGZRwAyOAG2Wvqjkuk23es7QEuuy9FcjPEao=</string>
 	<key>SUShowReleaseNotes</key>
 	<true/>
 </dict>
