@@ -1,8 +1,16 @@
 #!/bin/bash
 
-./build_release.sh
+set -eo pipefail
 
-BUILT_PRODUCTS_DIR="$(pwd)/build/Release"
+BUILD_DIR="$(pwd)/build"
+
+echo "----> cleaning..."
+rm -rvf "$BUILD_DIR"
+
+echo "----> building..."
+xcodebuild -workspace gfxCardStatus.xcworkspace -scheme gfxCardStatus -configuration Release SYMROOT="$BUILD_DIR" OBJROOT="$BUILD_DIR/obj"
+
+BUILT_PRODUCTS_DIR="$BUILD_DIR/Release"
 PROJECT_NAME="gfxCardStatus"
 VERSION="$(defaults read "$BUILT_PRODUCTS_DIR/$PROJECT_NAME.app/Contents/Info.plist" CFBundleShortVersionString)"
 BUILD_VERSION="$(defaults read "$BUILT_PRODUCTS_DIR/$PROJECT_NAME.app/Contents/Info.plist" CFBundleVersion)"
@@ -16,14 +24,22 @@ KEYCHAIN_PRIVKEY_NAME="Sparkle Private Key"
 
 WD=$PWD
 cd "$BUILT_PRODUCTS_DIR"
-rm -f "$PROJECT_NAME"*.zip
+
+echo "----> archiving app..."
 ditto -ck --keepParent "$PROJECT_NAME.app" "$ARCHIVE_FILENAME"
 
 SIZE=$(stat -f %z "$ARCHIVE_FILENAME")
 PUBDATE=$(LC_TIME=en_US date +"%a, %d %b %G %T %z")
-SIGNATURE=$("$WD"/sign_update.rb "$ARCHIVE_FILENAME" "$WD"/dsa_priv.pem)
 
-[ $SIGNATURE ] || { echo Unable to load private key; false; }
+echo "----> signing archive (dsa)..."
+DSA_SIGNATURE="$("$WD"/sign_update_dsa.rb "$ARCHIVE_FILENAME" "$WD"/dsa_priv.pem)"
+[ $DSA_SIGNATURE ] || { echo "DSA signing failed (unable to load private key?)"; false; }
+
+echo "----> signing archive (ed25519)..."
+ED25519_SIGNATURE="$($WD/sign_update "$ARCHIVE_FILENAME" | sed -E 's/^sparkle:edSignature="(.+)" length=".*"$/\1/g')"
+[ $ED25519_SIGNATURE ] || { echo "Ed25519 signing failed"; false; }
+
+echo -e "----> done! drop this into the relevant appcast(s):\n"
 
 cat <<EOF
 <item>
@@ -38,6 +54,7 @@ cat <<EOF
     sparkle:shortVersionString="$VERSION"
     type="application/octet-stream"
     length="$SIZE"
-    sparkle:dsaSignature="$SIGNATURE" />
+    sparkle:dsaSignature="$DSA_SIGNATURE"
+    sparkle:edSignature="$ED25519_SIGNATURE" />
 </item>
 EOF
