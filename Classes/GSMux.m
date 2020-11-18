@@ -99,9 +99,9 @@ static BOOL getMuxState(io_connect_t connect, uint64_t input, uint64_t *output)
                                            &outputCount); // pointer to the number of scalar output values.
     
     if (kernResult == KERN_SUCCESS)
-        GTMLoggerDebug(@"getMuxState was successful (count=%d, value=0x%08llx).", outputCount, *output);
+        GSLogDebug(@"getMuxState was successful (count=%d, value=0x%08llx).", outputCount, *output);
     else
-        GTMLoggerDebug(@"getMuxState returned 0x%08x.", kernResult);
+        GSLogDebug(@"getMuxState returned 0x%08x.", kernResult);
     
     return kernResult == KERN_SUCCESS;
 }
@@ -119,9 +119,9 @@ static BOOL setMuxState(io_connect_t connect, muxState state, uint64_t arg)
                                            0);           // pointer to the number of scalar output values.
     
     if (kernResult == KERN_SUCCESS)
-        GTMLoggerDebug(@"setMuxState was successful.");
+        GSLogDebug(@"setMuxState was successful.");
     else
-        GTMLoggerDebug(@"setMuxState returned 0x%08x.", kernResult);
+        GSLogDebug(@"setMuxState returned 0x%08x.", kernResult);
     
     return kernResult == KERN_SUCCESS;
 }
@@ -187,7 +187,7 @@ static void printFeatures(io_connect_t connect)
     getMuxState(connect, muxFeatureInfo, &featureInfo);
     muxFeature f;
     for (f = Policy; f < muxFeaturesCount; f++)
-        GTMLoggerDebug(@"%s: %s", getFeatureName(f), (featureInfo & (1<<f) ? "ON" : "OFF"));
+        GSLogDebug(@"%s: %s", getFeatureName(f), (featureInfo & (1<<f) ? "ON" : "OFF"));
 }
 
 // ???
@@ -205,9 +205,9 @@ static void setExclusive(io_connect_t connect)
                                            0);            // pointer to the number of scalar output values.
     
     if (kernResult == KERN_SUCCESS)
-        GTMLoggerDebug(@"setExclusive was successful.");
+        GSLogDebug(@"setExclusive was successful.");
     else
-        GTMLoggerDebug(@"setExclusive returned 0x%08x.", kernResult);
+        GSLogDebug(@"setExclusive returned 0x%08x.", kernResult);
 }
 
 typedef struct StateStruct {
@@ -234,9 +234,9 @@ static void dumpState(io_connect_t connect)
     // TODO: figure the meaning of the values in StateStruct out
     
     if (kernResult == KERN_SUCCESS)
-        GTMLoggerDebug(@"setExclusive was successful.");
+        GSLogDebug(@"setExclusive was successful.");
     else
-        GTMLoggerDebug(@"setExclusive returned 0x%08x.", kernResult);
+        GSLogDebug(@"setExclusive returned 0x%08x.", kernResult);
 }
 
 #endif // 0
@@ -256,14 +256,14 @@ static void dumpState(io_connect_t connect)
     // This creates an io_iterator_t of all instances of our driver that exist in the I/O Registry.
     kernResult = IOServiceGetMatchingServices(kIOMasterPortDefault, IOServiceMatching(kDriverClassName), &iterator);    
     if (kernResult != KERN_SUCCESS) {
-        GTMLoggerDebug(@"IOServiceGetMatchingServices returned 0x%08x.", kernResult);
+        GSLogDebug(@"IOServiceGetMatchingServices returned 0x%08x.", kernResult);
         return NO;
     }
     
     service = IOIteratorNext(iterator); // actually there is only 1 such service
     IOObjectRelease(iterator);
     if (service == IO_OBJECT_NULL) {
-        GTMLoggerDebug(@"No matching drivers found.");
+        GSLogDebug(@"No matching drivers found.");
         return NO;
     }
     
@@ -273,15 +273,15 @@ static void dumpState(io_connect_t connect)
     // as uint32_t type, 0 = no dedicated gpu, 1 = dedicated
     kernResult = IOServiceOpen(service, mach_task_self(), 0, &_switcherConnect);
     if (kernResult != KERN_SUCCESS) {
-        GTMLoggerDebug(@"IOServiceOpen returned 0x%08x.", kernResult);
+        GSLogDebug(@"IOServiceOpen returned 0x%08x.", kernResult);
         return NO;
     }
     
     kernResult = IOConnectCallScalarMethod(_switcherConnect, kOpen, NULL, 0, NULL, NULL);
     if (kernResult != KERN_SUCCESS)
-        GTMLoggerDebug(@"IOConnectCallScalarMethod returned 0x%08x.", kernResult);
+        GSLogDebug(@"IOConnectCallScalarMethod returned 0x%08x.", kernResult);
     else
-        GTMLoggerDebug(@"Driver connection opened.");
+        GSLogDebug(@"Driver connection opened.");
     
     return kernResult == KERN_SUCCESS;
 }
@@ -292,13 +292,13 @@ static void dumpState(io_connect_t connect)
     if (_switcherConnect == IO_OBJECT_NULL) return;
     
     kernResult = IOConnectCallScalarMethod(_switcherConnect, kClose, NULL, 0, NULL, NULL);
-    if (kernResult != KERN_SUCCESS) GTMLoggerDebug(@"IOConnectCallScalarMethod returned 0x%08x.", kernResult);
+    if (kernResult != KERN_SUCCESS) GSLogDebug(@"IOConnectCallScalarMethod returned 0x%08x.", kernResult);
     
     kernResult = IOServiceClose(_switcherConnect);
-    if (kernResult != KERN_SUCCESS) GTMLoggerDebug(@"IOServiceClose returned 0x%08x.", kernResult);
+    if (kernResult != KERN_SUCCESS) GSLogDebug(@"IOServiceClose returned 0x%08x.", kernResult);
     
     _switcherConnect = IO_OBJECT_NULL;
-    GTMLoggerDebug(@"Driver connection closed.");
+    GSLogDebug(@"Driver connection closed.");
 }
 
 #pragma mark Switching magic

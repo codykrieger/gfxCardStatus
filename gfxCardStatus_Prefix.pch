@@ -5,13 +5,13 @@
 #ifdef __OBJC__
     #import <Cocoa/Cocoa.h>
 
-    #define GTMLoggerDebug(msg, ...) NSLog(@"dbg: " msg, ## __VA_ARGS__)
-    #define GTMLoggerInfo(msg, ...) NSLog(@"info: " msg, ## __VA_ARGS__)
-    #define GTMLoggerError(msg, ...) NSLog(@"err: " msg, ## __VA_ARGS__)
+    #define GSLogDebug(msg, ...) NSLog(@"dbg: " msg, ## __VA_ARGS__)
+    #define GSLogInfo(msg, ...) NSLog(@"info: " msg, ## __VA_ARGS__)
+    #define GSLogError(msg, ...) NSLog(@"err: " msg, ## __VA_ARGS__)
 
     #ifndef DEBUG
-    #undef GTMLoggerDebug
-    #define GTMLoggerDebug(...) do {} while(0)
+    #undef GSLogDebug
+    #define GSLogDebug(...) do {} while(0)
     #endif
 
     #define Str(key) NSLocalizedString(key, key)

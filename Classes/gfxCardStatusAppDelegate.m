@@ -35,14 +35,14 @@
 
     // Attempt to open a connection to AppleGraphicsControl.
     if (![GSMux switcherOpen]) {
-        GTMLoggerError(@"Can't open connection to AppleGraphicsControl. This probably isn't a gfxCardStatus-compatible machine.");
+        GSLogError(@"Can't open connection to AppleGraphicsControl. This probably isn't a gfxCardStatus-compatible machine.");
         
         [GSNotifier showUnsupportedMachineMessage];
         [menuController quit:self];
     } else {
-        GTMLoggerInfo(@"GPUs present: %@", [GSGPU getGPUNames]);
-        GTMLoggerInfo(@"Integrated GPU name: %@", [GSGPU integratedGPUName]);
-        GTMLoggerInfo(@"Discrete GPU name: %@", [GSGPU discreteGPUName]);
+        GSLogInfo(@"GPUs present: %@", [GSGPU getGPUNames]);
+        GSLogInfo(@"Integrated GPU name: %@", [GSGPU integratedGPUName]);
+        GSLogInfo(@"Discrete GPU name: %@", [GSGPU discreteGPUName]);
         
         NSArray *args = [[NSProcessInfo processInfo] arguments];
         if ([args indexOfObject:@"--discrete"] != NSNotFound) {
@@ -86,7 +86,7 @@
 
     // FIXME: Rip out ReactiveCocoa.
     [[_prefs rac_signalForKeyPath:kShouldCheckForUpdatesOnStartupKeyPath observer:self] subscribeNext:^(id x) {
-        GTMLoggerDebug(@"Check for updates on startup value changed: %@", x);
+        GSLogDebug(@"Check for updates on startup value changed: %@", x);
         self->updater.automaticallyChecksForUpdates = [x boolValue];
     }];
 
@@ -104,7 +104,7 @@
     if (![GSGPU isLegacyMachine])
         [GSMux setMode:GSSwitcherModeDynamicSwitching];
 
-    GTMLoggerDebug(@"Termination notification received. Going to Dynamic Switching.");
+    GSLogDebug(@"Termination notification received. Going to Dynamic Switching.");
 }
 
 - (void)workspaceWillPowerOff:(NSNotification *)aNotification
@@ -113,7 +113,7 @@
     // NSWorkspace. Also implemented to avoid the machine shuting down in a forced
     // GPU state.
     [[NSApplication sharedApplication] terminate:self];
-    GTMLoggerDebug(@"NSWorkspaceWillPowerOff notification received. Terminating application.");
+    GSLogDebug(@"NSWorkspaceWillPowerOff notification received. Terminating application.");
 }
 
 #pragma mark - GSGPUDelegate protocol

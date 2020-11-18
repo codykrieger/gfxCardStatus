@@ -53,7 +53,7 @@
     // from our awesome friend Josh Abernathy at GitHub that the value we're
     // subscribed to has changed.
     [[prefs rac_signalForKeyPath:kShouldStartAtLoginKeyPath observer:self] subscribeNext:^(id x) {
-        GTMLoggerDebug(@"Start at login value changed: %@", x);
+        GSLogDebug(@"Start at login value changed: %@", x);
         [GSStartup loadAtStartup:[x boolValue]];
     }];
     

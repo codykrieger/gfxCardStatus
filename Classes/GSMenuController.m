@@ -60,7 +60,7 @@
 
     // FIXME: Rip out ReactiveCocoa.
     [[_prefs rac_signalForKeyPath:kShouldUseSmartMenuBarIconsKeyPath observer:self] subscribeNext:^(id x) {
-        GTMLoggerDebug(@"Use smart menu bar icons value changed: %@", x);
+        GSLogDebug(@"Use smart menu bar icons value changed: %@", x);
         [self updateMenu];
     }];
     
@@ -88,7 +88,7 @@
     // Listen for when the menu opens and change the icons appropriately if the
     // user is using images.
     [RACAble(self.menuIsOpen) subscribeNext:^(id x) {
-        GTMLoggerDebug(@"Menu open: %@", x);
+        GSLogDebug(@"Menu open: %@", x);
         
         if (self->_prefs.shouldUseImageIcons) {
             NSString *imageName = self->_statusItem.image.name;
@@ -108,7 +108,7 @@
 
 - (void)updateMenu
 {
-    GTMLoggerDebug(@"Updating status...");
+    GSLogDebug(@"Updating status...");
 
     BOOL isUsingIntegrated = [GSMux isUsingIntegratedGPU];
 
@@ -125,8 +125,8 @@
         BOOL dynamic = [GSMux isUsingDynamicSwitching];
         BOOL isOnIntegratedOnly = [GSMux isOnIntegratedOnlyMode];
 
-        GTMLoggerInfo(@"Using dynamic switching?: %d", dynamic);
-        GTMLoggerInfo(@"Using old-style switching policy?: %d", [GSMux isUsingOldStyleSwitchPolicy]);
+        GSLogInfo(@"Using dynamic switching?: %d", dynamic);
+        GSLogInfo(@"Using old-style switching policy?: %d", [GSMux isUsingOldStyleSwitchPolicy]);
 
         [integratedOnly setState:(isOnIntegratedOnly && !dynamic) ? NSOnState : NSOffState];
         [discreteOnly setState:(!isOnIntegratedOnly && !dynamic) ? NSOnState : NSOffState];
@@ -136,9 +136,9 @@
     [currentCard setTitle:[Str(@"Card") stringByReplacingOccurrencesOfString:@"%%" withString:gpuString]];
 
     if (isUsingIntegrated)
-        GTMLoggerInfo(@"%@ in use. Sweet deal! More battery life.", [GSGPU integratedGPUName]);
+        GSLogInfo(@"%@ in use. Sweet deal! More battery life.", [GSGPU integratedGPUName]);
     else
-        GTMLoggerInfo(@"%@ in use. Bummer! Less battery life for you.", [GSGPU discreteGPUName]);
+        GSLogInfo(@"%@ in use. Bummer! Less battery life for you.", [GSGPU discreteGPUName]);
 
     if (!isUsingIntegrated)
         [self _updateProcessList];
@@ -185,7 +185,7 @@
 {
     // For legacy machines.
     if (sender == switchGPUs) {
-        GTMLoggerInfo(@"Switching GPUs...");
+        GSLogInfo(@"Switching GPUs...");
         [GSMux setMode:GSSwitcherModeToggleGPU];
         return;
     }
@@ -198,7 +198,7 @@
     if (sender == integratedOnly) {
         NSArray *taskList = [GSProcess getTaskList];
         if (taskList.count > 0) {
-            GTMLoggerInfo(@"Not setting Integrated Only because of dependencies list items: %@", taskList);
+            GSLogInfo(@"Not setting Integrated Only because of dependencies list items: %@", taskList);
 
             NSMutableArray *taskNames = [[NSMutableArray alloc] init];
             for (NSDictionary *dict in taskList) {
@@ -210,17 +210,17 @@
             return;
         }
 
-        GTMLoggerInfo(@"Setting Integrated Only...");
+        GSLogInfo(@"Setting Integrated Only...");
         retval = [GSMux setMode:GSSwitcherModeForceIntegrated];
     }
 
     if (sender == discreteOnly) { 
-        GTMLoggerInfo(@"Setting Discrete Only...");
+        GSLogInfo(@"Setting Discrete Only...");
         retval = [GSMux setMode:GSSwitcherModeForceDiscrete];
     }
 
     if (sender == dynamicSwitching) {
-        GTMLoggerInfo(@"Setting Dynamic Switching...");
+        GSLogInfo(@"Setting Dynamic Switching...");
         retval = [GSMux setMode:GSSwitcherModeDynamicSwitching];
     }
 
@@ -285,7 +285,7 @@
     if (hide)
         return;
     
-    GTMLoggerDebug(@"Updating process list...");
+    GSLogDebug(@"Updating process list...");
     
     NSArray *processes = [GSProcess getTaskList];
     

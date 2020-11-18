@@ -44,7 +44,7 @@
     if (!(self = [super init]))
         return nil;
     
-    GTMLoggerDebug(@"Initializing GSPreferences...");
+    GSLogDebug(@"Initializing GSPreferences...");
     [self setUpPreferences];
     
     return self;
@@ -64,7 +64,7 @@
 
 - (void)setUpPreferences
 {
-    GTMLoggerDebug(@"Loading preferences and defaults...");
+    GSLogDebug(@"Loading preferences and defaults...");
     
     // Load the preferences dictionary from disk.
     _prefsDict = [[NSMutableDictionary alloc] initWithContentsOfFile:[self _getPrefsPath]];
@@ -90,7 +90,7 @@
 
 - (void)setDefaults
 {
-    GTMLoggerDebug(@"Setting initial defaults...");
+    GSLogDebug(@"Setting initial defaults...");
     
     _prefsDict[kShouldCheckForUpdatesOnStartupKey] = @YES;
     _prefsDict[kShouldStartAtLoginKey] = @YES;
@@ -109,12 +109,12 @@
 
 - (void)savePreferences
 {
-    GTMLoggerDebug(@"Writing preferences to disk...");
+    GSLogDebug(@"Writing preferences to disk...");
     
     if ([_prefsDict writeToFile:[self _getPrefsPath] atomically:YES])
-        GTMLoggerDebug(@"Successfully wrote preferences to disk.");
+        GSLogDebug(@"Successfully wrote preferences to disk.");
     else
-        GTMLoggerDebug(@"Failed to write preferences to disk. Permissions problem in ~/Library/Preferences?");
+        GSLogDebug(@"Failed to write preferences to disk. Permissions problem in ~/Library/Preferences?");
 }
 
 - (void)setBool:(BOOL)value forKey:(NSString *)key

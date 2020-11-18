@@ -27,7 +27,7 @@
             
             if (LSSharedFileListItemResolve(itemRef, 0, &URL, NULL) == noErr) {
                 if ([[(__bridge NSURL *)URL path] hasSuffix:kApplicationName]) {
-                    GTMLoggerDebug(@"Exists in startup items.");
+                    GSLogDebug(@"Exists in startup items.");
                     
                     *currentItem = (__bridge_retained LSSharedFileListItemRef)item;
                     CFRelease(URL);
@@ -69,11 +69,11 @@
     
     if (loginItems) {
         if (value && currentItem == NULL) {
-            GTMLoggerDebug(@"Adding to startup items.");
+            GSLogDebug(@"Adding to startup items.");
             LSSharedFileListItemRef item = LSSharedFileListInsertItemURL(loginItems, kLSSharedFileListItemBeforeFirst, NULL, NULL, (__bridge CFURLRef)thePath, NULL, NULL);
             if (item) CFRelease(item);
         } else if (!value && currentItem != NULL) {
-            GTMLoggerDebug(@"Removing from startup items.");        
+            GSLogDebug(@"Removing from startup items.");        
             LSSharedFileListItemRemove(loginItems, currentItem);
         }
         
