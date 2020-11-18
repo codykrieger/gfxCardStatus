@@ -343,6 +343,7 @@
 				8D11072E0486CEB800E47090 /* Frameworks */,
 				6694BB017A8C4DE6A5E66D51 /* Copy Pods Resources */,
 				0BFCB55725641F8800875EF8 /* Embed Frameworks */,
+				0B7A943E256441C70086537C /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -426,6 +427,24 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		0B7A943E256441C70086537C /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${BUILT_PRODUCTS_DIR}/${INFOPLIST_PATH}",
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# based on http://tgoode.com/2014/06/05/sensible-way-increment-bundle-version-cfbundleversion-xcode\nif git rev-parse --is-inside-work-tree 2> /dev/null > /dev/null; then\n    build_number=$(git rev-parse HEAD | head -c 7)\n    echo \"Setting CFBundleVersion: $build_number\"\n    /usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $build_number\" \"${TARGET_BUILD_DIR}/${INFOPLIST_PATH}\"\nelse\n    echo \"Not in a Git repo, not setting CFBundleVersion\"\nfi\n";
+		};
 		595E0F18A384F7D84DB3DC56 /* Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -565,7 +584,6 @@
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = "";
 				ENABLE_HARDENED_RUNTIME = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -600,7 +618,6 @@
 				CODE_SIGN_ENTITLEMENTS = gfxCardStatus.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = LF22FTQC25;
 				ENABLE_HARDENED_RUNTIME = YES;
