@@ -27,19 +27,7 @@ ZIP_PATH="$EXPORT_PATH/$PROJECT_NAME-$VERSION.zip"
 echo "----> zipping app..."
 ditto -ck --keepParent "$APP_PATH" "$ZIP_PATH"
 
-echo "----> done: $ZIP_PATH"
-
-SIZE=$(stat -f %z "$ZIP_PATH")
-PUBDATE=$(LC_TIME=en_US date +"%a, %d %b %G %T %z")
-DOWNLOAD_URL="$DOWNLOAD_BASE_URL/$ZIP_PATH"
-
-echo "----> signing archive (dsa)..."
-DSA_SIGNATURE="$(script/sign_update_dsa.rb "$ZIP_PATH" "$PWD/dsa_priv.pem")"
-[ $DSA_SIGNATURE ] || { echo "DSA signing failed (unable to load private key?)"; false; }
-
-echo "----> signing archive (ed25519)..."
-ED25519_SIGNATURE="$(script/sign_update "$ZIP_PATH" | sed -E 's/^sparkle:edSignature="(.+)" length=".*"$/\1/g')"
-[ $ED25519_SIGNATURE ] || { echo "Ed25519 signing failed"; false; }
+echo "----> zipped: $ZIP_PATH"
 
 echo "----> submitting archive for notarization..."
 xcrun altool \
@@ -52,6 +40,18 @@ xcrun altool \
 
 # FIXME: Print command that can be run to check status:
 # xcrun altool -u "cody@krieger.io" -p "@keychain:AC_PASSWORD" --notarization-info <UUID>
+
+SIZE=$(stat -f %z "$ZIP_PATH")
+PUBDATE=$(LC_TIME=en_US date +"%a, %d %b %G %T %z")
+DOWNLOAD_URL="$DOWNLOAD_BASE_URL/$(basename $ZIP_PATH)"
+
+echo "----> signing archive (dsa)..."
+DSA_SIGNATURE="$(script/sign_update_dsa.rb "$ZIP_PATH" "$PWD/dsa_priv.pem")"
+[ $DSA_SIGNATURE ] || { echo "DSA signing failed (unable to load private key?)"; false; }
+
+echo "----> signing archive (ed25519)..."
+ED25519_SIGNATURE="$(script/sign_update "$ZIP_PATH" | sed -E 's/^sparkle:edSignature="(.+)" length=".*"$/\1/g')"
+[ $ED25519_SIGNATURE ] || { echo "Ed25519 signing failed"; false; }
 
 echo -e "----> done! drop this into the relevant appcast(s):\n"
 
