@@ -8,8 +8,8 @@
 
 /* Main menu */
 "About" 				= "gfxCardStatus v%%에 관하여";
-"Update"				= "업데이트 확인...";
-"Preferences"			= "환경설정...";
+"Update"				= "업데이트 확인…";
+"Preferences"			= "환경설정…";
 "Card"					= "GPU: %%";
 "SwitchGPUs"			= "GPU ";
 "IntegratedOnly"		= "내장 그래픽 카드만 사용";
@@ -22,7 +22,7 @@
 "PowerSource"           = "전원 공급원: %%";
 "Battery"               = "배터리";
 "ACAdapter"             = "전원 어댑터";
-"VisitWebsite"          = "웹사이트 방문 (%%)...";
+"VisitWebsite"          = "웹사이트 방문 (%%)…";
 
 /* Preferences window */
 "PrefTitle"				= "gfxCardStatus 환경설정";

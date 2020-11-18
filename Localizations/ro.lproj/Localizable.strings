@@ -10,8 +10,8 @@
 
 /* Main menu */
 "About"					= "Despre gfxCardStatus, v%%";
-"Update"				= "Actualizări disponibile...";
-"Preferences"			= "Opțiuni...";
+"Update"				= "Actualizări disponibile…";
+"Preferences"			= "Opțiuni…";
 "Card"					= "GPU: %%";
 "SwitchGPUs"			= "Activez GPU";
 "IntegratedOnly"		= "Doar integrată";
@@ -24,7 +24,7 @@
 "PowerSource"           = "Sursă alimentare: %%";
 "Battery"               = "Baterie";
 "ACAdapter"             = "Încărcător priză";
-"VisitWebsite"          = "Vizitează saitul (%%)...";
+"VisitWebsite"          = "Vizitează saitul (%%)…";
 
 /* Preferences window */
 "PrefTitle"				= "Opțiuni gfxCardStatus";

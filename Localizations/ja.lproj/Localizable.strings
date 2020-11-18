@@ -8,8 +8,8 @@
 
 /* Main menu */
 "About"					= "gfxCardStatus, v%%について";
-"Update"				= "更新をチェックする...";
-"Preferences"			= "環境設定...";
+"Update"				= "更新をチェックする…";
+"Preferences"			= "環境設定…";
 "Card"					= "GPU: %%";
 "SwitchGPUs"			= "ビデオカードを切り替える";
 "IntegratedOnly"		= "オンボードグラフィックのみ";
@@ -22,7 +22,7 @@
 "PowerSource"           = "パワーソース: %%";
 "Battery"               = "バッテリー";
 "ACAdapter"             = "ACアダプター";
-"VisitWebsite"          = "ウェブサイトへ(%%)...";
+"VisitWebsite"          = "ウェブサイトへ (%%)…";
 
 /* Preferences window */
 "PrefTitle"				= "gfxCardStatus環境設定";

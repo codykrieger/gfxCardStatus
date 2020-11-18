@@ -15,8 +15,8 @@
 
 /* Main menu */
 "About"					= "Über gfxCardStatus, v%%";
-"Update"				= "Updates suchen...";
-"Preferences"			= "Einstellungen...";
+"Update"				= "Updates suchen…";
+"Preferences"			= "Einstellungen…";
 "Card"					= "GPU: %%";
 "SwitchGPUs"			= "GPU umschalten";
 "IntegratedOnly"		= "Nur Integriert";
@@ -29,7 +29,7 @@
 "PowerSource"           = "Stromquelle: %%";
 "Battery"               = "Batterie";
 "ACAdapter"             = "Extern";
-"VisitWebsite"          = "Webseite besuchen (%%)...";
+"VisitWebsite"          = "Webseite besuchen (%%)…";
 
 /* Preferences window */
 "PrefTitle"				= "gfxCardStatus Einstellungen";

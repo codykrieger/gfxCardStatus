@@ -8,8 +8,9 @@
 
 /* Main menu */
 "About"					= "gfxCardStatus Hakkında, v%%";
-"Update"				= "Güncellemeleri kontrol et...";
-"Preferences"			= "Tercihler...";
+"Update"				= "Güncellemeleri kontrol et…";
+"Preferences"			= "Tercihler…";
+"Card"                  = "GPU: %%";
 "SwitchGPUs"			= "GPU'ları değiştir";
 "IntegratedOnly"		= "Entegre";
 "DiscreteOnly"			= "İkincil";
@@ -21,6 +22,7 @@
 "PowerSource"           = "Güç Kaynağı: %%";
 "Battery"               = "Pil";
 "ACAdapter"             = "Fişe takılı";
+"VisitWebsite"          = "Visit website (%%)…";
 
 /* Preferences window */
 "PrefTitle"				= "gfxCardStatus Tercihleri";

@@ -8,8 +8,9 @@
 
 /* Main menu */
 "About"            = "關於 gfxCardStatus, v%%";
-"Update"           = "檢查更新...";
-"Preferences"      = "偏好設定...";
+"Update"           = "檢查更新…";
+"Preferences"      = "偏好設定…";
+"Card"             = "GPU: %%";
 "SwitchGPUs"       = "變更 GPU (試驗)";
 "IntegratedOnly"   = "僅使用內建顯示卡";
 "DiscreteOnly"     = "僅使用獨立顯示卡";
@@ -21,6 +22,7 @@
 "PowerSource"      = "電源供應: %%";
 "Battery"               = "電池";
 "ACAdapter"             = "AC 電源";
+"VisitWebsite"          = "Visit website (%%)…";
 
 /* Preferences window */
 "PrefTitle"        = "gfxCardStatus 偏好設定";
@@ -56,7 +58,7 @@
 
 /* Not yet localized - Update window */
 "Updating gfxCardStatus"					 = "更新 gfxCardStatus";
-"Checking for Updates..."					 = "正在檢查更新...";
+"Checking for Updates…"					 = "正在檢查更新…";
 
 /* Not yet localized - Update window dialog */
 "You're up to date!"											 = "您的軟體是最新的版本";

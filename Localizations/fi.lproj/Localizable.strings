@@ -8,8 +8,9 @@
 
 /* Main menu */
 "About"					= "Tietoja: gfxCardStatus, v%%";
-"Update"				= "Tarkista päivitykset...";
-"Preferences"			= "Asetukset...";
+"Update"				= "Tarkista päivitykset…";
+"Preferences"			= "Asetukset…";
+"Card"                  = "GPU: %%";
 "SwitchGPUs"			= "Vaihda ohjainta";
 "IntegratedOnly"		= "Vain integroitu näytönohjain";
 "DiscreteOnly"			= "Vain tehokkaampi näytönohjain";
@@ -21,6 +22,7 @@
 "PowerSource"           = "Teholähde: %%";
 "Battery"               = "Akku";
 "ACAdapter"             = "Virtalähde";
+"VisitWebsite"          = "Visit website (%%)…";
 
 /* Preferences window */
 "PrefTitle"				= "gfxCardStatus Asetukset";

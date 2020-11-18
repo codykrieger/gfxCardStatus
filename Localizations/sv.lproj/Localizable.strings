@@ -8,8 +8,9 @@
 
 /* Main menu */
 "About"					= "Om gfxCardStatus, v%%";
-"Update"				= "Sök efter uppdateringar...";
-"Preferences"			= "Inställningar...";
+"Update"				= "Sök efter uppdateringar…";
+"Preferences"			= "Inställningar…";
+"Card"                  = "GPU: %%";
 "SwitchGPUs"			= "Växla GPU";
 "IntegratedOnly"		= "Enbart integrerad";
 "DiscreteOnly"			= "Enbart dedikerad";
@@ -21,6 +22,7 @@
 "PowerSource"           = "Strömkälla: %%";
 "Battery"               = "Battery";
 "ACAdapter"             = "AC Adapter";
+"VisitWebsite"          = "Visit website (%%)…";
 
 /* Preferences window */
 "PrefTitle"				= "gfxCardStatus inställningar";

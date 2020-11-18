@@ -11,8 +11,8 @@
 
 /* Main menu */
 "About"					= "Σχετικά με το gfxCardStatus, v%%";
-"Update"				= "Έλεγχος για ενημερώσεις...";
-"Preferences"			= "Ρυθμίσεις...";
+"Update"				= "Έλεγχος για ενημερώσεις…";
+"Preferences"			= "Ρυθμίσεις…";
 "Card"					= "GPU: %%";
 "SwitchGPUs"			= "Εναλλαγή GPUs";
 "IntegratedOnly"		= "Αποκλειστικά ενσωματωμένη";
@@ -25,7 +25,7 @@
 "PowerSource"           = "Πηγή ισχύος %%";
 "Battery"               = "Μπαταρία";
 "ACAdapter"             = "Τροφοδοτικό AC";
-"VisitWebsite"          = "Επισκευθείτε τον ιστότοπο (%%)...";
+"VisitWebsite"          = "Επισκευθείτε τον ιστότοπο (%%)…";
 
 /* Preferences window */
 "PrefTitle"				= "Ρυθμίσεις gfxCardStatus";

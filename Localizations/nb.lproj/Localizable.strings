@@ -8,8 +8,8 @@
 
 /* Main menu */
 "About"					= "Om gfxCardStatus, v%%";
-"Update"				= "Søk etter oppdateringer...";
-"Preferences"			= "Innstillninger...";
+"Update"				= "Søk etter oppdateringer…";
+"Preferences"			= "Innstillninger…";
 "Card"					= "GPU: %%";
 "SwitchGPUs"			= "Bytt GPU";
 "IntegratedOnly"		= "Kun integrert";
@@ -22,7 +22,7 @@
 "PowerSource"           = "Strømkilde: %%";
 "Battery"               = "Batteri";
 "ACAdapter"             = "Strømadapter";
-"VisitWebsite"          = "Besøk nettside (%%)...";
+"VisitWebsite"          = "Besøk nettside (%%)…";
 
 /* Preferences window */
 "PrefTitle"				= "gfxCardStatus-innstillinger";

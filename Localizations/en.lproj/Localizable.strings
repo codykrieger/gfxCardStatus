@@ -8,8 +8,8 @@
 
 /* Main menu */
 "About"					= "About gfxCardStatus, v%%";
-"Update"				= "Check for Updates...";
-"Preferences"			= "Preferences...";
+"Update"				= "Check for Updates…";
+"Preferences"			= "Preferences…";
 "Card"					= "GPU: %%";
 "SwitchGPUs"			= "Switch GPUs";
 "IntegratedOnly"		= "Integrated Only";
@@ -22,7 +22,7 @@
 "PowerSource"           = "Power Source: %%";
 "Battery"               = "Battery";
 "ACAdapter"             = "AC Adapter";
-"VisitWebsite"          = "Visit website (%%)...";
+"VisitWebsite"          = "Visit website (%%)…";
 
 /* Preferences window */
 "PrefTitle"				= "gfxCardStatus Preferences";

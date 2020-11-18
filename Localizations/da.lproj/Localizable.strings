@@ -10,7 +10,8 @@
 /* Main menu */
 "About"					= "Om gfxCardStatus, v%%";
 "Update"				= "Tjek for Opdateringer…";
-"Preferences"			= "Indstillinger...";
+"Preferences"			= "Indstillinger…";
+"Card"                  = "GPU: %%";
 "SwitchGPUs"			= "Skift GPUs";
 "IntegratedOnly"		= "Kun Integrated";
 "DiscreteOnly"			= "Kun Discrete";
@@ -22,6 +23,7 @@
 "PowerSource"           = "Power Source: %%";
 "Battery"               = "Battery";
 "ACAdapter"             = "AC Adapter";
+"VisitWebsite"          = "Visit website (%%)…";
 
 /* Preferences window */
 "PrefTitle"				= "gfxCardStatus Indstillinger";

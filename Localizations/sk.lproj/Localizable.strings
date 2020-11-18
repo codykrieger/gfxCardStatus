@@ -8,8 +8,9 @@
 
 /* Main menu */
 "About"					= "O aplikácii gfxCardStatus, v%%";
-"Update"				= "Skontrolovať aktualizácie...";
-"Preferences"			= "Nastavenia...";
+"Update"				= "Skontrolovať aktualizácie…";
+"Preferences"			= "Nastavenia…";
+"Card"                  = "GPU: %%";
 "SwitchGPUs"			= "Prepnúť GPU";
 "IntegratedOnly"		= "Iba integrovaná";
 "DiscreteOnly"			= "Iba diskrétna";
@@ -21,6 +22,7 @@
 "PowerSource"           = "Zdroj napájania: %%";
 "Battery"               = "Batéria";
 "ACAdapter"             = "Napájací adaptér";
+"VisitWebsite"          = "Visit website (%%)…";
 
 /* Preferences window */
 "PrefTitle"				= "Nastavenia gfxCardStatus";

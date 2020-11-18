@@ -13,8 +13,8 @@
 
 /* Main menu */
 "About"					= "Acerca de gfxCardStatus, v%%";
-"Update"				= "Actualizar...";
-"Preferences"			= "Preferencias...";
+"Update"				= "Actualizar…";
+"Preferences"			= "Preferencias…";
 "Card"					= "GPU: %%";
 "SwitchGPUs"			= "Cambiar de GPU";
 "IntegratedOnly"		= "Solo integrada";
@@ -27,7 +27,7 @@
 "PowerSource"        = "Fuente de poder: %%";
 "Battery"            = "Batería";
 "ACAdapter"          = "Adaptador de CA";
-"VisitWebsite"       = "Visitar sitio de internet (%%)...";
+"VisitWebsite"       = "Visitar sitio de internet (%%)…";
 
 /* Preferences window */
 "PrefTitle"				= "Ajustes de gfxCardStatus";

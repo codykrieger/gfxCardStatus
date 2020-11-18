@@ -10,8 +10,9 @@
 
 /* Main menu */
 "About"   				= "O gfxCardStatus, v%%";
-"Update"				= "Sprawdź aktualizacje...";
-"Preferences"			= "Preferencje...";
+"Update"				= "Sprawdź aktualizacje…";
+"Preferences"			= "Preferencje…";
+"Card"                  = "GPU: %%";
 "SwitchGPUs"			= "Zmień GPU";
 "IntegratedOnly"		= "Tylko zintegrowana";
 "DiscreteOnly"			= "Tylko dedykowana";
@@ -23,6 +24,7 @@
 "PowerSource"           = "Zródło zasilania: %%";
 "Battery"               = "Bateria";
 "ACAdapter"             = "Zasilacz sieciowy";
+"VisitWebsite"          = "Visit website (%%)…";
 
 /* Preferences window */
 "PrefTitle"				= "Preferencje gfxCardStatus";

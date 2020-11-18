@@ -23,7 +23,7 @@
 "PowerSource"           = "Джерело живлення: %%";
 "Battery"               = "Акумулятор";
 "ACAdapter"             = "Блок живлення";
-"VisitWebsite"          = "Відвідати сайт (%%)";
+"VisitWebsite"          = "Відвідати сайт (%%)…";
 
 /* Preferences window */
 "PrefTitle"             = "Налаштування програми";

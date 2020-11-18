@@ -8,8 +8,9 @@
 
 /* Main menu */
 "About"					= "Par gfxCardStatus, v%%";
-"Update"				= "Meklēt atjauninājumus...";
-"Preferences"			= "Iestatījumi...";
+"Update"				= "Meklēt atjauninājumus…";
+"Preferences"			= "Iestatījumi…";
+"Card"                  = "GPU: %%";
 "SwitchGPUs"			= "Pārslēgt GPU";
 "IntegratedOnly"		= "Tikai integrētais";
 "DiscreteOnly"			= "Tikai diskrētais";
@@ -21,6 +22,7 @@
 "PowerSource"           = "Strāvas avots: %%";
 "Battery"               = "Baterija";
 "ACAdapter"             = "Tīkla barošana";
+"VisitWebsite"          = "Visit website (%%)…";
 
 /* Preferences window */
 "PrefTitle"				= "gfxCardStatus iestatījumi";

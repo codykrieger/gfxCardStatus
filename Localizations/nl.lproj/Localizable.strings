@@ -10,6 +10,7 @@
 "About"					= "Over gfxCardStatus, v%%";
 "Update"				= "Zoek naar nieuwe versies…";
 "Preferences"			= "Voorkeuren…";
+"Card"                  = "GPU: %%";
 "SwitchGPUs"			= "Wissel GPU's";
 "IntegratedOnly"		= "Alleen geïntegreerd";
 "DiscreteOnly"			= "Alleen discreet";
@@ -21,6 +22,7 @@
 "PowerSource"           = "Voedingsbron: %%";
 "Battery"               = "Batterij";
 "ACAdapter"             = "Lichtnetadapter";
+"VisitWebsite"          = "Visit website (%%)…";
 
 /* Preferences window */
 "PrefTitle"				= "gfxCardStatus-voorkeuren";
