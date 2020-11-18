@@ -1,0 +1,24 @@
+#!/bin/bash
+
+set -eo pipefail
+
+BUILD_DIR="$(pwd)/build"
+
+echo "----> cleaning..."
+rm -rvf "$BUILD_DIR"
+
+echo "----> building..."
+xcodebuild -workspace gfxCardStatus.xcworkspace -scheme gfxCardStatus -configuration Release SYMROOT="$BUILD_DIR" OBJROOT="$BUILD_DIR/obj"
+
+PROJECT_NAME="gfxCardStatus"
+BUILT_PRODUCTS_DIR="$BUILD_DIR/Release"
+VERSION="$(defaults read "$BUILT_PRODUCTS_DIR/$PROJECT_NAME.app/Contents/Info.plist" CFBundleShortVersionString)"
+ARCHIVE_FILENAME="$PROJECT_NAME-$VERSION.zip"
+
+cd "$BUILT_PRODUCTS_DIR"
+
+echo "----> archiving app..."
+ditto -ck --keepParent "$PROJECT_NAME.app" "$ARCHIVE_FILENAME"
+
+echo -e "----> done!\n"
+echo "$ARCHIVE_FILENAME"
