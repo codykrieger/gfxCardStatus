@@ -34,4 +34,7 @@ typedef enum {
 + (BOOL)isOnIntegratedOnlyMode;
 + (BOOL)isOnDiscreteOnlyMode;
 
+// Returns the value of the current GSSwitcherMode as set in the Menu
++ (GSSwitcherMode) currentGSSwitcherMode;
+
 @end
