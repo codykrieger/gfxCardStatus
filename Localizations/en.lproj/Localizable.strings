@@ -52,7 +52,7 @@
 
 /* Startup box */
 "ThanksForDownloading"      = "Thanks for downloading gfxCardStatus!";
-"PleaseConsiderDonating"    = "If you find it useful, please consider donating to support development and hosting costs. You can find the donate link, and the FAQ page (which you should REALLY read) at the gfxCardStatus website:";
+"PleaseConsiderDonating"    = "If you find it useful, please consider donating to support development and hosting costs. You can find the donate link and the FAQ page on the gfxCardStatus website:";
 "DontShowAgain"             = "Don't show this again!";
 
 /* Unsupported machine box */
