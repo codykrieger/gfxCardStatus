@@ -39,19 +39,61 @@ ditto -ck --keepParent "$APP_PATH" "$ZIP_PATH"
 
 echo "----> zipped: $ZIP_PATH"
 
-# FIXME: --output-format xml/json, parse for status + uuid
+NOTARIZE_APP_LOG=$(mktemp -t notarize-app)
+NOTARIZATION_INFO_LOG=$(mktemp -t notarization-info)
+
+finish() {
+	rm "$NOTARIZE_APP_LOG" "$NOTARIZATION_INFO_LOG"
+}
+trap finish EXIT
+
 echo "----> submitting archive for notarization..."
-xcrun altool \
+if ! xcrun altool \
     --username "$AC_USERNAME" \
     --password "$AC_PASSWORD" \
-    --output-format xml \
     --notarize-app \
     --primary-bundle-id "$BUNDLE_IDENTIFIER" \
     --team-id "$TEAM_ID" \
-    --file "$ZIP_PATH"
+    --file "$ZIP_PATH" > "$NOTARIZE_APP_LOG" 2>&1 ; then
 
-# FIXME: Print command that can be run to check status:
-# xcrun altool -u "cody@krieger.io" -p "@keychain:AC_PASSWORD" --notarization-info <UUID>
+    cat "$NOTARIZE_APP_LOG" 1>&2
+    exit 1
+fi
+
+cat "$NOTARIZE_APP_LOG" 1>&2
+REQUEST_UUID=$(awk -F ' = ' '/RequestUUID/ {print $2}' "$NOTARIZE_APP_LOG")
+
+echo "----> polling notarization status every 60s..."
+while sleep 60 && date ; do
+    if ! xcrun altool \
+        --username "$AC_USERNAME" \
+        --password "$AC_PASSWORD" \
+        --notarization-info "$REQUEST_UUID" > "$NOTARIZATION_INFO_LOG" 2>&1 ; then
+
+        cat "$NOTARIZATION_INFO_LOG" 1>&2
+        exit 1
+    fi
+
+    grep "Status: " "$NOTARIZATION_INFO_LOG" ||:
+
+    if ! grep -q "Status: in progress" "$NOTARIZATION_INFO_LOG" ; then
+        cat "$NOTARIZATION_INFO_LOG" 1>&2
+
+        echo "----> stapling notarization ticket to $APP_PATH..."
+        if ! xcrun stapler staple "$APP_PATH" ; then
+            echo "----> FATAL: couldn't staple notarization ticket to $APP_PATH"
+            exit 1
+        else
+            echo "----> notarization ticket stapled successfully"
+        fi
+
+        break
+    fi
+done
+
+echo "----> re-zipping stapled app..."
+rm "$ZIP_PATH"
+ditto -ck --keepParent "$APP_PATH" "$ZIP_PATH"
 
 SIZE=$(stat -f %z "$ZIP_PATH")
 PUBDATE=$(LC_TIME=en_US date +"%a, %d %b %G %T %z")
