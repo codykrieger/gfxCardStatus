@@ -11,6 +11,7 @@ xcuserdata
 profile
 DerivedData
 dsa_priv.pem
+ed25519_priv.key
 
 # misc
 /TODO.md
