@@ -18,7 +18,7 @@
 
 #define kAppcastURLTemplate @"https://gfx.io/appcast.%@.xml"
 #define kAppcastChannelDefaultsKey @"AppcastChannel"
-#define kAppcastReleaseChannel @"release"
+#define kAppcastReleaseChannel @"beta"
 
 #define kHasSeenOneTimeNotificationKey @"hasSeenVersionTwoMessage"
 
