@@ -44,9 +44,10 @@ echo "----> submitting archive for notarization..."
 xcrun altool \
     --username "$AC_USERNAME" \
     --password "$AC_PASSWORD" \
+    --output-format xml \
     --notarize-app \
     --primary-bundle-id "$BUNDLE_IDENTIFIER" \
-    --team-id "$TEAM_ID"  \
+    --team-id "$TEAM_ID" \
     --file "$ZIP_PATH"
 
 # FIXME: Print command that can be run to check status:
