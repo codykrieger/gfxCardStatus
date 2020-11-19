@@ -57,7 +57,7 @@ PUBDATE=$(LC_TIME=en_US date +"%a, %d %b %G %T %z")
 DOWNLOAD_URL="$DOWNLOAD_BASE_URL/$(basename $ZIP_PATH)"
 
 echo "----> signing archive (dsa)..."
-DSA_SIGNATURE="$(script/sign_update_dsa.rb "$ZIP_PATH" "$PWD/dsa_priv.pem")"
+DSA_SIGNATURE="$(script/sign_update_dsa "$ZIP_PATH" "$PWD/dsa_priv.pem")"
 [ $DSA_SIGNATURE ] || { echo "DSA signing failed (unable to load private key?)"; false; }
 
 echo "----> signing archive (ed25519)..."

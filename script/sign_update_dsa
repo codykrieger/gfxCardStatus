@@ -1,0 +1,23 @@
+#!/bin/bash
+
+set -eo pipefail
+
+OPENSSL="${OPENSSL:-openssl}"
+ARCHIVE="$1"
+PRIVKEY="$2"
+
+usage() {
+    cat <<-EOF
+usage: $0 ARCHIVE_PATH PRIVKEY_PATH
+e.g.:
+
+    $0 ./foo.zip ./dsa_priv.pem
+EOF
+}
+
+if [ -z "$ARCHIVE" ] || [ -z "$PRIVKEY" ] ; then
+    usage
+    exit 1
+fi
+
+$OPENSSL dgst -sha1 -binary < "$ARCHIVE" | openssl dgst -dss1 -sign "$PRIVKEY" | openssl enc -base64
