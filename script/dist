@@ -2,6 +2,16 @@
 
 set -eo pipefail
 
+# ================================================================================
+#
+# Some extremely helpful documentation:
+# - https://developer.apple.com/forums/thread/126901
+# - https://developer.apple.com/forums/thread/128166
+# - https://developer.apple.com/documentation/xcode/notarizing_macos_software_before_distribution/resolving_common_notarization_issues
+# - https://developer.apple.com/documentation/xcode/notarizing_macos_software_before_distribution/customizing_the_notarization_workflow
+# - https://developer.apple.com/documentation/xcode/notarizing_macos_software_before_distribution/customizing_the_notarization_workflow/customizing_the_xcode_archive_process
+# ================================================================================
+
 PROJECT_NAME="gfxCardStatus"
 AC_USERNAME="cody@krieger.io"
 AC_PASSWORD="@keychain:AC_PASSWORD"
@@ -29,6 +39,7 @@ ditto -ck --keepParent "$APP_PATH" "$ZIP_PATH"
 
 echo "----> zipped: $ZIP_PATH"
 
+# FIXME: --output-format xml/json, parse for status + uuid
 echo "----> submitting archive for notarization..."
 xcrun altool \
     --username "$AC_USERNAME" \
