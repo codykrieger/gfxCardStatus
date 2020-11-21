@@ -31,7 +31,6 @@ typedef enum {
 - (BOOL)shouldStartAtLogin;
 - (BOOL)shouldDisplayNotifications;
 - (BOOL)shouldUsePowerSourceBasedSwitching;
-- (BOOL)shouldUseImageIcons;
 - (BOOL)shouldUseSmartMenuBarIcons;
 - (GSPowerSourceBasedSwitchingMode)modeForACAdapter;
 - (GSPowerSourceBasedSwitchingMode)modeForBattery;

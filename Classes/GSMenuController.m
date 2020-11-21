@@ -16,10 +16,6 @@
 
 #import <ReactiveCocoa/ReactiveCocoa.h>
 
-#define kImageIconIntegratedName    @"integrated"
-#define kImageIconDiscreteName      @"discrete"
-#define kImageIconOpenSuffix        @"-white"
-
 #define kShouldUseSmartMenuBarIconsKeyPath @"prefsDict.shouldUseSmartMenuBarIcons"
 
 @interface GSMenuController (Internal)
@@ -83,25 +79,6 @@
     [discreteOnly setHidden:isLegacyMachine];
     [dynamicSwitching setHidden:isLegacyMachine];
 
-    // FIXME: Rip out ReactiveCocoa.
-
-    // Listen for when the menu opens and change the icons appropriately if the
-    // user is using images.
-    [RACAble(self.menuIsOpen) subscribeNext:^(id x) {
-        GSLogDebug(@"Menu open: %@", x);
-        
-        if (self->_prefs.shouldUseImageIcons) {
-            NSString *imageName = self->_statusItem.image.name;
-            
-            if ([x boolValue])
-                imageName = [imageName stringByAppendingString:kImageIconOpenSuffix];
-            else
-                imageName = [imageName stringByReplacingOccurrencesOfString:kImageIconOpenSuffix withString:@""];
-            
-            [self->_statusItem setImage:[NSImage imageNamed:imageName]];
-        }
-    }];
-    
     [self _localizeMenu];
     [self updateMenu];
 }
@@ -113,13 +90,7 @@
     BOOL isUsingIntegrated = [GSMux defaultMux].isUsingIntegratedGPU;
 
     NSString *gpuString = (isUsingIntegrated ? [GSGPU integratedGPUName] : [GSGPU discreteGPUName]);
-
-    // Set menu bar icon (either with images or text, depending on the presence
-    // of properly-named icon images in gfxCardStatus.app/Contents/Resources).
-    if ([_prefs shouldUseImageIcons])
-        [_statusItem setImage:[NSImage imageNamed:(isUsingIntegrated ? kImageIconIntegratedName : kImageIconDiscreteName)]];
-    else
-        [self _updateMenuBarIconText:isUsingIntegrated cardString:gpuString];
+    [self _updateMenuBarIconText:isUsingIntegrated cardString:gpuString];
 
     if (![GSGPU isLegacyMachine]) {
         BOOL dynamic = [GSMux defaultMux].isUsingDynamicSwitching;

@@ -17,7 +17,6 @@
 #define kPowerSourceBasedSwitchingBatteryMode   @"GPUSetting_Battery"
 
 #define kShouldStartAtLoginKey                  @"shouldStartAtLogin"
-#define kShouldUseImageIconsKey                 @"shouldUseImageIcons"
 #define kShouldCheckForUpdatesOnStartupKey      @"shouldCheckForUpdatesOnStartup"
 #define kShouldUsePowerSourceBasedSwitchingKey  @"shouldUsePowerSourceBasedSwitching"
 #define kShouldUseSmartMenuBarIconsKey          @"shouldUseSmartMenuBarIcons"
@@ -146,11 +145,6 @@
 - (BOOL)shouldUsePowerSourceBasedSwitching
 {
     return [_prefsDict [kShouldUsePowerSourceBasedSwitchingKey] boolValue];
-}
-
-- (BOOL)shouldUseImageIcons
-{
-    return [_prefsDict[kShouldUseImageIconsKey] boolValue];
 }
 
 - (BOOL)shouldUseSmartMenuBarIcons
