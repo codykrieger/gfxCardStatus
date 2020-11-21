@@ -107,10 +107,7 @@ static void _displayReconfigurationCallback(CGDirectDisplayID display, CGDisplay
                 // convert into a string.
                 if (CFGetTypeID(ioName) == CFStringGetTypeID() && CFStringCompare(ioName, CFSTR(kDisplayKey), kCFCompareCaseInsensitive) == kCFCompareEqualTo) {
                     const void *model = CFDictionaryGetValue(serviceDictionary, @kModelKey);
-                    
-                    NSString *gpuName = [[NSString alloc] initWithData:(__bridge NSData *)model 
-                                                              encoding:NSASCIIStringEncoding];
-                    
+                    NSString *gpuName = [[NSString alloc] initWithUTF8String:[(__bridge NSData *)model bytes]];
                     [_cachedGPUs addObject:gpuName];
                 }
             }
