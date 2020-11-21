@@ -48,4 +48,4 @@
 
 /* Growl */
 "GrowlGPUChanged"       = "Placa gráfica mudada!";
-"GrowlGPUChangedMessage"           = "em utilização.";
+"GrowlGPUChangedMessage"           = "'%1$@' em utilização.";
