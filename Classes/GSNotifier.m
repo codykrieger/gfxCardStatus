@@ -15,13 +15,13 @@
 
 #define kIntegratedOnlyMessageExplanationURL [kApplicationWebsiteURL stringByAppendingString:@"/switching.html#integrated-only-mode-limitations"]
 
-static NSString *_lastMessage = nil;
-
 @interface GSNotifier () <NSUserNotificationCenterDelegate>
-+ (NSString *)_keyForNotificationType:(GSGPUType)type;
+- (NSString *)_keyForNotificationType:(GSGPUType)type;
 @end
 
-@implementation GSNotifier
+@implementation GSNotifier {
+    NSString *_lastMessage;
+}
 
 #pragma mark - Initializers
 
@@ -47,7 +47,7 @@ static NSString *_lastMessage = nil;
 
 #pragma mark - GSNotifier API
 
-+ (void)showGPUChangeNotification:(GSGPUType)type
+- (void)showGPUChangeNotification:(GSGPUType)type
 {
     // Get the localized notification name and message, as well as the current
     // GPU name for display in the message.
@@ -55,27 +55,24 @@ static NSString *_lastMessage = nil;
     NSString *title = Str(key);
     NSString *cardName = type == GSGPUTypeIntegrated ? [GSGPU integratedGPUName] : [GSGPU discreteGPUName];
     NSString *message = [NSString stringWithFormat:Str([key stringByAppendingString:@"Message"]), cardName];
-    
+
     // Make sure that we don't display the notification if it's the same message
     // as the last one we fired off. Because that's unbelievably annoying. Also
     // check to make sure the user even wants to see the notifications in the
     // first place.
-    if (![message isEqualToString:_lastMessage]
-        && ([GSPreferences sharedInstance].shouldDisplayNotifications || [self notificationCenterIsAvailable])) {
-        if ([self notificationCenterIsAvailable]) {
-            NSUserNotification *notification = [[NSUserNotification alloc] init];
-            notification.deliveryDate = [NSDate date];
-            notification.hasActionButton = NO;
-            notification.title = title;
-            notification.informativeText = message;
-            [[NSUserNotificationCenter defaultUserNotificationCenter] scheduleNotification:notification];
-        }
-        
+    if (![message isEqualToString:_lastMessage] && [GSPreferences sharedInstance].shouldDisplayNotifications) {
+        NSUserNotification *notification = [[NSUserNotification alloc] init];
+        notification.hasActionButton = NO;
+        notification.title = title;
+        notification.informativeText = message;
+        notification.identifier = [NSUUID UUID].UUIDString;
+        [[NSUserNotificationCenter defaultUserNotificationCenter] deliverNotification:notification];
+
         _lastMessage = message;
     }
 }
 
-+ (void)showOneTimeNotification
+- (void)showOneTimeNotification
 {
     NSAlert *versionInfo = [[NSAlert alloc] init];
     [versionInfo setMessageText:Str(@"ThanksForDownloading")];
@@ -90,7 +87,7 @@ static NSString *_lastMessage = nil;
     [versionInfo runModal];
 }
 
-+ (void)showUnsupportedMachineMessage
+- (void)showUnsupportedMachineMessage
 {
     NSAlert *alert = [NSAlert alertWithMessageText:Str(@"UnsupportedMachine")
                                      defaultButton:Str(@"OhISee")
@@ -100,7 +97,7 @@ static NSString *_lastMessage = nil;
     [alert runModal];
 }
 
-+ (void)showCantSwitchToIntegratedOnlyMessage:(NSArray *)taskList
+- (void)showCantSwitchToIntegratedOnlyMessage:(NSArray *)taskList
 {
     NSString *messageKey = [NSString stringWithFormat:@"Can'tSwitchToIntegratedOnly%@", (taskList.count > 1 ? @"Plural" : @"Singular")];
 
@@ -118,11 +115,6 @@ static NSString *_lastMessage = nil;
         [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:kIntegratedOnlyMessageExplanationURL]];
 }
 
-+ (BOOL)notificationCenterIsAvailable
-{
-    return !!NSClassFromString(@"NSUserNotification");
-}
-
 #pragma mark - NSUserNotificationCenterDelegate protocol
 
 - (void)userNotificationCenter:(NSUserNotificationCenter *)center didDeliverNotification:(NSUserNotification *)notification
@@ -130,9 +122,14 @@ static NSString *_lastMessage = nil;
     [center removeDeliveredNotification:notification];
 }
 
+- (BOOL)userNotificationCenter:(NSUserNotificationCenter *)center shouldPresentNotification:(NSUserNotification *)notification
+{
+    return YES;
+}
+
 #pragma mark - Private helpers
 
-+ (NSString *)_keyForNotificationType:(GSGPUType)type
+- (NSString *)_keyForNotificationType:(GSGPUType)type
 {
     if (type == GSGPUTypeIntegrated || type == GSGPUTypeDiscrete)
         return kGPUChangedNotificationKey;

@@ -12,11 +12,9 @@
 
 + (GSNotifier *)sharedInstance;
 
-+ (void)showGPUChangeNotification:(GSGPUType)type;
-+ (void)showOneTimeNotification;
-+ (void)showUnsupportedMachineMessage;
-+ (void)showCantSwitchToIntegratedOnlyMessage:(NSArray *)taskList;
-
-+ (BOOL)notificationCenterIsAvailable;
+- (void)showGPUChangeNotification:(GSGPUType)type;
+- (void)showOneTimeNotification;
+- (void)showUnsupportedMachineMessage;
+- (void)showCantSwitchToIntegratedOnlyMessage:(NSArray *)taskList;
 
 @end

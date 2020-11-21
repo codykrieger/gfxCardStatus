@@ -33,7 +33,7 @@
     if (![[GSMux defaultMux] switcherOpen]) {
         GSLogError(@"Can't open connection to AppleGraphicsControl. This probably isn't a gfxCardStatus-compatible machine.");
         
-        [GSNotifier showUnsupportedMachineMessage];
+        [[GSNotifier sharedInstance] showUnsupportedMachineMessage];
         [_menuController quit:self];
     } else {
         GSLogInfo(@"GPUs present: %@", [GSGPU getGPUNames]);
@@ -72,7 +72,7 @@
     // Show the one-time startup notification asking users to be kind and donate
     // if they like gfxCardStatus. Then make it go away forever.
     if (![_prefs boolForKey:kHasSeenOneTimeNotificationKey]) {
-        [GSNotifier showOneTimeNotification];
+        [[GSNotifier sharedInstance] showOneTimeNotification];
         [_prefs setBool:YES forKey:kHasSeenOneTimeNotificationKey];
     }
 
@@ -119,7 +119,7 @@
 - (void)GPUDidChangeTo:(GSGPUType)gpu
 {
     [_menuController updateMenu];
-    [GSNotifier showGPUChangeNotification:gpu];
+    [[GSNotifier sharedInstance] showGPUChangeNotification:gpu];
 }
 
 @end

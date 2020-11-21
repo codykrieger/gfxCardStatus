@@ -177,7 +177,7 @@
                 [taskNames addObject:taskName];
             }
 
-            [GSNotifier showCantSwitchToIntegratedOnlyMessage:taskNames];
+            [[GSNotifier sharedInstance] showCantSwitchToIntegratedOnlyMessage:taskNames];
             return;
         }
 
