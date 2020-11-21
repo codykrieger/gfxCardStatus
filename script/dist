@@ -20,6 +20,14 @@ BUILD_DIR="$(pwd)/build"
 EXPORT_PATH="$BUILD_DIR/export"
 APP_PATH="$EXPORT_PATH/$PROJECT_NAME.app"
 
+if grep -q -m1 -E "MARKETING_VERSION = ([0-9.]+)b[0-9]" gfxCardStatus.xcodeproj/project.pbxproj ; then
+    SU_FEED_CHANNEL_DEFAULT="beta"
+else
+    SU_FEED_CHANNEL_DEFAULT="release"
+fi
+
+SU_FEED_CHANNEL="${SU_FEED_CHANNEL:-$SU_FEED_CHANNEL_DEFAULT}"
+
 echo "----> cleaning..."
 rm -rf "$BUILD_DIR"
 
@@ -27,7 +35,8 @@ echo "----> building..."
 xcodebuild -workspace gfxCardStatus.xcworkspace \
     -scheme gfxCardStatus \
     archive \
-    EXPORT_PATH="$EXPORT_PATH"
+    EXPORT_PATH="$EXPORT_PATH" \
+    SU_FEED_CHANNEL="$SU_FEED_CHANNEL"
 
 VERSION="$(defaults read "$APP_PATH/Contents/Info.plist" CFBundleShortVersionString)"
 BUILD_VERSION="$(defaults read "$APP_PATH/Contents/Info.plist" CFBundleVersion)"
