@@ -16,12 +16,7 @@
 
 #import <ReactiveCocoa/ReactiveCocoa.h>
 
-#define kAppcastURLTemplate @"https://gfx.io/appcast.%@.xml"
-#define kAppcastChannelDefaultsKey @"AppcastChannel"
-#define kAppcastReleaseChannel @"beta"
-
 #define kHasSeenOneTimeNotificationKey @"hasSeenVersionTwoMessage"
-
 #define kShouldCheckForUpdatesOnStartupKeyPath @"prefsDict.shouldCheckForUpdatesOnStartup"
 
 @implementation gfxCardStatusAppDelegate
@@ -81,11 +76,7 @@
         [_prefs setBool:YES forKey:kHasSeenOneTimeNotificationKey];
     }
 
-    [[NSUserDefaults standardUserDefaults] registerDefaults:@{ kAppcastChannelDefaultsKey: kAppcastReleaseChannel }];
-    NSString *appcastChannel = [[NSUserDefaults standardUserDefaults] stringForKey:kAppcastChannelDefaultsKey];
-    NSString *appcastURL = [NSString stringWithFormat:kAppcastURLTemplate, appcastChannel];
-    GSLogInfo(@"Appcast channel: %@; URL: %@", appcastChannel, appcastURL);
-    _updater.feedURL = [NSURL URLWithString:appcastURL];
+    GSLogInfo(@"Appcast URL: %@", _updater.feedURL);
 
     // Hook up the check for updates on startup preference directly to the
     // automaticallyChecksForUpdates property on the SUUpdater.

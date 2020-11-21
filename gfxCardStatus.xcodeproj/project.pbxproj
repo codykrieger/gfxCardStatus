@@ -605,6 +605,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.codykrieger.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = gfxCardStatus;
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SU_FEED_CHANNEL = testing;
+				SU_FEED_URL = "https://gfx.io/appcast.$(SU_FEED_CHANNEL).xml";
 			};
 			name = Debug;
 		};
@@ -644,6 +646,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.codykrieger.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = gfxCardStatus;
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SU_FEED_CHANNEL = release;
+				SU_FEED_URL = "https://gfx.io/appcast.$(SU_FEED_CHANNEL).xml";
 			};
 			name = Release;
 		};

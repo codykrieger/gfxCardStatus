@@ -41,7 +41,7 @@
 	<key>SUEnableSystemProfiling</key>
 	<true/>
 	<key>SUFeedURL</key>
-	<string>https://gfx.io/appcast.release.xml</string>
+	<string>$(SU_FEED_URL)</string>
 	<key>SUPublicEDKey</key>
 	<string>4duXTeQPGZRwAyOAG2Wvqjkuk23es7QEuuy9FcjPEao=</string>
 	<key>SUShowReleaseNotes</key>
