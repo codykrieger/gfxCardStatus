@@ -107,8 +107,8 @@ ditto -ck --keepParent "$APP_PATH" "$ZIP_PATH"
 SIZE=$(stat -f %z "$ZIP_PATH")
 PUBDATE=$(LC_TIME=en_US date +"%a, %d %b %G %T %z")
 BASE_URL="https://gfx.io"
-DOWNLOAD_URL="$BASE_URL/downloads/$(basename $ZIP_PATH)"
 RELEASENOTES_URL="$BASE_URL/release-notes/$VERSION.html"
+DOWNLOAD_URL="https://github.com/codykrieger/gfxCardStatus/releases/download/v$VERSION/$(basename $ZIP_PATH)"
 
 echo "----> signing archive (dsa)..."
 DSA_SIGNATURE="$(script/sign_update_dsa "$ZIP_PATH" "$PWD/dsa_priv.pem")"
