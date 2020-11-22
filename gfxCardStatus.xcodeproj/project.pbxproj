@@ -440,7 +440,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/bash;
-			shellScript = "# based on http://tgoode.com/2014/06/05/sensible-way-increment-bundle-version-cfbundleversion-xcode\nif git rev-parse --is-inside-work-tree 2> /dev/null > /dev/null; then\n    bundle_version=\"$(git rev-list --count HEAD)\"\n    echo \"Setting CFBundleVersion: $bundle_version\"\n    /usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $bundle_version\" \"${TARGET_BUILD_DIR}/${INFOPLIST_PATH}\"\nelse\n    echo \"Not in a Git repo, not setting CFBundleVersion\"\nfi\n";
+			shellScript = "# based on http://tgoode.com/2014/06/05/sensible-way-increment-bundle-version-cfbundleversion-xcode\nif git rev-parse --is-inside-work-tree 2> /dev/null > /dev/null; then\n    commit_count=\"$(git rev-list --count HEAD)\"\n    bundle_version=\"$(expr 5000 + $commit_count)\"\n    echo \"Setting CFBundleVersion: $bundle_version\"\n    /usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $bundle_version\" \"${TARGET_BUILD_DIR}/${INFOPLIST_PATH}\"\nelse\n    echo \"Not in a Git repo, not setting CFBundleVersion\"\nfi\n";
 		};
 		595E0F18A384F7D84DB3DC56 /* Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
