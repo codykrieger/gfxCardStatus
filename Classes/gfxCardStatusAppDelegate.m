@@ -76,6 +76,16 @@
         [_prefs setBool:YES forKey:kHasSeenOneTimeNotificationKey];
     }
 
+    // Argh. In v2.5b1, I introduced some code that set the _updater.feedURL property, which results in the
+    // SUFeedURL defaults key being set. Sparkle will prefer that value over the SUFeedURL defined in
+    // Info.plist, resulting in gfxCardStatus being "pinned" to the beta channel on that machine in
+    // perpetuity. In order to fix that silly mistake, the appcasts on the server side have been moved to
+    // /appcasts/<channel>.xml, which allows us to easily detect and remove the bad value from the defaults
+    // store without accidentally deleting someone's intentionally-set SUFeedURL.
+    NSString *feedURL = [[NSUserDefaults standardUserDefaults] stringForKey:@"SUFeedURL"];
+    if ([feedURL containsString:@"appcast.beta.xml"])
+        [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"SUFeedURL"];
+
     GSLogInfo(@"Appcast URL: %@", _updater.feedURL);
 
     // Hook up the check for updates on startup preference directly to the
