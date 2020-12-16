@@ -41,6 +41,7 @@ xcodebuild -workspace gfxCardStatus.xcworkspace \
 VERSION="$(defaults read "$APP_PATH/Contents/Info.plist" CFBundleShortVersionString)"
 BUILD_VERSION="$(defaults read "$APP_PATH/Contents/Info.plist" CFBundleVersion)"
 BUNDLE_IDENTIFIER="$(defaults read "$APP_PATH/Contents/Info.plist" CFBundleIdentifier)"
+DEPLOYMENT_TARGET="$(defaults read "$APP_PATH/Contents/Info.plist" LSMinimumSystemVersion)"
 ZIP_PATH="$EXPORT_PATH/$PROJECT_NAME-$VERSION.zip"
 
 echo "----> zipping app..."
