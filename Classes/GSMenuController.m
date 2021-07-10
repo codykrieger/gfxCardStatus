@@ -94,13 +94,12 @@
 
     if (![GSGPU isLegacyMachine]) {
         BOOL dynamic = [GSMux defaultMux].isUsingDynamicSwitching;
-        BOOL isOnIntegratedOnly = [GSMux defaultMux].isOnIntegratedOnlyMode;
 
         GSLogInfo(@"Using dynamic switching?: %d", dynamic);
         GSLogInfo(@"Using old-style switching policy?: %d", [GSMux defaultMux].isUsingOldStyleSwitchPolicy);
 
-        [integratedOnly setState:(isOnIntegratedOnly && !dynamic) ? NSOnState : NSOffState];
-        [discreteOnly setState:(!isOnIntegratedOnly && !dynamic) ? NSOnState : NSOffState];
+        [integratedOnly setState:(isUsingIntegrated && !dynamic) ? NSOnState : NSOffState];
+        [discreteOnly setState:(!isUsingIntegrated && !dynamic) ? NSOnState : NSOffState];
         [dynamicSwitching setState:dynamic ? NSOnState : NSOffState];
     }
 
